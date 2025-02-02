@@ -1,10 +1,16 @@
 using simple_recip_application.Components;
+using simple_recip_application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+
+// Ajout de la base de données via l’extension
+builder.Services.AddApplicationDbContext(builder.Configuration);
+
 
 var app = builder.Build();
 
@@ -24,5 +30,8 @@ app.UseAntiforgery();
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+
+// Appliquer les migrations automatiquement
+app.Services.ApplyMigrations();
 
 app.Run();
