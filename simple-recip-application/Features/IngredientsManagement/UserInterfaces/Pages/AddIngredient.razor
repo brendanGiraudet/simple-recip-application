@@ -1,0 +1,21 @@
+@page "/add-ingredient"
+@using simple_recip_application.Features.IngredientsManagement.Pages;
+@using Microsoft.AspNetCore.Components.Forms;
+
+@inherits AddIngredientBase
+
+<h3>Ajouter un Ingrédient</h3>
+
+<p class="@GetErrorVisibilityCssClass()" style="color: red;">@ErrorMessage</p>
+<p class="@GetSuccessVisibilityCssClass()" style="color: green;">L'ingrédient a été ajouté avec succès !</p>
+
+<EditForm Model="Ingredient" OnValidSubmit="@AddIngredient">
+    <DataAnnotationsValidator />
+
+    <div>
+        <label>Nom de l'ingrédient :</label>
+        <InputText @bind-Value="@Ingredient.Name" />
+    </div>
+
+    <button type="submit">Ajouter</button>
+</EditForm>

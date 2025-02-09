@@ -1,3 +1,4 @@
+using Fluxor;
 using simple_recip_application.Components;
 using simple_recip_application.Extensions;
 
@@ -7,9 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-
 // Ajout de la base de données via l’extension
 builder.Services.AddApplicationDbContext(builder.Configuration);
+
+// Ajout des repositories
+builder.Services.AddApplicationRepositories();
+
+// Ajout Fluxor
+builder.Services.AddFluxor(options => options.ScanAssemblies(typeof(Program).Assembly));
+
 
 
 var app = builder.Build();

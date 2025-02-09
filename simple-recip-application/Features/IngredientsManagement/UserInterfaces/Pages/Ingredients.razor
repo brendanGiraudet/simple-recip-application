@@ -1,0 +1,21 @@
+@page "/ingredients"
+@using simple_recip_application.Features.IngredientsManagement.Pages;
+@using Microsoft.AspNetCore.Components.Web;
+
+@inherits IngredientsBase
+
+<h3>Liste des Ingrédients</h3>
+
+<a href="/add-ingredient">Ajouter un Ingrédient</a>
+
+<p class="@GetLoadingVisibilityCssClass()">Chargement en cours...</p>
+<p class="@GetErrorVisibilityCssClass()" style="color: red;">@IngredientState.Value.ErrorMessage</p>
+
+<ul class="@GetIngredientsVisibilityCssClass()">
+    @foreach (var ingredient in IngredientState.Value.Ingredients)
+    {
+        <li>@ingredient.Name</li>
+    }
+</ul>
+
+<button @onclick="@LoadIngredients">Charger les ingrédients</button>

@@ -3,7 +3,7 @@ using simple_recip_application.Data.ApplicationCore;
 
 namespace simple_recip_application.Data.Repository;
 
-interface IRepository<T> where T : EntityBase
+public interface IRepository<T> where T : EntityBase
 {
     Task<T> GetByIdAsync(Guid id);
     Task<IEnumerable<T>> GetAsync();

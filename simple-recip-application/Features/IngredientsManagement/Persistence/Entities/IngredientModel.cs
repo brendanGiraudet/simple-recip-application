@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using simple_recip_application.Data.ApplicationCore;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
 
@@ -5,11 +6,16 @@ namespace simple_recip_application.Features.IngredientsManagement.Persistence.En
 
 public class IngredientModel : EntityBase, IIngredientModel
 {
+    [Required]
     public string Name { get; set; } = string.Empty;
+
     public byte[] Image { get; set; } = Array.Empty<byte>();
-    public DateTime CreationDate { get => CreationDate; set => CreationDate = value; }
-    public DateTime ModificationDate { get => ModificationDate; set => ModificationDate = value; }
-    public DateTime? RemoveDate { get => throw new NotImplementedException(); set => RemoveDate = value; }
+
+    public DateTime CreationDate { get; private set; } = DateTime.UtcNow;
+
+    public DateTime ModificationDate { get; private set; } = DateTime.UtcNow;
+
+    public DateTime? RemoveDate { get; private set; }
 
     // Constructeur par défaut
     public IngredientModel() { }
