@@ -7,7 +7,7 @@ namespace simple_recip_application.Features.IngredientsManagement.Persistence.En
 
 public class IngredientModel : EntityBase, IIngredientModel
 {
-    [Required(ErrorResourceName=nameof(Messages.NameRequired), ErrorResourceType=typeof(Messages))]
+    [Required(ErrorMessageResourceName=nameof(Messages.NameRequired), ErrorMessageResourceType=typeof(Messages))]
     public string Name { get; set; } = string.Empty;
 
     public byte[] Image { get; set; } = Array.Empty<byte>();
