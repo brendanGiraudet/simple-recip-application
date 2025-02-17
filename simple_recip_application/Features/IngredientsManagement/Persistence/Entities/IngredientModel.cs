@@ -1,12 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using simple_recip_application.Data.ApplicationCore;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
+using simple_recip_application.Resources;
 
 namespace simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
 
 public class IngredientModel : EntityBase, IIngredientModel
 {
-    [Required]
+    [Required(ErrorResourceName=nameof(Messages.NameRequired), ErrorResourceType=typeof(Messages))]
     public string Name { get; set; } = string.Empty;
 
     public byte[] Image { get; set; } = Array.Empty<byte>();

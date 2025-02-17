@@ -1,0 +1,28 @@
+@page "/add-ingredient"
+@using Microsoft.AspNetCore.Components.Forms;
+@using Microsoft.Extensions.Localization;
+@using simple_recip_application.Features.IngredientsManagement.UserInterfaces.Pages;
+
+@inherits AddIngredientBase
+
+<h3>@LabelsLocalizer["IngredientName"]</h3>
+
+<p class="@GetSuccessVisibilityCssClass()" style="color: green;">@MessagesLocalizer["SuccessMessage"]</p>
+
+<EditForm Model="Ingredient" OnValidSubmit="@AddIngredient">
+    <DataAnnotationsValidator />
+
+    <div>
+        <label>@LabelsLocalizer["IngredientName"]</label>
+        <InputText @bind-Value="@Ingredient.Name" class="form-control" />
+        <ValidationMessage For="@(() => Ingredient.Name)" />
+    </div>
+
+    <div>
+        <label>@LabelsLocalizer["ImageLabel"]</label>
+        <InputFile OnChange="HandleImageUpload" accept="image/*" />
+        <ValidationMessage For="@(() => Ingredient.Image)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">@LabelsLocalizer["SubmitButton"]</button>
+</EditForm>

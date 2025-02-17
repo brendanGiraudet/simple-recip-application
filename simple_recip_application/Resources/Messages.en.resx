@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="NameRequired" xml:space="preserve">
+    <value>The ingredient name is required.</value>
+  </data>
+  <data name="ImageRequired" xml:space="preserve">
+    <value>The image is required.</value>
+  </data>
+  <data name="SuccessMessage" xml:space="preserve">
+    <value>The ingredient has been added successfully!</value>
+  </data>
+</root>

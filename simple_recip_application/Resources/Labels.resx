@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="IngredientName" xml:space="preserve">
+    <value>Nom de l’ingrédient</value>
+  </data>
+  <data name="ImageLabel" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="SubmitButton" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+</root>
