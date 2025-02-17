@@ -1,0 +1,10 @@
+@using System.Globalization;
+@using simple_recip_application.Components.CultureSelector;
+
+<div class="nav-item px-3">
+    <label for="languageSelector">@LabelsLocalizer["SelectLanguage"]:</label>
+    <select id="languageSelector" @onchange="ChangeLanguage" class="form-select">
+        <option value="fr" selected="@(IsSelected("fr"))">@LabelsLocalizer["French"]</option>
+        <option value="en" selected="@(IsSelected("en"))">@LabelsLocalizer["English"]</option>
+    </select>
+</div>

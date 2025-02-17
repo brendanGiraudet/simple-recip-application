@@ -9,4 +9,20 @@
   <data name="SubmitButton" xml:space="preserve">
     <value>Ajouter</value>
   </data>
+  <data name="Home" xml:space="preserve">
+    <value>Accueil</value>
+  </data>
+  <data name="Ingredients" xml:space="preserve">
+      <value>Ingrédients</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+      <value>Choisir la langue</value>
+  </data>
+  <data name="French" xml:space="preserve">
+      <value>Français</value>
+  </data>
+  <data name="English" xml:space="preserve">
+      <value>Anglais</value>
+  </data>
+
 </root>

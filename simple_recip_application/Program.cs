@@ -1,6 +1,7 @@
 using simple_recip_application.Components;
 using simple_recip_application.Extensions;
 using Fluxor;
+using Fluxor.Blazor.Web.ReduxDevTools;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,10 +18,15 @@ builder.Services.AddApplicationDbContext(builder.Configuration);
 builder.Services.AddApplicationRepositories();
 
 // Ajout Fluxor
-builder.Services.AddFluxor(options => options.ScanAssemblies(typeof(Program).Assembly));
+builder.Services.AddFluxor(options => {
+    options.ScanAssemblies(typeof(Program).Assembly);
+    options.UseReduxDevTools();
+});
 
 // Activer la localisation et spécifier le dossier contenant les fichiers `.resx`
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -52,5 +58,7 @@ app.UseRequestLocalization(options =>
 
 // Appliquer les migrations automatiquement
 app.Services.ApplyMigrations();
+
+app.MapControllers();
 
 app.Run();
