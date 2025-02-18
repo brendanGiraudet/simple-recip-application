@@ -13,6 +13,7 @@ builder.Services.AddAntiforgery();
 
 // Ajout de la base de données via l’extension
 builder.Services.AddApplicationDbContext(builder.Configuration);
+builder.Services.AddServices();
 
 // Ajout des repositories
 builder.Services.AddApplicationRepositories();

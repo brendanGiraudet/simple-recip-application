@@ -1,4 +1,6 @@
-﻿@inherits LayoutComponentBase
+﻿@using simple_recip_application.Features.NotificationsManagement.UserInterfaces.Components.Notifications;
+
+@inherits LayoutComponentBase
 
 <div class="page">
     <div class="sidebar">
@@ -11,6 +13,8 @@
         </div>
 
         <article class="content px-4">
+            <Notification />
+
             @Body
         </article>
     </main>

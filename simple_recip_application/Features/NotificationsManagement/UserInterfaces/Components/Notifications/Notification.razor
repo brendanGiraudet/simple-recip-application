@@ -1,0 +1,14 @@
+@inherits NotificationBase
+
+@if (NotificationState.Value.Notifications.Any())
+{
+    <div class="notification-container">
+        @foreach (var notification in NotificationState.Value.Notifications)
+        {
+            <div class="notification @notification.Type">
+                <span>@notification.Message</span>
+                <button @onclick="@(() => RemoveNotification(notification))">×</button>
+            </div>
+        }
+    </div>
+}

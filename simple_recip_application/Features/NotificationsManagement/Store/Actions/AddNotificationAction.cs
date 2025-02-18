@@ -1,0 +1,5 @@
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
+
+namespace simple_recip_application.Features.NotificationsManagement.Store.Actions;
+
+public record class AddNotificationAction(INotificationMessage NotificationMessage){}

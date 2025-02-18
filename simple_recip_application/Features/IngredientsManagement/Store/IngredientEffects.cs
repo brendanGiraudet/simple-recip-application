@@ -3,6 +3,8 @@ using Microsoft.Extensions.Localization;
 using simple_recip_application.Data.Repository;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
 using simple_recip_application.Features.IngredientsManagement.Store.Actions;
+using simple_recip_application.Features.NotificationsManagement.Persistence.Entites;
+using simple_recip_application.Features.NotificationsManagement.Store.Actions;
 using simple_recip_application.Resources;
 
 namespace simple_recip_application.Features.IngredientsManagement.Store;
@@ -37,10 +39,26 @@ public class IngredientEffects
         {
             await _repository.AddAsync(action.Ingredient);
             dispatcher.Dispatch(new AddIngredientSuccessAction(action.Ingredient));
+
+            var notification = new NotificationMessage()
+            {
+                Message = _messagesStringLocalizer["AddIngredientSuccessMessage"],
+                Type = "success"
+            };
+
+            dispatcher.Dispatch(new AddNotificationAction(notification));
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, $"Erreur lors de l'ajout d'un ingrédient");
+
+            var notification = new NotificationMessage()
+            {
+                Message = _messagesStringLocalizer["AddIngredientErrorMessage"],
+                Type = "danger"
+            };
+
+            dispatcher.Dispatch(new AddNotificationAction(notification));
 
             dispatcher.Dispatch(new AddIngredientFailureAction(_messagesStringLocalizer["AddIngredientErrorMessage"]));
         }
@@ -56,13 +74,27 @@ public class IngredientEffects
             {
                 await _repository.DeleteAsync(ingredient);
                 dispatcher.Dispatch(new DeleteIngredientSuccessAction(action.IngredientId));
+
+                var notification = new NotificationMessage()
+                {
+                    Message = _messagesStringLocalizer["DeleteIngredientSuccessMessage"],
+                    Type = "success"
+                };
+
+                dispatcher.Dispatch(new AddNotificationAction(notification));
             }
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Erreur lors de la suppression");
+            _logger.LogError(ex, $"Erreur lors de la suppression de l'ingrédient");
 
-            dispatcher.Dispatch(new DeleteIngredientFailureAction(_messagesStringLocalizer["DeleteIngredientErrorMessage"]));
+            var notification = new NotificationMessage()
+            {
+                Message = _messagesStringLocalizer["DeleteIngredientErrorMessage"],
+                Type = "danger"
+            };
+
+            dispatcher.Dispatch(new AddNotificationAction(notification));
         }
     }
 
@@ -72,13 +104,28 @@ public class IngredientEffects
         try
         {
             await _repository.UpdateAsync(action.Ingredient);
+
             dispatcher.Dispatch(new UpdateIngredientSuccessAction(action.Ingredient));
+
+            var notification = new NotificationMessage()
+            {
+                Message = _messagesStringLocalizer["UpdateIngredientSuccessMessage"],
+                Type = "success"
+            };
+
+            dispatcher.Dispatch(new AddNotificationAction(notification));
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, $"Erreur lors de la mise à jour");
-            
-            dispatcher.Dispatch(new UpdateIngredientFailureAction(_messagesStringLocalizer["UpdateIngredientErrorMessage"]));
+
+            var notification = new NotificationMessage()
+            {
+                Message = _messagesStringLocalizer["UpdateIngredientErrorMessage"],
+                Type = "danger"
+            };
+
+            dispatcher.Dispatch(new AddNotificationAction(notification));
         }
     }
 }
