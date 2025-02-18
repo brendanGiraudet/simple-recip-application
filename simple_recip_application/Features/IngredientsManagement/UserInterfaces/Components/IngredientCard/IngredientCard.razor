@@ -1,0 +1,10 @@
+@inherits IngredientCardBase
+
+<div class="card">
+    <img src="@GetImageSource()" alt="@Ingredient.Name" class="card-img">
+    <div class="card-body">
+        <h5 class="card-title">@Ingredient.Name</h5>
+        <button @onclick="@(async () => await OnEditAsync(Ingredient.Id))" class="btn btn-info">@LabelsLocalizer["Update"]</button>
+        <button @onclick="@(async () => await OnDeleteAsync(Ingredient.Id))" class="btn btn-danger">@LabelsLocalizer["Delete"]</button>
+    </div>
+</div>

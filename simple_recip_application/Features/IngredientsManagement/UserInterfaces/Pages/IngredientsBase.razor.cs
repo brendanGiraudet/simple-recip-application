@@ -35,8 +35,10 @@ public class IngredientsBase : Fluxor.Blazor.Web.Components.FluxorComponent
         IsIngredientModalOpen = false;
     }
 
-    protected void LoadIngredients()
+    protected override void OnInitialized()
     {
+        base.OnInitialized();
+        
         Dispatcher.Dispatch(new LoadIngredientsAction());
     }
 
