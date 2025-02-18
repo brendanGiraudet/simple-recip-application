@@ -398,9 +398,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-simple-recip-application/Data/recipes.db
-simple-recip-application/Data/recipes.db-shm
-simple-recip-application/Data/recipes.db-wal
 simple_recip_application/Data/recipes.db-shm
 simple_recip_application/Data/recipes.db-wal
 simple_recip_application/Data/recipes.db
