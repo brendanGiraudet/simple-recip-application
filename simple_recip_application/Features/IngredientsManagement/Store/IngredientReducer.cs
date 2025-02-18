@@ -5,27 +5,62 @@ namespace simple_recip_application.Features.IngredientsManagement.Store;
 
 public static class IngredientReducer
 {
+    #region LoadIngredients
     [ReducerMethod]
-    public static IngredientState ReduceLoadIngredients(IngredientState state, LoadIngredientsAction action) =>
-        new() { IsLoading = true };
+    public static IngredientState ReduceLoadIngredientsAction(IngredientState state, LoadIngredientsAction action) => state with { IsLoading = true };
 
     [ReducerMethod]
-    public static IngredientState ReduceLoadIngredientsSuccess(IngredientState state, LoadIngredientsSuccessAction action) =>
-        new() { Ingredients = action.Ingredients, IsLoading = false };
+    public static IngredientState ReduceLoadIngredientsSuccessAction(IngredientState state, LoadIngredientsSuccessAction action) =>
+        state with { Ingredients = action.Ingredients, IsLoading = false };
 
     [ReducerMethod]
-    public static IngredientState ReduceLoadIngredientsFailure(IngredientState state, LoadIngredientsFailureAction action) =>
-        new() { IsLoading = false, ErrorMessage = action.ErrorMessage };
+    public static IngredientState ReduceLoadIngredientsFailureAction(IngredientState state, LoadIngredientsFailureAction action) =>
+        state with { IsLoading = false, ErrorMessage = action.ErrorMessage };
+    #endregion
+
+    #region AddIngredient
+    [ReducerMethod]
+    public static IngredientState ReduceAddIngredientAction(IngredientState state, AddIngredientAction action) =>
+        state with { Ingredients = state.Ingredients, IsLoading = true };
 
     [ReducerMethod]
-    public static IngredientState ReduceAddIngredient(IngredientState state, AddIngredientAction action) =>
-        new() { Ingredients = state.Ingredients, IsLoading = true };
+    public static IngredientState ReduceAddIngredientSuccessAction(IngredientState state, AddIngredientSuccessAction action) =>
+        state with { Ingredients = [.. state.Ingredients, action.Ingredient], IsLoading = false };
 
     [ReducerMethod]
-    public static IngredientState ReduceAddIngredientSuccess(IngredientState state, AddIngredientSuccessAction action) =>
-        new() { Ingredients = [.. state.Ingredients, action.Ingredient], IsLoading = false };
+    public static IngredientState ReduceAddIngredientFailureAction(IngredientState state, AddIngredientFailureAction action) =>
+        state with { Ingredients = state.Ingredients, IsLoading = false, ErrorMessage = action.ErrorMessage };
+    #endregion
+
+    #region DeleteIngredient
+    [ReducerMethod]
+    public static IngredientState ReduceDeleteIngredientAction(IngredientState state, DeleteIngredientAction action) => state with { IsLoading = true };
 
     [ReducerMethod]
-    public static IngredientState ReduceAddIngredientFailure(IngredientState state, AddIngredientFailureAction action) =>
-        new() { Ingredients = state.Ingredients, IsLoading = false, ErrorMessage = action.ErrorMessage };
+    public static IngredientState ReduceDeleteIngredientSuccessAction(IngredientState state, DeleteIngredientSuccessAction action)
+    {
+        var updatedIngredients = state.Ingredients.Where(i => i.Id != action.IngredientId).ToList();
+        return state with { Ingredients = updatedIngredients, IsLoading = false };
+    }
+
+    [ReducerMethod]
+    public static IngredientState ReduceDeleteIngredientFailureAction(IngredientState state, DeleteIngredientFailureAction action) => state with { IsLoading = false, ErrorMessage = action.ErrorMessage };
+    #endregion
+
+    #region UpdateIngredient
+    [ReducerMethod]
+    public static IngredientState ReduceUpdateIngredientAction(IngredientState state, UpdateIngredientAction action) =>
+        state with { IsLoading = true };
+
+    [ReducerMethod]
+    public static IngredientState ReduceUpdateIngredientSuccessAction(IngredientState state, UpdateIngredientSuccessAction action)
+    {
+        var updatedIngredients = state.Ingredients.Select(i => i.Id == action.Ingredient.Id ? action.Ingredient : i).ToList();
+        return state with { Ingredients = updatedIngredients, IsLoading = false };
+    }
+
+    [ReducerMethod]
+    public static IngredientState ReduceUpdateIngredientFailureAction(IngredientState state, UpdateIngredientFailureAction action) =>
+        state with { IsLoading = false, ErrorMessage = action.ErrorMessage };
+    #endregion
 }

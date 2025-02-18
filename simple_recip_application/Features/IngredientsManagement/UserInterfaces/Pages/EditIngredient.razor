@@ -1,15 +1,15 @@
-@page "/add-ingredient"
+@page "/edit-ingredient/{id}"
 @using Microsoft.AspNetCore.Components.Forms;
 @using Microsoft.Extensions.Localization;
 @using simple_recip_application.Features.IngredientsManagement.UserInterfaces.Pages;
 
-@inherits AddIngredientBase
+@inherits EditIngredientBase
 
-<h3>@LabelsLocalizer["IngredientName"]</h3>
+<h3>@LabelsLocalizer["EditIngredientTitle"]</h3>
 
-<p class="@GetSuccessVisibilityCssClass()" style="color: green;">@MessagesLocalizer["AddIngredientSuccessMessage"]</p>
+<p class="@GetSuccessVisibilityCssClass()" style="color: green;">@MessagesLocalizer["UpdateIngredientSuccessMessage"]</p>
 
-<EditForm Model="Ingredient" OnValidSubmit="@AddIngredient">
+<EditForm Model="Ingredient" OnValidSubmit="@UpdateIngredient">
     <DataAnnotationsValidator />
 
     <div>
@@ -24,5 +24,5 @@
         <ValidationMessage For="@(() => Ingredient.Image)" />
     </div>
 
-    <button type="submit" class="btn btn-primary">@LabelsLocalizer["SubmitButton"]</button>
+    <button type="submit" class="btn btn-primary">@LabelsLocalizer["SaveButton"]</button>
 </EditForm>

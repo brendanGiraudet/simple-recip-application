@@ -4,18 +4,22 @@
 
 @inherits IngredientsBase
 
-<h3>Liste des Ingrédients</h3>
+<h3>@LabelsLocalizer["IngredientList"]</h3>
 
-<a href="/add-ingredient">Ajouter un Ingrédient</a>
+<a href="/add-ingredient">@LabelsLocalizer["AddIngredient"]</a>
 
-<p class="@GetLoadingVisibilityCssClass()">Chargement en cours...</p>
+<p class="@GetLoadingVisibilityCssClass()">@MessagesLocalizer["LoadingInProgress"]</p>
 <p class="@GetErrorVisibilityCssClass()" style="color: red;">@IngredientState.Value.ErrorMessage</p>
 
 <ul class="@GetIngredientsVisibilityCssClass()">
     @foreach (var ingredient in IngredientState.Value.Ingredients)
     {
-        <li>@ingredient.Name</li>
+        <li>
+            @ingredient.Name
+            <button @onclick="() => UpdateIngredient(ingredient.Id)" class="btn btn-info">@LabelsLocalizer["Update"]</button>
+            <button @onclick="() => DeleteIngredient(ingredient.Id)" class="btn btn-danger">@LabelsLocalizer["Delete"]</button>
+        </li>
     }
 </ul>
 
-<button @onclick="@LoadIngredients">Charger les ingrédients</button>
+<button @onclick="@LoadIngredients">@LabelsLocalizer["LoadIngredients"]</button>

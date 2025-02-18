@@ -24,5 +24,19 @@
   <data name="English" xml:space="preserve">
       <value>English</value>
   </data>
-
+  <data name="LoadIngredients" xml:space="preserve">
+      <value>Load ingredients</value>
+  </data>
+  <data name="AddIngredient" xml:space="preserve">
+      <value>Add ingredient</value>
+  </data>
+  <data name="IngredientList" xml:space="preserve">
+      <value>Ingredient list</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+      <value>Update</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+      <value>Delete</value>
+  </data>
 </root>

@@ -6,7 +6,19 @@
   <data name="ImageRequired" xml:space="preserve">
     <value>The image is required.</value>
   </data>
-  <data name="SuccessMessage" xml:space="preserve">
+  <data name="LoadIngredientErrorMessage" xml:space="preserve">
+    <value>Error when get ingredients</value>
+  </data>
+  <data name="AddIngredientSuccessMessage" xml:space="preserve">
     <value>The ingredient has been added successfully!</value>
+  </data>
+  <data name="AddIngredientErrorMessage" xml:space="preserve">
+    <value>Ingredient creation error</value>
+  </data>
+  <data name="DeleteIngredientErrorMessage" xml:space="preserve">
+    <value>Ingredient remove error</value>
+  </data>
+  <data name="LoadingInProgress" xml:space="preserve">
+    <value>Loading...</value>
   </data>
 </root>
