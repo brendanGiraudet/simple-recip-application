@@ -1,12 +1,14 @@
 @page "/ingredients"
-@using simple_recip_application.Features.IngredientsManagement.Pages;
+@using simple_recip_application.Components.Modal;
+@using simple_recip_application.Features.IngredientsManagement.UserInterfaces.Components;
+@using simple_recip_application.Features.IngredientsManagement.UserInterfaces.Pages;
 @using Microsoft.AspNetCore.Components.Web;
 
 @inherits IngredientsBase
 
 <h3>@LabelsLocalizer["IngredientList"]</h3>
 
-<a href="/add-ingredient">@LabelsLocalizer["AddIngredient"]</a>
+<button @onclick="OpenAddIngredientModal">@LabelsLocalizer["AddIngredient"]</button>
 
 <p class="@GetLoadingVisibilityCssClass()">@MessagesLocalizer["LoadingInProgress"]</p>
 <p class="@GetErrorVisibilityCssClass()" style="color: red;">@IngredientState.Value.ErrorMessage</p>
@@ -16,10 +18,17 @@
     {
         <li>
             @ingredient.Name
-            <button @onclick="() => UpdateIngredient(ingredient.Id)" class="btn btn-info">@LabelsLocalizer["Update"]</button>
+            <button @onclick="() => OpenEditIngredientModal(ingredient.Id)" class="btn btn-info">@LabelsLocalizer["Update"]</button>
             <button @onclick="() => DeleteIngredient(ingredient.Id)" class="btn btn-danger">@LabelsLocalizer["Delete"]</button>
         </li>
     }
 </ul>
 
 <button @onclick="@LoadIngredients">@LabelsLocalizer["LoadIngredients"]</button>
+
+@if (IsIngredientModalOpen)
+{
+    <Modal OnClose="CloseIngredientModal">
+        <IngredientForm IngredientId="SelectedIngredientId" OnCancel="CloseIngredientModal" />
+    </Modal>
+}

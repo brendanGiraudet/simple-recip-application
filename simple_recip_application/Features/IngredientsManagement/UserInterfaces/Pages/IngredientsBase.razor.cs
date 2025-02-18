@@ -5,7 +5,7 @@ using simple_recip_application.Features.IngredientsManagement.Store;
 using simple_recip_application.Features.IngredientsManagement.Store.Actions;
 using simple_recip_application.Resources;
 
-namespace simple_recip_application.Features.IngredientsManagement.Pages;
+namespace simple_recip_application.Features.IngredientsManagement.UserInterfaces.Pages;
 
 public class IngredientsBase : Fluxor.Blazor.Web.Components.FluxorComponent
 {
@@ -14,6 +14,26 @@ public class IngredientsBase : Fluxor.Blazor.Web.Components.FluxorComponent
     [Inject] protected IStringLocalizer<Labels> LabelsLocalizer { get; set; } = default!;
     [Inject] protected IStringLocalizer<Messages> MessagesLocalizer { get; set; } = default!;
     [Inject] protected NavigationManager NavigationManager { get; set; } = default!;
+
+    protected bool IsIngredientModalOpen { get; set; } = false;
+    protected Guid? SelectedIngredientId { get; set; }
+
+    protected void OpenAddIngredientModal()
+    {
+        SelectedIngredientId = null;
+        IsIngredientModalOpen = true;
+    }
+
+    protected void OpenEditIngredientModal(Guid id)
+    {
+        SelectedIngredientId = id;
+        IsIngredientModalOpen = true;
+    }
+
+    protected void CloseIngredientModal(bool isUpdated)
+    {
+        IsIngredientModalOpen = false;
+    }
 
     protected void LoadIngredients()
     {

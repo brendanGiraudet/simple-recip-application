@@ -1,20 +1,19 @@
-@page "/add-ingredient"
+@using simple_recip_application.Features.IngredientsManagement.UserInterfaces.Components;
 @using Microsoft.AspNetCore.Components.Forms;
-@using Microsoft.Extensions.Localization;
-@using simple_recip_application.Features.IngredientsManagement.UserInterfaces.Pages;
 
-@inherits AddIngredientBase
+@inherits IngredientFormBase
 
-<h3>@LabelsLocalizer["IngredientName"]</h3>
+
+<h3>@(IngredientId.HasValue? LabelsLocalizer["EditIngredientTitle"] : LabelsLocalizer["AddIngredient"])</h3>
 
 <p class="@GetSuccessVisibilityCssClass()" style="color: green;">@MessagesLocalizer["AddIngredientSuccessMessage"]</p>
 
-<EditForm Model="Ingredient" OnValidSubmit="@AddIngredient">
+<EditForm Model="Ingredient" OnValidSubmit="Submit">
     <DataAnnotationsValidator />
 
     <div>
         <label>@LabelsLocalizer["IngredientName"]</label>
-        <InputText @bind-Value="@Ingredient.Name" class="form-control" />
+        <InputText @bind-Value="Ingredient.Name" class="form-control" />
         <ValidationMessage For="@(() => Ingredient.Name)" />
     </div>
 
@@ -25,4 +24,6 @@
     </div>
 
     <button type="submit" class="btn btn-primary">@LabelsLocalizer["SubmitButton"]</button>
+    <button type="button" @onclick="@(async () => await OnCancelAsync())"
+        class="btn btn-secondary">@LabelsLocalizer["Cancel"]</button>
 </EditForm>
