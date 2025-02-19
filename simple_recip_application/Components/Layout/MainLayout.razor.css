@@ -13,6 +13,7 @@
 main {
     flex: 1;
     padding-bottom: 70px; /* Pour éviter que le contenu passe sous la menu */
+    overflow: auto;
 }
 
 /* 📱 Adaptation pour écrans plus grands */
