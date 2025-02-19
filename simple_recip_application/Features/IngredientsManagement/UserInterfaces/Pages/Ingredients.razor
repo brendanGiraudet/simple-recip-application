@@ -1,11 +1,5 @@
 @page "/ingredients"
-@using simple_recip_application.Components.Modal;
-@using simple_recip_application.Features.IngredientsManagement.UserInterfaces.Components.IngredientCard;
-@using simple_recip_application.Features.IngredientsManagement.UserInterfaces.Components.IngredientForm;
-@using simple_recip_application.Features.IngredientsManagement.UserInterfaces.Pages;
-@using Microsoft.AspNetCore.Components.Web;
 
-@using static Microsoft.AspNetCore.Components.Web.RenderMode
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent;
 
 @rendermode InteractiveServer
@@ -21,7 +15,7 @@
 <div class="ingredient-grid @GetIngredientsVisibilityCssClass()">
     @foreach (var ingredient in IngredientState.Value.Ingredients)
     {
-        <IngredientCard Ingredient="ingredient" OnEdit="OpenEditIngredientModal" OnDelete="DeleteIngredient" @rendermode=InteractiveServer />
+        <IngredientCard Ingredient="ingredient" OnEdit="OpenEditIngredientModal" OnDelete="DeleteIngredient" />
     }
 </div>
 

@@ -2,9 +2,11 @@
 
 @rendermode InteractiveServer
 
-<div class="modal-overlay" @onclick="@(() => CloseOnOverlayClick())">
+<div class="modal-container">
     <div class="modal-content">
         <button class="modal-close" @onclick="@(() => CloseModal())">×</button>
+
         @ChildContent
     </div>
+    <div class="modal-overlay" @onclick="@(() => CloseOnOverlayClick())"></div>
 </div>
