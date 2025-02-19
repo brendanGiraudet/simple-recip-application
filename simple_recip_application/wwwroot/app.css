@@ -1,8 +1,41 @@
-html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+/* Définition des variables globales */
+:root {
+    --primary-color: #000000;
+    --secondary-color: #FFFFFF;
+    /* Orange */
+    --accent-color-1: #FF8C00;
+    /* Marron */
+    --accent-color-2: #8B4513;
+
+    /* Couleurs d’état */
+    --success-color: #4CAF50;
+    --danger-color: #F44336;
+    --info-color: #2196F3;
+
+    /* Typographie */
+    --font-primary: 'Arial', sans-serif;
+
+    /* Background du menu */
+    --menu-bg-color: var(--accent-color-2);
+    --menu-hover-bg: rgba(255, 255, 255, 0.1);
+    --menu-active-bg: rgba(255, 255, 255, 0.37);
+    /* Couleurs du texte */
+    --menu-text-color: var(--accent-color-1);
+    --menu-active-text: var(--secondary-color);
+    /* Tailles */
+    --icon-size: 1.25rem;
+    --sidebar-width: 100%;
+    --menu-font-size: 1rem;
 }
 
-a, .btn-link {
+html,
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+}
+
+a,
+.btn-link {
     color: #006bb7;
 }
 
@@ -12,12 +45,12 @@ a, .btn-link {
     border-color: #1861ac;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-.content {
-    padding-top: 1.1rem;
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 h1:focus {
@@ -42,19 +75,21 @@ h1:focus {
     color: white;
 }
 
-    .blazor-error-boundary::after {
-        content: "An error has occurred."
-    }
+.blazor-error-boundary::after {
+    content: "An error has occurred."
+}
 
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+.form-floating>.form-control-plaintext::placeholder,
+.form-floating>.form-control::placeholder {
     color: var(--bs-secondary-color);
     text-align: end;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+.form-floating>.form-control-plaintext:focus::placeholder,
+.form-floating>.form-control:focus::placeholder {
     text-align: start;
 }

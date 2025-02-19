@@ -4,7 +4,7 @@ using Microsoft.Extensions.Localization;
 
 namespace simple_recip_application.Components.Layout;
 
-public class NavMenuBase : ComponentBase
+public partial class NavMenu : ComponentBase
 {
     [Inject] public required IStringLocalizer<Labels> LabelsLocalizer { get; set; }
 }
