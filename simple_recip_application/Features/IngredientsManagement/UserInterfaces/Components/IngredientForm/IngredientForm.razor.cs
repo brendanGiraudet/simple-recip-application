@@ -6,10 +6,10 @@ using simple_recip_application.Features.IngredientsManagement.Persistence.Entiti
 using simple_recip_application.Resources;
 using Fluxor;
 using simple_recip_application.Features.IngredientsManagement.Store;
-using Fluxor.Blazor.Web.Components;
 
-namespace simple_recip_application.Features.IngredientsManagement.UserInterfaces.Components;
-public class IngredientFormBase : FluxorComponent
+namespace simple_recip_application.Features.IngredientsManagement.UserInterfaces.Components.IngredientForm;
+
+public partial class IngredientForm
 {
     [Inject] public required IDispatcher Dispatcher { get; set; }
     [Inject] public required IStringLocalizer<Labels> LabelsLocalizer { get; set; }

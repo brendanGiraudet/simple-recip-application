@@ -1,4 +1,7 @@
-@inherits NotificationBase
+@using static Microsoft.AspNetCore.Components.Web.RenderMode
+
+@rendermode InteractiveServer
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent;
 
 @if (NotificationState.Value.Notifications.Any())
 {

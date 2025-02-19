@@ -1,12 +1,11 @@
-@using simple_recip_application.Features.IngredientsManagement.UserInterfaces.Components;
-@using Microsoft.AspNetCore.Components.Forms;
+ @using Microsoft.AspNetCore.Components.Forms;
+@using Fluxor.Blazor.Web.Components;
+@using static Microsoft.AspNetCore.Components.Web.RenderMode
 
-@inherits IngredientFormBase
-
+@inherits FluxorComponent
+@rendermode InteractiveServer
 
 <h3>@(IngredientId.HasValue? LabelsLocalizer["EditIngredientTitle"] : LabelsLocalizer["AddIngredient"])</h3>
-
-<p class="@GetSuccessVisibilityCssClass()" style="color: green;">@MessagesLocalizer["AddIngredientSuccessMessage"]</p>
 
 <EditForm Model="Ingredient" OnValidSubmit="Submit">
     <DataAnnotationsValidator />
@@ -23,7 +22,8 @@
         <ValidationMessage For="@(() => Ingredient.Image)" />
     </div>
 
-    <button type="submit" class="btn btn-primary">@LabelsLocalizer["SubmitButton"]</button>
-    <button type="button" @onclick="@(async () => await OnCancelAsync())"
-        class="btn btn-secondary">@LabelsLocalizer["Cancel"]</button>
+    <div>
+        <button type="submit" class="btn btn-primary">@LabelsLocalizer["SubmitButton"]</button>
+        <button @onclick="@(() => OnCancelAsync())" class="btn btn-secondary">@LabelsLocalizer["Cancel"]</button>
+    </div>
 </EditForm>

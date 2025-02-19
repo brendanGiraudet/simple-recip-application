@@ -3,9 +3,9 @@ using Microsoft.Extensions.Localization;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
 using simple_recip_application.Resources;
 
-namespace simple_recip_application.Features.IngredientsManagement.UserInterfaces.Components;
+namespace simple_recip_application.Features.IngredientsManagement.UserInterfaces.Components.IngredientCard;
 
-public class IngredientCardBase : ComponentBase
+public partial class IngredientCard
 {
     [Parameter] public required IngredientModel Ingredient { get; set; }
     [Parameter] public EventCallback<Guid> OnEdit { get; set; }

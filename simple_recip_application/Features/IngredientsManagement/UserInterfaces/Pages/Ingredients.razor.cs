@@ -7,7 +7,7 @@ using simple_recip_application.Resources;
 
 namespace simple_recip_application.Features.IngredientsManagement.UserInterfaces.Pages;
 
-public class IngredientsBase : Fluxor.Blazor.Web.Components.FluxorComponent
+public partial class Ingredients
 {
     [Inject] protected IDispatcher Dispatcher { get; set; } = default!;
     [Inject] protected IState<IngredientState> IngredientState { get; set; } = default!;
@@ -45,13 +45,6 @@ public class IngredientsBase : Fluxor.Blazor.Web.Components.FluxorComponent
     protected void DeleteIngredient(Guid id)
     {
         Dispatcher.Dispatch(new DeleteIngredientAction(id));
-    }
-    
-    protected void UpdateIngredient(Guid id)
-    {
-        var uri = string.Concat("/edit-ingredient/", id);
-        
-        NavigationManager.NavigateTo(uri);
     }
 
     protected string GetLoadingVisibilityCssClass() => IngredientState.Value.IsLoading ? "" : "hidden";

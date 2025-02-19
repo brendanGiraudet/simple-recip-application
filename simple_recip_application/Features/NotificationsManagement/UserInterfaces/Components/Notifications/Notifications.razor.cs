@@ -6,7 +6,7 @@ using simple_recip_application.Features.NotificationsManagement.Store.Actions;
 
 namespace simple_recip_application.Features.NotificationsManagement.UserInterfaces.Components.Notifications;
 
-public class NotificationBase : Fluxor.Blazor.Web.Components.FluxorComponent
+public partial class Notifications
 {
     [Inject] protected IDispatcher Dispatcher { get; set; } = default!;
     [Inject] protected IState<NotificationState> NotificationState { get; set; } = default!;
