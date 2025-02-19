@@ -4,7 +4,7 @@
     <img src="@GetImageSource()" alt="@Ingredient.Name" class="card-img">
     <div class="card-body">
         <h5 class="card-title">@Ingredient.Name</h5>
-        <button @onclick="@(() => OnEditAsync(Ingredient.Id))" class="btn btn-info">@LabelsLocalizer["Update"]</button>
-        <button @onclick="@(() => OnDeleteAsync(Ingredient.Id))" class="btn btn-danger">@LabelsLocalizer["Delete"]</button>
+        <button @onclick="@(() => OnEditAsync(Ingredient.Id))" class="btn btn-primary">@LabelsLocalizer["Update"]</button>
+        <button @onclick="@(() => OnDeleteAsync(Ingredient.Id))" class="btn btn-secondary">@LabelsLocalizer["Delete"]</button>
     </div>
 </div>

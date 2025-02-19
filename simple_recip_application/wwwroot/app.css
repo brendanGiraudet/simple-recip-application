@@ -26,6 +26,10 @@
     --icon-size: 1.25rem;
     --sidebar-width: 100%;
     --menu-font-size: 1rem;
+
+    /* Buttons */
+    --button-bg-color: var(--accent-color-1);
+    --button-text-color: var(--secondary-color);
 }
 
 html,
@@ -92,4 +96,31 @@ h1:focus {
 .form-floating>.form-control-plaintext:focus::placeholder,
 .form-floating>.form-control:focus::placeholder {
     text-align: start;
+}
+
+/* Styles des boutons */
+.btn {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: var(--button-text-color);
+    color: var(--button-bg-color);
+}
+
+.btn-primary {
+    --button-bg-color: var(--accent-color-2);
+    --button-text-color: var(--accent-color-1);
+}
+
+.btn-secondary {
+    --button-bg-color: var(--accent-color-1);
+    --button-text-color: var(--accent-color-2);
 }
