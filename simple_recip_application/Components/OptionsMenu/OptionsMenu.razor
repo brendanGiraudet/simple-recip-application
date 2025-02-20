@@ -1,0 +1,21 @@
+@inherits CustomComponentBase
+
+<div class="options-container">
+    @if (_isOptionsListVisible)
+    {
+        <div class="options-list">
+            @foreach(var option in Options)
+            {
+                <button @onclick="@(async () => await option.OnClickAction.Invoke())" class="btn btn-primary">
+                    <span class="material-symbols-outlined">@option.Icon</span>
+                    @option.Text
+                </button>
+            }
+        </div>
+    }
+
+    <button class="options-button" @onclick="ToggleOptionsList">
+        <span class="material-symbols-outlined">list</span>
+        @LabelsLocalizer["Options"]
+    </button>
+</div>

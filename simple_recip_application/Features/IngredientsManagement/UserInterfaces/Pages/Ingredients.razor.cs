@@ -1,6 +1,7 @@
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using simple_recip_application.Components.OptionsMenu;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
 using simple_recip_application.Features.IngredientsManagement.Store;
@@ -14,19 +15,16 @@ public partial class Ingredients
     [Inject] protected IDispatcher Dispatcher { get; set; } = default!;
     [Inject] protected IState<IngredientState> IngredientState { get; set; } = default!;
     [Inject] protected IStringLocalizer<Labels> LabelsLocalizer { get; set; } = default!;
-    [Inject] protected IStringLocalizer<Messages> MessagesLocalizer { get; set; } = default!;
-    [Inject] protected NavigationManager NavigationManager { get; set; } = default!;
 
     private bool _isIngredientModalOpen { get; set; } = false;
     private IIngredientModel? _selectedIngredient { get; set; } = new IngredientModel();
-    private bool _isOptionsListVisible { get; set; } = false;
 
-    private void ToggleOptionsList() =>_isOptionsListVisible = !_isOptionsListVisible;
-
-    private void OpenAddIngredientModal()
+    private async Task OpenAddIngredientModalAsync()
     {
         _selectedIngredient = new IngredientModel();
         _isIngredientModalOpen = true;
+
+        StateHasChanged();
     }
 
     private void OpenEditIngredientModal(IIngredientModel model)
@@ -59,5 +57,12 @@ public partial class Ingredients
 
         else
             IngredientState.Value.SelectedIngredients.Add(ingredient);
+    }
+
+    private List<OptionMenuItem> GetOptions()
+    {
+        return [
+            new ("add", LabelsLocalizer["AddIngredient"], () => OpenAddIngredientModalAsync())
+        ];
     }
 }

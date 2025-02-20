@@ -8,31 +8,21 @@
 <div class="ingredient-grid @GetIngredientsVisibilityCssClass()">
     @foreach (var ingredient in IngredientState.Value.Ingredients)
     {
-        <IngredientCard Ingredient="ingredient" OnEdit="OpenEditIngredientModal" OnDelete="DeleteIngredient"
-            OnSelect="HandleSelection" IsSelected="@(IngredientState.Value.SelectedIngredients.Contains(ingredient))" />
+        <IngredientCard Ingredient="ingredient" 
+                        OnEdit="OpenEditIngredientModal" 
+                        OnDelete="DeleteIngredient"
+                        OnSelect="HandleSelection" 
+                        IsSelected="@(IngredientState.Value.SelectedIngredients.Contains(ingredient))" />
     }
 </div>
 
 <Loader IsVisible="@IngredientState.Value.IsLoading" />
 
-<Modal OnClose="CloseIngredientModal" IsVisible="_isIngredientModalOpen">
+<Modal OnClose="CloseIngredientModal" 
+       IsVisible="_isIngredientModalOpen">
 
-    <IngredientForm Ingredient="_selectedIngredient" OnCancel="CloseIngredientModal" />
+    <IngredientForm Ingredient="_selectedIngredient" 
+                    OnCancel="CloseIngredientModal" />
 </Modal>
 
-<div class="options-container">
-    @if (_isOptionsListVisible)
-    {
-        <div class="options-list">
-            <button @onclick="OpenAddIngredientModal" class="btn btn-primary">
-                <span class="material-symbols-outlined">add</span>
-                @LabelsLocalizer["AddIngredient"]
-            </button>
-        </div>
-    }
-
-    <button class="options-button" @onclick="ToggleOptionsList">
-        <span class="material-symbols-outlined">list</span>
-        @LabelsLocalizer["Options"]
-    </button>
-</div>
+<OptionsMenu Options="GetOptions()"/>
