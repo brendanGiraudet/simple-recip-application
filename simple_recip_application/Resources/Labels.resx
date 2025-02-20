@@ -39,4 +39,7 @@
   <data name="Delete" xml:space="preserve">
       <value>Supprimer</value>
   </data>
+  <data name="Options" xml:space="preserve">
+      <value>Options</value>
+  </data>
 </root>

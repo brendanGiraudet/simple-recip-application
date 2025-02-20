@@ -17,25 +17,25 @@ public partial class Ingredients
     [Inject] protected IStringLocalizer<Messages> MessagesLocalizer { get; set; } = default!;
     [Inject] protected NavigationManager NavigationManager { get; set; } = default!;
 
-    protected bool IsIngredientModalOpen { get; set; } = false;
-    protected IIngredientModel? SelectedIngredient { get; set; } = new IngredientModel();
+    private bool _isIngredientModalOpen { get; set; } = false;
+    private IIngredientModel? _selectedIngredient { get; set; } = new IngredientModel();
+    private bool _isOptionsListVisible { get; set; } = false;
 
-    protected void OpenAddIngredientModal()
+    private void ToggleOptionsList() =>_isOptionsListVisible = !_isOptionsListVisible;
+
+    private void OpenAddIngredientModal()
     {
-        SelectedIngredient = new IngredientModel();
-        IsIngredientModalOpen = true;
+        _selectedIngredient = new IngredientModel();
+        _isIngredientModalOpen = true;
     }
 
-    protected void OpenEditIngredientModal(IIngredientModel model)
+    private void OpenEditIngredientModal(IIngredientModel model)
     {
-        SelectedIngredient = model;
-        IsIngredientModalOpen = true;
+        _selectedIngredient = model;
+        _isIngredientModalOpen = true;
     }
 
-    protected void CloseIngredientModal(bool isUpdated)
-    {
-        IsIngredientModalOpen = false;
-    }
+    private void CloseIngredientModal(bool isUpdated) => _isIngredientModalOpen = false;
 
     protected override void OnInitialized()
     {
@@ -44,15 +44,15 @@ public partial class Ingredients
         Dispatcher.Dispatch(new LoadIngredientsAction());
     }
 
-    protected void DeleteIngredient(IIngredientModel model)
+    private void DeleteIngredient(IIngredientModel model)
     {
         if (model.Id.HasValue)
             Dispatcher.Dispatch(new DeleteIngredientAction(model.Id.Value));
     }
 
-    protected string GetIngredientsVisibilityCssClass() => (!IngredientState.Value.IsLoading && string.IsNullOrEmpty(IngredientState.Value.ErrorMessage)) ? "" : "hidden";
+    private string GetIngredientsVisibilityCssClass() => (!IngredientState.Value.IsLoading && string.IsNullOrEmpty(IngredientState.Value.ErrorMessage)) ? "" : "hidden";
 
-    protected void HandleSelection(IIngredientModel ingredient)
+    private void HandleSelection(IIngredientModel ingredient)
     {
         if (IngredientState.Value.SelectedIngredients.Contains(ingredient))
             IngredientState.Value.SelectedIngredients.Remove(ingredient);

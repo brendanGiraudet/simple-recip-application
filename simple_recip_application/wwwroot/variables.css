@@ -1,0 +1,95 @@
+/* Définition des variables globales */
+:root {
+    --primary-color: #000000;
+    --secondary-color: #FFFFFF;
+    --accent-color-1: #FF8C00;
+    --accent-color-2: #8B4513;
+
+    /* Couleurs d’état */
+    --success-color: #4CAF50;
+    --danger-color: #F44336;
+    --info-color: #2196F3;
+
+    /* Typographie */
+    --font-primary: 'Arial', sans-serif;
+
+    /* Page */
+    --page-padding: 1rem;
+    --page-flex-direction: column;
+    --page-height: 93vh;
+
+    /* Menu */
+    --menu-bg-color: var(--accent-color-2);
+    --menu-hover-bg: rgba(255, 255, 255, 0.1);
+    --menu-active-bg: rgba(255, 255, 255, 0.37);
+    --menu-text-color: var(--accent-color-1);
+    --menu-active-text: var(--secondary-color);
+    --menu-font-size: 1rem;
+    --menu-width: 100vw;
+    --menu-height: 7vh;
+
+    /* Tailles */
+    --icon-size: 1.25rem;
+    --sidebar-width: 100%;
+
+    /* Buttons */
+    --button-bg-color: var(--accent-color-1);
+    --button-text-color: var(--secondary-color);
+
+    /* Card */
+    --card-width: 90vh;
+    --card-height: 60vh;
+    --card-title-font-size: 1.2rem;
+    --card-title-margin: 1rem 0;
+    --card-actions-flex-direction: column;
+
+    /* Options Menu */
+    --option-menu-bottom: calc(var(--menu-height) + 7vh);
+    --option-menu-font-size: 1rem;
+    --option-menu-height: 4rem;
+}
+
+/* iPads, Tablets */
+@media (min-width: 481px) {
+    :root {
+        /* Card */
+        --card-width: 80vw;
+        --card-height: 53vh;
+        --card-title-font-size: 1.1rem;
+
+        /* Menu*/
+        --menu-height: 5vh;
+    }
+}
+
+/* Small screens, laptops */
+@media (min-width: 769px) {
+    :root {
+        /* Card */
+        --card-width: 40vw;
+        --card-title-font-size: 1.1rem;
+
+        /* Page */
+        --page-flex-direction: row;
+
+        /* Menu*/
+        --menu-height: 2vh;
+    }
+}
+
+/* Desktops, large screens */
+@media (min-width: 1024px) {
+    :root{
+        /* Card */
+        --card-width: 25vw;
+    }
+}
+
+
+/* Extra large screens, TV */
+@media (min-width: 1201px) {
+    :root{
+        /* Card */
+        --card-width: 20vw;
+    }
+}
