@@ -124,3 +124,7 @@ h1:focus {
     --button-bg-color: var(--accent-color-1);
     --button-text-color: var(--accent-color-2);
 }
+
+.hidden{
+    display: none !important;
+}

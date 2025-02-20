@@ -9,9 +9,6 @@
 
 <button @onclick="OpenAddIngredientModal">@LabelsLocalizer["AddIngredient"]</button>
 
-<p class="@GetLoadingVisibilityCssClass()">@MessagesLocalizer["LoadingInProgress"]</p>
-<p class="@GetErrorVisibilityCssClass()" style="color: red;">@IngredientState.Value.ErrorMessage</p>
-
 <div class="ingredient-grid @GetIngredientsVisibilityCssClass()">
     @foreach (var ingredient in IngredientState.Value.Ingredients)
     {
@@ -19,9 +16,8 @@
     }
 </div>
 
-@if (IsIngredientModalOpen)
-{
-    <Modal OnClose="CloseIngredientModal">
-        <IngredientForm IngredientId="SelectedIngredientId" OnCancel="CloseIngredientModal" />
-    </Modal>
-}
+<Loader IsVisible="@IngredientState.Value.IsLoading" />
+
+<Modal OnClose="CloseIngredientModal" IsVisible="IsIngredientModalOpen">
+    <IngredientForm IngredientId="SelectedIngredientId" OnCancel="CloseIngredientModal" />
+</Modal>

@@ -47,7 +47,5 @@ public partial class Ingredients
         Dispatcher.Dispatch(new DeleteIngredientAction(id));
     }
 
-    protected string GetLoadingVisibilityCssClass() => IngredientState.Value.IsLoading ? "" : "hidden";
-    protected string GetErrorVisibilityCssClass() => !string.IsNullOrEmpty(IngredientState.Value.ErrorMessage) ? "" : "hidden";
     protected string GetIngredientsVisibilityCssClass() => (!IngredientState.Value.IsLoading && string.IsNullOrEmpty(IngredientState.Value.ErrorMessage)) ? "" : "hidden";
 }
