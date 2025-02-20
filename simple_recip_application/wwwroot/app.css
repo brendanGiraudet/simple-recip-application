@@ -94,3 +94,8 @@ h1:focus {
 .hidden {
     display: none !important;
 }
+
+/* Style des champs */
+.form-field {
+    margin:1rem;
+}

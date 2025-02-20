@@ -5,13 +5,13 @@
 <EditForm Model="Ingredient" OnValidSubmit="Submit">
     <DataAnnotationsValidator />
 
-    <div>
+    <div class="form-field">
         <label>@LabelsLocalizer["IngredientName"]</label>
         <InputText @bind-Value="Ingredient.Name" class="form-control" />
         <ValidationMessage For="@(() => Ingredient.Name)" />
     </div>
 
-    <div>
+    <div class="form-field">
         <label>@LabelsLocalizer["ImageLabel"]</label>
         <InputFile OnChange="HandleImageUpload" accept="image/*" />
         <ValidationMessage For="@(() => Ingredient.Image)" />
