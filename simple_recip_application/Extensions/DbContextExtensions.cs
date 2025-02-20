@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using simple_recip_application.Data;
-using simple_recip_application.Data.Repository;
-using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
 
 namespace simple_recip_application.Extensions;
@@ -27,7 +25,7 @@ public static class DbContextExtensions
 
     public static IServiceCollection AddApplicationRepositories(this IServiceCollection services)
     {
-        services.AddScoped<IRepository<IngredientModel>, IngredientRepository>();
+        services.AddScoped<IIngredientRepository, IngredientRepository>();
         
         return services;
     }

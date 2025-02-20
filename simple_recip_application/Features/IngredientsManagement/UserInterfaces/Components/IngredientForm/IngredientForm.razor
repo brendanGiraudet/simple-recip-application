@@ -1,6 +1,6 @@
  @inherits FluxorComponent
 
-<h3>@(IngredientId.HasValue? LabelsLocalizer["EditIngredientTitle"] : LabelsLocalizer["AddIngredient"])</h3>
+<h3>@(Ingredient.Id.HasValue? LabelsLocalizer["EditIngredientTitle"] : LabelsLocalizer["AddIngredient"])</h3>
 
 <EditForm Model="Ingredient" OnValidSubmit="Submit">
     <DataAnnotationsValidator />

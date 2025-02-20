@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using simple_recip_application.Data.ApplicationCore;
+using simple_recip_application.Data.Persistence.Entities;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.ValidationAttributes;
 using simple_recip_application.Resources;

@@ -1,4 +1,4 @@
-using simple_recip_application.Data.ApplicationCore;
+using simple_recip_application.Data.Persistence.Entities;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
 
 namespace simple_recip_application.Features.NotificationsManagement.Persistence.Entites;

@@ -1,10 +1,13 @@
 @rendermode InteractiveServer
 
 <div class="card">
-    <img src="@GetImageSource()" alt="@Ingredient.Name" class="card-img">
+    <div class="card-img-container">
+        <img src="@GetImageSource()" alt="@Ingredient.Name" class="card-img" />
+        <div class="selection-icon @GetSelectionIconClass()" @onclick="ToggleSelection"></div>
+    </div>
     <div class="card-body">
         <h5 class="card-title">@Ingredient.Name</h5>
-        <button @onclick="@(() => OnEditAsync(Ingredient.Id))" class="btn btn-primary">@LabelsLocalizer["Update"]</button>
-        <button @onclick="@(() => OnDeleteAsync(Ingredient.Id))" class="btn btn-secondary">@LabelsLocalizer["Delete"]</button>
+        <button @onclick="@(() => OnEditAsync(Ingredient))" class="btn btn-primary">@LabelsLocalizer["Update"]</button>
+        <button @onclick="@(() => OnDeleteAsync(Ingredient))" class="btn btn-secondary">@LabelsLocalizer["Delete"]</button>
     </div>
 </div>

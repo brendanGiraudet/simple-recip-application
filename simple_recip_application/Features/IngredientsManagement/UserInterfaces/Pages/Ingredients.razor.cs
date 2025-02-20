@@ -1,6 +1,8 @@
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
+using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
 using simple_recip_application.Features.IngredientsManagement.Store;
 using simple_recip_application.Features.IngredientsManagement.Store.Actions;
 using simple_recip_application.Resources;
@@ -16,17 +18,17 @@ public partial class Ingredients
     [Inject] protected NavigationManager NavigationManager { get; set; } = default!;
 
     protected bool IsIngredientModalOpen { get; set; } = false;
-    protected Guid? SelectedIngredientId { get; set; }
+    protected IIngredientModel? SelectedIngredient { get; set; } = new IngredientModel();
 
     protected void OpenAddIngredientModal()
     {
-        SelectedIngredientId = null;
+        SelectedIngredient = new IngredientModel();
         IsIngredientModalOpen = true;
     }
 
-    protected void OpenEditIngredientModal(Guid id)
+    protected void OpenEditIngredientModal(IIngredientModel model)
     {
-        SelectedIngredientId = id;
+        SelectedIngredient = model;
         IsIngredientModalOpen = true;
     }
 
@@ -38,14 +40,24 @@ public partial class Ingredients
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        
+
         Dispatcher.Dispatch(new LoadIngredientsAction());
     }
 
-    protected void DeleteIngredient(Guid id)
+    protected void DeleteIngredient(IIngredientModel model)
     {
-        Dispatcher.Dispatch(new DeleteIngredientAction(id));
+        if (model.Id.HasValue)
+            Dispatcher.Dispatch(new DeleteIngredientAction(model.Id.Value));
     }
 
     protected string GetIngredientsVisibilityCssClass() => (!IngredientState.Value.IsLoading && string.IsNullOrEmpty(IngredientState.Value.ErrorMessage)) ? "" : "hidden";
+
+    protected void HandleSelection(IIngredientModel ingredient)
+    {
+        if (IngredientState.Value.SelectedIngredients.Contains(ingredient))
+            IngredientState.Value.SelectedIngredients.Remove(ingredient);
+
+        else
+            IngredientState.Value.SelectedIngredients.Add(ingredient);
+    }
 }

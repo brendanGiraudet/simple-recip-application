@@ -7,17 +7,24 @@
 
 <h3>@LabelsLocalizer["IngredientList"]</h3>
 
-<button @onclick="OpenAddIngredientModal">@LabelsLocalizer["AddIngredient"]</button>
+<button class="btn btn-primary" @onclick="OpenAddIngredientModal">@LabelsLocalizer["AddIngredient"]</button>
 
 <div class="ingredient-grid @GetIngredientsVisibilityCssClass()">
     @foreach (var ingredient in IngredientState.Value.Ingredients)
     {
-        <IngredientCard Ingredient="ingredient" OnEdit="OpenEditIngredientModal" OnDelete="DeleteIngredient" />
+        <IngredientCard Ingredient="ingredient" 
+                        OnEdit="OpenEditIngredientModal" 
+                        OnDelete="DeleteIngredient"
+                        OnSelect="HandleSelection"
+                        IsSelected="@(IngredientState.Value.SelectedIngredients.Contains(ingredient))" />
     }
 </div>
 
 <Loader IsVisible="@IngredientState.Value.IsLoading" />
 
-<Modal OnClose="CloseIngredientModal" IsVisible="IsIngredientModalOpen">
-    <IngredientForm IngredientId="SelectedIngredientId" OnCancel="CloseIngredientModal" />
+<Modal OnClose="CloseIngredientModal" 
+       IsVisible="IsIngredientModalOpen">
+       
+    <IngredientForm Ingredient="SelectedIngredient" 
+                    OnCancel="CloseIngredientModal" />
 </Modal>

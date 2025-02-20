@@ -1,16 +1,26 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
 using simple_recip_application.Resources;
 
 namespace simple_recip_application.Features.IngredientsManagement.UserInterfaces.Components.IngredientCard;
 
 public partial class IngredientCard
 {
-    [Parameter] public required IngredientModel Ingredient { get; set; }
-    [Parameter] public EventCallback<Guid> OnEdit { get; set; }
-    [Parameter] public EventCallback<Guid> OnDelete { get; set; }
+    [Parameter] public required IIngredientModel Ingredient { get; set; }
+    [Parameter] public EventCallback<IIngredientModel> OnEdit { get; set; }
+    [Parameter] public EventCallback<IIngredientModel> OnDelete { get; set; }
+    [Parameter] public EventCallback<IIngredientModel> OnSelect { get; set; }
+    [Parameter] public bool IsSelected { get; set; }
     [Inject] protected IStringLocalizer<Labels> LabelsLocalizer { get; set; } = default!;
+
+    private void ToggleSelection()
+    {
+        if(OnSelect.HasDelegate)
+            OnSelect.InvokeAsync(Ingredient);
+    }
+
+    private string GetSelectionIconClass() => IsSelected ? "selected" : "not-selected";
 
     protected string GetImageSource()
     {
@@ -22,15 +32,15 @@ public partial class IngredientCard
         return "placeholder.png"; // Image par défaut
     }
 
-    protected async Task OnEditAsync(Guid guid)
+    protected async Task OnEditAsync(IIngredientModel model)
     {
         if (OnEdit.HasDelegate)
-            await OnEdit.InvokeAsync(guid);
+            await OnEdit.InvokeAsync(model);
     }
-    
-    protected async Task OnDeleteAsync(Guid guid)
+
+    protected async Task OnDeleteAsync(IIngredientModel model)
     {
         if (OnDelete.HasDelegate)
-            await OnDelete.InvokeAsync(guid);
+            await OnDelete.InvokeAsync(model);
     }
 }

@@ -1,7 +1,7 @@
 namespace simple_recip_application.Data.Repository;
 
 using Microsoft.EntityFrameworkCore;
-using simple_recip_application.Data.ApplicationCore;
+using simple_recip_application.Data.Persistence.Entities;
 
 public class Repository<T> : IRepository<T> where T : EntityBase
 {

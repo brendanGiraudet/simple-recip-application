@@ -10,14 +10,12 @@ public class ApplicationDbContext : DbContext
     {
     }
 
-    // DbSet basé sur l'interface pour abstraction métier
     public DbSet<IngredientModel> Ingredients => Set<IngredientModel>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        // Configuration de l'implémentation concrète IngredientModel
         modelBuilder.Entity<IngredientModel>(entity =>
         {
             entity.HasKey(i => i.Id);

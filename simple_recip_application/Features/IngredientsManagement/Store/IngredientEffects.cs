@@ -1,7 +1,6 @@
 using Fluxor;
 using Microsoft.Extensions.Localization;
-using simple_recip_application.Data.Repository;
-using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
+using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
 using simple_recip_application.Features.IngredientsManagement.Store.Actions;
 using simple_recip_application.Features.NotificationsManagement.Persistence.Entites;
 using simple_recip_application.Features.NotificationsManagement.Store.Actions;
@@ -11,7 +10,7 @@ namespace simple_recip_application.Features.IngredientsManagement.Store;
 
 public class IngredientEffects
 (
-    IRepository<IngredientModel> _repository,
+    IIngredientRepository _repository,
     ILogger<IngredientEffects> _logger,
     IStringLocalizer<Messages> _messagesStringLocalizer
 )
@@ -22,6 +21,7 @@ public class IngredientEffects
         try
         {
             var ingredients = await _repository.GetAsync();
+
             dispatcher.Dispatch(new LoadIngredientsSuccessAction(ingredients.ToList()));
         }
         catch (Exception ex)
