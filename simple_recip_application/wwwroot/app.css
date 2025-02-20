@@ -19,17 +19,21 @@
     --menu-bg-color: var(--accent-color-2);
     --menu-hover-bg: rgba(255, 255, 255, 0.1);
     --menu-active-bg: rgba(255, 255, 255, 0.37);
-    /* Couleurs du texte */
     --menu-text-color: var(--accent-color-1);
     --menu-active-text: var(--secondary-color);
+    --menu-font-size: 1rem;
+
     /* Tailles */
     --icon-size: 1.25rem;
     --sidebar-width: 100%;
-    --menu-font-size: 1rem;
 
     /* Buttons */
     --button-bg-color: var(--accent-color-1);
     --button-text-color: var(--secondary-color);
+
+    /* Card */
+    --card-width: 90vh;
+    --card-height: 40vh;
 }
 
 html,
