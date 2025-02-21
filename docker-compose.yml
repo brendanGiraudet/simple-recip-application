@@ -13,10 +13,12 @@ services:
     container_name: simple_recip_application
 
     ports:
-      - "4242:8080"
+      - "4242:4242"
 
     environment:
       ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:4242
+      ASPNETCORE_HTTP_PORTS: 4242
       ConnectionStrings__DefaultConnection: "Data Source=/app/Data/recipes.db"
       ApplicationVersion : "1.10.0"
 
