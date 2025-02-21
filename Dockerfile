@@ -18,6 +18,8 @@ ARG BUILDPLATFORM
 
 WORKDIR /app
 
+EXPOSE 4242
+
 COPY --from=build /app/publish .
 
 ENTRYPOINT ["dotnet", "simple_recip_application.dll"]
