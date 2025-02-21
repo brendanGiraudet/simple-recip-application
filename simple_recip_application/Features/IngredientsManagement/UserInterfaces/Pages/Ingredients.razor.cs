@@ -61,8 +61,10 @@ public partial class Ingredients
 
     private List<OptionMenuItem> GetOptions()
     {
-        return [
+        List<OptionMenuItem> options = [
             new ("add", LabelsLocalizer["AddIngredient"], () => OpenAddIngredientModalAsync())
         ];
+        
+        return options;
     }
 }
