@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  simple_recip_application:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - configuration=debug
+        - plateform= linux/arm64
+
+    container_name: simple_recip_application
+
+    ports:
+      - "4242:4242"
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__DefaultConnection: "Data Source=/app/Data/recipes.db"
+      ApplicationVersion : "1.10.0"
+
+    volumes:
+      - /home:/app/Data
