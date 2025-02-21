@@ -8,6 +8,8 @@ services:
       args:
         - configuration=debug
         - plateform= linux/arm64
+    
+    image: simple_recip_application:1.10.0
 
     container_name: simple_recip_application
 
@@ -20,4 +22,4 @@ services:
       ApplicationVersion : "1.10.0"
 
     volumes:
-      - /home:/app/Data
+      - /home/ubuntu/data/simple_recip_application:/app/Data
