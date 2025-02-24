@@ -42,4 +42,10 @@
   <data name="Options" xml:space="preserve">
       <value>Options</value>
   </data>
+  <data name="ImportIngredients" xml:space="preserve">
+      <value>Ingredients import</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+      <value>Import</value>
+  </data>
 </root>

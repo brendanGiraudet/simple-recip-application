@@ -18,4 +18,6 @@ public class Messages
     public static string AddIngredientErrorMessage => resourceManager.GetString("AddIngredientErrorMessage", CultureInfo.CurrentCulture) ?? "AddIngredientErrorMessage";
     public static string DeleteIngredientErrorMessage => resourceManager.GetString("DeleteIngredientErrorMessage", CultureInfo.CurrentCulture) ?? "DeleteIngredientErrorMessage";
     public static string LoadingInProgress => resourceManager.GetString("LoadingInProgress", CultureInfo.CurrentCulture) ?? "LoadingInProgress";
+    public static string ImportFailure => resourceManager.GetString("ImportFailure", CultureInfo.CurrentCulture) ?? "ImportFailure";
+    public static string ImportSuccess => resourceManager.GetString("ImportSuccess", CultureInfo.CurrentCulture) ?? "ImportSuccess";
 }

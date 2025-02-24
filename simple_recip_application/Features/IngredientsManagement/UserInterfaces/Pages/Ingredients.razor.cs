@@ -48,7 +48,7 @@ public partial class Ingredients
             Dispatcher.Dispatch(new DeleteIngredientAction(model.Id.Value));
     }
 
-    private string GetIngredientsVisibilityCssClass() => (!IngredientState.Value.IsLoading && string.IsNullOrEmpty(IngredientState.Value.ErrorMessage)) ? "" : "hidden";
+    private string GetIngredientsVisibilityCssClass() => !IngredientState.Value.IsLoading ? "" : "hidden";
 
     private void HandleSelection(IIngredientModel ingredient)
     {

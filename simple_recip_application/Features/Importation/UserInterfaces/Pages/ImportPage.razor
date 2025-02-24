@@ -1,0 +1,15 @@
+@page "/importation"
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+<h3>@LabelsLocalizer["ImportIngredients"]</h3>
+
+<EditForm Model="@_importModel" OnValidSubmit="HandleImport" FormName="import">
+    <div class="form-field">
+        <label>@LabelsLocalizer["ImportLabel"]</label>
+        <InputFile OnChange="@HandleFileUpload" accept=".csv" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">@LabelsLocalizer["Import"]</button>
+</EditForm>
+
+<Loader IsVisible="ImportState.Value.IsLoading" />

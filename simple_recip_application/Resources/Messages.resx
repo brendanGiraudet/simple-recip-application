@@ -21,4 +21,10 @@
   <data name="LoadingInProgress" xml:space="preserve">
     <value>Chargement en cours...</value>
   </data>
+  <data name="ImportFailure" xml:space="preserve">
+    <value>Erreur lors de l'importation</value>
+  </data>
+  <data name="ImportSuccess" xml:space="preserve">
+    <value>Importation réussi</value>
+  </data>
 </root>

@@ -9,5 +9,4 @@ public record class IngredientState
     public List<IIngredientModel> Ingredients { get; set; } = [];
     public List<IIngredientModel> SelectedIngredients { get; set; } = [];
     public bool IsLoading { get; set; } = false;
-    public string? ErrorMessage { get; set; }
 }

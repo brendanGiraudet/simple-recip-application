@@ -28,7 +28,15 @@ public class IngredientEffects
         {
             _logger.LogError(ex, $"Erreur lors du chargement des ingrédients");
 
-            dispatcher.Dispatch(new LoadIngredientsFailureAction(_messagesStringLocalizer["LoadIngredientErrorMessage"]));
+            dispatcher.Dispatch(new LoadIngredientsFailureAction());
+
+            var notification = new NotificationMessage()
+            {
+                Message = _messagesStringLocalizer["LoadIngredientErrorMessage"],
+                Type = "danger"
+            };
+
+            dispatcher.Dispatch(new AddNotificationAction(notification));
         }
     }
 
@@ -38,6 +46,7 @@ public class IngredientEffects
         try
         {
             await _repository.AddAsync(action.Ingredient);
+            
             dispatcher.Dispatch(new AddIngredientSuccessAction(action.Ingredient));
 
             var notification = new NotificationMessage()
@@ -60,7 +69,7 @@ public class IngredientEffects
 
             dispatcher.Dispatch(new AddNotificationAction(notification));
 
-            dispatcher.Dispatch(new AddIngredientFailureAction(_messagesStringLocalizer["AddIngredientErrorMessage"]));
+            dispatcher.Dispatch(new AddIngredientFailureAction());
         }
     }
 
@@ -95,6 +104,8 @@ public class IngredientEffects
             };
 
             dispatcher.Dispatch(new AddNotificationAction(notification));
+
+            dispatcher.Dispatch(new DeleteIngredientFailureAction());
         }
     }
 
@@ -126,6 +137,8 @@ public class IngredientEffects
             };
 
             dispatcher.Dispatch(new AddNotificationAction(notification));
+            
+            dispatcher.Dispatch(new UpdateIngredientFailureAction());
         }
     }
 }

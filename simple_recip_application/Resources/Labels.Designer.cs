@@ -25,4 +25,6 @@ public class Labels
     public static string Update => resourceManager.GetString("Update", CultureInfo.CurrentCulture) ?? "Update";
     public static string Delete => resourceManager.GetString("Delete", CultureInfo.CurrentCulture) ?? "Delete";
     public static string Options => resourceManager.GetString("Options", CultureInfo.CurrentCulture) ?? "Options";
+    public static string ImportIngredients => resourceManager.GetString("ImportIngredients", CultureInfo.CurrentCulture) ?? "ImportIngredients";
+    public static string Import => resourceManager.GetString("Import", CultureInfo.CurrentCulture) ?? "Import";
 }

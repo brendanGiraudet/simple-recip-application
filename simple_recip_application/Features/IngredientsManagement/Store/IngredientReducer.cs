@@ -15,7 +15,7 @@ public static class IngredientReducer
 
     [ReducerMethod]
     public static IngredientState ReduceLoadIngredientsFailureAction(IngredientState state, LoadIngredientsFailureAction action) =>
-        state with { IsLoading = false, ErrorMessage = action.ErrorMessage };
+        state with { IsLoading = false };
     #endregion
 
     #region AddIngredient
@@ -29,7 +29,7 @@ public static class IngredientReducer
 
     [ReducerMethod]
     public static IngredientState ReduceAddIngredientFailureAction(IngredientState state, AddIngredientFailureAction action) =>
-        state with { Ingredients = state.Ingredients, IsLoading = false, ErrorMessage = action.ErrorMessage };
+        state with { Ingredients = state.Ingredients, IsLoading = false };
     #endregion
 
     #region DeleteIngredient
@@ -44,7 +44,7 @@ public static class IngredientReducer
     }
 
     [ReducerMethod]
-    public static IngredientState ReduceDeleteIngredientFailureAction(IngredientState state, DeleteIngredientFailureAction action) => state with { IsLoading = false, ErrorMessage = action.ErrorMessage };
+    public static IngredientState ReduceDeleteIngredientFailureAction(IngredientState state, DeleteIngredientFailureAction action) => state with { IsLoading = false };
     #endregion
 
     #region UpdateIngredient
@@ -61,6 +61,6 @@ public static class IngredientReducer
 
     [ReducerMethod]
     public static IngredientState ReduceUpdateIngredientFailureAction(IngredientState state, UpdateIngredientFailureAction action) =>
-        state with { IsLoading = false, ErrorMessage = action.ErrorMessage };
+        state with { IsLoading = false };
     #endregion
 }

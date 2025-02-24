@@ -21,4 +21,10 @@
   <data name="LoadingInProgress" xml:space="preserve">
     <value>Loading...</value>
   </data>
+  <data name="ImportFailure" xml:space="preserve">
+    <value>Import error</value>
+  </data>
+  <data name="ImportSuccess" xml:space="preserve">
+    <value>Success import</value>
+  </data>
 </root>

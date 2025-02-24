@@ -4,7 +4,6 @@ public static class ServicesContextExtensions
 {
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
-
         return services;
     }
 }
