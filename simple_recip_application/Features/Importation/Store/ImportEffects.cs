@@ -3,9 +3,10 @@ using Microsoft.Extensions.Localization;
 using simple_recip_application.Features.Importation.Services;
 using simple_recip_application.Features.Importation.Store.Actions;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
 using simple_recip_application.Features.NotificationsManagement.Persistence.Entites;
-using simple_recip_application.Features.NotificationsManagement.Store.Actions;
 using simple_recip_application.Resources;
+using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.Importation.Store;
 
@@ -13,7 +14,6 @@ public class ImportEffects
 (
     ILogger<ImportEffects> _logger,
     IStringLocalizer<Messages> _messagesStringLocalizer,
-    IState<ImportState> _importState,
     IIngredientRepository _ingredientRepository,
     ILogger<CsvImportService> _csvImportLogger
 )
@@ -27,9 +27,7 @@ public class ImportEffects
             
             var importService = new ImportService(strategy);
 
-            var memoryStream = new MemoryStream(_importState.Value.FileContent);
-
-            var result = await importService.ExecuteImport(memoryStream);
+            var result = await importService.ExecuteImport(action.ImportModel.FilePath);
 
             var message = _messagesStringLocalizer["ImportFailure"];
             var type = "danger";
@@ -52,7 +50,7 @@ public class ImportEffects
                 Type = type
             };
 
-            dispatcher.Dispatch(new AddNotificationAction(notification));
+            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
         }
         catch (Exception ex)
         {
@@ -66,7 +64,7 @@ public class ImportEffects
                 Type = "danger"
             };
 
-            dispatcher.Dispatch(new AddNotificationAction(notification));
+            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
         }
     }
 }

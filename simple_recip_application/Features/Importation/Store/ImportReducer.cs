@@ -13,8 +13,4 @@ public static class ImportReducer
 
     [ReducerMethod]
     public static ImportState ReduceImportFailure(ImportState state, ImportFailureAction action) => state with { IsLoading = false };
-
-
-    [ReducerMethod]
-    public static ImportState ReduceSetFileContentAction(ImportState state, SetFileContentAction action) => state with { FileContent = action.FileContent };
 }

@@ -1,6 +1,5 @@
 using Fluxor;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using simple_recip_application.Features.Importation.Enums;
 using simple_recip_application.Features.Importation.Store;
@@ -15,28 +14,18 @@ public partial class ImportPage
     [Inject] public required IState<ImportState> ImportState { get; set; }
     [Inject] public required IStringLocalizer<Labels> LabelsLocalizer { get; set; }
 
-    private ImportModel _importModel = new();
+// TODO pb avec le formulaire
+    public ImportModel ImportModel {get;set;} = new(){
+        FilePath = "/home/bakayarusama/Téléchargements/fr.openfoodfacts.org.products.csv"
+    };
 
     private async Task HandleImport()
     {
-        Dispatcher.Dispatch(new StartImportAction(ImportStrategyEnum.ImportIngredientsFromCsv));
-    }
-
-    private async Task HandleFileUpload(InputFileChangeEventArgs e)
-    {
-        var file = e.File;
-        if (file != null)
-        {
-            using var memoryStream = new MemoryStream();
-            
-            await file.OpenReadStream().CopyToAsync(memoryStream);
-
-            Dispatcher.Dispatch(new SetFileContentAction(memoryStream.ToArray()));
-        }
+        Dispatcher.Dispatch(new StartImportAction(ImportStrategyEnum.ImportIngredientsFromCsv, ImportModel));
     }
 }
 
 public class ImportModel
 {
-    public Stream? fileContent { get; set; }
+    public string? FilePath { get; set; }
 }
