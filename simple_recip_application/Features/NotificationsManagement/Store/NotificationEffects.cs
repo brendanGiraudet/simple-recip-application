@@ -1,5 +1,7 @@
 using Fluxor;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
 using simple_recip_application.Features.NotificationsManagement.Store.Actions;
+using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.NotificationsManagement.Store;
 
@@ -9,12 +11,12 @@ public class NotificationEffects
 )
 {
     [EffectMethod]
-    public async Task HandleAddNotification(AddNotificationAction action, IDispatcher dispatcher)
+    public async Task HandleAddNotification(AddItemAction<INotificationMessage> action, IDispatcher dispatcher)
     {
-        _logger.LogInformation($"Notification ajoutée : {action.NotificationMessage.Message}");
+        _logger.LogInformation($"Notification ajoutée : {action.Item.Message}");
 
-        await Task.Delay(action.NotificationMessage.Duration);
+        await Task.Delay(action.Item.Duration);
 
-        dispatcher.Dispatch(new RemoveNotificationAction(action.NotificationMessage));
+        dispatcher.Dispatch(new DeleteItemAction<INotificationMessage>(action.Item));
     }
 }

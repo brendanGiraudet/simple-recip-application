@@ -2,7 +2,7 @@ using Fluxor;
 using Microsoft.AspNetCore.Components;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
 using simple_recip_application.Features.NotificationsManagement.Store;
-using simple_recip_application.Features.NotificationsManagement.Store.Actions;
+using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.NotificationsManagement.UserInterfaces.Components.Notifications;
 
@@ -13,6 +13,6 @@ public partial class Notifications
 
     protected void RemoveNotification(INotificationMessage notification)
     {
-        Dispatcher.Dispatch(new RemoveNotificationAction(notification));
+        Dispatcher.Dispatch(new DeleteItemAction<INotificationMessage>(notification));
     }
 }

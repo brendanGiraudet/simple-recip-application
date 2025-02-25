@@ -1,7 +1,7 @@
 .notification-container {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    top: 2vh;
+    right: 1vw;
     display: flex;
     flex-direction: column;
     gap: 10px;

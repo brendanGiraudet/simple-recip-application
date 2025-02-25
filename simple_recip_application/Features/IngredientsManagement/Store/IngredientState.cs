@@ -1,12 +1,12 @@
 using Fluxor;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
+using simple_recip_application.Store;
 
 namespace simple_recip_application.Features.IngredientsManagement.Store;
 
 [FeatureState]
-public record class IngredientState
+public record class IngredientState : BaseState
 {
-    public List<IIngredientModel> Ingredients { get; set; } = [];
-    public List<IIngredientModel> SelectedIngredients { get; set; } = [];
-    public bool IsLoading { get; set; } = false;
+    public IEnumerable<IIngredientModel> Ingredients { get; set; } = [];
+    public IEnumerable<IIngredientModel> SelectedIngredients { get; set; } = [];
 }

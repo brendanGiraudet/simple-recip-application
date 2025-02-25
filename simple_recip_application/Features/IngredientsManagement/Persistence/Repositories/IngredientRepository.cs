@@ -6,12 +6,12 @@ using simple_recip_application.Features.IngredientsManagement.Persistence.Entiti
 
 namespace simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
 
-public class IngredientRepository : Repository<IngredientModel>, IIngredientRepository
+public class IngredientRepository
+(
+    ApplicationDbContext _dbContext
+)
+ : Repository<IngredientModel>(_dbContext), IIngredientRepository
 {
-    public IngredientRepository(ApplicationDbContext dbContext) : base(dbContext)
-    {
-    }
-
     public async Task<IIngredientModel> GetByIdAsync(Guid id)
     {
         return await base.GetByIdAsync(id);

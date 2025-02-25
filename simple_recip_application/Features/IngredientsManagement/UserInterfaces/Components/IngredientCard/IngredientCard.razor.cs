@@ -12,7 +12,6 @@ public partial class IngredientCard
     [Parameter] public EventCallback<IIngredientModel> OnDelete { get; set; }
     [Parameter] public EventCallback<IIngredientModel> OnSelect { get; set; }
     [Parameter] public bool IsSelected { get; set; }
-    [Inject] protected IStringLocalizer<Labels> LabelsLocalizer { get; set; } = default!;
 
     private void ToggleSelection()
     {

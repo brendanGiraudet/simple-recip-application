@@ -5,8 +5,8 @@ using simple_recip_application.Components.OptionsMenu;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
 using simple_recip_application.Features.IngredientsManagement.Store;
-using simple_recip_application.Features.IngredientsManagement.Store.Actions;
 using simple_recip_application.Resources;
+using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.IngredientsManagement.UserInterfaces.Pages;
 
@@ -19,18 +19,12 @@ public partial class Ingredients
     private bool _isIngredientModalOpen { get; set; } = false;
     private IIngredientModel? _selectedIngredient { get; set; } = new IngredientModel();
 
-    private async Task OpenAddIngredientModalAsync()
+    private async Task OpenIngredientFormModalAsync(IIngredientModel? model = null)
     {
-        _selectedIngredient = new IngredientModel();
+        _selectedIngredient = model ?? new IngredientModel();
         _isIngredientModalOpen = true;
 
         StateHasChanged();
-    }
-
-    private void OpenEditIngredientModal(IIngredientModel model)
-    {
-        _selectedIngredient = model;
-        _isIngredientModalOpen = true;
     }
 
     private void CloseIngredientModal(bool isUpdated) => _isIngredientModalOpen = false;
@@ -39,13 +33,13 @@ public partial class Ingredients
     {
         base.OnInitialized();
 
-        Dispatcher.Dispatch(new LoadIngredientsAction());
+        Dispatcher.Dispatch(new LoadItemsAction<IIngredientModel>());
     }
 
     private void DeleteIngredient(IIngredientModel model)
     {
         if (model.Id.HasValue)
-            Dispatcher.Dispatch(new DeleteIngredientAction(model.Id.Value));
+            Dispatcher.Dispatch(new DeleteItemAction<IIngredientModel>(model));
     }
 
     private string GetIngredientsVisibilityCssClass() => !IngredientState.Value.IsLoading ? "" : "hidden";
@@ -53,18 +47,18 @@ public partial class Ingredients
     private void HandleSelection(IIngredientModel ingredient)
     {
         if (IngredientState.Value.SelectedIngredients.Contains(ingredient))
-            IngredientState.Value.SelectedIngredients.Remove(ingredient);
+            IngredientState.Value.SelectedIngredients = IngredientState.Value.SelectedIngredients.Except([ingredient]);
 
         else
-            IngredientState.Value.SelectedIngredients.Add(ingredient);
+            IngredientState.Value.SelectedIngredients = IngredientState.Value.SelectedIngredients.Append(ingredient);
     }
 
     private List<OptionMenuItem> GetOptions()
     {
         List<OptionMenuItem> options = [
-            new ("add", LabelsLocalizer["AddIngredient"], () => OpenAddIngredientModalAsync())
+            new ("add", LabelsLocalizer["AddIngredient"], () => OpenIngredientFormModalAsync())
         ];
-        
+
         return options;
     }
 }

@@ -1,10 +1,11 @@
 using Fluxor;
 using Microsoft.Extensions.Localization;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
-using simple_recip_application.Features.IngredientsManagement.Store.Actions;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
 using simple_recip_application.Features.NotificationsManagement.Persistence.Entites;
-using simple_recip_application.Features.NotificationsManagement.Store.Actions;
 using simple_recip_application.Resources;
+using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.IngredientsManagement.Store;
 
@@ -16,19 +17,19 @@ public class IngredientEffects
 )
 {
     [EffectMethod]
-    public async Task HandleLoadIngredients(LoadIngredientsAction action, IDispatcher dispatcher)
+    public async Task HandleLoadIngredients(LoadItemsAction<IIngredientModel> action, IDispatcher dispatcher)
     {
         try
         {
             var ingredients = await _repository.GetAsync();
 
-            dispatcher.Dispatch(new LoadIngredientsSuccessAction(ingredients.ToList()));
+            dispatcher.Dispatch(new LoadItemsSuccessAction<IIngredientModel>(ingredients));
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, $"Erreur lors du chargement des ingrédients");
 
-            dispatcher.Dispatch(new LoadIngredientsFailureAction());
+            dispatcher.Dispatch(new LoadItemsFailureAction<IIngredientModel>());
 
             var notification = new NotificationMessage()
             {
@@ -36,18 +37,18 @@ public class IngredientEffects
                 Type = "danger"
             };
 
-            dispatcher.Dispatch(new AddNotificationAction(notification));
+            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
         }
     }
 
     [EffectMethod]
-    public async Task HandleAddIngredient(AddIngredientAction action, IDispatcher dispatcher)
+    public async Task HandleAddIngredient(AddItemAction<IIngredientModel> action, IDispatcher dispatcher)
     {
         try
         {
-            await _repository.AddAsync(action.Ingredient);
+            await _repository.AddAsync(action.Item);
             
-            dispatcher.Dispatch(new AddIngredientSuccessAction(action.Ingredient));
+            dispatcher.Dispatch(new AddItemSuccessAction<IIngredientModel>(action.Item));
 
             var notification = new NotificationMessage()
             {
@@ -55,7 +56,7 @@ public class IngredientEffects
                 Type = "success"
             };
 
-            dispatcher.Dispatch(new AddNotificationAction(notification));
+            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
         }
         catch (Exception ex)
         {
@@ -67,22 +68,24 @@ public class IngredientEffects
                 Type = "danger"
             };
 
-            dispatcher.Dispatch(new AddNotificationAction(notification));
+            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
-            dispatcher.Dispatch(new AddIngredientFailureAction());
+            dispatcher.Dispatch(new AddItemFailureAction<IIngredientModel>(action.Item));
         }
     }
 
     [EffectMethod]
-    public async Task HandleDeleteIngredient(DeleteIngredientAction action, IDispatcher dispatcher)
+    public async Task HandleDeleteIngredient(DeleteItemAction<IIngredientModel> action, IDispatcher dispatcher)
     {
         try
         {
-            var ingredient = await _repository.GetByIdAsync(action.IngredientId);
+            if(!action.Item.Id.HasValue) return;
+
+            var ingredient = await _repository.GetByIdAsync(action.Item.Id.Value);
             if (ingredient != null)
             {
                 await _repository.DeleteAsync(ingredient);
-                dispatcher.Dispatch(new DeleteIngredientSuccessAction(action.IngredientId));
+                dispatcher.Dispatch(new DeleteItemSuccessAction<IIngredientModel>(action.Item));
 
                 var notification = new NotificationMessage()
                 {
@@ -90,7 +93,7 @@ public class IngredientEffects
                     Type = "success"
                 };
 
-                dispatcher.Dispatch(new AddNotificationAction(notification));
+                dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
             }
         }
         catch (Exception ex)
@@ -103,20 +106,20 @@ public class IngredientEffects
                 Type = "danger"
             };
 
-            dispatcher.Dispatch(new AddNotificationAction(notification));
+            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
-            dispatcher.Dispatch(new DeleteIngredientFailureAction());
+            dispatcher.Dispatch(new DeleteItemFailureAction<IIngredientModel>(action.Item));
         }
     }
 
     [EffectMethod]
-    public async Task HandleUpdateIngredient(UpdateIngredientAction action, IDispatcher dispatcher)
+    public async Task HandleUpdateIngredient(UpdateItemAction<IIngredientModel> action, IDispatcher dispatcher)
     {
         try
         {
-            await _repository.UpdateAsync(action.Ingredient);
+            await _repository.UpdateAsync(action.Item);
 
-            dispatcher.Dispatch(new UpdateIngredientSuccessAction(action.Ingredient));
+            dispatcher.Dispatch(new UpdateItemSuccessAction<IIngredientModel>(action.Item));
 
             var notification = new NotificationMessage()
             {
@@ -124,7 +127,7 @@ public class IngredientEffects
                 Type = "success"
             };
 
-            dispatcher.Dispatch(new AddNotificationAction(notification));
+            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
         }
         catch (Exception ex)
         {
@@ -136,9 +139,9 @@ public class IngredientEffects
                 Type = "danger"
             };
 
-            dispatcher.Dispatch(new AddNotificationAction(notification));
+            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
             
-            dispatcher.Dispatch(new UpdateIngredientFailureAction());
+            dispatcher.Dispatch(new UpdateItemFailureAction<IIngredientModel>(action.Item));
         }
     }
 }

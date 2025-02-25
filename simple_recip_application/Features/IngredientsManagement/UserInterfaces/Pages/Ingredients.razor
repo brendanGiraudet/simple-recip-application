@@ -9,7 +9,7 @@
     @foreach (var ingredient in IngredientState.Value.Ingredients)
     {
         <IngredientCard Ingredient="ingredient" 
-                        OnEdit="OpenEditIngredientModal" 
+                        OnEdit="OpenIngredientFormModalAsync" 
                         OnDelete="DeleteIngredient"
                         OnSelect="HandleSelection" 
                         IsSelected="@(IngredientState.Value.SelectedIngredients.Contains(ingredient))" />
