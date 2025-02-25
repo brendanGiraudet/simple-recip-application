@@ -20,7 +20,8 @@ services:
       ASPNETCORE_URLS: http://+:4242
       ASPNETCORE_HTTP_PORTS: 4242
       ConnectionStrings__DefaultConnection: "Data Source=/app/Data/recipes.db"
-      ApplicationVersion : "1.10.0"
+      ApplicationVersion : "1.10.10"
+      FeatureManagement__RecipeFeature: false
 
     volumes:
       - /home/ubuntu/data/simple_recip_application:/app/Data

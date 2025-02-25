@@ -1,10 +1,13 @@
 ﻿@inherits CustomComponentBase
 
 <nav class="nav-menu">
-    <div class="nav-item">
-        <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-            <span class="material-symbols-outlined">grocery</span>
-            <span class="nav-item-text">@LabelsLocalizer["Ingredients"]</span>
-        </NavLink>
-    </div>
+    @foreach (var item in _navMenuItems)
+    {
+        <div class="nav-item">
+            <NavLink class="nav-link" href="@item.Url" Match="NavLinkMatch.All">
+                <span class="material-symbols-outlined">@item.Icon</span>
+                <span class="nav-item-text">@item.Text</span>
+            </NavLink>
+        </div>
+    }
 </nav>

@@ -2,6 +2,7 @@ using simple_recip_application.Components;
 using simple_recip_application.Extensions;
 using Fluxor;
 using Fluxor.Blazor.Web.ReduxDevTools;
+using Microsoft.FeatureManagement;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,9 @@ builder.Services.AddFluxor(options => {
     options.ScanAssemblies(typeof(Program).Assembly);
     options.UseReduxDevTools();
 });
+
+// Ajout de la gestion des flags
+builder.Services.AddFeatureManagement();
 
 // Activer la localisation et spécifier le dossier contenant les fichiers `.resx`
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
