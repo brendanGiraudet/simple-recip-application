@@ -4,3 +4,15 @@
     align-items: center;
     flex-wrap: wrap;
 }
+
+.pagination-buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.pagination-buttons-container button {
+    border-radius: 50%;
+    padding: .5rem;
+    display: flex;
+}

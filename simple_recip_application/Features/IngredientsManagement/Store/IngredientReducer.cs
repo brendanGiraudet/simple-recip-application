@@ -8,11 +8,11 @@ public static class IngredientReducer
 {
     #region LoadIngredients
     [ReducerMethod]
-    public static IngredientState ReduceLoadItemsAction(IngredientState state, LoadItemsAction<IIngredientModel> action) => state with { IsLoading = true };
+    public static IngredientState ReduceLoadItemsAction(IngredientState state, LoadItemsAction<IIngredientModel> action) => state with { IsLoading = true, Take = action.Take, Skip = action.Skip };
 
     [ReducerMethod]
     public static IngredientState ReduceLoadItemsSuccessAction(IngredientState state, LoadItemsSuccessAction<IIngredientModel> action) =>
-        state with { Ingredients = action.Items, IsLoading = false };
+        state with { Items = action.Items, IsLoading = false };
 
     [ReducerMethod]
     public static IngredientState ReduceLoadItemsFailureAction(IngredientState state, LoadItemsFailureAction<IIngredientModel> action) =>
@@ -22,15 +22,15 @@ public static class IngredientReducer
     #region AddIngredient
     [ReducerMethod]
     public static IngredientState ReduceAddItemAction(IngredientState state, AddItemAction<IIngredientModel> action) =>
-        state with { Ingredients = state.Ingredients, IsLoading = true };
+        state with { Items = state.Items, IsLoading = true };
 
     [ReducerMethod]
     public static IngredientState ReduceAddItemSuccessAction(IngredientState state, AddItemSuccessAction<IIngredientModel> action) =>
-        state with { Ingredients = [.. state.Ingredients, action.Item], IsLoading = false };
+        state with { Items = [.. state.Items, action.Item], IsLoading = false };
 
     [ReducerMethod]
     public static IngredientState ReduceAddItemFailureAction(IngredientState state, AddItemFailureAction<IIngredientModel> action) =>
-        state with { Ingredients = state.Ingredients, IsLoading = false };
+        state with { Items = state.Items, IsLoading = false };
     #endregion
 
     #region DeleteIngredient
@@ -40,9 +40,9 @@ public static class IngredientReducer
     [ReducerMethod]
     public static IngredientState ReduceDeleteItemSuccessAction(IngredientState state, DeleteItemSuccessAction<IIngredientModel> action)
     {
-        var ingredients = state.Ingredients.Where(i => i.Id != action.Item.Id).ToList();
+        var ingredients = state.Items.Where(i => i.Id != action.Item.Id).ToList();
 
-        return state with { Ingredients = ingredients, IsLoading = false };
+        return state with { Items = ingredients, IsLoading = false };
     }
 
     [ReducerMethod]
@@ -57,8 +57,8 @@ public static class IngredientReducer
     [ReducerMethod]
     public static IngredientState ReduceUpdateItemSuccessAction(IngredientState state, UpdateItemSuccessAction<IIngredientModel> action)
     {
-        var updatedIngredients = state.Ingredients.Select(i => i.Id == action.Item.Id ? action.Item : i).ToList();
-        return state with { Ingredients = updatedIngredients, IsLoading = false };
+        var updatedIngredients = state.Items.Select(i => i.Id == action.Item.Id ? action.Item : i).ToList();
+        return state with { Items = updatedIngredients, IsLoading = false };
     }
 
     [ReducerMethod]

@@ -1,0 +1,16 @@
+@inherits CustomComponentBase
+
+<EditForm Model="@Recipe" OnValidSubmit="AddRecipe">
+    <div>
+        <label>Name</label>
+        <InputText @bind-Value="Recipe.Name" />
+    </div>
+    <div>
+        <label>Description</label>
+        <InputText @bind-Value="Recipe.Description" />
+
+        <label>Instructions</label>
+        <InputText @bind-Value="Recipe.Instructions" />
+    </div>
+    <button type="submit">Add Recipe</button>
+</EditForm>

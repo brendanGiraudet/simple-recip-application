@@ -12,36 +12,37 @@ public class IngredientRepository
 )
  : Repository<IngredientModel>(_dbContext), IIngredientRepository
 {
-    public async Task<IIngredientModel> GetByIdAsync(Guid id)
+    public new async Task<IIngredientModel?> GetByIdAsync(Guid? id)
     {
         return await base.GetByIdAsync(id);
     }
 
-    public virtual async Task<IEnumerable<IIngredientModel>> GetAsync()
+    public new async Task<IEnumerable<IIngredientModel>> GetAsync()
     {
         var ingredients = await base.GetAsync();
         return ingredients.Cast<IIngredientModel>().ToList();
     }
 
-    public virtual async Task<IEnumerable<IIngredientModel>> GetAsync(System.Linq.Expressions.Expression<Func<IIngredientModel, bool>> predicate)
+    public async Task<IEnumerable<IIngredientModel>> GetAsync(int take, int skip, System.Linq.Expressions.Expression<Func<IIngredientModel, bool>>? predicate)
     {
-        var convertedPredicate = predicate.Convert<IIngredientModel, IngredientModel>();
+        var convertedPredicate = predicate?.Convert<IIngredientModel, IngredientModel>();
         
-        var ingredients = await base.GetAsync(convertedPredicate);
-        return ingredients.Cast<IIngredientModel>().ToList();
+        var ingredients = await base.GetAsync(take, skip, convertedPredicate);
+
+        return ingredients.Cast<IIngredientModel>();
     }
 
-    public async Task AddAsync(IIngredientModel entity)
+    public async Task AddAsync(IIngredientModel? entity)
     {
         await base.AddAsync(entity as IngredientModel);
     }
 
-    public async Task UpdateAsync(IIngredientModel entity)
+    public async Task UpdateAsync(IIngredientModel? entity)
     {
         await base.UpdateAsync(entity as IngredientModel);
     }
 
-    public async Task DeleteAsync(IIngredientModel entity)
+    public async Task DeleteAsync(IIngredientModel? entity)
     {
         await base.DeleteAsync(entity as IngredientModel);
     }

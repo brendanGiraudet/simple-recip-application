@@ -46,11 +46,11 @@ public partial class Ingredients
 
     private void HandleSelection(IIngredientModel ingredient)
     {
-        if (IngredientState.Value.SelectedIngredients.Contains(ingredient))
-            IngredientState.Value.SelectedIngredients = IngredientState.Value.SelectedIngredients.Except([ingredient]);
+        if (IngredientState.Value.SelectedItems.Contains(ingredient))
+            IngredientState.Value.SelectedItems = IngredientState.Value.SelectedItems.Except([ingredient]);
 
         else
-            IngredientState.Value.SelectedIngredients = IngredientState.Value.SelectedIngredients.Append(ingredient);
+            IngredientState.Value.SelectedItems = IngredientState.Value.SelectedItems.Append(ingredient);
     }
 
     private List<OptionMenuItem> GetOptions()
@@ -60,5 +60,23 @@ public partial class Ingredients
         ];
 
         return options;
+    }
+
+    private bool CanPreviousClick() => IngredientState.Value.Skip > 0;
+    private async Task OnPrevious()
+    {
+        if(!CanPreviousClick()) return;
+        
+        var skip = IngredientState.Value.Skip - IngredientState.Value.Take;
+
+        skip = skip < 0 ? 0 : skip;
+
+        Dispatcher.Dispatch(new LoadItemsAction<IIngredientModel>(Take: IngredientState.Value.Take, Skip: skip));
+    }
+
+    private async Task OnNext()
+    {
+        var skip = IngredientState.Value.Skip + IngredientState.Value.Take;
+        Dispatcher.Dispatch(new LoadItemsAction<IIngredientModel>(Take: IngredientState.Value.Take, Skip: skip));
     }
 }

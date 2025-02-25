@@ -17,6 +17,7 @@
     --page-padding: 1rem;
     --page-flex-direction: column;
     --page-height: 93vh;
+    --main-padding-bottom: var(--option-menu-bottom);
 
     /* Menu */
     --menu-bg-color: var(--accent-color-2);
@@ -79,7 +80,7 @@
 
 /* Desktops, large screens */
 @media (min-width: 1024px) {
-    :root{
+    :root {
         /* Card */
         --card-width: 25vw;
     }
@@ -88,7 +89,7 @@
 
 /* Extra large screens, TV */
 @media (min-width: 1201px) {
-    :root{
+    :root {
         /* Card */
         --card-width: 20vw;
     }

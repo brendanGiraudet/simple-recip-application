@@ -6,14 +6,19 @@
 @attribute [StreamRendering]
 
 <div class="ingredient-grid @GetIngredientsVisibilityCssClass()">
-    @foreach (var ingredient in IngredientState.Value.Ingredients)
+    @foreach (var ingredient in IngredientState.Value.Items)
     {
         <IngredientCard Ingredient="ingredient" 
                         OnEdit="OpenIngredientFormModalAsync" 
                         OnDelete="DeleteIngredient"
                         OnSelect="HandleSelection" 
-                        IsSelected="@(IngredientState.Value.SelectedIngredients.Contains(ingredient))" />
+                        IsSelected="@(IngredientState.Value.SelectedItems.Contains(ingredient))" />
     }
+</div>
+
+<div class="pagination-buttons-container">
+    <button @onclick="@(() => OnPrevious())" class="btn btn-primary" disabled="@(!CanPreviousClick())"><span class="material-symbols-outlined">chevron_left</span></button>
+    <button @onclick="@(() => OnNext())" class="btn btn-primary"><span class="material-symbols-outlined">chevron_right</span></button>
 </div>
 
 <Loader IsVisible="@IngredientState.Value.IsLoading" />

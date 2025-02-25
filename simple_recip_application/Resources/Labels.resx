@@ -48,4 +48,7 @@
   <data name="Import" xml:space="preserve">
       <value>Import</value>
   </data>
+  <data name="AddRecipe" xml:space="preserve">
+      <value>Ajouter une recette</value>
+  </data>
 </root>

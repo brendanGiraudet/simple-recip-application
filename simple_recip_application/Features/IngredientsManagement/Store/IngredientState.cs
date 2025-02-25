@@ -5,8 +5,7 @@ using simple_recip_application.Store;
 namespace simple_recip_application.Features.IngredientsManagement.Store;
 
 [FeatureState]
-public record class IngredientState : BaseState
+public record class IngredientState : BaseState<IIngredientModel>
 {
-    public IEnumerable<IIngredientModel> Ingredients { get; set; } = [];
-    public IEnumerable<IIngredientModel> SelectedIngredients { get; set; } = [];
+    
 }

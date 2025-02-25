@@ -1,39 +1,39 @@
 using Fluxor;
 using Microsoft.Extensions.Localization;
-using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
-using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore;
+using simple_recip_application.Features.RecipesManagement.Persistence.Repositories;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
 using simple_recip_application.Features.NotificationsManagement.Persistence.Entites;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 
-namespace simple_recip_application.Features.IngredientsManagement.Store;
+namespace simple_recip_application.Features.RecipesManagement.Store;
 
-public class IngredientEffects
+public class RecipeEffects
 (
-    IIngredientRepository _repository,
-    ILogger<IngredientEffects> _logger,
+    IRecipeRepository _repository,
+    ILogger<RecipeEffects> _logger,
     IStringLocalizer<Messages> _messagesStringLocalizer
 )
 {
     [EffectMethod]
-    public async Task HandleLoadIngredients(LoadItemsAction<IIngredientModel> action, IDispatcher dispatcher)
+    public async Task HandleLoadRecipes(LoadItemsAction<IRecipeModel> action, IDispatcher dispatcher)
     {
         try
         {
-            var ingredients = await _repository.GetAsync(action.Take, action.Skip);
+            var recipes = await _repository.GetAsync(action.Take, action.Skip);
 
-            dispatcher.Dispatch(new LoadItemsSuccessAction<IIngredientModel>(ingredients));
+            dispatcher.Dispatch(new LoadItemsSuccessAction<IRecipeModel>(recipes));
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, $"Erreur lors du chargement des ingrédients");
 
-            dispatcher.Dispatch(new LoadItemsFailureAction<IIngredientModel>());
+            dispatcher.Dispatch(new LoadItemsFailureAction<IRecipeModel>());
 
             var notification = new NotificationMessage()
             {
-                Message = _messagesStringLocalizer["LoadIngredientErrorMessage"],
+                Message = _messagesStringLocalizer["LoadRecipeErrorMessage"],
                 Type = "danger"
             };
 
@@ -42,17 +42,17 @@ public class IngredientEffects
     }
 
     [EffectMethod]
-    public async Task HandleAddIngredient(AddItemAction<IIngredientModel> action, IDispatcher dispatcher)
+    public async Task HandleAddRecipe(AddItemAction<IRecipeModel> action, IDispatcher dispatcher)
     {
         try
         {
             await _repository.AddAsync(action.Item);
             
-            dispatcher.Dispatch(new AddItemSuccessAction<IIngredientModel>(action.Item));
+            dispatcher.Dispatch(new AddItemSuccessAction<IRecipeModel>(action.Item));
 
             var notification = new NotificationMessage()
             {
-                Message = _messagesStringLocalizer["AddIngredientSuccessMessage"],
+                Message = _messagesStringLocalizer["AddRecipeSuccessMessage"],
                 Type = "success"
             };
 
@@ -64,32 +64,32 @@ public class IngredientEffects
 
             var notification = new NotificationMessage()
             {
-                Message = _messagesStringLocalizer["AddIngredientErrorMessage"],
+                Message = _messagesStringLocalizer["AddRecipeErrorMessage"],
                 Type = "danger"
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
-            dispatcher.Dispatch(new AddItemFailureAction<IIngredientModel>(action.Item));
+            dispatcher.Dispatch(new AddItemFailureAction<IRecipeModel>(action.Item));
         }
     }
 
     [EffectMethod]
-    public async Task HandleDeleteIngredient(DeleteItemAction<IIngredientModel> action, IDispatcher dispatcher)
+    public async Task HandleDeleteRecipe(DeleteItemAction<IRecipeModel> action, IDispatcher dispatcher)
     {
         try
         {
             if(!action.Item.Id.HasValue) return;
 
-            var ingredient = await _repository.GetByIdAsync(action.Item.Id.Value);
-            if (ingredient != null)
+            var Recipe = await _repository.GetByIdAsync(action.Item.Id.Value);
+            if (Recipe != null)
             {
-                await _repository.DeleteAsync(ingredient);
-                dispatcher.Dispatch(new DeleteItemSuccessAction<IIngredientModel>(action.Item));
+                await _repository.DeleteAsync(Recipe);
+                dispatcher.Dispatch(new DeleteItemSuccessAction<IRecipeModel>(action.Item));
 
                 var notification = new NotificationMessage()
                 {
-                    Message = _messagesStringLocalizer["DeleteIngredientSuccessMessage"],
+                    Message = _messagesStringLocalizer["DeleteRecipeSuccessMessage"],
                     Type = "success"
                 };
 
@@ -102,28 +102,28 @@ public class IngredientEffects
 
             var notification = new NotificationMessage()
             {
-                Message = _messagesStringLocalizer["DeleteIngredientErrorMessage"],
+                Message = _messagesStringLocalizer["DeleteRecipeErrorMessage"],
                 Type = "danger"
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
-            dispatcher.Dispatch(new DeleteItemFailureAction<IIngredientModel>(action.Item));
+            dispatcher.Dispatch(new DeleteItemFailureAction<IRecipeModel>(action.Item));
         }
     }
 
     [EffectMethod]
-    public async Task HandleUpdateIngredient(UpdateItemAction<IIngredientModel> action, IDispatcher dispatcher)
+    public async Task HandleUpdateRecipe(UpdateItemAction<IRecipeModel> action, IDispatcher dispatcher)
     {
         try
         {
             await _repository.UpdateAsync(action.Item);
 
-            dispatcher.Dispatch(new UpdateItemSuccessAction<IIngredientModel>(action.Item));
+            dispatcher.Dispatch(new UpdateItemSuccessAction<IRecipeModel>(action.Item));
 
             var notification = new NotificationMessage()
             {
-                Message = _messagesStringLocalizer["UpdateIngredientSuccessMessage"],
+                Message = _messagesStringLocalizer["UpdateRecipeSuccessMessage"],
                 Type = "success"
             };
 
@@ -135,13 +135,13 @@ public class IngredientEffects
 
             var notification = new NotificationMessage()
             {
-                Message = _messagesStringLocalizer["UpdateIngredientErrorMessage"],
+                Message = _messagesStringLocalizer["UpdateRecipeErrorMessage"],
                 Type = "danger"
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
             
-            dispatcher.Dispatch(new UpdateItemFailureAction<IIngredientModel>(action.Item));
+            dispatcher.Dispatch(new UpdateItemFailureAction<IRecipeModel>(action.Item));
         }
     }
 }

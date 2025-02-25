@@ -12,6 +12,6 @@
 /* 🏠 Contenu principal */
 main {
     flex: 1;
-    padding-bottom: 70px; /* Pour éviter que le contenu passe sous la menu */
+    padding-bottom: var(--main-padding-bottom);
     overflow: auto;
 }
