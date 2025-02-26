@@ -21,7 +21,7 @@ public class IngredientEffects
     {
         try
         {
-            var ingredients = await _repository.GetAsync(action.Take, action.Skip);
+            var ingredients = await _repository.GetAsync(action.Take, action.Skip, action.Predicate);
 
             dispatcher.Dispatch(new LoadItemsSuccessAction<IIngredientModel>(ingredients));
         }

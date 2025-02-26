@@ -5,6 +5,8 @@
 @rendermode InteractiveServer
 @attribute [StreamRendering]
 
+<SearchBar OnSearch="@OnSearchTermChanged" />
+
 <div class="ingredient-grid @GetIngredientsVisibilityCssClass()">
     @foreach (var ingredient in IngredientState.Value.Items)
     {

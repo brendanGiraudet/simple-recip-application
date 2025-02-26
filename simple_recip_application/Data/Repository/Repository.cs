@@ -27,12 +27,12 @@ public class Repository<T> : IRepository<T> where T : EntityBase
 
     public virtual async Task<IEnumerable<T>> GetAsync(int take, int skip, Expression<Func<T, bool>>? predicate = null)
     {
-        var result = _dbContext.Set<T>().Skip(skip).Take(take);
+        IQueryable<T> query = _dbContext.Set<T>();
 
         if (predicate is not null)
-            result = result.Where(predicate);
+            query = query.Where(predicate);
 
-        return await result.ToListAsync();
+        return await query.Skip(skip).Take(take).ToListAsync();
     }
 
     public async Task AddAsync(T? entity)

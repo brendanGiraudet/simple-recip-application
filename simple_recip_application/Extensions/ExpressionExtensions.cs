@@ -7,9 +7,28 @@ public static class ExpressionExtensions
     public static Expression<Func<TTarget, bool>> Convert<TSource, TTarget>(this Expression<Func<TSource, bool>> source)
     {
         var parameter = Expression.Parameter(typeof(TTarget), "x");
+        var visitor = new ParameterTypeVisitor<TSource, TTarget>(parameter);
+        var body = visitor.Visit(source.Body);
 
-        // var body = new ExpressionVisitor().Visit(source.Body); // Vous devez visiter l'arbre d'expressions pour modifier le type de source à target.
-        
-        return Expression.Lambda<Func<TTarget, bool>>(source.Body, parameter);
+        return Expression.Lambda<Func<TTarget, bool>>(body, parameter);
+    }
+}
+
+public class ParameterTypeVisitor<TSource, TTarget> : ExpressionVisitor
+{
+    private readonly ParameterExpression _parameter;
+
+    public ParameterTypeVisitor(ParameterExpression parameter)
+    {
+        _parameter = parameter;
+    }
+
+    protected override Expression VisitParameter(ParameterExpression node)
+    {
+        if (node.Type == typeof(TSource))
+        {
+            return _parameter;
+        }
+        return base.VisitParameter(node);
     }
 }

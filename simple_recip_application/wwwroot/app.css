@@ -70,7 +70,7 @@ h1:focus {
     color: var(--button-text-color);
     border: none;
     padding: 10px 15px;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s ease;
@@ -104,4 +104,10 @@ h1:focus {
 /* Style des champs */
 .form-field {
     margin:1rem;
+}
+
+input[type=text]{
+    padding: .5rem;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--accent-color-2);
 }

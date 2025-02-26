@@ -7,6 +7,7 @@ using simple_recip_application.Features.IngredientsManagement.Persistence.Entiti
 using simple_recip_application.Features.IngredientsManagement.Store;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
+using System.Linq.Expressions;
 
 namespace simple_recip_application.Features.IngredientsManagement.UserInterfaces.Pages;
 
@@ -78,5 +79,23 @@ public partial class Ingredients
     {
         var skip = IngredientState.Value.Skip + IngredientState.Value.Take;
         Dispatcher.Dispatch(new LoadItemsAction<IIngredientModel>(Take: IngredientState.Value.Take, Skip: skip));
+    }
+
+    private string _searchTerm = string.Empty;
+
+    private void OnSearchTermChanged(string searchTerm)
+    {
+        _searchTerm = searchTerm;
+        LoadFilteredIngredients();
+    }
+
+    private void LoadFilteredIngredients()
+    {
+        Expression<Func<IIngredientModel, bool>>? filter = null;
+
+        if(!string.IsNullOrEmpty(_searchTerm))
+            filter = i => i.Name.ToLower().Contains(_searchTerm.ToLower());
+
+        Dispatcher.Dispatch(new LoadItemsAction<IIngredientModel>(Take: IngredientState.Value.Take, Skip: 0, filter));
     }
 }

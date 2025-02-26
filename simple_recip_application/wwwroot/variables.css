@@ -48,6 +48,8 @@
     --option-menu-bottom: calc(var(--menu-height) + 7vh);
     --option-menu-font-size: 1rem;
     --option-menu-height: 4rem;
+
+    --border-radius: 5px;
 }
 
 /* iPads, Tablets */
