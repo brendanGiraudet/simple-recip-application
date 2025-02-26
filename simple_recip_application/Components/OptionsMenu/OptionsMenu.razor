@@ -4,18 +4,20 @@
     @if (_isOptionsListVisible)
     {
         <div class="options-list">
-            @foreach(var option in Options)
+            @foreach (var option in Options)
             {
-                <button @onclick="@(async () => await option.OnClickAction.Invoke())" class="btn btn-primary">
+                <button @onclick="@(async () => await option.OnClickAction.Invoke())" class="btn btn-secondary">
                     <span class="material-symbols-outlined">@option.Icon</span>
-                    @option.Text
+                    @if (!string.IsNullOrEmpty(option.Text))
+                    {
+                        @option.Text
+                    }
                 </button>
             }
         </div>
     }
 
-    <button class="options-button" @onclick="ToggleOptionsList">
+    <button class="btn btn-primary options-button" @onclick="ToggleOptionsList">
         <span class="material-symbols-outlined">list</span>
-        @LabelsLocalizer["Options"]
     </button>
 </div>

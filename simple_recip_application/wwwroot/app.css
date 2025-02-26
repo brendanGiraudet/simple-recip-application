@@ -68,7 +68,7 @@ h1:focus {
 .btn {
     background-color: var(--button-bg-color);
     color: var(--button-text-color);
-    border: none;
+    border: 1px solid var(--button-bg-color);
     padding: 10px 15px;
     border-radius: var(--border-radius);
     cursor: pointer;
@@ -82,19 +82,23 @@ h1:focus {
 }
 
 .btn-primary {
+    --button-bg-color: var(--accent-color-1);
+    --button-text-color: var(--accent-color-2);
+}
+
+.btn-secondary {
     --button-bg-color: var(--accent-color-2);
     --button-text-color: var(--accent-color-1);
 }
 
-.btn-secondary {
-    --button-bg-color: var(--accent-color-1);
-    --button-text-color: var(--accent-color-2);
+.btn-danger {
+    --button-bg-color: var(--danger-color);
+    --button-text-color: var(--secondary-color);
 }
 
 .btn:disabled {
     opacity: 0.5;
     cursor: default;
-
 }
 
 .hidden {
@@ -103,10 +107,11 @@ h1:focus {
 
 /* Style des champs */
 .form-field {
-    margin:1rem;
+    margin: 1rem;
 }
 
-input[type=text]{
+/* Style input text */
+input {
     padding: .5rem;
     border-radius: var(--border-radius);
     border: 2px solid var(--accent-color-2);

@@ -6,13 +6,11 @@
     flex-direction: row;
     width: 95vw;
     justify-content: flex-end;
+    align-items: center;
     overflow: auto;
 }
 
 .options-button {
-    background-color: var(--accent-color-1);
-    color: var(--secondary-color);
-    border: none;
     padding: 10px;
     border-radius: 50%;
     font-size: var(--option-menu-font-size);
@@ -21,7 +19,6 @@
     z-index: 1000;
     display: flex;
     flex-direction: column;
-    height: var(--option-menu-height);
 }
 
 /* Liste des options (visible lorsque le bouton est cliqué) */
@@ -36,5 +33,4 @@
     border-radius: 50%;
     display: flex;
     flex-direction: column;
-    height: var(--option-menu-height);
 }
