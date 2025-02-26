@@ -39,7 +39,7 @@
 
     /* Card */
     --card-width: 90vh;
-    --card-height: 25vh;
+    --card-height: 35vh;
     --card-title-font-size: 1.2rem;
     --card-title-margin: 1rem 0;
     --card-actions-flex-direction: column;
@@ -50,6 +50,8 @@
     --option-menu-height: 4rem;
 
     --border-radius: 5px;
+
+    --grid-max-height: 48vh;
 }
 
 /* iPads, Tablets */
