@@ -1,17 +1,12 @@
 @rendermode InteractiveServer
  @inherits CustomComponentBase
 
-<div class="card">
+<div class="card" @onclick="@(() => OnEditAsync(Ingredient))">
     <div class="card-img-container">
         <img src="@GetImageSource()" alt="@Ingredient.Name" class="card-img" />
-        <div class="selection-icon @GetSelectionIconClass()" @onclick="ToggleSelection"></div>
+        <div class="selection-icon @GetSelectionIconClass()" @onclick:stopPropagation=true @onclick="ToggleSelection"></div>
     </div>
     <div class="card-body">
         <h5 class="card-title">@Ingredient.Name</h5>
-    </div>
-    <div class="card-actions">
-        <button @onclick="@(() => OnEditAsync(Ingredient))" class="btn btn-primary">@LabelsLocalizer["Update"]</button>
-        <button @onclick="@(() => OnDeleteAsync(Ingredient))"
-            class="btn btn-secondary">@LabelsLocalizer["Delete"]</button>
     </div>
 </div>

@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -59,5 +60,23 @@ public partial class RecipesPage
         ];
 
         return options;
+    }
+
+    private string _searchTerm = string.Empty;
+
+    private void OnSearchTermChanged(string searchTerm)
+    {
+        _searchTerm = searchTerm;
+        LoadFilteredIngredients();
+    }
+
+    private void LoadFilteredIngredients()
+    {
+        Expression<Func<IRecipeModel, bool>>? filter = null;
+
+        if(!string.IsNullOrEmpty(_searchTerm))
+            filter = i => i.Name.ToLower().Contains(_searchTerm.ToLower());
+
+        Dispatcher.Dispatch(new LoadItemsAction<IRecipeModel>(Take: RecipeState.Value.Take, Skip: 0, filter));
     }
 }

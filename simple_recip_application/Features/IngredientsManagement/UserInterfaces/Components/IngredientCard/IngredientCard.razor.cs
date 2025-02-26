@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
-using simple_recip_application.Resources;
 
 namespace simple_recip_application.Features.IngredientsManagement.UserInterfaces.Components.IngredientCard;
 
@@ -35,11 +33,5 @@ public partial class IngredientCard
     {
         if (OnEdit.HasDelegate)
             await OnEdit.InvokeAsync(model);
-    }
-
-    protected async Task OnDeleteAsync(IIngredientModel model)
-    {
-        if (OnDelete.HasDelegate)
-            await OnDelete.InvokeAsync(model);
     }
 }

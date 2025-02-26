@@ -1,6 +1,10 @@
-.searchbar-container{
+.searchbar-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin: 20px 0;
+}
+
+.searchbar-container>input {
+    border-radius: 6.25rem;
 }

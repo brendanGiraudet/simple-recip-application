@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
-using simple_recip_application.Resources;
-using Fluxor;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
 using simple_recip_application.Store.Actions;
 
@@ -38,4 +35,12 @@ public partial class IngredientForm
         else
             Dispatcher.Dispatch(new AddItemAction<IIngredientModel>(Ingredient));
     }
+
+    private void DeleteIngredient(IIngredientModel model)
+    {
+        if (model.Id.HasValue)
+            Dispatcher.Dispatch(new DeleteItemAction<IIngredientModel>(model));
+    }
+
+    private string GetDeleleButtonCssClass() => Ingredient.Id.HasValue ? "" : "hidden";
 }

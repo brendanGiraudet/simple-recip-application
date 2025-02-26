@@ -1,9 +1,9 @@
 @page "/recipes"
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
-<h3>@LabelsLocalizer["RecipeList"]</h3>
+<SearchBar OnSearch="@OnSearchTermChanged" />
 
-<div>
+<div class="recip-grid @GetRecipesVisibilityCssClass()">
     @foreach (var recipe in RecipeState.Value.Items)
     {
         <div>
