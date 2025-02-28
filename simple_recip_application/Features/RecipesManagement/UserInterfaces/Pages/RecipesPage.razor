@@ -1,5 +1,6 @@
 @page "/recipes"
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@rendermode InteractiveServer
 
 <SearchBar OnSearch="@OnSearchTermChanged" />
 
@@ -17,10 +18,11 @@
 
 <Loader IsVisible="@RecipeState.Value.IsLoading" />
 
-<Modal OnClose="CloseRecipeFormModal" IsVisible="_isRecipeFormModalOpen">
+<Modal OnClose="CloseRecipeFormModal" 
+       IsVisible="_isRecipeFormModalOpen">
 
-    @* <IngredientForm Ingredient="_selectedRecipe" 
-                    OnCancel="CloseRecipeFormModal" /> *@
+    <RecipeForm Recipe="_selectedRecipe" 
+                    OnCancel="CloseRecipeFormModal" />
 </Modal>
 
 <OptionsMenu Options="GetOptions()" />

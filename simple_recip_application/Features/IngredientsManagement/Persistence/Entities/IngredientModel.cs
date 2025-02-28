@@ -1,14 +1,15 @@
-using System.ComponentModel.DataAnnotations;
 using simple_recip_application.Data.Persistence.Entities;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.ValidationAttributes;
 using simple_recip_application.Resources;
+using System.ComponentModel.DataAnnotations;
 
 namespace simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
 
 public class IngredientModel : EntityBase, IIngredientModel
 {
     [Required(ErrorMessageResourceName = nameof(Messages.NameRequired), ErrorMessageResourceType = typeof(Messages))]
+    [MaxLength(255)]
     public string Name { get; set; } = string.Empty;
 
     [RequiredImage(ErrorMessageResourceName = nameof(Messages.ImageRequired), ErrorMessageResourceType = typeof(Messages))]

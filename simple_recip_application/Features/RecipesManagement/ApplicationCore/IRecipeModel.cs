@@ -6,10 +6,13 @@ public interface IRecipeModel : IEntityBase
 {
     public string Name { get; set; }
     public string Description { get; set; }
-    public List<IRecipeIngredient> Ingredients { get; set; }
+    public ICollection<IRecipeIngredient> IngredientModels { get; set; }
     public string Instructions { get; set; }
-    public TimeSpan PreparationTime { get; set; }
-    public TimeSpan CookingTime { get; set; }
-    public string? ImageUrl { get; set; }
+    public TimeOnly PreparationTime { get; set; }
+    public TimeOnly CookingTime { get; set; }
+    public byte[] Image { get; set; }
     public string Category { get; set; }
+    public DateTime CreationDate { get; set; }
+    public DateTime? ModificationDate { get; set; }
+    public DateTime? RemoveDate { get; set; }
 }

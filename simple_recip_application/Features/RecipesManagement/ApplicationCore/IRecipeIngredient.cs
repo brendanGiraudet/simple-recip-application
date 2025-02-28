@@ -4,6 +4,11 @@ namespace simple_recip_application.Features.RecipesManagement.ApplicationCore;
 
 public interface IRecipeIngredient
 {
-    public IIngredientModel Ingredient { get; set; }
+    public Guid RecipeId { get; set; }
+    public IRecipeModel RecipeModel { get; set; }
+
+    public Guid IngredientId { get; set; }
+    public IIngredientModel IngredientModel { get; set; }
+
     public decimal Quantity { get; set; }
 }

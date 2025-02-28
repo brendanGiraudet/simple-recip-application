@@ -1,16 +1,71 @@
 @inherits CustomComponentBase
 
-<EditForm Model="@Recipe" OnValidSubmit="AddRecipe">
-    <div>
-        <label>Name</label>
-        <InputText @bind-Value="Recipe.Name" />
-    </div>
-    <div>
-        <label>Description</label>
-        <InputText @bind-Value="Recipe.Description" />
+<h3>@(Recipe.Id.HasValue ? LabelsLocalizer["EditRecipeTitle"] : LabelsLocalizer["AddRecipeTitle"])</h3>
 
-        <label>Instructions</label>
-        <InputText @bind-Value="Recipe.Instructions" />
+<EditForm Model="Recipe" OnValidSubmit="Submit">
+    <DataAnnotationsValidator />
+
+    <!-- Recipe Name -->
+    <div class="form-field">
+        <label>@LabelsLocalizer["RecipeName"]</label>
+        <InputText @bind-Value="Recipe.Name" class="form-control" />
+        <ValidationMessage For="@(() => Recipe.Name)" />
     </div>
-    <button type="submit">Add Recipe</button>
+
+    <!-- Recipe Description -->
+    <div class="form-field">
+        <label>@LabelsLocalizer["Description"]</label>
+        <InputText @bind-Value="Recipe.Description" class="form-control" />
+        <ValidationMessage For="@(() => Recipe.Description)" />
+    </div>
+
+    <!-- Instructions -->
+    <div class="form-field">
+        <label>@LabelsLocalizer["Instructions"]</label>
+        <InputTextArea @bind-Value="Recipe.Instructions" class="form-control" />
+        <ValidationMessage For="@(() => Recipe.Instructions)" />
+    </div>
+
+    <!-- Preparation Time -->
+    <div class="form-field">
+        <label>@LabelsLocalizer["PreparationTime"]</label>
+        <InputDate @bind-Value="Recipe.PreparationTime" class="form-control" />
+        <ValidationMessage For="@(() => Recipe.PreparationTime)" />
+    </div>
+
+    <!-- Cooking Time -->
+    <div class="form-field">
+        <label>@LabelsLocalizer["CookingTime"]</label>
+        <InputDate @bind-Value="Recipe.CookingTime" class="form-control" />
+        <ValidationMessage For="@(() => Recipe.CookingTime)" />
+    </div>
+
+    <!-- Recipe Image -->
+    <div class="form-field">
+        <label>@LabelsLocalizer["ImageLabel"]</label>
+        <InputFile OnChange="HandleImageUpload" accept="image/*" />
+        <ValidationMessage For="@(() => Recipe.Image)" />
+    </div>
+
+    <!-- Recipe Category -->
+    <div class="form-field">
+        <label>@LabelsLocalizer["Category"]</label>
+        <InputText @bind-Value="Recipe.Category" class="form-control" />
+        <ValidationMessage For="@(() => Recipe.Category)" />
+    </div>
+
+    <!-- Submit and Cancel Buttons -->
+    <div>
+        <button type="submit" class="btn btn-primary">
+            @LabelsLocalizer["SubmitButton"]
+        </button>
+
+        <button type="button" @onclick="@(() => OnCancelAsync())" class="btn btn-secondary">
+            @LabelsLocalizer["Cancel"]
+        </button>
+
+        <button @onclick="@(() => DeleteRecipe(Recipe))" class="btn btn-danger @GetDeleteButtonCssClass()">
+            @LabelsLocalizer["Delete"]
+        </button>
+    </div>
 </EditForm>

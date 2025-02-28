@@ -39,7 +39,7 @@ h1:focus {
     color: #e50000;
 }
 
-#blazor-error-ui{
+#blazor-error-ui {
     display: none;
 }
 
@@ -109,9 +109,19 @@ h1:focus {
     display: none !important;
 }
 
-/* Style des champs */
+/* Style formulaire */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .form-field {
     margin: 1rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
 }
 
 /* Style input text */
