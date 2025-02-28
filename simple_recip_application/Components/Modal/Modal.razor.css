@@ -2,13 +2,13 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: var(--modal-width);
-    height: var(--modal-height);
+    width: 100vw;
+    height: 100vh;
     z-index: 10;
+    color: var(--accent-color-2);
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--accent-color-2);
 }
 
 .modal-overlay {
@@ -21,12 +21,16 @@
 
 .modal-content {
     background: white;
-    padding: 20px;
+    padding: 1rem;
     border-radius: 10px;
     position: relative;
     z-index: 10;
-    display: flex;
-    flex-direction: column;
+}
+
+.modal-body {
+    overflow: auto;
+    max-width: var(--modal-body-width);
+    max-height: var(--modal-body-height);
 }
 
 .modal-header{

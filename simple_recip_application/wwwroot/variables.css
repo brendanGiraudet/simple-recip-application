@@ -54,8 +54,11 @@
     --grid-max-height: 48vh;
 
     /* Modal */
-    --modal-width: 100vw;
-    --modal-height: 100vh;
+    --modal-body-width: 90vw;
+    --modal-body-height: 90vh;
+
+    /* Input */
+    --input-width: 100%;
 }
 
 /* iPads, Tablets */
@@ -68,6 +71,10 @@
 
         /* Menu*/
         --menu-height: 5vh;
+
+        /* Modal */
+        --modal-body-width: 80vw;
+        --modal-body-height: 80vh;
     }
 }
 
@@ -83,6 +90,9 @@
 
         /* Menu*/
         --menu-height: 2vh;
+
+        /* Input */
+        --input-width: 50%;
     }
 }
 

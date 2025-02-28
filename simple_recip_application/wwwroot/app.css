@@ -116,6 +116,12 @@ form {
     align-items: center;
 }
 
+.form-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
 .form-field {
     margin: 1rem;
     display: flex;
@@ -125,8 +131,14 @@ form {
     flex-wrap: wrap;
 }
 
+.form-field input,
+.form-field textarea {
+    width: var(--input-width);
+}
+
 /* Style input text */
-input {
+input,
+textarea {
     padding: .5rem;
     border-radius: var(--border-radius);
     border: 2px solid var(--accent-color-2);

@@ -27,5 +27,13 @@ public class Labels
     public static string Options => resourceManager.GetString("Options", CultureInfo.CurrentCulture) ?? "Options";
     public static string ImportIngredients => resourceManager.GetString("ImportIngredients", CultureInfo.CurrentCulture) ?? "ImportIngredients";
     public static string Import => resourceManager.GetString("Import", CultureInfo.CurrentCulture) ?? "Import";
-    public static string AddRecipe => resourceManager.GetString("AddRecipe", CultureInfo.CurrentCulture) ?? "AddRecipe";
+    public static string AddRecipeTitle => resourceManager.GetString("AddRecipeTitle", CultureInfo.CurrentCulture) ?? "AddRecipeTitle";
+    public static string EditRecipeTitle => resourceManager.GetString("EditRecipeTitle", CultureInfo.CurrentCulture) ?? "EditRecipeTitle";
+    public static string RecipeName => resourceManager.GetString("RecipeName", CultureInfo.CurrentCulture) ?? "RecipeName";
+    public static string RecipeDescription => resourceManager.GetString("RecipeDescription", CultureInfo.CurrentCulture) ?? "RecipeDescription";
+    public static string RecipeInstructions => resourceManager.GetString("RecipeInstructions", CultureInfo.CurrentCulture) ?? "RecipeInstructions";
+    public static string RecipePreparationTime => resourceManager.GetString("RecipePreparationTime", CultureInfo.CurrentCulture) ?? "RecipePreparationTime";
+    public static string RecipeCookingTime => resourceManager.GetString("RecipeCookingTime", CultureInfo.CurrentCulture) ?? "RecipeCookingTime";
+    public static string RecipeImageLabel => resourceManager.GetString("RecipeImageLabel", CultureInfo.CurrentCulture) ?? "RecipeImageLabel";
+    public static string RecipeCategory => resourceManager.GetString("RecipeCategory", CultureInfo.CurrentCulture) ?? "RecipeCategory";
 }

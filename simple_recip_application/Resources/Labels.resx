@@ -48,7 +48,31 @@
   <data name="Import" xml:space="preserve">
       <value>Import</value>
   </data>
-  <data name="AddRecipe" xml:space="preserve">
+  <data name="AddRecipeTitle" xml:space="preserve">
       <value>Ajouter une recette</value>
+  </data>
+  <data name="EditRecipeTitle" xml:space="preserve">
+      <value>Editer une recette</value>
+  </data>
+  <data name="RecipeName" xml:space="preserve">
+      <value>Nom de la recette</value>
+  </data>
+  <data name="RecipeDescription" xml:space="preserve">
+      <value>Description de la recette</value>
+  </data>
+  <data name="RecipeInstructions" xml:space="preserve">
+      <value>Instructions de la recette</value>
+  </data>
+  <data name="RecipePreparationTime" xml:space="preserve">
+      <value>Temps de préparation de la recette</value>
+  </data>
+  <data name="RecipeCookingTime" xml:space="preserve">
+      <value>Temps de cuisson de la recette</value>
+  </data>
+  <data name="RecipeImageLabel" xml:space="preserve">
+      <value>Image de la recette</value>
+  </data>
+  <data name="RecipeCategory" xml:space="preserve">
+      <value>Catégorie de la recette</value>
   </data>
 </root>

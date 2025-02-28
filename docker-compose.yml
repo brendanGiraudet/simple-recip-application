@@ -8,7 +8,7 @@ services:
       args:
         - configuration=release
 
-    image: simple_recip_application:1.10.14
+    image: simple_recip_application:1.10.17
 
     container_name: simple_recip_application
 
@@ -20,7 +20,7 @@ services:
       ASPNETCORE_URLS: http://+:4242
       ASPNETCORE_HTTP_PORTS: 4242
       ConnectionStrings__DefaultConnection: "Data Source=/app/Data/recipes.db"
-      ApplicationVersion : "1.10.14"
+      ApplicationVersion : "1.10.17"
       FeatureManagement__RecipeFeature: false
 
     volumes:
