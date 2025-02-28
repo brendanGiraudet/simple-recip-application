@@ -5,9 +5,12 @@
 
 <div class="modal-container @_isVisibleCssClass">
     <div class="modal-content">
-        <button class="modal-close" @onclick="@(() => CloseModal())">×</button>
-
-        @ChildContent
+        <div class="modal-header">
+            <button class="modal-close" @onclick="@(() => CloseModal())">×</button>
+        </div>
+        <div class="modal-body">
+            @ChildContent
+        </div>
     </div>
     <div class="modal-overlay" @onclick="@(() => CloseOnOverlayClick())"></div>
 </div>

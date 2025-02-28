@@ -52,6 +52,10 @@
     --border-radius: 5px;
 
     --grid-max-height: 48vh;
+
+    /* Modal */
+    --modal-width: 100vw;
+    --modal-height: 100vh;
 }
 
 /* iPads, Tablets */
