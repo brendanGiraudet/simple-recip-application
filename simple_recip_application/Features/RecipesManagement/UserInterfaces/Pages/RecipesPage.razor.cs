@@ -25,6 +25,8 @@ public partial class RecipesPage
         _selectedRecipe = model ?? new RecipeModel();
 
         Dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(true));
+
+        await Task.CompletedTask;
     }
 
     private void CloseRecipeFormModal(bool isUpdated) => Dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));

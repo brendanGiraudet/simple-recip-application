@@ -14,14 +14,17 @@ public partial class ImportPage
     [Inject] public required IState<ImportState> ImportState { get; set; }
     [Inject] public required IStringLocalizer<Labels> LabelsLocalizer { get; set; }
 
-// TODO pb avec le formulaire
-    public ImportModel ImportModel {get;set;} = new(){
+    // TODO pb avec le formulaire
+    public ImportModel ImportModel { get; set; } = new()
+    {
         FilePath = "/home/bakayarusama/Téléchargements/fr.openfoodfacts.org.products.csv"
     };
 
     private async Task HandleImport()
     {
         Dispatcher.Dispatch(new StartImportAction(ImportStrategyEnum.ImportIngredientsFromCsv, ImportModel));
+
+        await Task.CompletedTask;
     }
 }
 

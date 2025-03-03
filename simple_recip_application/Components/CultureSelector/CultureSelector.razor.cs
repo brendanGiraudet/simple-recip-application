@@ -25,7 +25,9 @@ public partial class CultureSelector
         get { return _currentCultureInfo; }
         set
         {
-            if (_currentCultureInfo.TwoLetterISOLanguageName != value?.TwoLetterISOLanguageName)
+            if(value is null) return;
+
+            if (_currentCultureInfo.TwoLetterISOLanguageName != value.TwoLetterISOLanguageName)
             {
                 _currentCultureInfo = value;
 
@@ -47,7 +49,7 @@ public partial class CultureSelector
 
     protected void ChangeLanguage(ChangeEventArgs e)
     {
-        var selectedLanguage = e.Value.ToString();
+        var selectedLanguage = e.Value?.ToString();
         if (selectedLanguage != null)
         {
             CurrentCulture = new CultureInfo(selectedLanguage);

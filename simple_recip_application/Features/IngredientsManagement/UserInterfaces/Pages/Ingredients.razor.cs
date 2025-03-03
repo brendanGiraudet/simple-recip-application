@@ -25,6 +25,8 @@ public partial class Ingredients
         _selectedIngredient = model ?? new IngredientModel();
 
         Dispatcher.Dispatch(new SetIngredientModalVisibilityAction(true));
+
+        await Task.CompletedTask;
     }
 
     private void CloseIngredientModal(bool isUpdated) => Dispatcher.Dispatch(new SetIngredientModalVisibilityAction(false));
@@ -66,12 +68,16 @@ public partial class Ingredients
         skip = skip < 0 ? 0 : skip;
 
         Dispatcher.Dispatch(new LoadItemsAction<IIngredientModel>(Take: IngredientState.Value.Take, Skip: skip));
+
+        await Task.CompletedTask;
     }
 
     private async Task OnNext()
     {
         var skip = IngredientState.Value.Skip + IngredientState.Value.Take;
         Dispatcher.Dispatch(new LoadItemsAction<IIngredientModel>(Take: IngredientState.Value.Take, Skip: skip));
+
+        await Task.CompletedTask;
     }
 
     private string _searchTerm = string.Empty;
