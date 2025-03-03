@@ -1,5 +1,6 @@
 using Fluxor;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
+using simple_recip_application.Features.IngredientsManagement.Store.Actions;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.IngredientsManagement.Store;
@@ -64,5 +65,11 @@ public static class IngredientReducer
     [ReducerMethod]
     public static IngredientState ReduceUpdateItemFailureAction(IngredientState state, UpdateItemFailureAction<IIngredientModel> action) =>
         state with { IsLoading = false };
+    #endregion
+
+    #region SetIngredientModalVisibility
+    [ReducerMethod]
+    public static IngredientState ReduceSetIngredientModalVisibilityAction(IngredientState state, SetIngredientModalVisibilityAction action) =>
+        state with { IngredientModalVisibility = action.IsVisible };
     #endregion
 }

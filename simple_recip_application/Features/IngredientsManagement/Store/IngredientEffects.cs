@@ -2,7 +2,9 @@ using Fluxor;
 using Microsoft.Extensions.Localization;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
+using simple_recip_application.Features.IngredientsManagement.Store.Actions;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
 using simple_recip_application.Features.NotificationsManagement.Persistence.Entites;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
@@ -34,7 +36,7 @@ public class IngredientEffects
             var notification = new NotificationMessage()
             {
                 Message = _messagesStringLocalizer["LoadIngredientErrorMessage"],
-                Type = "danger"
+                Type = NotificationType.Error
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
@@ -47,16 +49,18 @@ public class IngredientEffects
         try
         {
             await _repository.AddAsync(action.Item);
-            
+
             dispatcher.Dispatch(new AddItemSuccessAction<IIngredientModel>(action.Item));
 
             var notification = new NotificationMessage()
             {
                 Message = _messagesStringLocalizer["AddIngredientSuccessMessage"],
-                Type = "success"
+                Type = NotificationType.Success
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+            dispatcher.Dispatch(new SetIngredientModalVisibilityAction(false));
         }
         catch (Exception ex)
         {
@@ -65,7 +69,7 @@ public class IngredientEffects
             var notification = new NotificationMessage()
             {
                 Message = _messagesStringLocalizer["AddIngredientErrorMessage"],
-                Type = "danger"
+                Type = NotificationType.Error
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
@@ -79,7 +83,7 @@ public class IngredientEffects
     {
         try
         {
-            if(!action.Item.Id.HasValue) return;
+            if (!action.Item.Id.HasValue) return;
 
             var ingredient = await _repository.GetByIdAsync(action.Item.Id.Value);
             if (ingredient != null)
@@ -90,10 +94,12 @@ public class IngredientEffects
                 var notification = new NotificationMessage()
                 {
                     Message = _messagesStringLocalizer["DeleteIngredientSuccessMessage"],
-                    Type = "success"
+                    Type = NotificationType.Success
                 };
 
                 dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+                dispatcher.Dispatch(new SetIngredientModalVisibilityAction(false));
             }
         }
         catch (Exception ex)
@@ -103,7 +109,7 @@ public class IngredientEffects
             var notification = new NotificationMessage()
             {
                 Message = _messagesStringLocalizer["DeleteIngredientErrorMessage"],
-                Type = "danger"
+                Type = NotificationType.Error
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
@@ -124,10 +130,12 @@ public class IngredientEffects
             var notification = new NotificationMessage()
             {
                 Message = _messagesStringLocalizer["UpdateIngredientSuccessMessage"],
-                Type = "success"
+                Type = NotificationType.Success
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+            dispatcher.Dispatch(new SetIngredientModalVisibilityAction(false));
         }
         catch (Exception ex)
         {
@@ -136,11 +144,11 @@ public class IngredientEffects
             var notification = new NotificationMessage()
             {
                 Message = _messagesStringLocalizer["UpdateIngredientErrorMessage"],
-                Type = "danger"
+                Type = NotificationType.Error
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
-            
+
             dispatcher.Dispatch(new UpdateItemFailureAction<IIngredientModel>(action.Item));
         }
     }

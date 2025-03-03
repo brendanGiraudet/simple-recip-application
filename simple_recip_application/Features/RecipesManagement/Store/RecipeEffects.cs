@@ -6,6 +6,7 @@ using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
 using simple_recip_application.Features.NotificationsManagement.Persistence.Entites;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
 
 namespace simple_recip_application.Features.RecipesManagement.Store;
 
@@ -34,7 +35,7 @@ public class RecipeEffects
             var notification = new NotificationMessage()
             {
                 Message = _messagesStringLocalizer["LoadRecipeErrorMessage"],
-                Type = "danger"
+                Type = NotificationType.Error
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
@@ -53,7 +54,7 @@ public class RecipeEffects
             var notification = new NotificationMessage()
             {
                 Message = _messagesStringLocalizer["AddRecipeSuccessMessage"],
-                Type = "success"
+                Type = NotificationType.Success
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
@@ -65,7 +66,7 @@ public class RecipeEffects
             var notification = new NotificationMessage()
             {
                 Message = _messagesStringLocalizer["AddRecipeErrorMessage"],
-                Type = "danger"
+                Type = NotificationType.Error
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
@@ -90,7 +91,7 @@ public class RecipeEffects
                 var notification = new NotificationMessage()
                 {
                     Message = _messagesStringLocalizer["DeleteRecipeSuccessMessage"],
-                    Type = "success"
+                    Type = NotificationType.Success
                 };
 
                 dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
@@ -103,7 +104,7 @@ public class RecipeEffects
             var notification = new NotificationMessage()
             {
                 Message = _messagesStringLocalizer["DeleteRecipeErrorMessage"],
-                Type = "danger"
+                Type = NotificationType.Error
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
@@ -124,7 +125,7 @@ public class RecipeEffects
             var notification = new NotificationMessage()
             {
                 Message = _messagesStringLocalizer["UpdateRecipeSuccessMessage"],
-                Type = "success"
+                Type = NotificationType.Success
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
@@ -136,7 +137,7 @@ public class RecipeEffects
             var notification = new NotificationMessage()
             {
                 Message = _messagesStringLocalizer["UpdateRecipeErrorMessage"],
-                Type = "danger"
+                Type = NotificationType.Error
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));

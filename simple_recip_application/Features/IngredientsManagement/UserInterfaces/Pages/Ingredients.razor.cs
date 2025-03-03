@@ -5,6 +5,7 @@ using simple_recip_application.Components.OptionsMenu;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
 using simple_recip_application.Features.IngredientsManagement.Store;
+using simple_recip_application.Features.IngredientsManagement.Store.Actions;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 using System.Linq.Expressions;
@@ -17,18 +18,16 @@ public partial class Ingredients
     [Inject] protected IState<IngredientState> IngredientState { get; set; } = default!;
     [Inject] protected IStringLocalizer<Labels> LabelsLocalizer { get; set; } = default!;
 
-    private bool _isIngredientModalOpen { get; set; } = false;
     private IIngredientModel? _selectedIngredient { get; set; } = new IngredientModel();
 
     private async Task OpenIngredientFormModalAsync(IIngredientModel? model = null)
     {
         _selectedIngredient = model ?? new IngredientModel();
-        _isIngredientModalOpen = true;
 
-        StateHasChanged();
+        Dispatcher.Dispatch(new SetIngredientModalVisibilityAction(true));
     }
 
-    private void CloseIngredientModal(bool isUpdated) => _isIngredientModalOpen = false;
+    private void CloseIngredientModal(bool isUpdated) => Dispatcher.Dispatch(new SetIngredientModalVisibilityAction(false));
 
     protected override void OnInitialized()
     {

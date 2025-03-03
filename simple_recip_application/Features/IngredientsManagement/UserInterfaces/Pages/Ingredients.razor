@@ -28,7 +28,7 @@
 <Loader IsVisible="@IngredientState.Value.IsLoading" />
 
 <Modal OnClose="CloseIngredientModal" 
-       IsVisible="_isIngredientModalOpen">
+       IsVisible="IngredientState.Value.IngredientModalVisibility">
 
     <IngredientForm Ingredient="_selectedIngredient" 
                     OnCancel="CloseIngredientModal" />

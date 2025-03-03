@@ -5,6 +5,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    z-index: 9999;
 }
 
 .notification {
@@ -21,6 +22,7 @@
 .notification.success { background-color: #4caf50; color: white; }
 .notification.error { background-color: #f44336; color: white; }
 .notification.info { background-color: #2196f3; color: white; }
+.notification.warning { background-color: goldenrod; color: white; }
 
 .notification button {
     background: none;

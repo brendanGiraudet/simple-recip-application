@@ -8,7 +8,7 @@
     <div class="notification-container">
         @foreach (var notification in NotificationState.Value.Notifications)
         {
-            <div class="notification @notification.Type">
+            <div class="notification @notification.Type.ToString().ToLower()">
                 <span>@notification.Message</span>
                 <button @onclick="@(() => RemoveNotification(notification))">×</button>
             </div>

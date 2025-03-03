@@ -31,6 +31,7 @@
     overflow: auto;
     max-width: var(--modal-body-width);
     max-height: var(--modal-body-height);
+    padding: 1rem;
 }
 
 .modal-header{
