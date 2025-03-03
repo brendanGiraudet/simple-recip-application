@@ -6,6 +6,7 @@ using simple_recip_application.Components.OptionsMenu;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore;
 using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 using simple_recip_application.Features.RecipesManagement.Store;
+using simple_recip_application.Features.RecipesManagement.Store.Actions;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 
@@ -17,18 +18,16 @@ public partial class RecipesPage
     [Inject] public required IDispatcher Dispatcher { get; set; }
     [Inject] public IStringLocalizer<Labels> LabelsLocalizer { get; set; } = default!;
 
-   private bool _isRecipeFormModalOpen { get; set; } = false;
     private IRecipeModel? _selectedRecipe { get; set; } = new RecipeModel();
 
     private async Task OpenRecipFormModalAsync(IRecipeModel? model = null)
     {
         _selectedRecipe = model ?? new RecipeModel();
-        _isRecipeFormModalOpen = true;
 
-        StateHasChanged();
+        Dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(true));
     }
 
-    private void CloseRecipeFormModal(bool isUpdated) => _isRecipeFormModalOpen = false;
+    private void CloseRecipeFormModal(bool isUpdated) => Dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
 
     private void DeleteRecipe(IRecipeModel recipe)
     {

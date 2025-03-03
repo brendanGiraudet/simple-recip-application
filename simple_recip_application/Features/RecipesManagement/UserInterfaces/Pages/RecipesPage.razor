@@ -19,7 +19,7 @@
 <Loader IsVisible="@RecipeState.Value.IsLoading" />
 
 <Modal OnClose="CloseRecipeFormModal" 
-       IsVisible="_isRecipeFormModalOpen">
+       IsVisible="@RecipeState.Value.RecipeFormModalVisibility">
 
     <RecipeForm Recipe="_selectedRecipe" 
                     OnCancel="CloseRecipeFormModal" />

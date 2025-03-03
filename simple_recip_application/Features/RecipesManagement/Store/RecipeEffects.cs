@@ -7,6 +7,7 @@ using simple_recip_application.Features.NotificationsManagement.Persistence.Enti
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
+using simple_recip_application.Features.RecipesManagement.Store.Actions;
 
 namespace simple_recip_application.Features.RecipesManagement.Store;
 
@@ -58,6 +59,8 @@ public class RecipeEffects
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+            dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
         }
         catch (Exception ex)
         {
@@ -95,6 +98,8 @@ public class RecipeEffects
                 };
 
                 dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+                dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
             }
         }
         catch (Exception ex)
@@ -129,6 +134,8 @@ public class RecipeEffects
             };
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+            dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
         }
         catch (Exception ex)
         {

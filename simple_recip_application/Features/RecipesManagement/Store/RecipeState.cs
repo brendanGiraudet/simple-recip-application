@@ -7,4 +7,5 @@ namespace simple_recip_application.Features.RecipesManagement.Store;
 [FeatureState]
 public record class RecipeState : BaseState<IRecipeModel>
 {
+    public bool RecipeFormModalVisibility { get; set; } = false;
 }

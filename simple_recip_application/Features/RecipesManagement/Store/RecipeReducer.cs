@@ -1,5 +1,6 @@
 using Fluxor;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore;
+using simple_recip_application.Features.RecipesManagement.Store.Actions;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.RecipesManagement.Store;
@@ -64,5 +65,11 @@ public static class RecipeReducer
     [ReducerMethod]
     public static RecipeState ReduceUpdateItemFailureAction(RecipeState state, UpdateItemFailureAction<IRecipeModel> action) =>
         state with { IsLoading = false };
+    #endregion
+
+    #region SetRecipeFormModalVisibility
+    [ReducerMethod]
+    public static RecipeState ReduceSetRecipeFormModalVisibilityAction(RecipeState state, SetRecipeFormModalVisibilityAction action) =>
+        state with { RecipeFormModalVisibility = action.IsVisible };
     #endregion
 }
