@@ -29,14 +29,14 @@
     <!-- Preparation Time -->
     <div class="form-field">
         <label>@LabelsLocalizer["RecipePreparationTime"]</label>
-        <InputDate @bind-Value="Recipe.PreparationTime" class="form-control" />
+        <InputDate Type="InputDateType.Time" TValue="TimeOnly" @bind-Value="Recipe.PreparationTime" class="form-control" />
         <ValidationMessage For="@(() => Recipe.PreparationTime)" />
     </div>
 
     <!-- Cooking Time -->
     <div class="form-field">
         <label>@LabelsLocalizer["RecipeCookingTime"]</label>
-        <InputDate @bind-Value="Recipe.CookingTime" class="form-control" />
+        <InputDate Type="InputDateType.Time" TValue="TimeOnly" @bind-Value="Recipe.CookingTime" class="form-control" />
         <ValidationMessage For="@(() => Recipe.CookingTime)" />
     </div>
 
