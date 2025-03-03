@@ -31,11 +31,6 @@ public partial class RecipesPage
 
     private void CloseRecipeFormModal(bool isUpdated) => Dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
 
-    private void DeleteRecipe(IRecipeModel recipe)
-    {
-        Dispatcher.Dispatch(new DeleteItemAction<IRecipeModel>(recipe));
-    }
-
     protected override void OnInitialized()
     {
         base.OnInitialized();

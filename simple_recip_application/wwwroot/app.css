@@ -9,34 +9,20 @@ a,
     color: #006bb7;
 }
 
-.btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
-
-.btn:focus,
-.btn:active:focus,
-.btn-link.nav-link:focus,
-.form-control:focus,
-.form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
 h1:focus {
     outline: none;
 }
 
 .valid.modified:not([type=checkbox]) {
-    outline: 1px solid #26b050;
+    box-shadow: 0 0 0 0.1rem var(--secondary-color), 0 0 0 0.25rem var(--success-color);
 }
 
 .invalid {
-    outline: 1px solid #e50000;
+    box-shadow: 0 0 0 0.1rem var(--secondary-color), 0 0 0 0.25rem var(--danger-color);
 }
 
 .validation-message {
-    color: #e50000;
+    color: var(--danger-color);
 }
 
 #blazor-error-ui {
@@ -68,7 +54,7 @@ h1:focus {
     text-align: start;
 }
 
-/* Styles des boutons */
+/**** Styles des boutons *****/
 .btn {
     background-color: var(--button-bg-color);
     color: var(--button-text-color);
@@ -88,16 +74,22 @@ h1:focus {
 .btn-primary {
     --button-bg-color: var(--accent-color-1);
     --button-text-color: var(--accent-color-2);
+    --button-box-shadow-background-color: var(--accent-color-2);
+    --button-box-shadow-border-color: var(--accent-color-1);
 }
 
 .btn-secondary {
     --button-bg-color: var(--accent-color-2);
     --button-text-color: var(--accent-color-1);
+    --button-box-shadow-background-color: var(--accent-color-1);
+    --button-box-shadow-border-color: var(--accent-color-2);
 }
 
 .btn-danger {
     --button-bg-color: var(--danger-color);
     --button-text-color: var(--secondary-color);
+    --button-box-shadow-background-color: var(--secondary-color);
+    --button-box-shadow-border-color: var(--danger-color);
 }
 
 .btn:disabled {
@@ -105,11 +97,22 @@ h1:focus {
     cursor: default;
 }
 
+.btn:focus,
+.btn:focus-visible,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem var(--button-box-shadow-background-color), 0 0 0 0.25rem var(--button-box-shadow-border-color);
+    outline: none;
+}
+/************/
+
 .hidden {
     display: none !important;
 }
 
-/* Style formulaire */
+/**** Style formulaire ****/
 form {
     display: flex;
     flex-direction: column;
@@ -135,11 +138,13 @@ form {
 .form-field textarea {
     width: var(--input-width);
 }
+/************/
 
-/* Style input text */
+/**** Style input text ****/
 input,
 textarea {
     padding: .5rem;
     border-radius: var(--border-radius);
     border: 2px solid var(--accent-color-2);
 }
+/************/

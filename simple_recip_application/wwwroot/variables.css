@@ -36,6 +36,8 @@
     /* Buttons */
     --button-bg-color: var(--accent-color-1);
     --button-text-color: var(--secondary-color);
+    --button-box-shadow-background-color: var(var(--secondary-color));
+    --button-box-shadow-border-color: var(var(--primary-color));
 
     /* Card */
     --card-width: 90vh;

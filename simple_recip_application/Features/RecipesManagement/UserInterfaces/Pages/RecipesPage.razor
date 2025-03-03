@@ -7,12 +7,13 @@
 <div class="recip-grid @GetRecipesVisibilityCssClass()">
     @foreach (var recipe in RecipeState.Value.Items)
     {
-        <div>
-            <h4>@recipe.Name</h4>
-            <p>@recipe.Description</p>
-            <button @onclick="@(() => OpenRecipFormModalAsync(recipe))">Edit</button>
-            <button @onclick="@(() => DeleteRecipe(recipe))">Delete</button>
-        </div>
+         <Card TContent="IRecipeModel"
+              Item="recipe"
+              ImageSource="@recipe.Image.GetImageSource()"
+              Title="@recipe.Name"
+              OnClick="OpenRecipFormModalAsync" 
+              OnSelect="HandleSelection" 
+              IsSelected="@(RecipeState.Value.SelectedItems.Contains(recipe))" />
     }
 </div>
 

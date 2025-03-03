@@ -10,10 +10,13 @@
 <div class="ingredient-grid @GetIngredientsVisibilityCssClass()">
     @foreach (var ingredient in IngredientState.Value.Items)
     {
-        <IngredientCard Ingredient="ingredient" 
-                        OnEdit="OpenIngredientFormModalAsync" 
-                        OnSelect="HandleSelection" 
-                        IsSelected="@(IngredientState.Value.SelectedItems.Contains(ingredient))" />
+        <Card TContent="IIngredientModel"
+              Item="ingredient"
+              ImageSource="@ingredient.Image.GetImageSource()"
+              Title="@ingredient.Name"
+              OnClick="OpenIngredientFormModalAsync" 
+              OnSelect="HandleSelection" 
+              IsSelected="@(IngredientState.Value.SelectedItems.Contains(ingredient))" />
     }
 </div>
 

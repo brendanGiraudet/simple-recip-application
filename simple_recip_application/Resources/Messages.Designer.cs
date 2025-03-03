@@ -20,4 +20,6 @@ public class Messages
     public static string LoadingInProgress => resourceManager.GetString("LoadingInProgress", CultureInfo.CurrentCulture) ?? "LoadingInProgress";
     public static string ImportFailure => resourceManager.GetString("ImportFailure", CultureInfo.CurrentCulture) ?? "ImportFailure";
     public static string ImportSuccess => resourceManager.GetString("ImportSuccess", CultureInfo.CurrentCulture) ?? "ImportSuccess";
+    public static string PreparationTimeRequired => resourceManager.GetString("PreparationTimeRequired", CultureInfo.CurrentCulture) ?? "PreparationTimeRequired";
+    public static string CookingTimeRequired => resourceManager.GetString("CookingTimeRequired", CultureInfo.CurrentCulture) ?? "CookingTimeRequired";
 }

@@ -27,4 +27,10 @@
   <data name="ImportSuccess" xml:space="preserve">
     <value>Success import</value>
   </data>
+  <data name="PreparationTimeRequired" xml:space="preserve">
+    <value>Preparation time is required</value>
+  </data>
+  <data name="CookingTimeRequired" xml:space="preserve">
+    <value>Cooking time is required</value>
+  </data>
 </root>

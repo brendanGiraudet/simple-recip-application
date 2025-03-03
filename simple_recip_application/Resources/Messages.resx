@@ -27,4 +27,10 @@
   <data name="ImportSuccess" xml:space="preserve">
     <value>Importation réussi</value>
   </data>
+  <data name="PreparationTimeRequired" xml:space="preserve">
+    <value>Temps de préparation obligatoire</value>
+  </data>
+  <data name="CookingTimeRequired" xml:space="preserve">
+    <value>Temps de cuisson obligatoire</value>
+  </data>
 </root>

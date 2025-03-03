@@ -8,6 +8,7 @@ namespace simple_recip_application.Features.RecipesManagement.Persistence.Entite
 
 public class RecipeModel : EntityBase, IRecipeModel
 {
+    [Required(ErrorMessageResourceName = nameof(Messages.NameRequired), ErrorMessageResourceType = typeof(Messages))]
     [MaxLength(255)]
     public string Name { get; set; } = string.Empty;
 
@@ -24,10 +25,10 @@ public class RecipeModel : EntityBase, IRecipeModel
     [MaxLength(3000)]
     public string Instructions { get; set; } = string.Empty;
 
-    [Required]
+    [Required(ErrorMessageResourceName = nameof(Messages.PreparationTimeRequired), ErrorMessageResourceType = typeof(Messages))]
     public TimeOnly PreparationTime { get; set; }
 
-    [Required]
+    [Required(ErrorMessageResourceName = nameof(Messages.CookingTimeRequired), ErrorMessageResourceType = typeof(Messages))]
     public TimeOnly CookingTime { get; set; }
 
     [RequiredImage(ErrorMessageResourceName = nameof(Messages.ImageRequired), ErrorMessageResourceType = typeof(Messages))]
