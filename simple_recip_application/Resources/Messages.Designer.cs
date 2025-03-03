@@ -22,4 +22,5 @@ public class Messages
     public static string ImportSuccess => resourceManager.GetString("ImportSuccess", CultureInfo.CurrentCulture) ?? "ImportSuccess";
     public static string PreparationTimeRequired => resourceManager.GetString("PreparationTimeRequired", CultureInfo.CurrentCulture) ?? "PreparationTimeRequired";
     public static string CookingTimeRequired => resourceManager.GetString("CookingTimeRequired", CultureInfo.CurrentCulture) ?? "CookingTimeRequired";
+    public static string MaxAllowedSizeError => resourceManager.GetString("MaxAllowedSizeError", CultureInfo.CurrentCulture) ?? "MaxAllowedSizeError";
 }

@@ -33,4 +33,7 @@
   <data name="CookingTimeRequired" xml:space="preserve">
     <value>Temps de cuisson obligatoire</value>
   </data>
+  <data name="MaxAllowedSizeError" xml:space="preserve">
+    <value>Le fichier est trop volumineux</value>
+  </data>
 </root>

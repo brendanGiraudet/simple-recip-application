@@ -13,7 +13,7 @@
 
     <div class="form-field">
         <label>@LabelsLocalizer["ImageLabel"]</label>
-        <InputFile OnChange="HandleImageUpload" accept="image/*" />
+        <InputFile OnChange="HandleImageUpload" accept="image/*" class="form-control" />
         <ValidationMessage For="@(() => Ingredient.Image)" />
     </div>
 
