@@ -1,10 +1,22 @@
-@using System.Globalization;
-@using simple_recip_application.Components.CultureSelector;
+@using System.Globalization
+@using simple_recip_application.Components.CultureSelector
 
 <div class="nav-item px-3">
-    <label for="languageSelector">@LabelsLocalizer["SelectLanguage"]:</label>
-    <select id="languageSelector" @onchange="ChangeLanguage" class="form-select">
-        <option value="fr" selected="@(IsSelected("fr"))">@LabelsLocalizer["French"]</option>
-        <option value="en" selected="@(IsSelected("en"))">@LabelsLocalizer["English"]</option>
-    </select>
+    <div class="custom-select-container">
+        <div class="selected-item" @onclick="ToggleDropdown">
+            <img src="@GetFlagImagePath(_selectedCulture.Name)" alt="@_selectedCulture.DisplayName" class="flag-icon" />
+        </div>
+
+        @if (_isDropdownVisible)
+        {
+            <div class="custom-dropdown">
+                @foreach (var culture in _supportedCultureInfos)
+                {
+                    <div class="custom-dropdown-item" @onclick="() => SelectCulture(culture)">
+                        <img src="@GetFlagImagePath(culture.TwoLetterISOLanguageName)" alt="@culture.DisplayName" class="flag-icon" />
+                    </div>
+                }
+            </div>
+        }
+    </div>
 </div>

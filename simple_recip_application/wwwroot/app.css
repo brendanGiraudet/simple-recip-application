@@ -59,7 +59,7 @@ h1:focus {
 .btn {
     background-color: var(--button-bg-color);
     color: var(--button-text-color);
-    border: 1px solid var(--button-bg-color);
+    border: var(--border-size) solid var(--button-bg-color);
     padding: 10px 15px;
     border-radius: var(--border-radius);
     cursor: pointer;

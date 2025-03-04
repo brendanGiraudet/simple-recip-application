@@ -8,51 +8,54 @@ namespace simple_recip_application.Components.CultureSelector;
 public partial class CultureSelector
 {
     [Inject] public required NavigationManager Navigation { get; set; }
-
     [Inject] public required IStringLocalizer<Labels> LabelsLocalizer { get; set; }
 
     private IEnumerable<CultureInfo> _supportedCultureInfos = new List<CultureInfo>()
     {
-        new("fr-FR"),
-        new("en-US")
+        new("fr-FR"),  // Français
+        new("en-US")   // Anglais
     };
 
+    private CultureInfo _selectedCulture;
+    private bool _isDropdownVisible;
 
-    private CultureInfo _currentCultureInfo = CultureInfo.CurrentCulture;
-
-    public CultureInfo CurrentCulture
+    protected override void OnInitialized()
     {
-        get { return _currentCultureInfo; }
-        set
+        _selectedCulture = CultureInfo.CurrentCulture;
+    }
+
+    // Méthode pour basculer la visibilité du dropdown
+    private void ToggleDropdown()
+    {
+        _isDropdownVisible = !_isDropdownVisible;
+    }
+
+    // Sélectionner une culture
+    private void SelectCulture(CultureInfo culture)
+    {
+        _selectedCulture = culture;
+        _isDropdownVisible = false;
+        ApplySelectedCultureAsync();
+    }
+
+    protected async Task ApplySelectedCultureAsync()
+    {
+        if (CultureInfo.CurrentCulture != _selectedCulture)
         {
-            if(value is null) return;
+            var uri = new Uri(Navigation.Uri)
+                .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+            var cultureEscaped = Uri.EscapeDataString(_selectedCulture.Name);
+            var uriEscaped = Uri.EscapeDataString(uri);
 
-            if (_currentCultureInfo.TwoLetterISOLanguageName != value.TwoLetterISOLanguageName)
-            {
-                _currentCultureInfo = value;
-
-                var uri = new Uri(Navigation.Uri)
-                    .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
-
-                var cultureEscaped = Uri.EscapeDataString(_currentCultureInfo.Name);
-
-                var uriEscaped = Uri.EscapeDataString(uri);
-
-                Navigation.NavigateTo(
-                    $"Culture/Set?culture={cultureEscaped}&redirectUri={uriEscaped}",
-                    forceLoad: true);
-            }
+            Navigation.NavigateTo(
+                $"Culture/Set?culture={cultureEscaped}&redirectUri={uriEscaped}",
+                forceLoad: true);
         }
     }
 
-    protected bool IsSelected(string culture) => CultureInfo.CurrentCulture.TwoLetterISOLanguageName.Equals(culture, StringComparison.InvariantCultureIgnoreCase);
-
-    protected void ChangeLanguage(ChangeEventArgs e)
+    // Obtenir le chemin de l'image du drapeau
+    protected string GetFlagImagePath(string cultureName)
     {
-        var selectedLanguage = e.Value?.ToString();
-        if (selectedLanguage != null)
-        {
-            CurrentCulture = new CultureInfo(selectedLanguage);
-        }
+        return $"/images/flags/{cultureName.Substring(0, 2).ToLower()}.png"; // Remplacer par le bon format ou chemin de vos fichiers
     }
 }

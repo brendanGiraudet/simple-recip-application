@@ -34,6 +34,10 @@
     --icon-size: 1.25rem;
     --sidebar-width: 100%;
 
+    /* CultureSelector*/
+    --flag-width:1.5rem;
+    --flag-height:1.5rem;
+
     /* Buttons */
     --button-bg-color: var(--accent-color-1);
     --button-text-color: var(--secondary-color);
@@ -53,6 +57,7 @@
     --option-menu-height: 4rem;
 
     --border-radius: 5px;
+    --border-size: 2px;
 
     --grid-max-height: 48vh;
 
