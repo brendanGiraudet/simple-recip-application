@@ -6,14 +6,14 @@
     <DataAnnotationsValidator />
 
     <div class="form-field">
-        <label>@LabelsLocalizer["IngredientName"]</label>
-        <InputText @bind-Value="Ingredient.Name" class="form-control" />
+        <label for="@nameof(IIngredientModel.Name)">@LabelsLocalizer["IngredientName"]</label>
+        <InputText id="@nameof(IIngredientModel.Name)" @bind-Value="Ingredient.Name" class="form-control" />
         <ValidationMessage For="@(() => Ingredient.Name)" />
     </div>
 
     <div class="form-field">
-        <label>@LabelsLocalizer["ImageLabel"]</label>
-        <InputFile OnChange="HandleImageUpload" accept="image/*" class="form-control" />
+        <label for="@nameof(IIngredientModel.Image)">@LabelsLocalizer["ImageLabel"]</label>
+        <InputFile id="@nameof(IIngredientModel.Image)" OnChange="HandleImageUpload" accept="image/*" class="form-control" />
         <ValidationMessage For="@(() => Ingredient.Image)" />
     </div>
 

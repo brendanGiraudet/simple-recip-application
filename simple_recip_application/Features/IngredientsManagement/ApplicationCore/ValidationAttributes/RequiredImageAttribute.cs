@@ -11,6 +11,6 @@ public class RequiredImageAttribute : ValidationAttribute
             return ValidationResult.Success;
         }
 
-        return new ValidationResult(ErrorMessageString);
+        return new ValidationResult(ErrorMessageString, [validationContext.MemberName!]);
     }
 }
