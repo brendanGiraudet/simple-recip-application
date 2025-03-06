@@ -3,15 +3,15 @@
 @inherits FluxorComponent
 @rendermode InteractiveServer
 
-<h3>@LabelsLocalizer["ImportIngredients"]</h3>
+<h3>@Labels.ImportIngredients</h3>
 
 <EditForm Model="@ImportModel" OnValidSubmit="HandleImport" FormName="import">
     <div class="form-field">
-        <label>@LabelsLocalizer["ImportLabel"]</label>
+        <label>@Labels.ImportLabel</label>
         <InputText @bind-Value="@ImportModel.FilePath" />
     </div>
 
-    <button type="submit" class="btn btn-primary">@LabelsLocalizer["Import"]</button>
+    <button type="submit" class="btn btn-primary">@Labels.Import</button>
 </EditForm>
 
 <Loader IsVisible="ImportState.Value.IsLoading" />

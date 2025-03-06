@@ -1,7 +1,6 @@
 using System.Linq.Expressions;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using simple_recip_application.Components.OptionsMenu;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore;
 using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
@@ -16,7 +15,6 @@ public partial class RecipesPage
 {
     [Inject] public required IState<RecipeState> RecipeState { get; set; }
     [Inject] public required IDispatcher Dispatcher { get; set; }
-    [Inject] public IStringLocalizer<Labels> LabelsLocalizer { get; set; } = default!;
 
     private IRecipeModel? _selectedRecipe { get; set; } = new RecipeModel();
 
@@ -52,7 +50,7 @@ public partial class RecipesPage
     private List<OptionMenuItem> GetOptions()
     {
         List<OptionMenuItem> options = [
-            new ("add", LabelsLocalizer["AddRecipe"], () => OpenRecipFormModalAsync())
+            new ("add", Labels.AddRecipe, () => OpenRecipFormModalAsync())
         ];
 
         return options;

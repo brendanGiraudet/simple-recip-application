@@ -1,4 +1,5 @@
 @page "/"
+@using simple_recip_application.Resources;
 
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent;
 
@@ -8,6 +9,12 @@
 <SearchBar OnSearch="@OnSearchTermChanged" />
 
 <div class="ingredient-grid @GetIngredientsVisibilityCssClass()">
+
+    @if(IngredientState.Value.Items.Count() == 0)
+    {
+        <p class="no-ingredients-message">@Labels.NoIngredientsFound</p>
+    }
+
     @foreach (var ingredient in IngredientState.Value.Items)
     {
         <Card TContent="IIngredientModel"

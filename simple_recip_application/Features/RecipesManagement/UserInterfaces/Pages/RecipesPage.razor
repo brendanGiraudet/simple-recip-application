@@ -5,6 +5,12 @@
 <SearchBar OnSearch="@OnSearchTermChanged" />
 
 <div class="recip-grid @GetRecipesVisibilityCssClass()">
+
+    @if(RecipeState.Value.Items.Count() == 0)
+    {
+        <p class="no-ingredients-message">@Labels.NoRecipesFound</p>
+    }
+
     @foreach (var recipe in RecipeState.Value.Items)
     {
          <Card TContent="IRecipeModel"

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FeatureManagement;
 using simple_recip_application.Constants;
+using simple_recip_application.Resources;
 
 namespace simple_recip_application.Components.Layout;
 
@@ -17,10 +18,10 @@ public partial class NavMenu
 
     private async Task LoadMenuAsync()
     {
-        _navMenuItems = [ new NavMenuItem(string.Empty, "grocery", LabelsLocalizer["Ingredients"])];
+        _navMenuItems = [ new NavMenuItem(string.Empty, "grocery", Labels.Ingredients)];
 
         if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.RecipeFeature))
-            _navMenuItems = _navMenuItems.Append(new NavMenuItem("/recipes", "ramen_dining", "Recipes"));
+            _navMenuItems = _navMenuItems.Append(new NavMenuItem("/recipes", "ramen_dining", Labels.Recipes));
     }
 
     private IEnumerable<NavMenuItem> _navMenuItems = [];

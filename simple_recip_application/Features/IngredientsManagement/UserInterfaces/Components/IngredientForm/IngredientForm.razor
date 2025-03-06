@@ -1,18 +1,18 @@
  @inherits CustomComponentBase
 
-<h3>@(Ingredient.Id.HasValue? LabelsLocalizer["EditIngredientTitle"] : LabelsLocalizer["AddIngredient"])</h3>
+<h3>@(Ingredient.Id.HasValue? Labels.EditIngredient : Labels.AddIngredient)</h3>
 
 <EditForm Model="Ingredient" OnValidSubmit="Submit">
     <DataAnnotationsValidator />
 
     <div class="form-field">
-        <label for="@nameof(IIngredientModel.Name)">@LabelsLocalizer["IngredientName"]</label>
+        <label for="@nameof(IIngredientModel.Name)">@Labels.IngredientName</label>
         <InputText id="@nameof(IIngredientModel.Name)" @bind-Value="Ingredient.Name" class="form-control" />
         <ValidationMessage For="@(() => Ingredient.Name)" />
     </div>
 
     <div class="form-field">
-        <label for="@nameof(IIngredientModel.Image)">@LabelsLocalizer["ImageLabel"]</label>
+        <label for="@nameof(IIngredientModel.Image)">@Labels.ImageLabel</label>
         <InputFile id="@nameof(IIngredientModel.Image)" OnChange="HandleImageUpload" accept="image/*" class="form-control" />
         <ValidationMessage For="@(() => Ingredient.Image)" />
     </div>
@@ -20,18 +20,18 @@
     <div class="form-buttons">
         <button type="submit" 
                 class="btn btn-primary">
-            @LabelsLocalizer["SubmitButton"]
+            @Labels.SubmitButton
         </button>
 
         <button type="button" 
                 @onclick="@(() => OnCancelAsync())" 
                 class="btn btn-secondary">
-            @LabelsLocalizer["Cancel"]
+            @Labels.Cancel
         </button>
 
         <button @onclick="@(() => DeleteIngredient(Ingredient))"
                 class="btn btn-danger @GetDeleleButtonCssClass()">
-            @LabelsLocalizer["Delete"]
+            @Labels.Delete
         </button>
     </div>
 </EditForm>
