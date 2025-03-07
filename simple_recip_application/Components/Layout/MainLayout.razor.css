@@ -15,3 +15,16 @@ main {
     padding-bottom: var(--main-padding-bottom);
     overflow: auto;
 }
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.application-version{
+    font-style: italic;
+}

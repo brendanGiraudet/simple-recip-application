@@ -3,14 +3,15 @@
 @inherits LayoutComponentBase
 
 <div class="page">
+    <header>
+        <CultureSelector />
+
+        <div class="application-version">@Configuration["ApplicationVersion"]</div>
+    </header>
     <main>
         <Notifications />
 
-        <CultureSelector />
-        
         <article>
-            
-
             @Body
         </article>
     </main>
