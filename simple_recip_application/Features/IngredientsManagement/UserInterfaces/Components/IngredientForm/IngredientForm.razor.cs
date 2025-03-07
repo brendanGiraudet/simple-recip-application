@@ -5,7 +5,6 @@ using simple_recip_application.Store.Actions;
 using Microsoft.Extensions.Options;
 using simple_recip_application.Settings;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
-using Microsoft.Extensions.Localization;
 using simple_recip_application.Resources;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
@@ -17,7 +16,6 @@ public partial class IngredientForm
     [Parameter] public required IIngredientModel Ingredient { get; set; }
     [Parameter] public EventCallback<bool> OnCancel { get; set; }
     [Inject] public required IOptions<FileSettings> FileSettingsOptions { get; set; }
-    [Inject] public required IStringLocalizer<Messages> MessagesStringLocalizer { get; set; }
     [Inject] public required ILogger<IngredientForm> Logger { get; set; }
     [Inject] public required INotificationMessageFactory NotificationMessageFactory { get; set; }
     private FileSettings _fileSettings => FileSettingsOptions.Value;
@@ -35,7 +33,7 @@ public partial class IngredientForm
 
         if (file.Size > _fileSettings.MaxAllowedSize)
         {
-            var notification = NotificationMessageFactory.CreateNotificationMessage(MessagesStringLocalizer["MaxAllowedSizeError"], NotificationType.Error);
+            var notification = NotificationMessageFactory.CreateNotificationMessage(MessagesTranslator.MaxAllowedSizeError, NotificationType.Error);
 
             Dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 

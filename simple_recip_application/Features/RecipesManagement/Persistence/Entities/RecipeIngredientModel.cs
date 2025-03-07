@@ -24,6 +24,6 @@ public class RecipeIngredientModel : IRecipeIngredientModel
         set => Ingredient = (IngredientModel)value;
     }
 
-    [Required(ErrorMessageResourceName = nameof(Messages.QuantityRequired), ErrorMessageResourceType = typeof(Messages))]
+    [Required(ErrorMessageResourceName = nameof(MessagesTranslator.QuantityRequired), ErrorMessageResourceType = typeof(MessagesTranslator))]
     public decimal Quantity { get; set; }
 }

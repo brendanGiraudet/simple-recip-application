@@ -1,5 +1,4 @@
 using Fluxor;
-using Microsoft.Extensions.Localization;
 using simple_recip_application.Features.RecipesManagement.Persistence.Repositories;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
@@ -15,7 +14,6 @@ public class RecipeEffects
 (
     IRecipeRepository _repository,
     ILogger<RecipeEffects> _logger,
-    IStringLocalizer<Messages> _messagesStringLocalizer,
     INotificationMessageFactory _notificationMessageFactory
 )
 {
@@ -34,7 +32,7 @@ public class RecipeEffects
 
             dispatcher.Dispatch(new LoadItemsFailureAction<IRecipeModel>());
 
-            var notification = _notificationMessageFactory.CreateNotificationMessage(_messagesStringLocalizer["LoadRecipeErrorMessage"], NotificationType.Error);
+            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.LoadRecipeErrorMessage, NotificationType.Error);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
         }
@@ -49,7 +47,7 @@ public class RecipeEffects
 
             dispatcher.Dispatch(new AddItemSuccessAction<IRecipeModel>(action.Item));
 
-            var notification = _notificationMessageFactory.CreateNotificationMessage(_messagesStringLocalizer["AddRecipeSuccessMessage"], NotificationType.Success);
+            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddRecipeSuccessMessage, NotificationType.Success);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
@@ -59,7 +57,7 @@ public class RecipeEffects
         {
             _logger.LogError(ex, $"Erreur lors de l'ajout d'un ingrédient");
 
-            var notification = _notificationMessageFactory.CreateNotificationMessage(_messagesStringLocalizer["AddRecipeErrorMessage"], NotificationType.Error);
+            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddRecipeErrorMessage, NotificationType.Error);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
@@ -80,7 +78,7 @@ public class RecipeEffects
                 await _repository.DeleteAsync(Recipe);
                 dispatcher.Dispatch(new DeleteItemSuccessAction<IRecipeModel>(action.Item));
 
-                var notification = _notificationMessageFactory.CreateNotificationMessage(_messagesStringLocalizer["DeleteRecipeSuccessMessage"], NotificationType.Success);
+                var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeleteRecipeSuccessMessage, NotificationType.Success);
 
                 dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
@@ -91,7 +89,7 @@ public class RecipeEffects
         {
             _logger.LogError(ex, $"Erreur lors de la suppression de l'ingrédient");
 
-            var notification = _notificationMessageFactory.CreateNotificationMessage(_messagesStringLocalizer["DeleteRecipeErrorMessage"], NotificationType.Error);
+            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeleteRecipeErrorMessage, NotificationType.Error);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
@@ -108,7 +106,7 @@ public class RecipeEffects
 
             dispatcher.Dispatch(new UpdateItemSuccessAction<IRecipeModel>(action.Item));
 
-            var notification = _notificationMessageFactory.CreateNotificationMessage(_messagesStringLocalizer["UpdateRecipeSuccessMessage"], NotificationType.Success);
+            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.UpdateRecipeSuccessMessage, NotificationType.Success);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
@@ -118,7 +116,7 @@ public class RecipeEffects
         {
             _logger.LogError(ex, $"Erreur lors de la mise à jour");
 
-            var notification = _notificationMessageFactory.CreateNotificationMessage(_messagesStringLocalizer["UpdateRecipeErrorMessage"], NotificationType.Error);
+            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.UpdateRecipeErrorMessage, NotificationType.Error);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 

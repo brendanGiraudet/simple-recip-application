@@ -1,5 +1,4 @@
 using Fluxor;
-using Microsoft.Extensions.Localization;
 using simple_recip_application.Features.Importation.Services;
 using simple_recip_application.Features.Importation.Store.Actions;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
@@ -15,7 +14,6 @@ namespace simple_recip_application.Features.Importation.Store;
 public class ImportEffects
 (
     ILogger<ImportEffects> _logger,
-    IStringLocalizer<Messages> _messagesStringLocalizer,
     IIngredientRepository _ingredientRepository,
     ILogger<CsvImportService> _csvImportLogger,
     IIngredientFactory _ingredientFactory,
@@ -27,7 +25,7 @@ public class ImportEffects
     {
         try
         {
-            var message = _messagesStringLocalizer["ImportFailure"];
+            var message = MessagesTranslator.ImportFailure;
             NotificationType type = NotificationType.Error;
 
             if (!string.IsNullOrEmpty(action.ImportModel.FilePath))
@@ -49,7 +47,7 @@ public class ImportEffects
             {
                 dispatcher.Dispatch(new ImportSuccessAction());
 
-                message = _messagesStringLocalizer["ImportSuccess"];
+                message = MessagesTranslator.ImportSuccess;
                 type = NotificationType.Success;
             }
             else
@@ -67,7 +65,7 @@ public class ImportEffects
 
             dispatcher.Dispatch(new ImportFailureAction());
 
-            var notification = _notificationMessageFactory.CreateNotificationMessage(_messagesStringLocalizer["ImportFailure"], NotificationType.Error);
+            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.ImportFailure, NotificationType.Error);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
         }

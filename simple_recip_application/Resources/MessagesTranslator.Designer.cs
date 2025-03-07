@@ -5,10 +5,10 @@ using System.Reflection;
 
 namespace simple_recip_application.Resources;
 
-public class Messages
+public class MessagesTranslator
 {
     private static readonly ResourceManager resourceManager =
-        new ResourceManager("simple_recip_application.Resources.Messages",
+        new ResourceManager("simple_recip_application.Resources.MessagesTranslator",
             Assembly.GetExecutingAssembly());
 
     public static string NameRequired => resourceManager.GetString("NameRequired", CultureInfo.CurrentCulture) ?? "NameRequired";
@@ -24,4 +24,14 @@ public class Messages
     public static string CookingTimeRequired => resourceManager.GetString("CookingTimeRequired", CultureInfo.CurrentCulture) ?? "CookingTimeRequired";
     public static string MaxAllowedSizeError => resourceManager.GetString("MaxAllowedSizeError", CultureInfo.CurrentCulture) ?? "MaxAllowedSizeError";
     public static string QuantityRequired => resourceManager.GetString("QuantityRequired", CultureInfo.CurrentCulture) ?? "QuantityRequired";
+    public static string DeleteIngredientSuccessMessage => resourceManager.GetString("DeleteIngredientSuccessMessage", CultureInfo.CurrentCulture) ?? "DeleteIngredientSuccessMessage";
+    public static string UpdateIngredientSuccessMessage => resourceManager.GetString("UpdateIngredientSuccessMessage", CultureInfo.CurrentCulture) ?? "UpdateIngredientSuccessMessage";
+    public static string UpdateIngredientErrorMessage => resourceManager.GetString("UpdateIngredientErrorMessage", CultureInfo.CurrentCulture) ?? "UpdateIngredientErrorMessage";
+    public static string LoadRecipeErrorMessage => resourceManager.GetString("LoadRecipeErrorMessage", CultureInfo.CurrentCulture) ?? "LoadRecipeErrorMessage";
+    public static string AddRecipeSuccessMessage => resourceManager.GetString("AddRecipeSuccessMessage", CultureInfo.CurrentCulture) ?? "AddRecipeSuccessMessage";
+    public static string AddRecipeErrorMessage => resourceManager.GetString("AddRecipeErrorMessage", CultureInfo.CurrentCulture) ?? "AddRecipeErrorMessage";
+    public static string DeleteRecipeSuccessMessage => resourceManager.GetString("DeleteRecipeSuccessMessage", CultureInfo.CurrentCulture) ?? "DeleteRecipeSuccessMessage";
+    public static string DeleteRecipeErrorMessage => resourceManager.GetString("DeleteRecipeErrorMessage", CultureInfo.CurrentCulture) ?? "DeleteRecipeErrorMessage";
+    public static string UpdateRecipeSuccessMessage => resourceManager.GetString("UpdateRecipeSuccessMessage", CultureInfo.CurrentCulture) ?? "UpdateRecipeSuccessMessage";
+    public static string UpdateRecipeErrorMessage => resourceManager.GetString("UpdateRecipeErrorMessage", CultureInfo.CurrentCulture) ?? "UpdateRecipeErrorMessage";
 }

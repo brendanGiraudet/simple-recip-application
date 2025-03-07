@@ -8,11 +8,11 @@ namespace simple_recip_application.Features.IngredientsManagement.Persistence.En
 
 public class IngredientModel : EntityBase, IIngredientModel
 {
-    [Required(ErrorMessageResourceName = nameof(Messages.NameRequired), ErrorMessageResourceType = typeof(Messages))]
+    [Required(ErrorMessageResourceName = nameof(MessagesTranslator.NameRequired), ErrorMessageResourceType = typeof(MessagesTranslator))]
     [MaxLength(255)]
     public string Name { get; set; } = string.Empty;
 
-    [RequiredImage(ErrorMessageResourceName = nameof(Messages.ImageRequired), ErrorMessageResourceType = typeof(Messages))]
+    [RequiredImage(ErrorMessageResourceName = nameof(MessagesTranslator.ImageRequired), ErrorMessageResourceType = typeof(MessagesTranslator))]
     public byte[] Image { get; set; } = Array.Empty<byte>();
 
     public DateTime CreationDate { get; private set; } = DateTime.UtcNow;

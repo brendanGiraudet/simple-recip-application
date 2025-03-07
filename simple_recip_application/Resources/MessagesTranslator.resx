@@ -39,4 +39,34 @@
     <data name="QuantityRequired" xml:space="preserve">
         <value>La quantité est à renseigner</value>
     </data>
+    <data name="DeleteIngredientSuccessMessage" xml:space="preserve">
+        <value>L'ingrédient à bien été supprimé</value>
+    </data>
+    <data name="UpdateIngredientSuccessMessage" xml:space="preserve">
+        <value>Mise à jour de l'ingrédient reussi</value>
+    </data>
+    <data name="UpdateIngredientErrorMessage" xml:space="preserve">
+        <value>Erreur lors de la mise à jour de l'ingrédient</value>
+    </data>
+    <data name="LoadRecipeErrorMessage" xml:space="preserve">
+        <value>Erreur lors du chargement des recettes</value>
+    </data>
+    <data name="AddRecipeSuccessMessage" xml:space="preserve">
+        <value>Ajout de la recette reussi</value>
+    </data>
+    <data name="AddRecipeErrorMessage" xml:space="preserve">
+        <value>Erreur lors de l'ajout de la recette</value>
+    </data>
+    <data name="DeleteRecipeSuccessMessage" xml:space="preserve">
+        <value>Suppression de la recette reussi</value>
+    </data>
+    <data name="DeleteRecipeErrorMessage" xml:space="preserve">
+        <value>Erreur lors de la suppression de la recette</value>
+    </data>
+    <data name="UpdateRecipeSuccessMessage" xml:space="preserve">
+        <value>Mise à jour de la recette reussi</value>
+    </data>
+    <data name="UpdateRecipeErrorMessage" xml:space="preserve">
+        <value>Erreur lors de la mise à jour de la recette</value>
+    </data>
 </root>

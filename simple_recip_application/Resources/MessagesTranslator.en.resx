@@ -39,4 +39,31 @@
     <data name="QuantityRequired" xml:space="preserve">
         <value>Quantity is required</value>
     </data>
+    <data name="DeleteIngredientSuccessMessage" xml:space="preserve">
+        <value>Delete ingredient success</value>
+    </data>
+    <data name="UpdateIngredientSuccessMessage" xml:space="preserve">
+        <value>Update ingredient success</value>
+    </data>
+    <data name="UpdateIngredientErrorMessage" xml:space="preserve">
+        <value>Update ingredient error</value>
+    </data>
+    <data name="LoadRecipeErrorMessage" xml:space="preserve">
+        <value>Load ingredient error</value>
+    </data>
+    <data name="AddRecipeErrorMessage" xml:space="preserve">
+        <value>Add recipe error</value>
+    </data>
+    <data name="DeleteRecipeSuccessMessage" xml:space="preserve">
+        <value>Delete recipe success</value>
+    </data>
+    <data name="DeleteRecipeErrorMessage" xml:space="preserve">
+        <value>Delete recipe error</value>
+    </data>
+    <data name="UpdateRecipeSuccessMessage" xml:space="preserve">
+        <value>Update recipe success</value>
+    </data>
+    <data name="UpdateRecipeErrorMessage" xml:space="preserve">
+        <value>Update recipe error</value>
+    </data>
 </root>

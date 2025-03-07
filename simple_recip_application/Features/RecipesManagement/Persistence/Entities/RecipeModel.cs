@@ -8,7 +8,7 @@ namespace simple_recip_application.Features.RecipesManagement.Persistence.Entite
 
 public class RecipeModel : EntityBase, IRecipeModel
 {
-    [Required(ErrorMessageResourceName = nameof(Messages.NameRequired), ErrorMessageResourceType = typeof(Messages))]
+    [Required(ErrorMessageResourceName = nameof(MessagesTranslator.NameRequired), ErrorMessageResourceType = typeof(MessagesTranslator))]
     [MaxLength(255)]
     public string Name { get; set; } = string.Empty;
 
@@ -25,13 +25,13 @@ public class RecipeModel : EntityBase, IRecipeModel
     [MaxLength(3000)]
     public string Instructions { get; set; } = string.Empty;
 
-    [Required(ErrorMessageResourceName = nameof(Messages.PreparationTimeRequired), ErrorMessageResourceType = typeof(Messages))]
+    [Required(ErrorMessageResourceName = nameof(MessagesTranslator.PreparationTimeRequired), ErrorMessageResourceType = typeof(MessagesTranslator))]
     public TimeOnly PreparationTime { get; set; }
 
-    [Required(ErrorMessageResourceName = nameof(Messages.CookingTimeRequired), ErrorMessageResourceType = typeof(Messages))]
+    [Required(ErrorMessageResourceName = nameof(MessagesTranslator.CookingTimeRequired), ErrorMessageResourceType = typeof(MessagesTranslator))]
     public TimeOnly CookingTime { get; set; }
 
-    [RequiredImage(ErrorMessageResourceName = nameof(Messages.ImageRequired), ErrorMessageResourceType = typeof(Messages))]
+    [RequiredImage(ErrorMessageResourceName = nameof(MessagesTranslator.ImageRequired), ErrorMessageResourceType = typeof(MessagesTranslator))]
     public byte[] Image { get; set; } = Array.Empty<byte>();
 
     public string Category { get; set; } = string.Empty;
