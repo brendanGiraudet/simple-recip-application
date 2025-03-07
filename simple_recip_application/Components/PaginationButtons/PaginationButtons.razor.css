@@ -1,0 +1,13 @@
+.pagination-buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: fixed;
+    width: 90vw;
+}
+
+.pagination-buttons-container button {
+    border-radius: 50%;
+    padding: .5rem;
+    display: flex;
+}

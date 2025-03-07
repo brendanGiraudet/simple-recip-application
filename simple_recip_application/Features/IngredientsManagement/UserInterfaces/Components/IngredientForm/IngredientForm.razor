@@ -29,7 +29,8 @@
             @LabelsTranslator.Cancel
         </button>
 
-        <button @onclick="@(() => DeleteIngredient(Ingredient))"
+        <button type="button"
+                @onclick="@(() => DeleteIngredient(Ingredient))"
                 class="btn btn-danger @GetDeleleButtonCssClass()">
             @LabelsTranslator.Delete
         </button>

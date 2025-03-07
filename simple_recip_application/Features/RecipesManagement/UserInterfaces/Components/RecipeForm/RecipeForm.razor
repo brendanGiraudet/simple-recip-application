@@ -72,7 +72,7 @@
             @LabelsTranslator.Cancel
         </button>
 
-        <button @onclick="@(() => DeleteRecipe(Recipe))" class="btn btn-danger @GetDeleteButtonCssClass()">
+        <button type="button" @onclick="@(() => DeleteRecipe(Recipe))" class="btn btn-danger @GetDeleteButtonCssClass()">
             @LabelsTranslator.Delete
         </button>
     </div>

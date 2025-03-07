@@ -27,13 +27,9 @@
     }
 </div>
 
-<div class="pagination-buttons-container">
-    
-    <button @onclick="@(() => OnPrevious())" class="btn btn-primary" disabled="@(!CanPreviousClick())"><span class="material-symbols-outlined">chevron_left</span></button>
-
-    <button @onclick="@(() => OnNext())" class="btn btn-primary"><span class="material-symbols-outlined">chevron_right</span></button>
-
-</div>
+<PaginationButtons CanPreviousClick="@CanPreviousClick()"
+                    OnPrevious="@OnPrevious"
+                    OnNext="@OnNext" />
 
 <Loader IsVisible="@IngredientState.Value.IsLoading" />
 

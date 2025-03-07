@@ -31,7 +31,7 @@ public partial class RecipesPage
     {
         base.OnInitialized();
 
-        LoadFilteredIngredients();
+        LoadFilteredRecipes();
     }
 
     private string GetRecipesVisibilityCssClass() => !RecipeState.Value.IsLoading ? "" : "hidden";
@@ -59,10 +59,10 @@ public partial class RecipesPage
     private void OnSearchTermChanged(string searchTerm)
     {
         _searchTerm = searchTerm;
-        LoadFilteredIngredients();
+        LoadFilteredRecipes();
     }
 
-    private void LoadFilteredIngredients()
+    private void LoadFilteredRecipes(int? skip = null)
     {
         Expression<Func<IRecipeModel, bool>>? filter = null;
 
@@ -71,6 +71,29 @@ public partial class RecipesPage
 
         Expression<Func<IRecipeModel, object>>? include = i => i.IngredientModels;
 
-        Dispatcher.Dispatch(new LoadItemsAction<IRecipeModel>(Take: RecipeState.Value.Take, Skip: 0, filter, include));
+        Dispatcher.Dispatch(new LoadItemsAction<IRecipeModel>(Take: RecipeState.Value.Take, Skip: skip ?? 0, filter, include));
+    }
+
+    private bool CanPreviousClick() => RecipeState.Value.Skip > 0;
+    private async Task OnPrevious()
+    {
+        if (!CanPreviousClick()) return;
+
+        var skip = RecipeState.Value.Skip - RecipeState.Value.Take;
+
+        skip = skip < 0 ? 0 : skip;
+
+        LoadFilteredRecipes(skip);
+
+        await Task.CompletedTask;
+    }
+
+    private async Task OnNext()
+    {
+        var skip = RecipeState.Value.Skip + RecipeState.Value.Take;
+        
+        LoadFilteredRecipes(skip);
+
+        await Task.CompletedTask;
     }
 }

@@ -23,6 +23,10 @@
     }
 </div>
 
+<PaginationButtons CanPreviousClick="@CanPreviousClick()"
+                    OnPrevious="@OnPrevious"
+                    OnNext="@OnNext" />
+
 <Loader IsVisible="@RecipeState.Value.IsLoading" />
 
 <Modal OnClose="CloseRecipeFormModal" 

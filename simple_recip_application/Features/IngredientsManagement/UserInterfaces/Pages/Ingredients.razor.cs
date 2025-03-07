@@ -67,7 +67,7 @@ public partial class Ingredients
 
         skip = skip < 0 ? 0 : skip;
 
-        Dispatcher.Dispatch(new LoadItemsAction<IIngredientModel>(Take: IngredientState.Value.Take, Skip: skip));
+        LoadFilteredIngredients(skip);
 
         await Task.CompletedTask;
     }
@@ -75,7 +75,8 @@ public partial class Ingredients
     private async Task OnNext()
     {
         var skip = IngredientState.Value.Skip + IngredientState.Value.Take;
-        Dispatcher.Dispatch(new LoadItemsAction<IIngredientModel>(Take: IngredientState.Value.Take, Skip: skip));
+        
+        LoadFilteredIngredients(skip);
 
         await Task.CompletedTask;
     }
@@ -88,13 +89,13 @@ public partial class Ingredients
         LoadFilteredIngredients();
     }
 
-    private void LoadFilteredIngredients()
+    private void LoadFilteredIngredients(int? skip = null)
     {
         Expression<Func<IIngredientModel, bool>>? filter = null;
 
         if(!string.IsNullOrEmpty(_searchTerm))
             filter = i => i.Name.ToLower().Contains(_searchTerm.ToLower());
 
-        Dispatcher.Dispatch(new LoadItemsAction<IIngredientModel>(Take: IngredientState.Value.Take, Skip: 0, filter));
+        Dispatcher.Dispatch(new LoadItemsAction<IIngredientModel>(Take: IngredientState.Value.Take, Skip: skip ?? 0, filter));
     }
 }
