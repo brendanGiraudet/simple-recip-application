@@ -67,6 +67,12 @@
 
     /* Input */
     --input-width: 76vw;
+
+    /* Scrollbar */
+    --scrollbar-width: 5px;
+    --scrollbar-color: var(--accent-color-2);
+    --scrollbar-color-hover: var(--accent-color-1);
+    --scrollbar-border-radius: 10px;
 }
 
 /* iPads, Tablets */

@@ -150,3 +150,27 @@ textarea {
     border: 2px solid var(--accent-color-2);
 }
 /************/
+
+/**** Style scrollbar ****/
+/* width */
+::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: var(--scrollbar-border-radius);
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-color); 
+    border-radius: var(--scrollbar-border-radius);
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-color-hover); 
+  }
+  /************/
