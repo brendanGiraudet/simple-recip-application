@@ -1,34 +1,34 @@
 @inherits CustomComponentBase
 
-<h3>@(Recipe.Id.HasValue? Labels.EditRecipe: Labels.AddRecipe)</h3>
+<h3>@(Recipe.Id.HasValue? LabelsTranslator.EditRecipe: LabelsTranslator.AddRecipe)</h3>
 
 <EditForm Model="Recipe" OnValidSubmit="Submit">
     <DataAnnotationsValidator />
 
     <!-- Recipe Name -->
     <div class="form-field">
-        <label>@Labels.RecipeName</label>
+        <label>@LabelsTranslator.RecipeName</label>
         <InputText @bind-Value="Recipe.Name" class="form-control" />
         <ValidationMessage For="@(() => Recipe.Name)" />
     </div>
 
     <!-- Recipe Description -->
     <div class="form-field">
-        <label>@Labels.RecipeDescription</label>
+        <label>@LabelsTranslator.RecipeDescription</label>
         <InputText @bind-Value="Recipe.Description" class="form-control" />
         <ValidationMessage For="@(() => Recipe.Description)" />
     </div>
 
     <!-- Instructions -->
     <div class="form-field">
-        <label>@Labels.RecipeInstructions</label>
+        <label>@LabelsTranslator.RecipeInstructions</label>
         <InputTextArea @bind-Value="Recipe.Instructions" class="form-control" />
         <ValidationMessage For="@(() => Recipe.Instructions)" />
     </div>
 
     <!-- Preparation Time -->
     <div class="form-field">
-        <label>@Labels.RecipePreparationTime</label>
+        <label>@LabelsTranslator.RecipePreparationTime</label>
         <InputDate Type="InputDateType.Time" TValue="TimeOnly" @bind-Value="Recipe.PreparationTime"
             class="form-control" />
         <ValidationMessage For="@(() => Recipe.PreparationTime)" />
@@ -36,28 +36,28 @@
 
     <!-- Cooking Time -->
     <div class="form-field">
-        <label>@Labels.RecipeCookingTime</label>
+        <label>@LabelsTranslator.RecipeCookingTime</label>
         <InputDate Type="InputDateType.Time" TValue="TimeOnly" @bind-Value="Recipe.CookingTime" class="form-control" />
         <ValidationMessage For="@(() => Recipe.CookingTime)" />
     </div>
 
     <!-- Recipe Image -->
     <div class="form-field">
-        <label>@Labels.RecipeImageLabel</label>
+        <label>@LabelsTranslator.RecipeImageLabel</label>
         <InputFile OnChange="HandleImageUpload" accept="image/*" />
         <ValidationMessage For="@(() => Recipe.Image)" />
     </div>
 
     <!-- Recipe Category -->
     <div class="form-field">
-        <label>@Labels.RecipeCategory</label>
+        <label>@LabelsTranslator.RecipeCategory</label>
         <InputText @bind-Value="Recipe.Category" class="form-control" />
         <ValidationMessage For="@(() => Recipe.Category)" />
     </div>
 
     <!-- Recipe Ingredients -->
     <div class="form-field" style="flex-direction: column;">
-        <h3>@Labels.Ingredients</h3>
+        <h3>@LabelsTranslator.Ingredients</h3>
 
         <RecipeIngredientSelector />
     </div>
@@ -65,15 +65,15 @@
     <!-- Submit and Cancel Buttons -->
     <div class="form-buttons">
         <button type="submit" class="btn btn-primary">
-            @Labels.SubmitButton
+            @LabelsTranslator.SubmitButton
         </button>
 
         <button type="button" @onclick="@(() => OnCancelAsync())" class="btn btn-secondary">
-            @Labels.Cancel
+            @LabelsTranslator.Cancel
         </button>
 
         <button @onclick="@(() => DeleteRecipe(Recipe))" class="btn btn-danger @GetDeleteButtonCssClass()">
-            @Labels.Delete
+            @LabelsTranslator.Delete
         </button>
     </div>
 </EditForm>

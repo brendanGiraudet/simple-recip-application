@@ -4,9 +4,9 @@ using simple_recip_application.Features.Importation.Services;
 using simple_recip_application.Features.Importation.Store.Actions;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
-using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
-using simple_recip_application.Features.NotificationsManagement.Persistence.Entites;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 
@@ -18,7 +18,8 @@ public class ImportEffects
     IStringLocalizer<Messages> _messagesStringLocalizer,
     IIngredientRepository _ingredientRepository,
     ILogger<CsvImportService> _csvImportLogger,
-    IIngredientFactory _ingredientFactory
+    IIngredientFactory _ingredientFactory,
+    INotificationMessageFactory _notificationMessageFactory
 )
 {
     [EffectMethod]
@@ -31,14 +32,10 @@ public class ImportEffects
 
             if (!string.IsNullOrEmpty(action.ImportModel.FilePath))
             {
-                var errorNotification = new NotificationMessage()
-                {
-                    Message = message,
-                    Type = type
-                };
-                
+                var errorNotification = _notificationMessageFactory.CreateNotificationMessage(message, type);
+
                 dispatcher.Dispatch(new AddItemAction<INotificationMessage>(errorNotification));
-                
+
                 return;
             }
 
@@ -60,11 +57,7 @@ public class ImportEffects
                 dispatcher.Dispatch(new ImportFailureAction());
             }
 
-            var notification = new NotificationMessage()
-            {
-                Message = message,
-                Type = type
-            };
+            var notification = _notificationMessageFactory.CreateNotificationMessage(message, type);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
         }
@@ -74,11 +67,7 @@ public class ImportEffects
 
             dispatcher.Dispatch(new ImportFailureAction());
 
-            var notification = new NotificationMessage()
-            {
-                Message = _messagesStringLocalizer["ImportFailure"],
-                Type = NotificationType.Error
-            };
+            var notification = _notificationMessageFactory.CreateNotificationMessage(_messagesStringLocalizer["ImportFailure"], NotificationType.Error);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
         }

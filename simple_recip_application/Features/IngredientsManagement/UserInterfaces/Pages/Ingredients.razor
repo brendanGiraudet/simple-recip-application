@@ -12,7 +12,7 @@
 
     @if(IngredientState.Value.Items.Count() == 0)
     {
-        <p class="no-ingredients-message">@Labels.NoIngredientsFound</p>
+        <p class="no-ingredients-message">@LabelsTranslator.NoIngredientsFound</p>
     }
 
     @foreach (var ingredient in IngredientState.Value.Items)

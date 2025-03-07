@@ -1,5 +1,5 @@
 using simple_recip_application.Data.Persistence.Entities;
-using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
 
 namespace simple_recip_application.Features.NotificationsManagement.Persistence.Entites;

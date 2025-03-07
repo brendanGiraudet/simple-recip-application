@@ -1,18 +1,18 @@
  @inherits CustomComponentBase
 
-<h3>@(Ingredient.Id.HasValue? Labels.EditIngredient : Labels.AddIngredient)</h3>
+<h3>@(Ingredient.Id.HasValue? LabelsTranslator.EditIngredient : LabelsTranslator.AddIngredient)</h3>
 
 <EditForm Model="Ingredient" OnValidSubmit="Submit">
     <DataAnnotationsValidator />
 
     <div class="form-field">
-        <label for="@nameof(IIngredientModel.Name)">@Labels.IngredientName</label>
+        <label for="@nameof(IIngredientModel.Name)">@LabelsTranslator.IngredientName</label>
         <InputText id="@nameof(IIngredientModel.Name)" @bind-Value="Ingredient.Name" class="form-control" />
         <ValidationMessage For="@(() => Ingredient.Name)" />
     </div>
 
     <div class="form-field">
-        <label for="@nameof(IIngredientModel.Image)">@Labels.ImageLabel</label>
+        <label for="@nameof(IIngredientModel.Image)">@LabelsTranslator.ImageLabel</label>
         <InputFile id="@nameof(IIngredientModel.Image)" OnChange="HandleImageUpload" accept="image/*" class="form-control" />
         <ValidationMessage For="@(() => Ingredient.Image)" />
     </div>
@@ -20,18 +20,18 @@
     <div class="form-buttons">
         <button type="submit" 
                 class="btn btn-primary">
-            @Labels.SubmitButton
+            @LabelsTranslator.SubmitButton
         </button>
 
         <button type="button" 
                 @onclick="@(() => OnCancelAsync())" 
                 class="btn btn-secondary">
-            @Labels.Cancel
+            @LabelsTranslator.Cancel
         </button>
 
         <button @onclick="@(() => DeleteIngredient(Ingredient))"
                 class="btn btn-danger @GetDeleleButtonCssClass()">
-            @Labels.Delete
+            @LabelsTranslator.Delete
         </button>
     </div>
 </EditForm>

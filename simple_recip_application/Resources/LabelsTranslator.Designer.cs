@@ -5,10 +5,10 @@ using System.Reflection;
 
 namespace simple_recip_application.Resources;
 
-public class Labels
+public class LabelsTranslator
 {
     private static readonly ResourceManager resourceManager =
-        new ResourceManager("simple_recip_application.Resources.Labels",
+        new ResourceManager("simple_recip_application.Resources.LabelsTranslator",
             Assembly.GetExecutingAssembly());
 
     public static string IngredientName => resourceManager.GetString("IngredientName", CultureInfo.CurrentCulture) ?? "IngredientName";

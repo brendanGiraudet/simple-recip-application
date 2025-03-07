@@ -3,8 +3,9 @@ using Microsoft.Extensions.Localization;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
 using simple_recip_application.Features.IngredientsManagement.Store.Actions;
-using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.NotificationsManagement.Persistence.Entites;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
@@ -15,7 +16,8 @@ public class IngredientEffects
 (
     IIngredientRepository _repository,
     ILogger<IngredientEffects> _logger,
-    IStringLocalizer<Messages> _messagesStringLocalizer
+    IStringLocalizer<Messages> _messagesStringLocalizer,
+    INotificationMessageFactory _notificationMessageFactory
 )
 {
     [EffectMethod]
@@ -33,11 +35,7 @@ public class IngredientEffects
 
             dispatcher.Dispatch(new LoadItemsFailureAction<IIngredientModel>());
 
-            var notification = new NotificationMessage()
-            {
-                Message = _messagesStringLocalizer["LoadIngredientErrorMessage"],
-                Type = NotificationType.Error
-            };
+            var notification = _notificationMessageFactory.CreateNotificationMessage(_messagesStringLocalizer["LoadIngredientErrorMessage"], NotificationType.Error);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
         }
@@ -52,11 +50,7 @@ public class IngredientEffects
 
             dispatcher.Dispatch(new AddItemSuccessAction<IIngredientModel>(action.Item));
 
-            var notification = new NotificationMessage()
-            {
-                Message = _messagesStringLocalizer["AddIngredientSuccessMessage"],
-                Type = NotificationType.Success
-            };
+            var notification = _notificationMessageFactory.CreateNotificationMessage(_messagesStringLocalizer["AddIngredientSuccessMessage"], NotificationType.Success);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
@@ -66,11 +60,7 @@ public class IngredientEffects
         {
             _logger.LogError(ex, $"Erreur lors de l'ajout d'un ingrédient");
 
-            var notification = new NotificationMessage()
-            {
-                Message = _messagesStringLocalizer["AddIngredientErrorMessage"],
-                Type = NotificationType.Error
-            };
+            var notification = _notificationMessageFactory.CreateNotificationMessage(_messagesStringLocalizer["AddIngredientErrorMessage"], NotificationType.Error);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
@@ -91,11 +81,7 @@ public class IngredientEffects
                 await _repository.DeleteAsync(ingredient);
                 dispatcher.Dispatch(new DeleteItemSuccessAction<IIngredientModel>(action.Item));
 
-                var notification = new NotificationMessage()
-                {
-                    Message = _messagesStringLocalizer["DeleteIngredientSuccessMessage"],
-                    Type = NotificationType.Success
-                };
+                var notification = _notificationMessageFactory.CreateNotificationMessage(_messagesStringLocalizer["DeleteIngredientSuccessMessage"], NotificationType.Success);
 
                 dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
@@ -106,11 +92,7 @@ public class IngredientEffects
         {
             _logger.LogError(ex, $"Erreur lors de la suppression de l'ingrédient");
 
-            var notification = new NotificationMessage()
-            {
-                Message = _messagesStringLocalizer["DeleteIngredientErrorMessage"],
-                Type = NotificationType.Error
-            };
+            var notification = _notificationMessageFactory.CreateNotificationMessage(_messagesStringLocalizer["DeleteIngredientErrorMessage"], NotificationType.Error);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
@@ -127,11 +109,7 @@ public class IngredientEffects
 
             dispatcher.Dispatch(new UpdateItemSuccessAction<IIngredientModel>(action.Item));
 
-            var notification = new NotificationMessage()
-            {
-                Message = _messagesStringLocalizer["UpdateIngredientSuccessMessage"],
-                Type = NotificationType.Success
-            };
+            var notification = _notificationMessageFactory.CreateNotificationMessage(_messagesStringLocalizer["UpdateIngredientSuccessMessage"], NotificationType.Success);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
@@ -141,11 +119,7 @@ public class IngredientEffects
         {
             _logger.LogError(ex, $"Erreur lors de la mise à jour");
 
-            var notification = new NotificationMessage()
-            {
-                Message = _messagesStringLocalizer["UpdateIngredientErrorMessage"],
-                Type = NotificationType.Error
-            };
+            var notification = _notificationMessageFactory.CreateNotificationMessage(_messagesStringLocalizer["UpdateIngredientErrorMessage"], NotificationType.Error);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 

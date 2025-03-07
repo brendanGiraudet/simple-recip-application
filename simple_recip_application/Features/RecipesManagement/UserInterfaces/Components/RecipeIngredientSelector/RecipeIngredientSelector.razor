@@ -10,7 +10,7 @@
         @if (FilteredIngredients.Count == 0)
         {
             <li class="dropdown-item">
-                @Labels.NoIngredientsFound
+                @LabelsTranslator.NoIngredientsFound
             </li>
         }
 
@@ -27,7 +27,7 @@
     <div class="tags">
         @if (RecipeState.Value.Item?.IngredientModels?.Count == 0)
         {
-            <span class="badge badge-secondary">@Labels.NoIngredientsFound</span>
+            <span class="badge badge-secondary">@LabelsTranslator.NoIngredientsFound</span>
         }
         else
         {

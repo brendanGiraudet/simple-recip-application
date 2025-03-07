@@ -1,6 +1,6 @@
 using Fluxor;
 using Microsoft.AspNetCore.Components;
-using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.NotificationsManagement.Store;
 using simple_recip_application.Store.Actions;
 

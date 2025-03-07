@@ -4,11 +4,11 @@ using simple_recip_application.Features.IngredientsManagement.ApplicationCore.En
 using simple_recip_application.Store.Actions;
 using Microsoft.Extensions.Options;
 using simple_recip_application.Settings;
-using simple_recip_application.Features.NotificationsManagement.Persistence.Entites;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
-using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
 using Microsoft.Extensions.Localization;
 using simple_recip_application.Resources;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
 
 namespace simple_recip_application.Features.IngredientsManagement.UserInterfaces.Components.IngredientForm;
 
@@ -19,6 +19,7 @@ public partial class IngredientForm
     [Inject] public required IOptions<FileSettings> FileSettingsOptions { get; set; }
     [Inject] public required IStringLocalizer<Messages> MessagesStringLocalizer { get; set; }
     [Inject] public required ILogger<IngredientForm> Logger { get; set; }
+    [Inject] public required INotificationMessageFactory NotificationMessageFactory { get; set; }
     private FileSettings _fileSettings => FileSettingsOptions.Value;
 
     protected async Task OnCancelAsync()
@@ -34,11 +35,7 @@ public partial class IngredientForm
 
         if (file.Size > _fileSettings.MaxAllowedSize)
         {
-            var notification = new NotificationMessage()
-            {
-                Message = MessagesStringLocalizer["MaxAllowedSizeError"],
-                Type = NotificationType.Error
-            };
+            var notification = NotificationMessageFactory.CreateNotificationMessage(MessagesStringLocalizer["MaxAllowedSizeError"], NotificationType.Error);
 
             Dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 

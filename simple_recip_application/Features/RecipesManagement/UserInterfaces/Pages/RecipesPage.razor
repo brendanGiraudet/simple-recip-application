@@ -8,7 +8,7 @@
 
     @if(RecipeState.Value.Items.Count() == 0)
     {
-        <p class="no-ingredients-message">@Labels.NoRecipesFound</p>
+        <p class="no-ingredients-message">@LabelsTranslator.NoRecipesFound</p>
     }
 
     @foreach (var recipe in RecipeState.Value.Items)

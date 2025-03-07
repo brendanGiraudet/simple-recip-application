@@ -1,5 +1,7 @@
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Factories;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
+using simple_recip_application.Features.NotificationsManagement.Persistence.Factories;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipesManagement.Persistence.Factories;
 using simple_recip_application.Settings;
@@ -21,6 +23,7 @@ public static class ServicesContextExtensions
         services.AddTransient<IRecipeIngredientFactory, RecipeIngredientFactory>();
         services.AddTransient<IRecipeFactory, RecipeFactory>();
         services.AddTransient<IIngredientFactory, IngredientFactory>();
+        services.AddTransient<INotificationMessageFactory, NotificationMessageFactory>();
         
         return services;
     }

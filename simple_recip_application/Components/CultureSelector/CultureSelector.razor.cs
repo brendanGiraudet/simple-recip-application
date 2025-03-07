@@ -8,7 +8,6 @@ namespace simple_recip_application.Components.CultureSelector;
 public partial class CultureSelector
 {
     [Inject] public required NavigationManager Navigation { get; set; }
-    [Inject] public required IStringLocalizer<Labels> LabelsLocalizer { get; set; }
 
     private IEnumerable<CultureInfo> _supportedCultureInfos = new List<CultureInfo>()
     {

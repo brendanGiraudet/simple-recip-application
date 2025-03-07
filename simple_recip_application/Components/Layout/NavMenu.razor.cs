@@ -18,10 +18,10 @@ public partial class NavMenu
 
     private async Task LoadMenuAsync()
     {
-        _navMenuItems = [ new NavMenuItem(string.Empty, "grocery", Labels.Ingredients)];
+        _navMenuItems = [ new NavMenuItem(string.Empty, "grocery", LabelsTranslator.Ingredients)];
 
         if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.RecipeFeature))
-            _navMenuItems = _navMenuItems.Append(new NavMenuItem("/recipes", "ramen_dining", Labels.Recipes));
+            _navMenuItems = _navMenuItems.Append(new NavMenuItem("/recipes", "ramen_dining", LabelsTranslator.Recipes));
     }
 
     private IEnumerable<NavMenuItem> _navMenuItems = [];

@@ -1,5 +1,5 @@
 using Fluxor;
-using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.NotificationsManagement.Store;
