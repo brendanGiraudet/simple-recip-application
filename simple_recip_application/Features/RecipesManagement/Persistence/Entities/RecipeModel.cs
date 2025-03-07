@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using simple_recip_application.Data.Persistence.Entities;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.ValidationAttributes;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Resources;
 
 namespace simple_recip_application.Features.RecipesManagement.Persistence.Entites;
@@ -15,11 +15,11 @@ public class RecipeModel : EntityBase, IRecipeModel
     [MaxLength(1000)]
     public string Description { get; set; } = string.Empty;
 
-    public ICollection<RecipeIngredient> Ingredients { get; set; } = [];
-    public ICollection<IRecipeIngredient> IngredientModels
+    public ICollection<RecipeIngredientModel> Ingredients { get; set; } = [];
+    public ICollection<IRecipeIngredientModel> IngredientModels
     {
-        get => Ingredients.Cast<IRecipeIngredient>().ToList();
-        set => Ingredients = value.Cast<RecipeIngredient>().ToList();
+        get => Ingredients.Cast<IRecipeIngredientModel>().ToList();
+        set => Ingredients = value.Cast<RecipeIngredientModel>().ToList();
     }
 
     [MaxLength(3000)]

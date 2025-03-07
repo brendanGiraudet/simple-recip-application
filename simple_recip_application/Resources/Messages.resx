@@ -1,39 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <data name="NameRequired" xml:space="preserve">
-    <value>Le nom de l’ingrédient est requis.</value>
-  </data>
-  <data name="ImageRequired" xml:space="preserve">
-    <value>L’image est requise.</value>
-  </data>
-  <data name="LoadIngredientErrorMessage" xml:space="preserve">
-    <value>Erreur lors de la récuperation des ingrédients</value>
-  </data>
-  <data name="AddIngredientSuccessMessage" xml:space="preserve">
-    <value>L'ingrédient a été ajouté avec succès !</value>
-  </data>
-  <data name="AddIngredientErrorMessage" xml:space="preserve">
-    <value>Erreur lors de l'ajout de l'ingrédient</value>
-  </data>
-  <data name="DeleteIngredientErrorMessage" xml:space="preserve">
-    <value>Erreur lors de la suppression de l'ingrédient</value>
-  </data>
-  <data name="LoadingInProgress" xml:space="preserve">
-    <value>Chargement en cours...</value>
-  </data>
-  <data name="ImportFailure" xml:space="preserve">
-    <value>Erreur lors de l'importation</value>
-  </data>
-  <data name="ImportSuccess" xml:space="preserve">
-    <value>Importation réussi</value>
-  </data>
-  <data name="PreparationTimeRequired" xml:space="preserve">
-    <value>Temps de préparation obligatoire</value>
-  </data>
-  <data name="CookingTimeRequired" xml:space="preserve">
-    <value>Temps de cuisson obligatoire</value>
-  </data>
-  <data name="MaxAllowedSizeError" xml:space="preserve">
-    <value>Le fichier est trop volumineux</value>
-  </data>
+    <data name="NameRequired" xml:space="preserve">
+        <value>Le nom de l’ingrédient est requis.</value>
+    </data>
+    <data name="ImageRequired" xml:space="preserve">
+        <value>L’image est requise.</value>
+    </data>
+    <data name="LoadIngredientErrorMessage" xml:space="preserve">
+        <value>Erreur lors de la récuperation des ingrédients</value>
+    </data>
+    <data name="AddIngredientSuccessMessage" xml:space="preserve">
+        <value>L'ingrédient a été ajouté avec succès !</value>
+    </data>
+    <data name="AddIngredientErrorMessage" xml:space="preserve">
+        <value>Erreur lors de l'ajout de l'ingrédient</value>
+    </data>
+    <data name="DeleteIngredientErrorMessage" xml:space="preserve">
+        <value>Erreur lors de la suppression de l'ingrédient</value>
+    </data>
+    <data name="LoadingInProgress" xml:space="preserve">
+        <value>Chargement en cours...</value>
+    </data>
+    <data name="ImportFailure" xml:space="preserve">
+        <value>Erreur lors de l'importation</value>
+    </data>
+    <data name="ImportSuccess" xml:space="preserve">
+        <value>Importation réussi</value>
+    </data>
+    <data name="PreparationTimeRequired" xml:space="preserve">
+        <value>Temps de préparation obligatoire</value>
+    </data>
+    <data name="CookingTimeRequired" xml:space="preserve">
+        <value>Temps de cuisson obligatoire</value>
+    </data>
+    <data name="MaxAllowedSizeError" xml:space="preserve">
+        <value>Le fichier est trop volumineux</value>
+    </data>
+    <data name="QuantityRequired" xml:space="preserve">
+        <value>La quantité est à renseigner</value>
+    </data>
 </root>

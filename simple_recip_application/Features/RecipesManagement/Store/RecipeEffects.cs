@@ -1,6 +1,5 @@
 using Fluxor;
 using Microsoft.Extensions.Localization;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore;
 using simple_recip_application.Features.RecipesManagement.Persistence.Repositories;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
 using simple_recip_application.Features.NotificationsManagement.Persistence.Entites;
@@ -8,6 +7,7 @@ using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
 using simple_recip_application.Features.RecipesManagement.Store.Actions;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 
 namespace simple_recip_application.Features.RecipesManagement.Store;
 

@@ -2,8 +2,8 @@ using System.Linq.Expressions;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using simple_recip_application.Components.OptionsMenu;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore;
-using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipesManagement.Store;
 using simple_recip_application.Features.RecipesManagement.Store.Actions;
 using simple_recip_application.Resources;
@@ -15,12 +15,11 @@ public partial class RecipesPage
 {
     [Inject] public required IState<RecipeState> RecipeState { get; set; }
     [Inject] public required IDispatcher Dispatcher { get; set; }
-
-    private IRecipeModel? _selectedRecipe { get; set; } = new RecipeModel();
+    [Inject] public required IRecipeFactory RecipeFactory { get; set; }
 
     private async Task OpenRecipFormModalAsync(IRecipeModel? model = null)
     {
-        _selectedRecipe = model ?? new RecipeModel();
+        Dispatcher.Dispatch(new SetItemAction<IRecipeModel>(model ?? RecipeFactory.Create()));
 
         Dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(true));
 
@@ -34,6 +33,8 @@ public partial class RecipesPage
         base.OnInitialized();
 
         Dispatcher.Dispatch(new LoadItemsAction<IRecipeModel>());
+
+        Dispatcher.Dispatch(new SetItemAction<IRecipeModel>(RecipeFactory.Create()));
     }
 
     private string GetRecipesVisibilityCssClass() => !RecipeState.Value.IsLoading ? "" : "hidden";

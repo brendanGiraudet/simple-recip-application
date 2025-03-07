@@ -1,39 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <data name="NameRequired" xml:space="preserve">
-    <value>The ingredient name is required.</value>
-  </data>
-  <data name="ImageRequired" xml:space="preserve">
-    <value>The image is required.</value>
-  </data>
-  <data name="LoadIngredientErrorMessage" xml:space="preserve">
-    <value>Error when get ingredients</value>
-  </data>
-  <data name="AddIngredientSuccessMessage" xml:space="preserve">
-    <value>The ingredient has been added successfully!</value>
-  </data>
-  <data name="AddIngredientErrorMessage" xml:space="preserve">
-    <value>Ingredient creation error</value>
-  </data>
-  <data name="DeleteIngredientErrorMessage" xml:space="preserve">
-    <value>Ingredient remove error</value>
-  </data>
-  <data name="LoadingInProgress" xml:space="preserve">
-    <value>Loading...</value>
-  </data>
-  <data name="ImportFailure" xml:space="preserve">
-    <value>Import error</value>
-  </data>
-  <data name="ImportSuccess" xml:space="preserve">
-    <value>Success import</value>
-  </data>
-  <data name="PreparationTimeRequired" xml:space="preserve">
-    <value>Preparation time is required</value>
-  </data>
-  <data name="CookingTimeRequired" xml:space="preserve">
-    <value>Cooking time is required</value>
-  </data>
-  <data name="MaxAllowedSizeError" xml:space="preserve">
-    <value>This file is to big</value>
-  </data>
+    <data name="NameRequired" xml:space="preserve">
+        <value>The ingredient name is required.</value>
+    </data>
+    <data name="ImageRequired" xml:space="preserve">
+        <value>The image is required.</value>
+    </data>
+    <data name="LoadIngredientErrorMessage" xml:space="preserve">
+        <value>Error when get ingredients</value>
+    </data>
+    <data name="AddIngredientSuccessMessage" xml:space="preserve">
+        <value>The ingredient has been added successfully!</value>
+    </data>
+    <data name="AddIngredientErrorMessage" xml:space="preserve">
+        <value>Ingredient creation error</value>
+    </data>
+    <data name="DeleteIngredientErrorMessage" xml:space="preserve">
+        <value>Ingredient remove error</value>
+    </data>
+    <data name="LoadingInProgress" xml:space="preserve">
+        <value>Loading...</value>
+    </data>
+    <data name="ImportFailure" xml:space="preserve">
+        <value>Import error</value>
+    </data>
+    <data name="ImportSuccess" xml:space="preserve">
+        <value>Success import</value>
+    </data>
+    <data name="PreparationTimeRequired" xml:space="preserve">
+        <value>Preparation time is required</value>
+    </data>
+    <data name="CookingTimeRequired" xml:space="preserve">
+        <value>Cooking time is required</value>
+    </data>
+    <data name="MaxAllowedSizeError" xml:space="preserve">
+        <value>This file is to big</value>
+    </data>
+    <data name="QuantityRequired" xml:space="preserve">
+        <value>Quantity is required</value>
+    </data>
 </root>

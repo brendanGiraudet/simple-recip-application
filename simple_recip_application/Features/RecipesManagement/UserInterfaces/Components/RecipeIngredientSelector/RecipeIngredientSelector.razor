@@ -1,0 +1,36 @@
+@using simple_recip_application.Features.RecipesManagement.ApplicationCore
+@using simple_recip_application.Features.IngredientsManagement.ApplicationCore
+@using Microsoft.AspNetCore.Components.Forms
+
+@inherits FluxorComponent
+
+<div class="ingredients-selector">
+
+    <SearchBar OnSearch="@SearchIngredients" />
+
+    <!-- Dropdown List -->
+    @if (FilteredIngredients.Any())
+    {
+        <ul class="dropdown-list">
+            @foreach (var ingredient in FilteredIngredients)
+            {
+                <li @onclick="() => AddIngredient(ingredient)" class="dropdown-item">
+                    @ingredient.Name
+                </li>
+            }
+        </ul>
+    }
+
+    <!-- Tags (Selected Ingredients with Quantity) -->
+    <div class="tags">
+        @foreach (var ingredient in RecipeState.Value.Item.IngredientModels)
+        {
+            <div class="tag-item">
+                <span class="badge badge-primary">
+                    @ingredient.IngredientModel.Name <span class="remove-tag" @onclick="(() => RemoveIngredient(ingredient))">x</span>
+                </span>
+                <input type="number" @bind="ingredient.Quantity" class="quantity-input" placeholder="Quantity" />
+            </div>
+        }
+    </div>
+</div>

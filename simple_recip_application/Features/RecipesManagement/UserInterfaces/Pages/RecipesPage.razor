@@ -28,8 +28,7 @@
 <Modal OnClose="CloseRecipeFormModal" 
        IsVisible="@RecipeState.Value.RecipeFormModalVisibility">
 
-    <RecipeForm Recipe="_selectedRecipe" 
-                    OnCancel="CloseRecipeFormModal" />
+    <RecipeForm OnCancel="CloseRecipeFormModal" />
 </Modal>
 
 <OptionsMenu Options="GetOptions()" />

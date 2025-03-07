@@ -7,4 +7,5 @@ public abstract record class BaseState<T>
     public int Skip { get; set; } = 0;
     public IEnumerable<T> Items { get; set; } = [];
     public IEnumerable<T> SelectedItems { get; set; } = [];
+    public T Item { get; set; } = default!;
 }

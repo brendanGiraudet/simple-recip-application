@@ -1,5 +1,5 @@
 using Fluxor;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.Store.Actions;
 using simple_recip_application.Store.Actions;
 
@@ -20,7 +20,7 @@ public static class RecipeReducer
         => state with { IsLoading = false };
     #endregion
 
-    #region AddIngredient
+    #region AddRecipe
     [ReducerMethod]
     public static RecipeState ReduceAddItemAction(RecipeState state, AddItemAction<IRecipeModel> action) =>
         state with { Items = state.Items, IsLoading = true };
@@ -34,7 +34,7 @@ public static class RecipeReducer
         state with { Items = state.Items, IsLoading = false };
     #endregion
 
-    #region DeleteIngredient
+    #region DeleteRecipe
     [ReducerMethod]
     public static RecipeState ReduceDeleteItemAction(RecipeState state, DeleteItemAction<IRecipeModel> action) => state with { IsLoading = true };
 
@@ -50,7 +50,7 @@ public static class RecipeReducer
     public static RecipeState ReduceDeleteItemFailureAction(RecipeState state, DeleteItemFailureAction<IRecipeModel> action) => state with { IsLoading = false };
     #endregion
 
-    #region UpdateIngredient
+    #region UpdateRecipe
     [ReducerMethod]
     public static RecipeState ReduceUpdateItemAction(RecipeState state, UpdateItemAction<IRecipeModel> action) =>
         state with { IsLoading = true };
@@ -71,5 +71,11 @@ public static class RecipeReducer
     [ReducerMethod]
     public static RecipeState ReduceSetRecipeFormModalVisibilityAction(RecipeState state, SetRecipeFormModalVisibilityAction action) =>
         state with { RecipeFormModalVisibility = action.IsVisible };
+    #endregion
+    
+    #region SetItem
+    [ReducerMethod]
+    public static RecipeState ReduceSetItemAction(RecipeState state, SetItemAction<IRecipeModel> action) =>
+        state with { Item = action.Item };
     #endregion
 }

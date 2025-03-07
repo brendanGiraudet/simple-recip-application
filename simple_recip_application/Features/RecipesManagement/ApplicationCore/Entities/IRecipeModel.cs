@@ -1,12 +1,12 @@
 using simple_recip_application.Data.ApplicationCore;
 
-namespace simple_recip_application.Features.RecipesManagement.ApplicationCore;
+namespace simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 
 public interface IRecipeModel : IEntityBase
 {
     public string Name { get; set; }
     public string Description { get; set; }
-    public ICollection<IRecipeIngredient> IngredientModels { get; set; }
+    public ICollection<IRecipeIngredientModel> IngredientModels { get; set; }
     public string Instructions { get; set; }
     public TimeOnly PreparationTime { get; set; }
     public TimeOnly CookingTime { get; set; }

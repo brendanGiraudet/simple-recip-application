@@ -12,7 +12,7 @@ public class ApplicationDbContext : DbContext
     }
 
     public DbSet<IngredientModel> Ingredients => Set<IngredientModel>();
-    public DbSet<RecipeIngredient> RecipeIngredients => Set<RecipeIngredient>();
+    public DbSet<RecipeIngredientModel> RecipeIngredients => Set<RecipeIngredientModel>();
     public DbSet<RecipeModel> Recipes => Set<RecipeModel>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -62,7 +62,7 @@ public class ApplicationDbContext : DbContext
             entity.Ignore(r => r.IngredientModels);
         });
 
-        modelBuilder.Entity<RecipeIngredient>(entity =>
+        modelBuilder.Entity<RecipeIngredientModel>(entity =>
         {
             entity.HasKey(ri => new { ri.RecipeId, ri.IngredientId });
 

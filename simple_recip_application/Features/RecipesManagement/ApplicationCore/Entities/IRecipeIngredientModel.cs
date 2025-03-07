@@ -1,8 +1,8 @@
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
 
-namespace simple_recip_application.Features.RecipesManagement.ApplicationCore;
+namespace simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 
-public interface IRecipeIngredient
+public interface IRecipeIngredientModel
 {
     public Guid RecipeId { get; set; }
     public IRecipeModel RecipeModel { get; set; }

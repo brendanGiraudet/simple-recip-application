@@ -1,7 +1,7 @@
 using simple_recip_application.Data;
 using simple_recip_application.Data.Repository;
 using simple_recip_application.Extensions;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 
 namespace simple_recip_application.Features.RecipesManagement.Persistence.Repositories;
