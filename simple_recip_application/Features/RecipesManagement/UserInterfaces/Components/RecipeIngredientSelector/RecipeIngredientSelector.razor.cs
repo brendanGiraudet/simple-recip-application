@@ -43,6 +43,8 @@ public partial class RecipeIngredientSelector
 
             Dispatcher.Dispatch(new SetItemAction<IRecipeModel>(RecipeState.Value.Item));
         }
+
+        _ddlVisibility = false;
     }
 
     // Removes an ingredient from the selected list
@@ -50,6 +52,14 @@ public partial class RecipeIngredientSelector
     {
         RecipeState.Value.Item.IngredientModels.Remove(ingredient);
 
+        var ingredients = RecipeState.Value.Item.IngredientModels.Where(c => c.IngredientModel.Id != ingredient.IngredientModel.Id);
+
+        RecipeState.Value.Item.IngredientModels = ingredients.ToList();
+
         Dispatcher.Dispatch(new SetItemAction<IRecipeModel>(RecipeState.Value.Item));
     }
+
+    private bool _ddlVisibility = false;
+
+    private string DdlVisibilityCssClass => _ddlVisibility ? "visible" : "hidden";
 }

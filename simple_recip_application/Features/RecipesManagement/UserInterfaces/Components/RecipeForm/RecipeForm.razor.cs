@@ -37,13 +37,13 @@ public partial class RecipeForm
         {
             using var memoryStream = new MemoryStream();
             await file.OpenReadStream().CopyToAsync(memoryStream);
-            RecipeState.Value.Item.Image = memoryStream.ToArray();
+            Recipe.Image = memoryStream.ToArray();
         }
     }
 
     protected void Submit()
     {
-        if (RecipeState.Value.Item.Id.HasValue)
+        if (Recipe.Id.HasValue)
             Dispatcher.Dispatch(new UpdateItemAction<IRecipeModel>(Recipe));
         else
             Dispatcher.Dispatch(new AddItemAction<IRecipeModel>(Recipe));
@@ -55,5 +55,5 @@ public partial class RecipeForm
             Dispatcher.Dispatch(new DeleteItemAction<IRecipeModel>(model));
     }
 
-    private string GetDeleteButtonCssClass() => RecipeState.Value.Item.Id.HasValue ? "" : "hidden";
+    private string GetDeleteButtonCssClass() => Recipe.Id.HasValue ? "" : "hidden";
 }

@@ -31,10 +31,11 @@
 .badge {
     margin: 5px;
     padding: 5px 10px;
-    background-color: #007bff;
-    color: white;
-    border-radius: 15px;
+    background-color: var(--accent-color-2);
+    color: var(--secondary-color);
+    border-radius: 6.25rem;
     display: inline-block;
+    border: var(--border-size) solid var(--accent-color-2);
 }
 
 .remove-tag {

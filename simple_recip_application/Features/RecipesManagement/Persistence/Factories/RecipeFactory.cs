@@ -15,8 +15,9 @@ public class RecipeFactory : IRecipeFactory
             Instructions = instructions ?? string.Empty,
             PreparationTime = preparationTime ?? new TimeOnly(),
             CookingTime = cookingTime ?? new TimeOnly(),
-            Image = image ?? Array.Empty<byte>(),
-            Category = category ?? string.Empty
+            Image = image ?? [],
+            Category = category ?? string.Empty,
+            IngredientModels = []
         };
     }
 }

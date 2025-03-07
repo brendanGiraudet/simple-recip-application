@@ -33,8 +33,6 @@ public partial class RecipesPage
         base.OnInitialized();
 
         Dispatcher.Dispatch(new LoadItemsAction<IRecipeModel>());
-
-        Dispatcher.Dispatch(new SetItemAction<IRecipeModel>(RecipeFactory.Create()));
     }
 
     private string GetRecipesVisibilityCssClass() => !RecipeState.Value.IsLoading ? "" : "hidden";
@@ -69,7 +67,7 @@ public partial class RecipesPage
     {
         Expression<Func<IRecipeModel, bool>>? filter = null;
 
-        if(!string.IsNullOrEmpty(_searchTerm))
+        if (!string.IsNullOrEmpty(_searchTerm))
             filter = i => i.Name.ToLower().Contains(_searchTerm.ToLower());
 
         Dispatcher.Dispatch(new LoadItemsAction<IRecipeModel>(Take: RecipeState.Value.Take, Skip: 0, filter));
