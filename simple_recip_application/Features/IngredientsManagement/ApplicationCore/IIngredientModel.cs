@@ -1,4 +1,4 @@
-using simple_recip_application.Data.ApplicationCore;
+using simple_recip_application.Data.ApplicationCore.Entities;
 
 namespace simple_recip_application.Features.IngredientsManagement.ApplicationCore;
 

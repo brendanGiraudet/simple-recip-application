@@ -28,7 +28,7 @@ public class Labels
     public static string ImportIngredients => resourceManager.GetString("ImportIngredients", CultureInfo.CurrentCulture) ?? "ImportIngredients";
     public static string Import => resourceManager.GetString("Import", CultureInfo.CurrentCulture) ?? "Import";
     public static string AddRecipe => resourceManager.GetString("AddRecipe", CultureInfo.CurrentCulture) ?? "AddRecipe";
-    public static string EditRecipe => resourceManager.GetString("EditRecipeTitle", CultureInfo.CurrentCulture) ?? "EditRecipeTitle";
+    public static string EditRecipe => resourceManager.GetString("EditRecipe", CultureInfo.CurrentCulture) ?? "EditRecipe";
     public static string RecipeName => resourceManager.GetString("RecipeName", CultureInfo.CurrentCulture) ?? "RecipeName";
     public static string RecipeDescription => resourceManager.GetString("RecipeDescription", CultureInfo.CurrentCulture) ?? "RecipeDescription";
     public static string RecipeInstructions => resourceManager.GetString("RecipeInstructions", CultureInfo.CurrentCulture) ?? "RecipeInstructions";

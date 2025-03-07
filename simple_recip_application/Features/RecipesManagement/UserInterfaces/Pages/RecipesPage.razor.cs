@@ -6,7 +6,6 @@ using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entite
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipesManagement.Store;
 using simple_recip_application.Features.RecipesManagement.Store.Actions;
-using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.RecipesManagement.UserInterfaces.Pages;
@@ -32,7 +31,7 @@ public partial class RecipesPage
     {
         base.OnInitialized();
 
-        Dispatcher.Dispatch(new LoadItemsAction<IRecipeModel>());
+        LoadFilteredIngredients();
     }
 
     private string GetRecipesVisibilityCssClass() => !RecipeState.Value.IsLoading ? "" : "hidden";
@@ -49,7 +48,7 @@ public partial class RecipesPage
     private List<OptionMenuItem> GetOptions()
     {
         List<OptionMenuItem> options = [
-            new ("add", Labels.AddRecipe, () => OpenRecipFormModalAsync())
+            new ("add", string.Empty, () => OpenRecipFormModalAsync())
         ];
 
         return options;
@@ -70,6 +69,8 @@ public partial class RecipesPage
         if (!string.IsNullOrEmpty(_searchTerm))
             filter = i => i.Name.ToLower().Contains(_searchTerm.ToLower());
 
-        Dispatcher.Dispatch(new LoadItemsAction<IRecipeModel>(Take: RecipeState.Value.Take, Skip: 0, filter));
+        Expression<Func<IRecipeModel, object>>? include = i => i.IngredientModels;
+
+        Dispatcher.Dispatch(new LoadItemsAction<IRecipeModel>(Take: RecipeState.Value.Take, Skip: 0, filter, include));
     }
 }

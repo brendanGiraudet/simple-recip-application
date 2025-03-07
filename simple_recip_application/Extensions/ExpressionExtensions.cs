@@ -4,13 +4,13 @@ namespace simple_recip_application.Extensions;
 
 public static class ExpressionExtensions
 {
-    public static Expression<Func<TTarget, bool>> Convert<TSource, TTarget>(this Expression<Func<TSource, bool>> source)
+    public static Expression<Func<TTarget, TOther>> Convert<TSource, TTarget, TOther>(this Expression<Func<TSource, TOther>> source)
     {
         var parameter = Expression.Parameter(typeof(TTarget), "x");
         var visitor = new ParameterTypeVisitor<TSource, TTarget>(parameter);
         var body = visitor.Visit(source.Body);
 
-        return Expression.Lambda<Func<TTarget, bool>>(body, parameter);
+        return Expression.Lambda<Func<TTarget, TOther>>(body, parameter);
     }
 }
 

@@ -1,5 +1,6 @@
+using System.Linq.Expressions;
 using simple_recip_application.Data;
-using simple_recip_application.Data.Repository;
+using simple_recip_application.Data.Persistence.Repository;
 using simple_recip_application.Extensions;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
@@ -23,9 +24,9 @@ public class IngredientRepository
         return ingredients.Cast<IIngredientModel>().ToList();
     }
 
-    public async Task<IEnumerable<IIngredientModel>> GetAsync(int take, int skip, System.Linq.Expressions.Expression<Func<IIngredientModel, bool>>? predicate)
+    public async Task<IEnumerable<IIngredientModel>> GetAsync(int take, int skip, Expression<Func<IIngredientModel, bool>>? predicate, Expression<Func<IIngredientModel, object>>? include)
     {
-        var convertedPredicate = predicate?.Convert<IIngredientModel, IngredientModel>();
+        var convertedPredicate = predicate?.Convert<IIngredientModel, IngredientModel, bool>();
         
         var ingredients = await base.GetAsync(take, skip, convertedPredicate);
 

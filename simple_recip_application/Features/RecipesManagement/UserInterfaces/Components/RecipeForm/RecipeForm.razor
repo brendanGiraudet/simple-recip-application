@@ -1,6 +1,6 @@
 @inherits CustomComponentBase
 
-<h3>@(Recipe.Id.HasValue ? Labels.EditRecipe : Labels.AddRecipe)</h3>
+<h3>@(Recipe.Id.HasValue? Labels.EditRecipe: Labels.AddRecipe)</h3>
 
 <EditForm Model="Recipe" OnValidSubmit="Submit">
     <DataAnnotationsValidator />
@@ -29,7 +29,8 @@
     <!-- Preparation Time -->
     <div class="form-field">
         <label>@Labels.RecipePreparationTime</label>
-        <InputDate Type="InputDateType.Time" TValue="TimeOnly" @bind-Value="Recipe.PreparationTime" class="form-control" />
+        <InputDate Type="InputDateType.Time" TValue="TimeOnly" @bind-Value="Recipe.PreparationTime"
+            class="form-control" />
         <ValidationMessage For="@(() => Recipe.PreparationTime)" />
     </div>
 
@@ -54,12 +55,16 @@
         <ValidationMessage For="@(() => Recipe.Category)" />
     </div>
 
-    <RecipeIngredientSelector />
+    <!-- Recipe Ingredients -->
+    <div class="form-field" style="flex-direction: column;">
+        <h3>@Labels.Ingredients</h3>
+
+        <RecipeIngredientSelector />
+    </div>
 
     <!-- Submit and Cancel Buttons -->
     <div class="form-buttons">
-        <button type="submit" 
-                class="btn btn-primary">
+        <button type="submit" class="btn btn-primary">
             @Labels.SubmitButton
         </button>
 

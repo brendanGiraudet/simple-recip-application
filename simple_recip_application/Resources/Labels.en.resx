@@ -126,8 +126,7 @@
         <comment/>
     </data>
     <data name="SubmitButton" xml:space="preserve">
-        <value>Add</value>
-        <comment/>
+        <value>Save</value>
     </data>
     <data name="Home" xml:space="preserve">
         <value>Home</value>

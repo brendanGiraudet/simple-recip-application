@@ -23,7 +23,7 @@ public class RecipeEffects
     {
         try
         {
-            var recipes = await _repository.GetAsync(action.Take, action.Skip);
+            var recipes = await _repository.GetAsync(action.Take, action.Skip, action.Predicate, action.Include);
 
             dispatcher.Dispatch(new LoadItemsSuccessAction<IRecipeModel>(recipes));
         }

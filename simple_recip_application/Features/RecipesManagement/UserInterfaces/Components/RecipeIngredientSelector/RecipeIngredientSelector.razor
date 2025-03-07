@@ -6,8 +6,7 @@
 
 <div class="ingredients-selector">
 
-    <SearchBar OnSearch="@SearchIngredients"
-                OnFocus="@(() => _ddlVisibility = true)" />
+    <SearchBar OnSearch="@SearchIngredients" OnFocus="@(() => _ddlVisibility = true)" />
 
     <!-- Dropdown List -->
     <ul class="dropdown-list @DdlVisibilityCssClass">
@@ -30,15 +29,22 @@
 
     <!-- Tags (Selected Ingredients with Quantity) -->
     <div class="tags">
-        @foreach (var ingredient in RecipeState.Value.Item.IngredientModels)
+        @if (RecipeState.Value.Item?.IngredientModels?.Count == 0)
         {
-            <div class="tag-item">
-                <span class="badge badge-primary">
-                    @ingredient.IngredientModel.Name <span class="remove-tag"
-                        @onclick="(() => RemoveIngredient(ingredient))">x</span>
-                </span>
-                <input type="number" @bind="ingredient.Quantity" class="quantity-input" placeholder="Quantity" />
-            </div>
+            <span class="badge badge-secondary">@Labels.NoIngredientsFound</span>
+        }
+        else
+        {
+            @foreach (var ingredient in RecipeState.Value.Item?.IngredientModels ?? [])
+            {
+                <div class="tag-item">
+                    <span class="badge badge-primary">
+                        @ingredient.IngredientModel.Name <span class="remove-tag"
+                            @onclick="(() => RemoveIngredient(ingredient))">x</span>
+                    </span>
+                    <input type="number" @bind="ingredient.Quantity" class="quantity-input" placeholder="Quantity" />
+                </div>
+            }
         }
     </div>
 </div>

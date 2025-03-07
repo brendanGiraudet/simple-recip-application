@@ -1,8 +1,9 @@
-namespace simple_recip_application.Data.Repository;
-
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using simple_recip_application.Data.ApplicationCore.Repository;
 using simple_recip_application.Data.Persistence.Entities;
+
+namespace simple_recip_application.Data.Persistence.Repository;
 
 public class Repository<T> : IRepository<T> where T : EntityBase
 {
@@ -25,12 +26,15 @@ public class Repository<T> : IRepository<T> where T : EntityBase
         return await _dbContext.Set<T>().ToListAsync();
     }
 
-    public virtual async Task<IEnumerable<T>> GetAsync(int take, int skip, Expression<Func<T, bool>>? predicate = null)
+    public virtual async Task<IEnumerable<T>> GetAsync(int take, int skip, Expression<Func<T, bool>>? predicate = null, Expression<Func<T, object>>? include = null)
     {
         IQueryable<T> query = _dbContext.Set<T>();
 
         if (predicate is not null)
             query = query.Where(predicate);
+
+        if (include is not null)
+            query = query.Include(include);
 
         return await query.Skip(skip).Take(take).ToListAsync();
     }
