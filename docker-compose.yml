@@ -24,7 +24,7 @@ services:
       
       ApplicationVersion : "1.11.8"
       
-      FeatureManagement__RecipeFeature: false
+      FeatureManagement__RecipeFeature: true
       
       FileSettings__MaxAllowedSize: 512000
 
