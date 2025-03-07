@@ -2,6 +2,7 @@ using Fluxor;
 using Microsoft.Extensions.Localization;
 using simple_recip_application.Features.Importation.Services;
 using simple_recip_application.Features.Importation.Store.Actions;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
@@ -16,7 +17,8 @@ public class ImportEffects
     ILogger<ImportEffects> _logger,
     IStringLocalizer<Messages> _messagesStringLocalizer,
     IIngredientRepository _ingredientRepository,
-    ILogger<CsvImportService> _csvImportLogger
+    ILogger<CsvImportService> _csvImportLogger,
+    IIngredientFactory _ingredientFactory
 )
 {
     [EffectMethod]
@@ -40,7 +42,7 @@ public class ImportEffects
                 return;
             }
 
-            var strategy = ImportStrategyFactory.CreateImportStrategy(action.ImportStrategy, _ingredientRepository, _csvImportLogger);
+            var strategy = ImportStrategyFactory.CreateImportStrategy(action.ImportStrategy, _ingredientRepository, _csvImportLogger, _ingredientFactory);
 
             var importService = new ImportService(strategy);
 

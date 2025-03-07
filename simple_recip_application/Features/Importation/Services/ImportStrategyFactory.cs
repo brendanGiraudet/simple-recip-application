@@ -1,4 +1,5 @@
 using simple_recip_application.Features.Importation.Enums;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
 
 namespace simple_recip_application.Features.Importation.Services;
@@ -8,10 +9,11 @@ public static class ImportStrategyFactory
     public static IImportStrategy CreateImportStrategy(
         ImportStrategyEnum importStrategy, 
         IIngredientRepository ingredientRepository,
-        ILogger<CsvImportService> _logger
+        ILogger<CsvImportService> _logger,
+        IIngredientFactory _ingredientFactory
         )
     {
-        var csvImportService = new CsvImportService(ingredientRepository, _logger);
+        var csvImportService = new CsvImportService(ingredientRepository, _logger, _ingredientFactory);
 
         return importStrategy switch
         {

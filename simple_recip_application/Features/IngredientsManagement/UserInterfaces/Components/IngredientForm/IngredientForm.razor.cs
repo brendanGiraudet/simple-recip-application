@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components;
-using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Store.Actions;
 using Microsoft.Extensions.Options;
 using simple_recip_application.Settings;

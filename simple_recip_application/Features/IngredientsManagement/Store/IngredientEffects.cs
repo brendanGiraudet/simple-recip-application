@@ -1,6 +1,6 @@
 using Fluxor;
 using Microsoft.Extensions.Localization;
-using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
 using simple_recip_application.Features.IngredientsManagement.Store.Actions;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore;

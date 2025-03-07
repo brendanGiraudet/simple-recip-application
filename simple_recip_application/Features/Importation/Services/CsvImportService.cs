@@ -1,7 +1,7 @@
 using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
-using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
 
 namespace simple_recip_application.Features.Importation.Services;
@@ -9,7 +9,8 @@ namespace simple_recip_application.Features.Importation.Services;
 public class CsvImportService
 (
     IIngredientRepository _ingredientRepository,
-    ILogger<CsvImportService> _logger
+    ILogger<CsvImportService> _logger,
+    IIngredientFactory _ingredientFactory
 )
 {
     public async Task ImportIngredientsFromCsv(Stream fileContent)
@@ -35,11 +36,7 @@ public class CsvImportService
 
                 if(image.Length == 0) continue;
 
-                var ingredient = new IngredientModel
-                {
-                    Name = record.product_name,
-                    Image = image
-                };
+                var ingredient = _ingredientFactory.CreateIngredient(record.product_name , image);
 
                 await _ingredientRepository.AddAsync(ingredient);
             }

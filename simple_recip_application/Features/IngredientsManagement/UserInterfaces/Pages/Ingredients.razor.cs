@@ -1,8 +1,8 @@
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using simple_recip_application.Components.OptionsMenu;
-using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
-using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.IngredientsManagement.Store;
 using simple_recip_application.Features.IngredientsManagement.Store.Actions;
 using simple_recip_application.Store.Actions;
@@ -14,12 +14,13 @@ public partial class Ingredients
 {
     [Inject] protected IDispatcher Dispatcher { get; set; } = default!;
     [Inject] protected IState<IngredientState> IngredientState { get; set; } = default!;
+    [Inject] protected IIngredientFactory IngredientFactory { get; set; } = default!;
 
-    private IIngredientModel? _selectedIngredient { get; set; } = new IngredientModel();
+    private IIngredientModel? _selectedIngredient { get; set; }
 
     private async Task OpenIngredientFormModalAsync(IIngredientModel? model = null)
     {
-        _selectedIngredient = model ?? new IngredientModel();
+        _selectedIngredient = model ?? IngredientFactory.CreateIngredient();
 
         Dispatcher.Dispatch(new SetIngredientModalVisibilityAction(true));
 
@@ -33,6 +34,8 @@ public partial class Ingredients
         base.OnInitialized();
 
         Dispatcher.Dispatch(new LoadItemsAction<IIngredientModel>());
+
+        _selectedIngredient = IngredientFactory.CreateIngredient();
     }
 
     private string GetIngredientsVisibilityCssClass() => !IngredientState.Value.IsLoading ? "" : "hidden";

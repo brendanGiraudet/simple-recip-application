@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace simple_recip_application.Features.IngredientsManagement.ApplicationCore.ValidationAttributes;
+namespace simple_recip_application.Data.ApplicationCore.ValidationAttributes;
 
 public class RequiredImageAttribute : ValidationAttribute
 {

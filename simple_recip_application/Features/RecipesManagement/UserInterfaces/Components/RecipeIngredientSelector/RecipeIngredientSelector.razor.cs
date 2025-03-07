@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
-using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.IngredientsManagement.Store;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Factories;
@@ -28,6 +28,8 @@ public partial class RecipeIngredientSelector
             filter = i => i.Name.ToLower().Contains(searchTerm.ToLower());
 
         Dispatcher.Dispatch(new LoadItemsAction<IIngredientModel>(Take: IngredientState.Value.Take, Skip: 0, filter));
+
+        await Task.CompletedTask;
     }
 
     // Adds an ingredient to the selected list with quantity
@@ -45,6 +47,8 @@ public partial class RecipeIngredientSelector
         }
 
         _ddlVisibility = false;
+
+        await Task.CompletedTask;
     }
 
     // Removes an ingredient from the selected list

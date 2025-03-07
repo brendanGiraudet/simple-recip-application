@@ -1,6 +1,6 @@
+using simple_recip_application.Data.ApplicationCore.ValidationAttributes;
 using simple_recip_application.Data.Persistence.Entities;
-using simple_recip_application.Features.IngredientsManagement.ApplicationCore;
-using simple_recip_application.Features.IngredientsManagement.ApplicationCore.ValidationAttributes;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Resources;
 using System.ComponentModel.DataAnnotations;
 
