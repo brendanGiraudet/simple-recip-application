@@ -231,4 +231,7 @@
     <data name="NoRecipesFound" xml:space="preserve">
         <value>Aucune recettes trouvées</value>
     </data>
+    <data name="Previous" xml:space="preserve">
+        <value>Précédent</value>
+    </data>
 </root>

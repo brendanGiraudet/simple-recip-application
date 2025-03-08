@@ -5,6 +5,7 @@ using simple_recip_application.Features.IngredientsManagement.ApplicationCore.En
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.IngredientsManagement.Store;
 using simple_recip_application.Features.IngredientsManagement.Store.Actions;
+using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 using System.Linq.Expressions;
 
@@ -52,7 +53,7 @@ public partial class Ingredients
     private List<OptionMenuItem> GetOptions()
     {
         List<OptionMenuItem> options = [
-            new ("add", string.Empty, () => OpenIngredientFormModalAsync())
+            new ("add", string.Empty, () => OpenIngredientFormModalAsync(), LabelsTranslator.AddIngredient)
         ];
 
         return options;

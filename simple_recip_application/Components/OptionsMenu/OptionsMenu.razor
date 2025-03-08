@@ -6,7 +6,9 @@
         <div class="options-list">
             @foreach (var option in Options)
             {
-                <button @onclick="@(async () => await option.OnClickAction.Invoke())" class="btn btn-secondary">
+                <button @onclick="@(async () => await option.OnClickAction.Invoke())" 
+                        class="btn btn-secondary"
+                        title="@option.ToolTip">
                     <span class="material-symbols-outlined">@option.Icon</span>
                     @if (!string.IsNullOrEmpty(option.Text))
                     {
@@ -17,7 +19,9 @@
         </div>
     }
 
-    <button class="btn btn-primary options-button" @onclick="ToggleOptionsList">
+    <button class="btn btn-primary options-button" 
+            @onclick="ToggleOptionsList"
+            title="@LabelsTranslator.Options">
         <span class="material-symbols-outlined">list</span>
     </button>
 </div>

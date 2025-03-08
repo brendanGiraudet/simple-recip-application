@@ -10,6 +10,7 @@ public partial class Card<TContent>
     [Parameter] public EventCallback<TContent> OnClick { get; set; }
     [Parameter] public EventCallback<TContent> OnSelect { get; set; }
     [Parameter] public bool IsSelected { get; set; }
+    [Parameter] public RenderFragment? BodyContent { get; set; }
 
     private string GetSelectionIconClass() => IsSelected ? "selected" : "not-selected";
 

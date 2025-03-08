@@ -4,33 +4,41 @@
 
 <SearchBar OnSearch="@OnSearchTermChanged" />
 
-<div class="recip-grid @GetRecipesVisibilityCssClass()">
+<div class="recipes-grid @GetRecipesVisibilityCssClass()">
 
-    @if(RecipeState.Value.Items.Count() == 0)
+    @if (RecipeState.Value.Items.Count() == 0)
     {
         <p class="no-ingredients-message">@LabelsTranslator.NoRecipesFound</p>
     }
 
     @foreach (var recipe in RecipeState.Value.Items)
     {
-         <Card TContent="IRecipeModel"
-              Item="recipe"
-              ImageSource="@recipe.Image.GetImageSource()"
-              Title="@recipe.Name"
-              OnClick="OpenRecipFormModalAsync" 
-              OnSelect="HandleSelection" 
-              IsSelected="@(RecipeState.Value.SelectedItems.Contains(recipe))" />
+        <Card TContent="IRecipeModel" Item="recipe" ImageSource="@recipe.Image.GetImageSource()" Title="@recipe.Name"
+            OnClick="OpenRecipFormModalAsync" OnSelect="HandleSelection"
+            IsSelected="@(RecipeState.Value.SelectedItems.Contains(recipe))">
+            <BodyContent>
+                <h5 class="card-title">@recipe.Name</h5>
+                <div class="recipes-times">
+                    <div>
+                        <span class="material-symbols-outlined" title="@LabelsTranslator.RecipeCookingTime">schedule</span>
+                        <span>@recipe.CookingTime</span>
+                    </div>
+                    <div>
+                        <span class="material-symbols-outlined" title="@LabelsTranslator.RecipePreparationTime">hourglass_top</span>
+                        <span>@recipe.PreparationTime</span>
+                    </div>
+                </div>
+
+            </BodyContent>
+        </Card>
     }
 </div>
 
-<PaginationButtons CanPreviousClick="@CanPreviousClick()"
-                    OnPrevious="@OnPrevious"
-                    OnNext="@OnNext" />
+<PaginationButtons CanPreviousClick="@CanPreviousClick()" OnPrevious="@OnPrevious" OnNext="@OnNext" />
 
 <Loader IsVisible="@RecipeState.Value.IsLoading" />
 
-<Modal OnClose="CloseRecipeFormModal" 
-       IsVisible="@RecipeState.Value.RecipeFormModalVisibility">
+<Modal OnClose="CloseRecipeFormModal" IsVisible="@RecipeState.Value.RecipeFormModalVisibility">
 
     <RecipeForm OnCancel="CloseRecipeFormModal" />
 </Modal>

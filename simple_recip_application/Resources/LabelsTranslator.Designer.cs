@@ -43,4 +43,6 @@ public class LabelsTranslator
     public static string Recipes => resourceManager.GetString("Recipes", CultureInfo.CurrentCulture) ?? "Recipes";
     public static string NoIngredientsFound => resourceManager.GetString("NoIngredientsFound", CultureInfo.CurrentCulture) ?? "NoIngredientsFound";
     public static string NoRecipesFound => resourceManager.GetString("NoRecipesFound", CultureInfo.CurrentCulture) ?? "NoRecipesFound";
+    public static string Previous => resourceManager.GetString("Previous", CultureInfo.CurrentCulture) ?? "Previous";
+    public static string Next => resourceManager.GetString("Next", CultureInfo.CurrentCulture) ?? "Next";
 }

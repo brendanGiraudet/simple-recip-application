@@ -7,3 +7,10 @@
     overflow: auto;
     margin-bottom: 1rem;
 }
+
+.recipes-times{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}

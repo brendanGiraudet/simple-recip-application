@@ -1,7 +1,14 @@
 <div class="pagination-buttons-container">
-    
-    <button @onclick="@(() => HandlePreviousClickAsync())" class="btn btn-primary" disabled="@(!CanPreviousClick)"><span class="material-symbols-outlined">chevron_left</span></button>
 
-    <button @onclick="@(() => HandleNextClickAsync())" class="btn btn-primary"><span class="material-symbols-outlined">chevron_right</span></button>
+    @* Previous *@
+    <button @onclick="@(() => HandlePreviousClickAsync())" class="btn btn-primary" disabled="@(!CanPreviousClick)"
+        title="@LabelsTranslator.Previous">
+        <span class="material-symbols-outlined">chevron_left</span>
+    </button>
+
+    @* Next *@
+    <button @onclick="@(() => HandleNextClickAsync())" class="btn btn-primary" title="@LabelsTranslator.Next">
+        <span class="material-symbols-outlined">chevron_right</span>
+    </button>
 
 </div>

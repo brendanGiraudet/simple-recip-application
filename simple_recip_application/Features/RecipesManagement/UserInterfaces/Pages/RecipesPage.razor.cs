@@ -6,6 +6,7 @@ using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entite
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipesManagement.Store;
 using simple_recip_application.Features.RecipesManagement.Store.Actions;
+using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.RecipesManagement.UserInterfaces.Pages;
@@ -48,7 +49,7 @@ public partial class RecipesPage
     private List<OptionMenuItem> GetOptions()
     {
         List<OptionMenuItem> options = [
-            new ("add", string.Empty, () => OpenRecipFormModalAsync())
+            new ("add", string.Empty, () => OpenRecipFormModalAsync(), LabelsTranslator.AddRecipe),
         ];
 
         return options;
