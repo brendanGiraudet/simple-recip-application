@@ -2,9 +2,6 @@
 .page {
     display: flex;
     flex-direction: var(--page-flex-direction);
-    font-family: var(--font-primary);
-    color: var(--secondary-color);
-    background-color: var(--primary-color);
     height: var(--page-height);
     padding: var(--page-padding);
 }
