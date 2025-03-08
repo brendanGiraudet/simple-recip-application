@@ -21,6 +21,9 @@ builder.Services.AddSettings(builder.Configuration);
 // Ajout des factories
 builder.Services.AddFactories();
 
+// Ajout des services
+builder.Services.AddServices();
+
 // Ajout des repositories
 builder.Services.AddApplicationRepositories();
 

@@ -238,4 +238,13 @@
     <data name="Previous" xml:space="preserve">
         <value>Previous</value>
     </data>
+    <data name="GenerateShoppingList" xml:space="preserve">
+        <value>Generate shopping list</value>
+    </data>
+    <data name="Quantity" xml:space="preserve">
+        <value>Quantity</value>
+    </data>
+    <data name="Done" xml:space="preserve">
+        <value>Done</value>
+    </data>
 </root>

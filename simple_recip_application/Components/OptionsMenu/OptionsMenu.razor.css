@@ -4,10 +4,11 @@
     bottom: var(--option-menu-bottom);
     display: flex;
     flex-direction: row;
-    width: 95vw;
     justify-content: flex-end;
     align-items: center;
     overflow: auto;
+    width: fit-content;
+    right: 1rem;
 }
 
 .options-button {
@@ -25,6 +26,8 @@
 .options-list {
     background-color: transparent;
     z-index: 999;
+    display: flex;
+    flex-direction: row;
 }
 
 .options-list button {

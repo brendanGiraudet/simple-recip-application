@@ -1,9 +1,11 @@
 using System.Linq.Expressions;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using simple_recip_application.Components.OptionsMenu;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Factories;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Services;
 using simple_recip_application.Features.RecipesManagement.Store;
 using simple_recip_application.Features.RecipesManagement.Store.Actions;
 using simple_recip_application.Resources;
@@ -13,9 +15,23 @@ namespace simple_recip_application.Features.RecipesManagement.UserInterfaces.Pag
 
 public partial class RecipesPage
 {
+    [Inject] public required ILogger<RecipesPage> Logger { get; set; }
     [Inject] public required IState<RecipeState> RecipeState { get; set; }
     [Inject] public required IDispatcher Dispatcher { get; set; }
     [Inject] public required IRecipeFactory RecipeFactory { get; set; }
+    [Inject] public required IJSRuntime JSRuntime { get; set; }
+    [Inject] public required IShoppingListGenerator ShoppingListGenerator { get; set; }
+
+    private IJSObjectReference? _module;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if(firstRender)
+            _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
+            "./js/download.js");
+    }
 
     private async Task OpenRecipFormModalAsync(IRecipeModel? model = null)
     {
@@ -50,9 +66,29 @@ public partial class RecipesPage
     {
         List<OptionMenuItem> options = [
             new ("add", string.Empty, () => OpenRecipFormModalAsync(), LabelsTranslator.AddRecipe),
+            new ("shopping_cart_checkout", string.Empty, () => GenerateCsvAsync(), LabelsTranslator.GenerateShoppingList),
         ];
 
         return options;
+    }
+
+    private async Task GenerateCsvAsync()
+    {
+        try
+        {
+            var content = await ShoppingListGenerator.GenerateShoppingListCsvContentAsync(RecipeState.Value.SelectedItems);
+
+            var csvDataUrl = $"data:text/csv;base64,{content}";
+
+            var filename = "ingredients.csv";
+
+            if (_module is not null)
+                await _module.InvokeVoidAsync("triggerFileDownload", filename, csvDataUrl);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError($"Error during GenerateCsvAsync: {ex.Message}");
+        }
     }
 
     private string _searchTerm = string.Empty;
@@ -92,7 +128,7 @@ public partial class RecipesPage
     private async Task OnNext()
     {
         var skip = RecipeState.Value.Skip + RecipeState.Value.Take;
-        
+
         LoadFilteredRecipes(skip);
 
         await Task.CompletedTask;

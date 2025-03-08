@@ -17,7 +17,7 @@
             OnClick="OpenRecipFormModalAsync" OnSelect="HandleSelection"
             IsSelected="@(RecipeState.Value.SelectedItems.Contains(recipe))">
             <BodyContent>
-                <h5 class="card-title">@recipe.Name</h5>
+                <h3>@recipe.Name</h3>
                 <div class="recipes-times">
                     <div>
                         <span class="material-symbols-outlined" title="@LabelsTranslator.RecipeCookingTime">schedule</span>
