@@ -1,13 +1,10 @@
 /* 🌟 Base du layout */
 .page {
-    display: flex;
-    flex-direction: var(--page-flex-direction);
     height: var(--page-height);
 }
 
 /* 🏠 Contenu principal */
 main {
-    flex: 1;
     overflow: auto;
     height: var(--main-height);
 }

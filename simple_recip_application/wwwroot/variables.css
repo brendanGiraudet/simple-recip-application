@@ -15,9 +15,8 @@
     --font-primary: 'Arial', sans-serif;
 
     /* Mainlayout */
-    --page-flex-direction: column;
     --page-height: 93vh;
-    --main-height: 85%;
+    --main-height: 90%;
     --header-height: 7vh;
     --header-padding: .5rem;
 
@@ -37,8 +36,8 @@
     --sidebar-width: 100%;
 
     /* CultureSelector*/
-    --flag-width:1.5rem;
-    --flag-height:1.5rem;
+    --flag-width: 1.5rem;
+    --flag-height: 1.5rem;
 
     /* Buttons */
     --button-bg-color: var(--accent-color-1);
@@ -62,17 +61,22 @@
     --border-radius: 5px;
     --border-size: 2px;
 
-    --grid-max-height: 48vh;
+    /* Grid */
+    --grid-height: 60vh;
 
     /* Modal */
     --modal-body-width: 90vw;
     --modal-body-height: 90vh;
+
+    /* Form */
+    --form-body-max-height: 55vh;
 
     /* Input */
     --input-width: 76vw;
 
     /* Scrollbar */
     --scrollbar-width: 5px;
+    --scrollbar-height: 5px;
     --scrollbar-color: var(--accent-color-2);
     --scrollbar-color-hover: var(--accent-color-1);
     --scrollbar-border-radius: 10px;
@@ -82,8 +86,7 @@
 @media (min-width: 481px) {
     :root {
         /* Card */
-        --card-width: 80vw;
-        --card-height: 53vh;
+        --card-width: 80%;
         --card-title-font-size: 1.1rem;
 
         /* Modal */
@@ -99,16 +102,17 @@
         --card-width: 40vw;
         --card-title-font-size: 1.1rem;
 
-        /* Page */
-        --page-flex-direction: row;
-
-
-
-        /* Menu */
-        --menu-width: -webkit-fill-available;
-
         /* Input */
         --input-width: 25vw;
+
+        /* Menu */
+        --menu-height: 7%;
+
+        /* MainLayout */
+        --main-height: 93%;
+
+        /* Grid */
+        --grid-height: 64vh;
     }
 }
 

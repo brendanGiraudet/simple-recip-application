@@ -113,6 +113,7 @@ h1:focus {
     box-shadow: 0 0 0 0.1rem var(--button-box-shadow-background-color), 0 0 0 0.25rem var(--button-box-shadow-border-color);
     outline: none;
 }
+
 /************/
 
 .hidden {
@@ -124,28 +125,41 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 1.25rem;
+    row-gap: 1.25rem;
+}
+
+.form-body {
+    overflow: auto;
+    max-height: var(--form-body-max-height);
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    row-gap: 1rem;
+    padding: 0 .5rem;
 }
 
 .form-buttons {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
-    margin: 1rem 0;
 }
 
 .form-field {
-    margin: 1rem;
     display: flex;
     justify-content: space-between;
     width: 100%;
     align-items: center;
     flex-wrap: wrap;
+    gap: .5rem;
+    row-gap: .5rem;
 }
 
 .form-field input,
 .form-field textarea {
     width: var(--input-width);
 }
+
 /************/
 
 /**** Style input text ****/
@@ -155,28 +169,43 @@ textarea {
     border-radius: var(--border-radius);
     border: 2px solid var(--accent-color-2);
 }
+
 /************/
 
 /**** Style scrollbar ****/
 /* width */
 ::-webkit-scrollbar {
     width: var(--scrollbar-width);
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
+    height: var(--scrollbar-height);
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
     border-radius: var(--scrollbar-border-radius);
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-color); 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-color);
     border-radius: var(--scrollbar-border-radius);
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-color-hover); 
-  }
-  /************/
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-color-hover);
+}
+
+/************/
+
+/**** Style des Grids ****/
+.grid {
+    height: var(--grid-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow: auto;
+    margin-bottom: 1rem;
+    gap: 0.5rem
+}

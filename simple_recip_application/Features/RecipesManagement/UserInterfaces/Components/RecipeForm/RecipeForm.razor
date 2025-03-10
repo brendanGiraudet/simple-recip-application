@@ -5,61 +5,64 @@
 <EditForm Model="Recipe" OnValidSubmit="Submit">
     <DataAnnotationsValidator />
 
-    <!-- Recipe Name -->
-    <div class="form-field">
-        <label>@LabelsTranslator.RecipeName</label>
-        <InputText @bind-Value="Recipe.Name" class="form-control" />
-        <ValidationMessage For="@(() => Recipe.Name)" />
-    </div>
+    <div class="form-body">
+        <!-- Recipe Name -->
+        <div class="form-field">
+            <label>@LabelsTranslator.RecipeName</label>
+            <InputText @bind-Value="Recipe.Name" class="form-control" />
+            <ValidationMessage For="@(() => Recipe.Name)" />
+        </div>
 
-    <!-- Recipe Description -->
-    <div class="form-field">
-        <label>@LabelsTranslator.RecipeDescription</label>
-        <InputText @bind-Value="Recipe.Description" class="form-control" />
-        <ValidationMessage For="@(() => Recipe.Description)" />
-    </div>
+        <!-- Recipe Description -->
+        <div class="form-field">
+            <label>@LabelsTranslator.RecipeDescription</label>
+            <InputText @bind-Value="Recipe.Description" class="form-control" />
+            <ValidationMessage For="@(() => Recipe.Description)" />
+        </div>
 
-    <!-- Instructions -->
-    <div class="form-field">
-        <label>@LabelsTranslator.RecipeInstructions</label>
-        <InputTextArea @bind-Value="Recipe.Instructions" class="form-control" />
-        <ValidationMessage For="@(() => Recipe.Instructions)" />
-    </div>
+        <!-- Instructions -->
+        <div class="form-field">
+            <label>@LabelsTranslator.RecipeInstructions</label>
+            <InputTextArea @bind-Value="Recipe.Instructions" class="form-control" />
+            <ValidationMessage For="@(() => Recipe.Instructions)" />
+        </div>
 
-    <!-- Preparation Time -->
-    <div class="form-field">
-        <label>@LabelsTranslator.RecipePreparationTime</label>
-        <InputDate Type="InputDateType.Time" TValue="TimeOnly" @bind-Value="Recipe.PreparationTime"
-            class="form-control" />
-        <ValidationMessage For="@(() => Recipe.PreparationTime)" />
-    </div>
+        <!-- Preparation Time -->
+        <div class="form-field">
+            <label>@LabelsTranslator.RecipePreparationTime</label>
+            <InputDate Type="InputDateType.Time" TValue="TimeOnly" @bind-Value="Recipe.PreparationTime"
+                class="form-control" />
+            <ValidationMessage For="@(() => Recipe.PreparationTime)" />
+        </div>
 
-    <!-- Cooking Time -->
-    <div class="form-field">
-        <label>@LabelsTranslator.RecipeCookingTime</label>
-        <InputDate Type="InputDateType.Time" TValue="TimeOnly" @bind-Value="Recipe.CookingTime" class="form-control" />
-        <ValidationMessage For="@(() => Recipe.CookingTime)" />
-    </div>
+        <!-- Cooking Time -->
+        <div class="form-field">
+            <label>@LabelsTranslator.RecipeCookingTime</label>
+            <InputDate Type="InputDateType.Time" TValue="TimeOnly" @bind-Value="Recipe.CookingTime"
+                class="form-control" />
+            <ValidationMessage For="@(() => Recipe.CookingTime)" />
+        </div>
 
-    <!-- Recipe Image -->
-    <div class="form-field">
-        <label>@LabelsTranslator.RecipeImageLabel</label>
-        <InputFile OnChange="HandleImageUpload" accept="image/*" />
-        <ValidationMessage For="@(() => Recipe.Image)" />
-    </div>
+        <!-- Recipe Image -->
+        <div class="form-field">
+            <label>@LabelsTranslator.RecipeImageLabel</label>
+            <InputFile OnChange="HandleImageUpload" accept="image/*" />
+            <ValidationMessage For="@(() => Recipe.Image)" />
+        </div>
 
-    <!-- Recipe Category -->
-    <div class="form-field">
-        <label>@LabelsTranslator.RecipeCategory</label>
-        <InputText @bind-Value="Recipe.Category" class="form-control" />
-        <ValidationMessage For="@(() => Recipe.Category)" />
-    </div>
+        <!-- Recipe Category -->
+        <div class="form-field">
+            <label>@LabelsTranslator.RecipeCategory</label>
+            <InputText @bind-Value="Recipe.Category" class="form-control" />
+            <ValidationMessage For="@(() => Recipe.Category)" />
+        </div>
 
-    <!-- Recipe Ingredients -->
-    <div class="form-field" style="flex-direction: column;">
-        <h3>@LabelsTranslator.Ingredients</h3>
+        <!-- Recipe Ingredients -->
+        <div class="form-field" style="flex-direction: column;">
+            <h3>@LabelsTranslator.Ingredients</h3>
 
-        <RecipeIngredientSelector />
+            <RecipeIngredientSelector />
+        </div>
     </div>
 
     <!-- Submit and Cancel Buttons -->
@@ -72,7 +75,8 @@
             @LabelsTranslator.Cancel
         </button>
 
-        <button type="button" @onclick="@(() => DeleteRecipe(Recipe))" class="btn btn-danger @GetDeleteButtonCssClass()">
+        <button type="button" @onclick="@(() => DeleteRecipe(Recipe))"
+            class="btn btn-danger @GetDeleteButtonCssClass()">
             @LabelsTranslator.Delete
         </button>
     </div>

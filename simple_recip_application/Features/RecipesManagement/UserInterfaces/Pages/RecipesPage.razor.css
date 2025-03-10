@@ -1,13 +1,3 @@
-.recipes-grid {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    height: var(--grid-max-height);
-    overflow: auto;
-    margin-bottom: 1rem;
-}
-
 .recipes-times{
     display: flex;
     justify-content: space-evenly;

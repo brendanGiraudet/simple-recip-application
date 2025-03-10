@@ -8,7 +8,7 @@
 
 <SearchBar OnSearch="@OnSearchTermChanged" />
 
-<div class="ingredient-grid @GetIngredientsVisibilityCssClass()">
+<div class="grid @GetIngredientsVisibilityCssClass()">
 
     @if(IngredientState.Value.Items.Count() == 0)
     {

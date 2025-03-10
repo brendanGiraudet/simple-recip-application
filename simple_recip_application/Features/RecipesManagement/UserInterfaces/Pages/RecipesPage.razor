@@ -4,7 +4,7 @@
 
 <SearchBar OnSearch="@OnSearchTermChanged" />
 
-<div class="recipes-grid @GetRecipesVisibilityCssClass()">
+<div class="grid @GetRecipesVisibilityCssClass()">
 
     @if (RecipeState.Value.Items.Count() == 0)
     {
