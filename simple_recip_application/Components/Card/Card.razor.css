@@ -1,18 +1,18 @@
 .card {
     border-radius: 8px;
     text-align: center;
-    margin: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     border: var(--border-size) solid var(--accent-color-2);
+    width: var(--card-width);
 }
 
 .card-img-container {
     position: relative;
     border-radius: 8px;
-    max-width: var(--card-width);
-    max-height: var(--card-height);
+    width: var(--card-img-container-width);
+    height: var(--card-img-container-height);
 }
 
 .card-img {

@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    position: fixed;
-    width: 90vw;
+    position: relative;
+    width: 100%;
 }
 
 .pagination-buttons-container button {

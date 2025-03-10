@@ -3,14 +3,13 @@
     display: flex;
     flex-direction: var(--page-flex-direction);
     height: var(--page-height);
-    padding: var(--page-padding);
 }
 
 /* 🏠 Contenu principal */
 main {
     flex: 1;
-    padding-bottom: var(--main-padding-bottom);
     overflow: auto;
+    height: var(--main-height);
 }
 
 header {
@@ -20,8 +19,10 @@ header {
     flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
+    padding: 0 var(--header-padding);
+    height: var(--header-height);
 }
 
-.application-version{
+.application-version {
     font-style: italic;
 }

@@ -6,4 +6,5 @@
     height: var(--grid-max-height);
     overflow: auto;
     margin-bottom: 1rem;
+    gap: 0.5rem
 }

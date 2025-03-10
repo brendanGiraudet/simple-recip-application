@@ -7,7 +7,7 @@
             @foreach (var option in Options)
             {
                 <button @onclick="@(async () => await option.OnClickAction.Invoke())" 
-                        class="btn btn-secondary"
+                        class="btn btn-secondary options-button"
                         title="@option.ToolTip">
                     <span class="material-symbols-outlined">@option.Icon</span>
                     @if (!string.IsNullOrEmpty(option.Text))
