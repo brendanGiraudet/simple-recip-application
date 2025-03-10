@@ -9,14 +9,14 @@ public class ShoppingListGenerator : IShoppingListGenerator
 {
     public Task<string> GenerateShoppingListCsvContentAsync(IEnumerable<IRecipeModel> recipes)
     {
-        var ingredients = recipes.SelectMany(recipe => recipe.IngredientModels).GroupBy(c => c.IngredientModel.Name).Select(c => new {Name = c.Key, Quantity = c.Sum(t => t.Quantity)}).ToList();
+        var ingredients = recipes.SelectMany(recipe => recipe.IngredientModels).GroupBy(c => c.IngredientModel.Name).Select(c => new { Name = c.Key, Quantity = c.Sum(t => t.Quantity), MeasureUnit = c.First().IngredientModel.MeasureUnit }).ToList();
 
         var csvContent = new StringBuilder();
-        csvContent.AppendLine($"{LabelsTranslator.IngredientName},{LabelsTranslator.Quantity},{LabelsTranslator.Done}");
+        csvContent.AppendLine($"{LabelsTranslator.IngredientName},{LabelsTranslator.Quantity},{LabelsTranslator.MeasureUnit},{LabelsTranslator.Done}");
 
         foreach (var ingredient in ingredients)
         {
-            csvContent.AppendLine($"{ingredient.Name},{ingredient.Quantity},false");
+            csvContent.AppendLine($"{ingredient.Name},{ingredient.Quantity},{ingredient.MeasureUnit},false");
         }
 
         var content = csvContent.ToString();

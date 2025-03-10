@@ -66,4 +66,7 @@
     <data name="UpdateRecipeErrorMessage" xml:space="preserve">
         <value>Update recipe error</value>
     </data>
+    <data name="MeasureUnitRequired" xml:space="preserve">
+        <value>MeasureUnit is required</value>
+    </data>
 </root>

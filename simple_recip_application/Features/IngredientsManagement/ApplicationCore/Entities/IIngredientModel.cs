@@ -6,6 +6,7 @@ public interface IIngredientModel : IEntityBase
 {
     public string Name { get; set; }
     public byte[] Image { get; set; }
+    public string MeasureUnit { get; set; }
     public DateTime CreationDate { get; }
     public DateTime ModificationDate { get; }
     public DateTime? RemoveDate { get; }

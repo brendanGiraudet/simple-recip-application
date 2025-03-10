@@ -27,13 +27,14 @@ public class ApplicationDbContext : DbContext
 
             entity.Property(i => i.Image).HasColumnType("BLOB").IsRequired();
 
+            entity.Property(r => r.MeasureUnit).IsRequired().HasMaxLength(50);
+
             entity.Property(i => i.CreationDate).IsRequired();
 
             entity.Property(i => i.ModificationDate);
 
             entity.Property(i => i.RemoveDate);
         });
-
 
         modelBuilder.Entity<RecipeModel>(entity =>
         {

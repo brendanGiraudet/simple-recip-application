@@ -4,5 +4,5 @@ namespace simple_recip_application.Features.IngredientsManagement.ApplicationCor
 
 public interface IIngredientFactory
 {
-    IIngredientModel CreateIngredient(string? name = null, byte[]? image = null);
+    IIngredientModel CreateIngredient(string? name = null, byte[]? image = null, string? measureUnit = null);
 }

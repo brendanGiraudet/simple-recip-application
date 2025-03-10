@@ -35,10 +35,14 @@
             {
                 <div class="tag-item">
                     <span class="badge badge-primary">
-                        @ingredient.IngredientModel.Name <span class="remove-tag"
-                            @onclick="(() => RemoveIngredient(ingredient))">x</span>
+                        @ingredient.IngredientModel.Name
+                        <span class="remove-tag" @onclick="(() => RemoveIngredient(ingredient))">x</span>
                     </span>
-                    <input type="number" @bind="ingredient.Quantity" class="quantity-input" placeholder="Quantity" />
+
+                    <div class="form-field">
+                        <InputNumber @bind-Value="ingredient.Quantity" placeholder="@LabelsTranslator.Quantity" />
+                        <ValidationMessage For="@(() => ingredient.Quantity)" />
+                    </div>
                 </div>
             }
         }

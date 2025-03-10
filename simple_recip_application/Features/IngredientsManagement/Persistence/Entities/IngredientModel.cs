@@ -14,6 +14,10 @@ public class IngredientModel : EntityBase, IIngredientModel
 
     [RequiredImage(ErrorMessageResourceName = nameof(MessagesTranslator.ImageRequired), ErrorMessageResourceType = typeof(MessagesTranslator))]
     public byte[] Image { get; set; } = Array.Empty<byte>();
+    
+    [Required(ErrorMessageResourceName = nameof(MessagesTranslator.MeasureUnitRequired), ErrorMessageResourceType = typeof(MessagesTranslator))]
+    [MaxLength(50)]
+    public string MeasureUnit { get; set; } = string.Empty;
 
     public DateTime CreationDate { get; private set; } = DateTime.UtcNow;
 

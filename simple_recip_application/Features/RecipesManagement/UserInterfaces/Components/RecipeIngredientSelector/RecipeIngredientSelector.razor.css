@@ -26,6 +26,9 @@
 
 .tags {
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .badge {
@@ -43,6 +46,6 @@
     cursor: pointer;
 }
 
-.ingredients-selector ::deep .searchbar-container{
+.ingredients-selector ::deep .searchbar-container {
     margin: 0;
 }

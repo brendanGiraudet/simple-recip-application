@@ -6,10 +6,10 @@ using simple_recip_application.Features.IngredientsManagement.Persistence.Entiti
 
 public class IngredientFactory : IIngredientFactory
 {
-    public IIngredientModel CreateIngredient(string? name = null, byte[]? image = null) => new IngredientModel
+    public IIngredientModel CreateIngredient(string? name = null, byte[]? image = null, string? measureUnit = null) => new IngredientModel
     {
         Name = name ?? string.Empty,
-
-        Image = image ?? []
+        Image = image ?? [],
+        MeasureUnit = measureUnit ?? string.Empty
     };
 }

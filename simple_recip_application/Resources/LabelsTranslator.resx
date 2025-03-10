@@ -243,4 +243,7 @@
     <data name="Done" xml:space="preserve">
         <value>Fait</value>
     </data>
+    <data name="MeasureUnit" xml:space="preserve">
+        <value>Unité de mesure</value>
+    </data>
 </root>

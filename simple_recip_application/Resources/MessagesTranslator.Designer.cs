@@ -24,6 +24,7 @@ public class MessagesTranslator
     public static string CookingTimeRequired => resourceManager.GetString("CookingTimeRequired", CultureInfo.CurrentCulture) ?? "CookingTimeRequired";
     public static string MaxAllowedSizeError => resourceManager.GetString("MaxAllowedSizeError", CultureInfo.CurrentCulture) ?? "MaxAllowedSizeError";
     public static string QuantityRequired => resourceManager.GetString("QuantityRequired", CultureInfo.CurrentCulture) ?? "QuantityRequired";
+    public static string MeasureUnitRequired => resourceManager.GetString("MeasureUnitRequired", CultureInfo.CurrentCulture) ?? "MeasureUnitRequired";
     public static string DeleteIngredientSuccessMessage => resourceManager.GetString("DeleteIngredientSuccessMessage", CultureInfo.CurrentCulture) ?? "DeleteIngredientSuccessMessage";
     public static string UpdateIngredientSuccessMessage => resourceManager.GetString("UpdateIngredientSuccessMessage", CultureInfo.CurrentCulture) ?? "UpdateIngredientSuccessMessage";
     public static string UpdateIngredientErrorMessage => resourceManager.GetString("UpdateIngredientErrorMessage", CultureInfo.CurrentCulture) ?? "UpdateIngredientErrorMessage";

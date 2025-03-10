@@ -7,17 +7,26 @@
 
     <div class="form-body">
 
+        @* Name *@
         <div class="form-field">
             <label for="@nameof(IIngredientModel.Name)">@LabelsTranslator.IngredientName</label>
             <InputText id="@nameof(IIngredientModel.Name)" @bind-Value="Ingredient.Name" class="form-control" />
             <ValidationMessage For="@(() => Ingredient.Name)" />
         </div>
 
+        @* Image *@
         <div class="form-field">
             <label for="@nameof(IIngredientModel.Image)">@LabelsTranslator.ImageLabel</label>
             <InputFile id="@nameof(IIngredientModel.Image)" OnChange="HandleImageUpload" accept="image/*"
                 class="form-control" />
             <ValidationMessage For="@(() => Ingredient.Image)" />
+        </div>
+        
+        @* MeasureUnit *@
+        <div class="form-field">
+            <label for="@nameof(IIngredientModel.MeasureUnit)">@LabelsTranslator.MeasureUnit</label>
+            <InputText id="@nameof(IIngredientModel.MeasureUnit)" @bind-Value="@Ingredient.MeasureUnit" class="form-control" />
+            <ValidationMessage For="@(() => Ingredient.MeasureUnit)" />
         </div>
 
     </div>

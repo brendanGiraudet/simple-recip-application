@@ -69,4 +69,7 @@
     <data name="UpdateRecipeErrorMessage" xml:space="preserve">
         <value>Erreur lors de la mise à jour de la recette</value>
     </data>
+    <data name="MeasureUnitRequired" xml:space="preserve">
+        <value>L'unité de mesure est obligatoire</value>
+    </data>
 </root>

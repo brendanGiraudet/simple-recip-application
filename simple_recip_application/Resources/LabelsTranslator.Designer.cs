@@ -47,5 +47,6 @@ public class LabelsTranslator
     public static string Next => resourceManager.GetString("Next", CultureInfo.CurrentCulture) ?? "Next";
     public static string GenerateShoppingList => resourceManager.GetString("GenerateShoppingList", CultureInfo.CurrentCulture) ?? "GenerateShoppingList";
     public static string Quantity => resourceManager.GetString("Quantity", CultureInfo.CurrentCulture) ?? "Quantity";
+    public static string MeasureUnit => resourceManager.GetString("MeasureUnit", CultureInfo.CurrentCulture) ?? "MeasureUnit";
     public static string Done => resourceManager.GetString("Done", CultureInfo.CurrentCulture) ?? "Done";
 }
