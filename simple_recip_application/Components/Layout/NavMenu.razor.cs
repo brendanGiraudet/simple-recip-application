@@ -25,6 +25,9 @@ public partial class NavMenu
         
         if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.IngredientFeature))
             _navMenuItems = _navMenuItems.Append(new NavMenuItem("/ingredients", "grocery", LabelsTranslator.Ingredients));
+        
+        if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.ImportationFeature))
+            _navMenuItems = _navMenuItems.Append(new NavMenuItem("/importation", "upload_file", LabelsTranslator.Importation));
     }
 
     private IEnumerable<NavMenuItem> _navMenuItems = [];

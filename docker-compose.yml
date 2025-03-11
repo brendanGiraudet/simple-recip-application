@@ -26,6 +26,7 @@ services:
       
       FeatureManagement__RecipeFeature: true
       FeatureManagement__IngredientFeature: true
+      FeatureManagement__ImportationFeature: false
       
       FileSettings__MaxAllowedSize: 512000
 
