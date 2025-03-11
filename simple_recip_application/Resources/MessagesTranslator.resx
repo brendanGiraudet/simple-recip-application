@@ -72,4 +72,7 @@
     <data name="MeasureUnitRequired" xml:space="preserve">
         <value>L'unité de mesure est obligatoire</value>
     </data>
+    <data name="MinIngredientErrorMessage" xml:space="preserve">
+        <value>Il est nécessaire d'avoir au moins un ingrédient</value>
+    </data>
 </root>

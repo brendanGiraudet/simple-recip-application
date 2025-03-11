@@ -4,6 +4,7 @@
 
     <div class="ingredient-selector-search-bar">
         <SearchBar OnSearch="@SearchIngredients" OnFocus="@(() => _ddlVisibility = true)" />
+        <ValidationMessage For="@(() => RecipeState.Value.Item.IngredientModels)" />
 
         <ul class="dropdown-list @DdlVisibilityCssClass">
 
@@ -38,7 +39,7 @@
 
                 @* Quantity *@
                 <div>
-                    <InputNumber @bind-Value="ingredient.Quantity" placeholder="@LabelsTranslator.Quantity" />
+                    <InputNumber @bind-Value="ingredient.Quantity" placeholder="@LabelsTranslator.Quantity" min="1" step="1" />
                     <ValidationMessage For="@(() => ingredient.Quantity)" />
                 </div>
 

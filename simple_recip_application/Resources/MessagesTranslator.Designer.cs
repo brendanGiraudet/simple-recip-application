@@ -35,4 +35,5 @@ public class MessagesTranslator
     public static string DeleteRecipeErrorMessage => resourceManager.GetString("DeleteRecipeErrorMessage", CultureInfo.CurrentCulture) ?? "DeleteRecipeErrorMessage";
     public static string UpdateRecipeSuccessMessage => resourceManager.GetString("UpdateRecipeSuccessMessage", CultureInfo.CurrentCulture) ?? "UpdateRecipeSuccessMessage";
     public static string UpdateRecipeErrorMessage => resourceManager.GetString("UpdateRecipeErrorMessage", CultureInfo.CurrentCulture) ?? "UpdateRecipeErrorMessage";
+    public static string MinIngredientErrorMessage => resourceManager.GetString("MinIngredientErrorMessage", CultureInfo.CurrentCulture) ?? "MinIngredientErrorMessage";
 }

@@ -69,4 +69,7 @@
     <data name="MeasureUnitRequired" xml:space="preserve">
         <value>MeasureUnit is required</value>
     </data>
+    <data name="MinIngredientErrorMessage" xml:space="preserve">
+        <value>Error it must have at least one ingredient</value>
+    </data>
 </root>
