@@ -10,7 +10,7 @@ public static class RecipeReducer
 {
     #region LoadItems
     [ReducerMethod]
-    public static RecipeState ReduceLoadItemsAction(RecipeState state, LoadItemsAction<IRecipeModel> action) => state with { IsLoading = true };
+    public static RecipeState ReduceLoadItemsAction(RecipeState state, LoadItemsAction<IRecipeModel> action) => state with { IsLoading = true, Take = action.Take, Skip = action.Skip };
 
     [ReducerMethod]
     public static RecipeState ReduceLoadItemsSuccessAction(RecipeState state, LoadItemsSuccessAction<IRecipeModel> action)
