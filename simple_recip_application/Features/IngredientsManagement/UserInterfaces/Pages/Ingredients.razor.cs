@@ -34,7 +34,7 @@ public partial class Ingredients
     {
         base.OnInitialized();
 
-        Dispatcher.Dispatch(new LoadItemsAction<IIngredientModel>());
+        LoadFilteredIngredients();
 
         _selectedIngredient = IngredientFactory.CreateIngredient();
     }
@@ -92,10 +92,10 @@ public partial class Ingredients
 
     private void LoadFilteredIngredients(int? skip = null)
     {
-        Expression<Func<IIngredientModel, bool>>? filter = null;
+        Expression<Func<IIngredientModel, bool>>? filter = c => c.RemoveDate == null;
 
         if(!string.IsNullOrEmpty(_searchTerm))
-            filter = i => i.Name.ToLower().Contains(_searchTerm.ToLower());
+            filter = i => i.Name.ToLower().Contains(_searchTerm.ToLower()) && i.RemoveDate == null;
 
         Dispatcher.Dispatch(new LoadItemsAction<IIngredientModel>(Take: IngredientState.Value.Take, Skip: skip ?? 0, filter));
     }

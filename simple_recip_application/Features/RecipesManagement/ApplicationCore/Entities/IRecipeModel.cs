@@ -12,7 +12,4 @@ public interface IRecipeModel : IEntityBase
     public TimeOnly CookingTime { get; set; }
     public byte[] Image { get; set; }
     public string Category { get; set; }
-    public DateTime CreationDate { get; set; }
-    public DateTime? ModificationDate { get; set; }
-    public DateTime? RemoveDate { get; set; }
 }

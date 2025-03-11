@@ -30,7 +30,7 @@ public class IngredientRepository
         
         var ingredients = await base.GetAsync(take, skip, convertedPredicate);
 
-        return ingredients.Cast<IIngredientModel>();
+        return ingredients.OrderBy(c => c.Name).Cast<IIngredientModel>();
     }
 
     public async Task AddAsync(IIngredientModel? entity)

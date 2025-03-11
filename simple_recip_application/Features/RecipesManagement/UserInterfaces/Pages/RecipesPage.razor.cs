@@ -35,7 +35,11 @@ public partial class RecipesPage
 
     private async Task OpenRecipFormModalAsync(IRecipeModel? model = null)
     {
-        Dispatcher.Dispatch(new SetItemAction<IRecipeModel>(model ?? RecipeFactory.Create()));
+        if(model is not null && model.Id.HasValue)
+            Dispatcher.Dispatch(new LoadItemAction<IRecipeModel>(model.Id.Value));    
+
+        else
+            Dispatcher.Dispatch(new SetItemAction<IRecipeModel>(RecipeFactory.Create()));
 
         Dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(true));
 
@@ -101,10 +105,10 @@ public partial class RecipesPage
 
     private void LoadFilteredRecipes(int? skip = null)
     {
-        Expression<Func<IRecipeModel, bool>>? filter = null;
+        Expression<Func<IRecipeModel, bool>>? filter = r => r.RemoveDate == null;
 
         if (!string.IsNullOrEmpty(_searchTerm))
-            filter = i => i.Name.ToLower().Contains(_searchTerm.ToLower());
+            filter = i => i.Name.ToLower().Contains(_searchTerm.ToLower()) && i.RemoveDate == null;
 
         Dispatcher.Dispatch(new LoadItemsAction<IRecipeModel>(Take: RecipeState.Value.Take, Skip: skip ?? 0, filter));
     }

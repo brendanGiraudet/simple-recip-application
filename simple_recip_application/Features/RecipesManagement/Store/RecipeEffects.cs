@@ -39,6 +39,27 @@ public class RecipeEffects
     }
 
     [EffectMethod]
+    public async Task HandleLoadRecipe(LoadItemAction<IRecipeModel> action, IDispatcher dispatcher)
+    {
+        try
+        {
+            var recipe = await _repository.GetByIdAsync(action.Id);
+
+            dispatcher.Dispatch(new LoadItemSuccessAction<IRecipeModel>(recipe));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Erreur lors du chargement de la recette");
+
+            dispatcher.Dispatch(new LoadItemFailureAction<IRecipeModel>());
+
+            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.LoadRecipeErrorMessage, NotificationType.Error);
+
+            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+        }
+    }
+
+    [EffectMethod]
     public async Task HandleAddRecipe(AddItemAction<IRecipeModel> action, IDispatcher dispatcher)
     {
         try

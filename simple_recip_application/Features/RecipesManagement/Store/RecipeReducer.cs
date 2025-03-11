@@ -20,6 +20,19 @@ public static class RecipeReducer
     public static RecipeState ReduceLoadItemsFailureAction(RecipeState state, LoadItemsFailureAction<IRecipeModel> action)
         => state with { IsLoading = false };
     #endregion
+    
+    #region LoadItem
+    [ReducerMethod]
+    public static RecipeState ReduceLoadItemAction(RecipeState state, LoadItemAction<IRecipeModel> action) => state with { IsLoading = true };
+
+    [ReducerMethod]
+    public static RecipeState ReduceLoadItemSuccessAction(RecipeState state, LoadItemSuccessAction<IRecipeModel> action)
+        => state with { IsLoading = false, Item = action.Item };
+
+    [ReducerMethod]
+    public static RecipeState ReduceLoadItemFailureAction(RecipeState state, LoadItemFailureAction<IRecipeModel> action)
+        => state with { IsLoading = false };
+    #endregion
 
     #region AddRecipe
     [ReducerMethod]

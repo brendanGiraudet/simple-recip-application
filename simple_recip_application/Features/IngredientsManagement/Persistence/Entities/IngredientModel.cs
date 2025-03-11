@@ -18,10 +18,4 @@ public class IngredientModel : EntityBase, IIngredientModel
     [Required(ErrorMessageResourceName = nameof(MessagesTranslator.MeasureUnitRequired), ErrorMessageResourceType = typeof(MessagesTranslator))]
     [MaxLength(50)]
     public string MeasureUnit { get; set; } = string.Empty;
-
-    public DateTime CreationDate { get; private set; } = DateTime.UtcNow;
-
-    public DateTime ModificationDate { get; private set; } = DateTime.UtcNow;
-
-    public DateTime? RemoveDate { get; private set; }
 }

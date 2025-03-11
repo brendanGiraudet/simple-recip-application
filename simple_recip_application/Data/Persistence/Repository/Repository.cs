@@ -5,15 +5,12 @@ using simple_recip_application.Data.Persistence.Entities;
 
 namespace simple_recip_application.Data.Persistence.Repository;
 
-public class Repository<T> : IRepository<T> where T : EntityBase
+public class Repository<T> 
+(
+    ApplicationDbContext _dbContext
+)
+: IRepository<T> where T : EntityBase
 {
-    private readonly ApplicationDbContext _dbContext;
-
-    public Repository(ApplicationDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     public virtual async Task<T?> GetByIdAsync(Guid? id)
     {
         if (id is null) return null;
@@ -45,6 +42,8 @@ public class Repository<T> : IRepository<T> where T : EntityBase
     {
         if (entity is null) return;
 
+        entity.CreationDate = DateTime.UtcNow;
+
         _dbContext.Set<T>().Add(entity);
 
         await _dbContext.SaveChangesAsync();
@@ -53,6 +52,8 @@ public class Repository<T> : IRepository<T> where T : EntityBase
     public async Task UpdateAsync(T? entity)
     {
         if (entity is null) return;
+
+        entity.ModificationDate = DateTime.UtcNow;
 
         _dbContext.Set<T>().Update(entity);
 
@@ -63,8 +64,8 @@ public class Repository<T> : IRepository<T> where T : EntityBase
     {
         if (entity is null) return;
 
-        _dbContext.Set<T>().Remove(entity);
+        entity.RemoveDate = DateTime.UtcNow;
 
-        await _dbContext.SaveChangesAsync();
+        await UpdateAsync(entity);
     }
 }

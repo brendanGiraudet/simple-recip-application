@@ -16,7 +16,11 @@ public class RecipeRepository
 {
     public new async Task<IRecipeModel?> GetByIdAsync(Guid? id)
     {
-        return await base.GetByIdAsync(id);
+        var ingredient = await _dbContext.Set<RecipeModel>()
+                                         .Include(c => c.Ingredients)
+                                         .ThenInclude(c => c.Ingredient)
+                                         .FirstOrDefaultAsync(c => c.Id == id);
+        return ingredient;
     }
 
     public new async Task<IEnumerable<IRecipeModel>> GetAsync()
@@ -29,12 +33,10 @@ public class RecipeRepository
     public async Task<IEnumerable<IRecipeModel>> GetAsync(int take, int skip, Expression<Func<IRecipeModel, bool>>? predicate)
     {
         var convertedPredicate = predicate?.Convert<IRecipeModel, RecipeModel, bool>();
-        
+
         var ingredients = base.Get(take, skip, convertedPredicate);
 
-        ingredients.Include(i => i.IngredientModels).ThenInclude(i => i.IngredientModel);
-
-        return await ingredients.Cast<IRecipeModel>().ToListAsync();
+        return await ingredients.OrderBy(c => c.Name).Cast<IRecipeModel>().ToListAsync();
     }
 
     public async Task AddAsync(IRecipeModel? entity)

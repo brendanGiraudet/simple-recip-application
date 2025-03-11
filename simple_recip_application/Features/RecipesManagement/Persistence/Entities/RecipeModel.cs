@@ -36,10 +36,4 @@ public class RecipeModel : EntityBase, IRecipeModel
     public byte[] Image { get; set; } = Array.Empty<byte>();
 
     public string Category { get; set; } = string.Empty;
-
-    public DateTime CreationDate { get; set; } = DateTime.UtcNow;
-
-    public DateTime? ModificationDate { get; set; } = DateTime.UtcNow;
-
-    public DateTime? RemoveDate { get; set; }
 }
