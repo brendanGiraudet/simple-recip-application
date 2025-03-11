@@ -1,5 +1,6 @@
 .ingredients-selector {
     position: relative;
+    width: 100%;
 }
 
 .dropdown-list {

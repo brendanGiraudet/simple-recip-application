@@ -16,11 +16,10 @@ public partial class RecipeIngredientSelector
     [Inject] public required IState<IngredientState> IngredientState { get; set; }
     [Inject] public required IDispatcher Dispatcher { get; set; }
     [Inject] public required IRecipeIngredientFactory RecipeIngredientFactory { get; set; }
+    
+    private ICollection<IRecipeIngredientModel> RecipeIngredients => RecipeState.Value.Item?.IngredientModels ?? [];
 
-    private ICollection<IIngredientModel> FilteredIngredients => IngredientState.Value.Items.Where(c => RecipeState.Value.Item.IngredientModels.FirstOrDefault(p => p.IngredientId == c.Id) == null).ToList();
-
-    // This will hold the ICollection of ingredients filtered by search term
-    private async Task SearchIngredients(string searchTerm)
+    private async Task SearchIngredients(string? searchTerm = null)
     {
         Expression<Func<IIngredientModel, bool>>? filter = null;
 
@@ -32,16 +31,13 @@ public partial class RecipeIngredientSelector
         await Task.CompletedTask;
     }
 
-    // Adds an ingredient to the selected list with quantity
     private async Task AddIngredient(IIngredientModel ingredient)
     {
         if (!RecipeState.Value.Item.IngredientModels.Any(i => i.IngredientModel == ingredient))
         {
             var recipeIngredient = RecipeIngredientFactory.Create(RecipeState.Value.Item, ingredient, 1);
 
-            IEnumerable<IRecipeIngredientModel> ingredients = [.. RecipeState.Value.Item.IngredientModels, recipeIngredient];
-
-            RecipeState.Value.Item.IngredientModels = ingredients.ToList();
+            RecipeState.Value.Item.IngredientModels = [.. RecipeState.Value.Item.IngredientModels, recipeIngredient];
 
             Dispatcher.Dispatch(new SetItemAction<IRecipeModel>(RecipeState.Value.Item));
         }
@@ -51,14 +47,11 @@ public partial class RecipeIngredientSelector
         await Task.CompletedTask;
     }
 
-    // Removes an ingredient from the selected list
     private void RemoveIngredient(IRecipeIngredientModel ingredient)
     {
         RecipeState.Value.Item.IngredientModels.Remove(ingredient);
 
-        var ingredients = RecipeState.Value.Item.IngredientModels.Where(c => c.IngredientModel.Id != ingredient.IngredientModel.Id);
-
-        RecipeState.Value.Item.IngredientModels = ingredients.ToList();
+        RecipeState.Value.Item.IngredientModels = [.. RecipeState.Value.Item.IngredientModels.Where(c => c.IngredientModel.Id != ingredient.IngredientModel.Id)];
 
         Dispatcher.Dispatch(new SetItemAction<IRecipeModel>(RecipeState.Value.Item));
     }
@@ -66,4 +59,14 @@ public partial class RecipeIngredientSelector
     private bool _ddlVisibility = false;
 
     private string DdlVisibilityCssClass => _ddlVisibility ? "visible" : "hidden";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        if(RecipeState.Value.FilteredIngredients.Count() == 0)
+        {
+            await SearchIngredients();
+        }
+    }
 }

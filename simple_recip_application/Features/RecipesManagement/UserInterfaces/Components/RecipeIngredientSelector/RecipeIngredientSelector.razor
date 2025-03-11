@@ -2,49 +2,51 @@
 
 <div class="ingredients-selector">
 
-    <SearchBar OnSearch="@SearchIngredients" OnFocus="@(() => _ddlVisibility = true)" />
+    <div class="ingredient-selector-search-bar">
+        <SearchBar OnSearch="@SearchIngredients" OnFocus="@(() => _ddlVisibility = true)" />
 
-    <!-- Dropdown List -->
-    <ul class="dropdown-list @DdlVisibilityCssClass">
+        <ul class="dropdown-list @DdlVisibilityCssClass">
 
-        @if (FilteredIngredients.Count == 0)
-        {
-            <li class="dropdown-item">
-                @LabelsTranslator.NoIngredientsFound
-            </li>
-        }
+            @if (RecipeState.Value.FilteredIngredients.Count() == 0)
+            {
+                <li class="dropdown-item" @onclick="@(() => _ddlVisibility = false)">
+                    @LabelsTranslator.NoIngredientsFound
+                </li>
+            }
 
-        @foreach (var ingredient in FilteredIngredients)
-        {
-            <li @onclick="() => AddIngredient(ingredient)" class="dropdown-item">
-                @ingredient.Name
-            </li>
-        }
-    </ul>
-
+            @foreach (var ingredient in RecipeState.Value.FilteredIngredients)
+            {
+                <li @onclick="() => AddIngredient(ingredient)" class="dropdown-item">
+                    @ingredient.Name
+                </li>
+            }
+        </ul>
+    </div>
 
     <!-- Tags (Selected Ingredients with Quantity) -->
     <div class="tags">
-        @if (RecipeState.Value.Item?.IngredientModels?.Count == 0)
+        @if (RecipeIngredients.Count == 0)
         {
             <span class="badge badge-secondary">@LabelsTranslator.NoIngredientsFound</span>
         }
-        else
-        {
-            @foreach (var ingredient in RecipeState.Value.Item?.IngredientModels ?? [])
-            {
-                <div class="tag-item">
-                    <span class="badge badge-primary">
-                        @ingredient.IngredientModel.Name
-                        <span class="remove-tag" @onclick="(() => RemoveIngredient(ingredient))">x</span>
-                    </span>
 
-                    <div class="form-field">
-                        <InputNumber @bind-Value="ingredient.Quantity" placeholder="@LabelsTranslator.Quantity" />
-                        <ValidationMessage For="@(() => ingredient.Quantity)" />
-                    </div>
+        @foreach (var ingredient in RecipeIngredients)
+        {
+            <div class="tag-item">
+                <span class="badge badge-primary">
+                    @ingredient.IngredientModel?.Name
+                    <span class="remove-tag" @onclick="(() => RemoveIngredient(ingredient))">x</span>
+                </span>
+
+                @* Quantity *@
+                <div class="form-field">
+                    <InputNumber @bind-Value="ingredient.Quantity" placeholder="@LabelsTranslator.Quantity" />
+                    <ValidationMessage For="@(() => ingredient.Quantity)" />
                 </div>
-            }
+
+                @* MeasureUnit *@
+                <span>@ingredient.IngredientModel?.MeasureUnit</span>
+            </div>
         }
     </div>
 </div>

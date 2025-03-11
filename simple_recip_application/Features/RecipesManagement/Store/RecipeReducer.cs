@@ -1,4 +1,5 @@
 using Fluxor;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.Store.Actions;
 using simple_recip_application.Store.Actions;
@@ -72,10 +73,15 @@ public static class RecipeReducer
     public static RecipeState ReduceSetRecipeFormModalVisibilityAction(RecipeState state, SetRecipeFormModalVisibilityAction action) =>
         state with { RecipeFormModalVisibility = action.IsVisible };
     #endregion
-    
+
     #region SetItem
     [ReducerMethod]
     public static RecipeState ReduceSetItemAction(RecipeState state, SetItemAction<IRecipeModel> action) =>
-        state with { Item = action.Item };
+        state with { Item = action.Item, FilteredIngredients = state.FilteredIngredients.Where(c => state.Item?.IngredientModels?.FirstOrDefault(p => p.IngredientModel?.Id == c.Id) == null) };
+    #endregion
+
+    #region LoadItemsSuccessAction<IIngredientModel>
+    [ReducerMethod]
+    public static RecipeState ReduceLoadItemsSuccessAction(RecipeState state, LoadItemsSuccessAction<IIngredientModel> action) => state with { FilteredIngredients = action.Items.Where(c => state.Item?.IngredientModels?.FirstOrDefault(p => p.IngredientId == c.Id) == null) };
     #endregion
 }
