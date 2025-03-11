@@ -4,6 +4,7 @@ using simple_recip_application.Data.Persistence.Repository;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 using simple_recip_application.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace simple_recip_application.Features.RecipesManagement.Persistence.Repositories;
 
@@ -25,13 +26,15 @@ public class RecipeRepository
         return ingredients.Cast<IRecipeModel>().ToList();
     }
 
-    public async Task<IEnumerable<IRecipeModel>> GetAsync(int take, int skip, Expression<Func<IRecipeModel, bool>>? predicate, Expression<Func<IRecipeModel, object>>? include)
+    public async Task<IEnumerable<IRecipeModel>> GetAsync(int take, int skip, Expression<Func<IRecipeModel, bool>>? predicate)
     {
         var convertedPredicate = predicate?.Convert<IRecipeModel, RecipeModel, bool>();
         
-        var ingredients = await base.GetAsync(take, skip, convertedPredicate, i => i.Ingredients);
+        var ingredients = base.Get(take, skip, convertedPredicate);
 
-        return ingredients.Cast<IRecipeModel>();
+        ingredients.Include(i => i.IngredientModels).ThenInclude(i => i.IngredientModel);
+
+        return await ingredients.Cast<IRecipeModel>().ToListAsync();
     }
 
     public async Task AddAsync(IRecipeModel? entity)

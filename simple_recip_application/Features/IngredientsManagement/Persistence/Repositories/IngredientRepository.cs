@@ -24,7 +24,7 @@ public class IngredientRepository
         return ingredients.Cast<IIngredientModel>().ToList();
     }
 
-    public async Task<IEnumerable<IIngredientModel>> GetAsync(int take, int skip, Expression<Func<IIngredientModel, bool>>? predicate, Expression<Func<IIngredientModel, object>>? include)
+    public async Task<IEnumerable<IIngredientModel>> GetAsync(int take, int skip, Expression<Func<IIngredientModel, bool>>? predicate)
     {
         var convertedPredicate = predicate?.Convert<IIngredientModel, IngredientModel, bool>();
         

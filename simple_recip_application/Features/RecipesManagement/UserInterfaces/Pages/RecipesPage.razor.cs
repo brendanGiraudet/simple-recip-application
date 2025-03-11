@@ -106,9 +106,7 @@ public partial class RecipesPage
         if (!string.IsNullOrEmpty(_searchTerm))
             filter = i => i.Name.ToLower().Contains(_searchTerm.ToLower());
 
-        Expression<Func<IRecipeModel, object>>? include = i => i.IngredientModels;
-
-        Dispatcher.Dispatch(new LoadItemsAction<IRecipeModel>(Take: RecipeState.Value.Take, Skip: skip ?? 0, filter, include));
+        Dispatcher.Dispatch(new LoadItemsAction<IRecipeModel>(Take: RecipeState.Value.Take, Skip: skip ?? 0, filter));
     }
 
     private bool CanPreviousClick() => RecipeState.Value.Skip > 0;

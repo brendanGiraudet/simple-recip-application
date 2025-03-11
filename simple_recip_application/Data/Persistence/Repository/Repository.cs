@@ -26,17 +26,19 @@ public class Repository<T> : IRepository<T> where T : EntityBase
         return await _dbContext.Set<T>().ToListAsync();
     }
 
-    public virtual async Task<IEnumerable<T>> GetAsync(int take, int skip, Expression<Func<T, bool>>? predicate = null, Expression<Func<T, object>>? include = null)
+    public virtual async Task<IEnumerable<T>> GetAsync(int take, int skip, Expression<Func<T, bool>>? predicate = null)
+    {
+        return await Get(take, skip, predicate).ToListAsync();
+    }
+    
+    protected virtual IQueryable<T> Get(int take, int skip, Expression<Func<T, bool>>? predicate = null)
     {
         IQueryable<T> query = _dbContext.Set<T>();
 
         if (predicate is not null)
             query = query.Where(predicate);
 
-        if (include is not null)
-            query = query.Include(include);
-
-        return await query.Skip(skip).Take(take).ToListAsync();
+        return query.Skip(skip).Take(take);
     }
 
     public async Task AddAsync(T? entity)
