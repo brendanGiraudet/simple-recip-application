@@ -2,15 +2,19 @@ namespace simple_recip_application.Features.Importation.Services;
 
 public class IngredientsFromCsvImportStrategy
 (
-    CsvImportService _csvImportService
+    IServiceProvider _serviceProvider
 )
 : IImportStrategy
 {
-    public async Task<bool> ImportData(Stream fileContent)
+    public async Task<bool> ImportData(byte[] fileContent)
     {
         try
         {
-            await _csvImportService.ImportIngredientsFromCsv(fileContent);
+            var _csvImportService = _serviceProvider.GetRequiredService<CsvImportService>();
+
+            using var memoryStream = new MemoryStream(fileContent);
+            
+            await _csvImportService.ImportIngredientsFromCsv(memoryStream);
             
             return true;
         }

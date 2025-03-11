@@ -14,10 +14,8 @@ namespace simple_recip_application.Features.Importation.Store;
 public class ImportEffects
 (
     ILogger<ImportEffects> _logger,
-    IIngredientRepository _ingredientRepository,
-    ILogger<CsvImportService> _csvImportLogger,
-    IIngredientFactory _ingredientFactory,
-    INotificationMessageFactory _notificationMessageFactory
+    INotificationMessageFactory _notificationMessageFactory,
+    IServiceProvider _serviceProvider
 )
 {
     [EffectMethod]
@@ -28,7 +26,7 @@ public class ImportEffects
             var message = MessagesTranslator.ImportFailure;
             NotificationType type = NotificationType.Error;
 
-            if (!string.IsNullOrEmpty(action.ImportModel.FilePath))
+            if (action.ImportModel.FileContent?.Length == 0)
             {
                 var errorNotification = _notificationMessageFactory.CreateNotificationMessage(message, type);
 
@@ -37,11 +35,11 @@ public class ImportEffects
                 return;
             }
 
-            var strategy = ImportStrategyFactory.CreateImportStrategy(action.ImportStrategy, _ingredientRepository, _csvImportLogger, _ingredientFactory);
+            var strategy = ImportStrategyFactory.CreateImportStrategy(action.ImportStrategy, _serviceProvider);
 
             var importService = new ImportService(strategy);
 
-            var result = await importService.ExecuteImport(action.ImportModel.FilePath!);
+            var result = await importService.ExecuteImport(action.ImportModel.FileContent!);
 
             if (result)
             {

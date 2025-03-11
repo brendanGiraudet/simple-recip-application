@@ -250,4 +250,7 @@
     <data name="MeasureUnit" xml:space="preserve">
         <value>Measure unit</value>
     </data>
+    <data name="Importation" xml:space="preserve">
+        <value>Import</value>
+    </data>
 </root>

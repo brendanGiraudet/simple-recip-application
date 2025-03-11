@@ -1,25 +1,19 @@
 using simple_recip_application.Features.Importation.Enums;
-using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
-using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
 
 namespace simple_recip_application.Features.Importation.Services;
 
 public static class ImportStrategyFactory
 {
     public static IImportStrategy CreateImportStrategy(
-        ImportStrategyEnum importStrategy, 
-        IIngredientRepository ingredientRepository,
-        ILogger<CsvImportService> _logger,
-        IIngredientFactory _ingredientFactory
+        ImportStrategyEnum _importStrategy,
+        IServiceProvider _serviceProvider
         )
     {
-        var csvImportService = new CsvImportService(ingredientRepository, _logger, _ingredientFactory);
-
-        return importStrategy switch
+        return _importStrategy switch
         {
-
-            ImportStrategyEnum.ImportIngredientsFromCsv => new IngredientsFromCsvImportStrategy(csvImportService),
-            _ => throw new NotImplementedException($"Strategy for {importStrategy} is not implemented.")
+            ImportStrategyEnum.ImportIngredientsFromCsv => new IngredientsFromCsvImportStrategy(_serviceProvider),
+            ImportStrategyEnum.RecipesFromHelloFreshPicture => new RecipesFromHelloFreshPictureStrategy(_serviceProvider),
+            _ => throw new NotImplementedException($"Strategy for {_importStrategy} is not implemented.")
         };
     }
 }

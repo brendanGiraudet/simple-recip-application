@@ -6,6 +6,7 @@ using simple_recip_application.Features.RecipesManagement.ApplicationCore.Factor
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Services;
 using simple_recip_application.Features.RecipesManagement.Persistence.Factories;
 using simple_recip_application.Features.RecipesManagement.Persistence.Services;
+using simple_recip_application.Services;
 using simple_recip_application.Settings;
 
 namespace simple_recip_application.Extensions;
@@ -21,6 +22,7 @@ public static class ServicesContextExtensions
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
         services.AddTransient<IShoppingListGenerator, ShoppingListGenerator>();
+        services.AddTransient<ITesseractServices, TesseractServices>();
         
         return services;
     }

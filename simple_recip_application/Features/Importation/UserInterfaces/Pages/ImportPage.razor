@@ -8,7 +8,7 @@
 <EditForm Model="@ImportModel" OnValidSubmit="HandleImport" FormName="import">
     <div class="form-field">
         <label>@LabelsTranslator.ImportLabel</label>
-        <InputText @bind-Value="@ImportModel.FilePath" />
+        <InputFile OnChange="HandleImageUpload" />
     </div>
 
     <button type="submit" class="btn btn-primary">@LabelsTranslator.Import</button>

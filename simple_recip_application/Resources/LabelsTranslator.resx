@@ -246,4 +246,7 @@
     <data name="MeasureUnit" xml:space="preserve">
         <value>Unité de mesure</value>
     </data>
+    <data name="Importation" xml:space="preserve">
+        <value>Importer</value>
+    </data>
 </root>
