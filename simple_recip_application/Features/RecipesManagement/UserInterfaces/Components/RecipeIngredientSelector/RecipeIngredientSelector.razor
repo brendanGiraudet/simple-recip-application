@@ -33,19 +33,20 @@
         @foreach (var ingredient in RecipeIngredients)
         {
             <div class="tag-item">
-                <span class="badge badge-primary">
-                    @ingredient.IngredientModel?.Name
-                    <span class="remove-tag" @onclick="(() => RemoveIngredient(ingredient))">x</span>
-                </span>
+                @* Name *@
+                <span class="badge badge-primary">@ingredient.IngredientModel?.Name</span>
 
                 @* Quantity *@
-                <div class="form-field">
+                <div>
                     <InputNumber @bind-Value="ingredient.Quantity" placeholder="@LabelsTranslator.Quantity" />
                     <ValidationMessage For="@(() => ingredient.Quantity)" />
                 </div>
 
                 @* MeasureUnit *@
                 <span>@ingredient.IngredientModel?.MeasureUnit</span>
+                
+                @* Remove *@
+                <span class="remove-tag" @onclick="(() => RemoveIngredient(ingredient))">x</span>
             </div>
         }
     </div>
