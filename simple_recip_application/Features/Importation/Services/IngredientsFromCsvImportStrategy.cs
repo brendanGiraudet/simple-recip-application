@@ -6,7 +6,7 @@ public class IngredientsFromCsvImportStrategy
 )
 : IImportStrategy
 {
-    public async Task<bool> ImportData(byte[] fileContent)
+    public async Task<bool> ImportDataAsync(byte[] fileContent)
     {
         try
         {

@@ -4,6 +4,6 @@ public class ImportService(IImportStrategy _importStrategy)
 {
     public async Task<bool> ExecuteImport(byte[] fileContent)
     {
-        return await _importStrategy.ImportData(fileContent);
+        return await _importStrategy.ImportDataAsync(fileContent);
     }
 }

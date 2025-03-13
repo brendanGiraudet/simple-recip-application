@@ -8,19 +8,17 @@ public class RecipesFromHelloFreshPictureStrategy
 )
 : IImportStrategy
 {
-    public async Task<bool> ImportData(byte[] fileContent)
+    public async Task<bool> ImportDataAsync(byte[] fileContent)
     {
         try
         {
-            var _tesseractServices =_serviceProvider.GetRequiredService<ITesseractServices>();
+            var _services = _serviceProvider.GetRequiredService<IOpenAiDataAnalysisService>();
 
-// TODO lire le contenu de l'image
-// comprendre pourquoi on a une exception
-            var text = _tesseractServices.ExtractTextFromImage(fileContent);
-            
+            var text = _services.ExtractTextFromImageAsync(fileContent);
+
             return true;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             return false;
         }
