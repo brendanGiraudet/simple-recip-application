@@ -14,7 +14,10 @@ public class RecipesFromHelloFreshPictureStrategy
         {
             var _services = _serviceProvider.GetRequiredService<IOpenAiDataAnalysisService>();
 
-            var text = _services.ExtractTextFromImageAsync(fileContent);
+            var recipe = await _services.ExtractRecipeFromImageAsync(fileContent);
+
+            // TODO refactor le service IOpenAiDataAnalysisService
+            // TODO faire une verif puis save en base
 
             return true;
         }
