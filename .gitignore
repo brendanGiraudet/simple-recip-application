@@ -401,3 +401,4 @@ FodyWeavers.xsd
 simple_recip_application/Data/recipes.db-shm
 simple_recip_application/Data/recipes.db-wal
 simple_recip_application/Data/recipes.db
+simple_recip_application/appsettings.Development.json
