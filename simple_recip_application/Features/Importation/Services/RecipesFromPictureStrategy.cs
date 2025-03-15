@@ -1,14 +1,21 @@
+using Fluxor;
+using simple_recip_application.Dtos;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
+using simple_recip_application.Features.RecipesManagement.Store.Actions;
+using simple_recip_application.Resources;
 using simple_recip_application.Services;
+using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.Importation.Services;
 
 public class RecipesFromPictureStrategy
 (
-    IServiceProvider _serviceProvider
+    IServiceProvider _serviceProvider,
+    IDispatcher _dispatcher
 )
 : IImportStrategy
 {
-    public async Task<bool> ImportDataAsync(byte[] fileContent)
+    public async Task<MethodResult> ImportDataAsync(byte[] fileContent)
     {
         try
         {
@@ -16,13 +23,15 @@ public class RecipesFromPictureStrategy
 
             var recipe = await _services.ExtractRecipeFromImageAsync(fileContent);
 
-            // TODO faire une verif puis save en base
+            _dispatcher.Dispatch(new SetItemAction<IRecipeModel>(recipe));
 
-            return true;
+            _dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(true));
+
+            return new MethodResult(true, MessagesTranslator.ImportSuccess);
         }
         catch (Exception ex)
         {
-            return false;
+            return new MethodResult(false, MessagesTranslator.ImportFailure);
         }
     }
 }

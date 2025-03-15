@@ -1,3 +1,6 @@
+using simple_recip_application.Dtos;
+using simple_recip_application.Resources;
+
 namespace simple_recip_application.Features.Importation.Services;
 
 public class IngredientsFromCsvImportStrategy
@@ -6,7 +9,7 @@ public class IngredientsFromCsvImportStrategy
 )
 : IImportStrategy
 {
-    public async Task<bool> ImportDataAsync(byte[] fileContent)
+    public async Task<MethodResult> ImportDataAsync(byte[] fileContent)
     {
         try
         {
@@ -16,11 +19,11 @@ public class IngredientsFromCsvImportStrategy
             
             await _csvImportService.ImportIngredientsFromCsv(memoryStream);
             
-            return true;
+            return new MethodResult(true, MessagesTranslator.ImportSuccess);
         }
-        catch
+        catch(Exception ex)
         {
-            return false;
+            return new MethodResult(true, MessagesTranslator.ImportSuccess);
         }
     }
 }

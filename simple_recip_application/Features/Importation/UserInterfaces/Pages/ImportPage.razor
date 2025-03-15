@@ -15,3 +15,8 @@
 </EditForm>
 
 <Loader IsVisible="ImportState.Value.IsLoading" />
+
+<Modal OnClose="CloseRecipeFormModal" IsVisible="@RecipeState.Value.RecipeFormModalVisibility">
+
+    <RecipeForm OnCancel="CloseRecipeFormModal" />
+</Modal>

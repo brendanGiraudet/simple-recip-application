@@ -1,8 +1,6 @@
 using Fluxor;
 using simple_recip_application.Features.Importation.Services;
 using simple_recip_application.Features.Importation.Store.Actions;
-using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
-using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
@@ -23,37 +21,30 @@ public class ImportEffects
     {
         try
         {
-            var message = MessagesTranslator.ImportFailure;
-            NotificationType type = NotificationType.Error;
-
             if (action.ImportModel.FileContent?.Length == 0)
             {
-                var errorNotification = _notificationMessageFactory.CreateNotificationMessage(message, type);
+                var errorNotification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.ImportFailure, NotificationType.Error);
 
                 dispatcher.Dispatch(new AddItemAction<INotificationMessage>(errorNotification));
+
+                dispatcher.Dispatch(new ImportFailureAction());
 
                 return;
             }
 
-            var strategy = ImportStrategyFactory.CreateImportStrategy(action.ImportStrategy, _serviceProvider);
+            var strategy = ImportStrategyFactory.CreateImportStrategy(action.ImportStrategy, _serviceProvider, dispatcher);
 
             var importService = new ImportService(strategy);
 
             var result = await importService.ExecuteImport(action.ImportModel.FileContent!);
 
-            if (result)
-            {
+            if (result.Success)
                 dispatcher.Dispatch(new ImportSuccessAction());
 
-                message = MessagesTranslator.ImportSuccess;
-                type = NotificationType.Success;
-            }
             else
-            {
                 dispatcher.Dispatch(new ImportFailureAction());
-            }
 
-            var notification = _notificationMessageFactory.CreateNotificationMessage(message, type);
+            var notification = _notificationMessageFactory.CreateNotificationMessage(result.Message, result.Success ? NotificationType.Success : NotificationType.Error);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
         }

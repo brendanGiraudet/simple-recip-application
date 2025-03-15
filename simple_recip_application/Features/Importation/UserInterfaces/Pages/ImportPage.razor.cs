@@ -8,6 +8,8 @@ using simple_recip_application.Features.Importation.Store.Actions;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
+using simple_recip_application.Features.RecipesManagement.Store;
+using simple_recip_application.Features.RecipesManagement.Store.Actions;
 using simple_recip_application.Resources;
 using simple_recip_application.Settings;
 using simple_recip_application.Store.Actions;
@@ -18,6 +20,7 @@ public partial class ImportPage
 {
     [Inject] public required IDispatcher Dispatcher { get; set; }
     [Inject] public required IState<ImportState> ImportState { get; set; }
+    [Inject] public required IState<RecipeState> RecipeState { get; set; }
     [Inject] public required ILogger<ImportPage> Logger { get; set; }
     [Inject] public required INotificationMessageFactory NotificationMessageFactory { get; set; }
     [Inject] public required IOptions<FileSettings> FileSettingsOptions { get; set; }
@@ -59,6 +62,8 @@ public partial class ImportPage
             Logger.LogError(ex, "Error while uploading image");
         }
     }
+
+    private void CloseRecipeFormModal(bool isUpdated) => Dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
 }
 
 public class ImportModel
