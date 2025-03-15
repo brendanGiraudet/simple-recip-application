@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using simple_recip_application.Data;
 using simple_recip_application.Data.Persistence.Repository;
+using simple_recip_application.Dtos;
 using simple_recip_application.Extensions;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
@@ -13,38 +14,41 @@ public class IngredientRepository
 )
  : Repository<IngredientModel>(_dbContext), IIngredientRepository
 {
-    public new async Task<IIngredientModel?> GetByIdAsync(Guid? id)
+    public new async Task<MethodResult<IIngredientModel?>> GetByIdAsync(Guid? id)
     {
-        return await base.GetByIdAsync(id);
+        var result = await base.GetByIdAsync(id);
+
+        return new MethodResult<IIngredientModel?>(result.Success, result.Item);
     }
 
-    public new async Task<IEnumerable<IIngredientModel>> GetAsync()
+    public new async Task<MethodResult<IEnumerable<IIngredientModel>>> GetAsync()
     {
-        var ingredients = await base.GetAsync();
-        return ingredients.Cast<IIngredientModel>().ToList();
+        var result = await base.GetAsync();
+
+        return new MethodResult<IEnumerable<IIngredientModel>>(result.Success, result.Item);
     }
 
-    public async Task<IEnumerable<IIngredientModel>> GetAsync(int take, int skip, Expression<Func<IIngredientModel, bool>>? predicate)
+    public async Task<MethodResult<IEnumerable<IIngredientModel>>> GetAsync(int take, int skip, Expression<Func<IIngredientModel, bool>>? predicate)
     {
         var convertedPredicate = predicate?.Convert<IIngredientModel, IngredientModel, bool>();
         
-        var ingredients = await base.GetAsync(take, skip, convertedPredicate);
+        var result = await base.GetAsync(take, skip, convertedPredicate);
 
-        return ingredients.OrderBy(c => c.Name).Cast<IIngredientModel>();
+        return new MethodResult<IEnumerable<IIngredientModel>>(result.Success, result.Item.OrderBy(c => c.Name).Cast<IIngredientModel>());
     }
 
-    public async Task AddAsync(IIngredientModel? entity)
+    public async Task<MethodResult> AddAsync(IIngredientModel? entity)
     {
-        await base.AddAsync(entity as IngredientModel);
+        return await base.AddAsync(entity as IngredientModel);
     }
 
-    public async Task UpdateAsync(IIngredientModel? entity)
+    public async Task<MethodResult> UpdateAsync(IIngredientModel? entity)
     {
-        await base.UpdateAsync(entity as IngredientModel);
+        return await base.UpdateAsync(entity as IngredientModel);
     }
 
-    public async Task DeleteAsync(IIngredientModel? entity)
+    public async Task<MethodResult> DeleteAsync(IIngredientModel? entity)
     {
-        await base.DeleteAsync(entity as IngredientModel);
+        return await base.DeleteAsync(entity as IngredientModel);
     }
 }

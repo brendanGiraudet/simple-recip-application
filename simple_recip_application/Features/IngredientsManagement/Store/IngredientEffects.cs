@@ -22,9 +22,19 @@ public class IngredientEffects
     {
         try
         {
-            var ingredients = await _repository.GetAsync(action.Take, action.Skip, action.Predicate);
+            var ingredientsResult = await _repository.GetAsync(action.Take, action.Skip, action.Predicate);
 
-            dispatcher.Dispatch(new LoadItemsSuccessAction<IIngredientModel>(ingredients));
+            if (ingredientsResult.Success)
+                dispatcher.Dispatch(new LoadItemsSuccessAction<IIngredientModel>(ingredientsResult.Item));
+
+            else
+            {
+                dispatcher.Dispatch(new LoadItemsFailureAction<IIngredientModel>());
+
+                var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.LoadIngredientErrorMessage, NotificationType.Error);
+
+                dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+            }
         }
         catch (Exception ex)
         {
@@ -43,15 +53,23 @@ public class IngredientEffects
     {
         try
         {
-            await _repository.AddAsync(action.Item);
+            var addResult = await _repository.AddAsync(action.Item);
 
-            dispatcher.Dispatch(new AddItemSuccessAction<IIngredientModel>(action.Item));
+            if (!addResult.Success)
+                dispatcher.Dispatch(new AddItemFailureAction<IIngredientModel>(action.Item));
 
-            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddIngredientSuccessMessage, NotificationType.Success);
+            else
+            {
+                dispatcher.Dispatch(new AddItemSuccessAction<IIngredientModel>(action.Item));
+                dispatcher.Dispatch(new SetIngredientModalVisibilityAction(false));
+            }
+
+            var message = addResult.Success ? MessagesTranslator.AddIngredientSuccessMessage : MessagesTranslator.AddIngredientErrorMessage;
+            var notificationType = addResult.Success ? NotificationType.Success : NotificationType.Error;
+
+            var notification = _notificationMessageFactory.CreateNotificationMessage(message, notificationType);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
-
-            dispatcher.Dispatch(new SetIngredientModalVisibilityAction(false));
         }
         catch (Exception ex)
         {
@@ -72,18 +90,35 @@ public class IngredientEffects
         {
             if (!action.Item.Id.HasValue) return;
 
-            var ingredient = await _repository.GetByIdAsync(action.Item.Id.Value);
-            if (ingredient != null)
+            var ingredientResult = await _repository.GetByIdAsync(action.Item.Id.Value);
+            if (!ingredientResult.Success || ingredientResult.Item == null)
             {
-                await _repository.DeleteAsync(ingredient);
+                var errorNotification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeleteIngredientErrorMessage, NotificationType.Error);
+
+                dispatcher.Dispatch(new AddItemAction<INotificationMessage>(errorNotification));
+
+                dispatcher.Dispatch(new DeleteItemFailureAction<IIngredientModel>(action.Item));
+
+                return;
+            }
+
+            var deleteResult = await _repository.DeleteAsync(ingredientResult.Item);
+
+            if (!deleteResult.Success)
+                dispatcher.Dispatch(new DeleteItemFailureAction<IIngredientModel>(action.Item));
+            
+            else
+            {
                 dispatcher.Dispatch(new DeleteItemSuccessAction<IIngredientModel>(action.Item));
-
-                var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeleteIngredientSuccessMessage, NotificationType.Success);
-
-                dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
-
                 dispatcher.Dispatch(new SetIngredientModalVisibilityAction(false));
             }
+
+            var message = deleteResult.Success ? MessagesTranslator.DeleteIngredientSuccessMessage : MessagesTranslator.DeleteIngredientErrorMessage;
+            var notificationType = deleteResult.Success ? NotificationType.Success : NotificationType.Error;
+
+            var notification = _notificationMessageFactory.CreateNotificationMessage(message, notificationType);
+
+            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
         }
         catch (Exception ex)
         {
@@ -102,15 +137,23 @@ public class IngredientEffects
     {
         try
         {
-            await _repository.UpdateAsync(action.Item);
+            var updateResult = await _repository.UpdateAsync(action.Item);
 
-            dispatcher.Dispatch(new UpdateItemSuccessAction<IIngredientModel>(action.Item));
+            if (!updateResult.Success)
+                dispatcher.Dispatch(new UpdateItemFailureAction<IIngredientModel>(action.Item));
+            
+            else
+            {
+                dispatcher.Dispatch(new UpdateItemSuccessAction<IIngredientModel>(action.Item));
+                dispatcher.Dispatch(new SetIngredientModalVisibilityAction(false));
+            }
 
-            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.UpdateIngredientSuccessMessage, NotificationType.Success);
+            var message = updateResult.Success ? MessagesTranslator.UpdateIngredientSuccessMessage : MessagesTranslator.UpdateIngredientErrorMessage;
+            var notificationType = updateResult.Success ? NotificationType.Success : NotificationType.Error;
+
+            var notification = _notificationMessageFactory.CreateNotificationMessage(message, notificationType);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
-
-            dispatcher.Dispatch(new SetIngredientModalVisibilityAction(false));
         }
         catch (Exception ex)
         {

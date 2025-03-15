@@ -22,9 +22,18 @@ public class RecipeEffects
     {
         try
         {
-            var recipes = await _repository.GetAsync(action.Take, action.Skip, action.Predicate);
+            var recipesResult = await _repository.GetAsync(action.Take, action.Skip, action.Predicate);
 
-            dispatcher.Dispatch(new LoadItemsSuccessAction<IRecipeModel>(recipes));
+            if (!recipesResult.Success)
+            {
+                dispatcher.Dispatch(new LoadItemsFailureAction<IRecipeModel>());
+
+                var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.LoadRecipeErrorMessage, NotificationType.Error);
+
+                dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+            }
+            else
+                dispatcher.Dispatch(new LoadItemsSuccessAction<IRecipeModel>(recipesResult.Item!));
         }
         catch (Exception ex)
         {
@@ -43,9 +52,18 @@ public class RecipeEffects
     {
         try
         {
-            var recipe = await _repository.GetByIdAsync(action.Id);
+            var recipeResult = await _repository.GetByIdAsync(action.Id);
 
-            dispatcher.Dispatch(new LoadItemSuccessAction<IRecipeModel>(recipe));
+            if (!recipeResult.Success)
+            {
+                dispatcher.Dispatch(new LoadItemFailureAction<IRecipeModel>());
+
+                var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.LoadRecipeErrorMessage, NotificationType.Error);
+
+                dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+            }
+            else
+                dispatcher.Dispatch(new LoadItemSuccessAction<IRecipeModel>(recipeResult.Item));
         }
         catch (Exception ex)
         {
@@ -64,15 +82,23 @@ public class RecipeEffects
     {
         try
         {
-            await _repository.AddAsync(action.Item);
+            var addResult = await _repository.AddAsync(action.Item);
 
-            dispatcher.Dispatch(new AddItemSuccessAction<IRecipeModel>(action.Item));
+            if (!addResult.Success)
+                dispatcher.Dispatch(new AddItemFailureAction<IRecipeModel>(action.Item));
 
-            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddRecipeSuccessMessage, NotificationType.Success);
+            else
+            {
+                dispatcher.Dispatch(new AddItemSuccessAction<IRecipeModel>(action.Item));
+                dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
+            }
+
+            var message = addResult.Success ? MessagesTranslator.AddRecipeSuccessMessage : MessagesTranslator.AddRecipeErrorMessage;
+            var notificationType = addResult.Success ? NotificationType.Success : NotificationType.Error;
+
+            var notification = _notificationMessageFactory.CreateNotificationMessage(message, notificationType);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
-
-            dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
         }
         catch (Exception ex)
         {
@@ -93,18 +119,35 @@ public class RecipeEffects
         {
             if (!action.Item.Id.HasValue) return;
 
-            var Recipe = await _repository.GetByIdAsync(action.Item.Id.Value);
-            if (Recipe != null)
+            var recipeResult = await _repository.GetByIdAsync(action.Item.Id.Value);
+            if (!recipeResult.Success || recipeResult.Item == null)
             {
-                await _repository.DeleteAsync(Recipe);
+                var errorNotification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeleteRecipeErrorMessage, NotificationType.Error);
+
+                dispatcher.Dispatch(new AddItemAction<INotificationMessage>(errorNotification));
+
+                dispatcher.Dispatch(new DeleteItemFailureAction<IRecipeModel>(action.Item));
+
+                return;
+            }
+
+            var deleteResult = await _repository.DeleteAsync(recipeResult.Item);
+
+            if (deleteResult.Success)
+                dispatcher.Dispatch(new DeleteItemFailureAction<IRecipeModel>(action.Item));
+
+            else
+            {
                 dispatcher.Dispatch(new DeleteItemSuccessAction<IRecipeModel>(action.Item));
-
-                var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeleteRecipeSuccessMessage, NotificationType.Success);
-
-                dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
-
                 dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
             }
+
+            var message = deleteResult.Success ? MessagesTranslator.DeleteRecipeSuccessMessage : MessagesTranslator.DeleteRecipeErrorMessage;
+            var notificationType = deleteResult.Success ? NotificationType.Success : NotificationType.Error;
+
+            var notification = _notificationMessageFactory.CreateNotificationMessage(message, notificationType);
+
+            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
         }
         catch (Exception ex)
         {
@@ -123,15 +166,23 @@ public class RecipeEffects
     {
         try
         {
-            await _repository.UpdateAsync(action.Item);
+            var updateResult = await _repository.UpdateAsync(action.Item);
 
-            dispatcher.Dispatch(new UpdateItemSuccessAction<IRecipeModel>(action.Item));
+            if (!updateResult.Success)
+                dispatcher.Dispatch(new UpdateItemFailureAction<IRecipeModel>(action.Item));
 
-            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.UpdateRecipeSuccessMessage, NotificationType.Success);
+            else
+            {
+                dispatcher.Dispatch(new UpdateItemSuccessAction<IRecipeModel>(action.Item));
+                dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
+            }
+
+            var message = updateResult.Success ? MessagesTranslator.UpdateRecipeSuccessMessage : MessagesTranslator.UpdateRecipeErrorMessage;
+            var notificationType = updateResult.Success ? NotificationType.Success : NotificationType.Error;
+
+            var notification = _notificationMessageFactory.CreateNotificationMessage(message, notificationType);
 
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
-
-            dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
         }
         catch (Exception ex)
         {

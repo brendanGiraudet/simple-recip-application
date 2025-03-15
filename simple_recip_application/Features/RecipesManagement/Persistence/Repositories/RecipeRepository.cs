@@ -5,6 +5,7 @@ using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entite
 using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 using simple_recip_application.Extensions;
 using Microsoft.EntityFrameworkCore;
+using simple_recip_application.Dtos;
 
 namespace simple_recip_application.Features.RecipesManagement.Persistence.Repositories;
 
@@ -14,43 +15,60 @@ public class RecipeRepository
 )
 : Repository<RecipeModel>(_dbContext), IRecipeRepository
 {
-    public new async Task<IRecipeModel?> GetByIdAsync(Guid? id)
+    public new async Task<MethodResult<IRecipeModel?>> GetByIdAsync(Guid? id)
     {
-        var ingredient = await _dbContext.Set<RecipeModel>()
-                                         .Include(c => c.Ingredients)
-                                         .ThenInclude(c => c.Ingredient)
-                                         .FirstOrDefaultAsync(c => c.Id == id);
-        return ingredient;
+        try
+        {
+            var recipe = await _dbContext.Set<RecipeModel>()
+                                             .Include(c => c.Ingredients)
+                                             .ThenInclude(c => c.Ingredient)
+                                             .FirstOrDefaultAsync(c => c.Id == id);
+
+            return new MethodResult<IRecipeModel?>(true, recipe);
+        }
+        catch (System.Exception ex)
+        {
+            return new MethodResult<IRecipeModel?>(false, null);
+        }
     }
 
-    public new async Task<IEnumerable<IRecipeModel>> GetAsync()
+    public new async Task<MethodResult<IEnumerable<IRecipeModel>>> GetAsync()
     {
-        var ingredients = await base.GetAsync();
+        var result = await base.GetAsync();
 
-        return ingredients.Cast<IRecipeModel>().ToList();
+        return new MethodResult<IEnumerable<IRecipeModel>>(result.Success, result.Item);
     }
 
-    public async Task<IEnumerable<IRecipeModel>> GetAsync(int take, int skip, Expression<Func<IRecipeModel, bool>>? predicate)
+    public async Task<MethodResult<IEnumerable<IRecipeModel>>> GetAsync(int take, int skip, Expression<Func<IRecipeModel, bool>>? predicate)
     {
-        var convertedPredicate = predicate?.Convert<IRecipeModel, RecipeModel, bool>();
+        try
+        {
+            var convertedPredicate = predicate?.Convert<IRecipeModel, RecipeModel, bool>();
 
-        var ingredients = base.Get(take, skip, convertedPredicate);
+            var recipesRequest = base.Get(take, skip, convertedPredicate);    
 
-        return await ingredients.OrderBy(c => c.Name).Cast<IRecipeModel>().ToListAsync();
+            var recipes = await recipesRequest.OrderBy(c => c.Name).Cast<IRecipeModel>().ToListAsync();
+
+            return new MethodResult<IEnumerable<IRecipeModel>>(true, recipes);
+        }
+        catch (System.Exception ex)
+        {
+            return new MethodResult<IEnumerable<IRecipeModel>>(false, []);
+        }
     }
 
-    public async Task AddAsync(IRecipeModel? entity)
+    public async Task<MethodResult> AddAsync(IRecipeModel? entity)
     {
-        await base.AddAsync(entity as RecipeModel);
+        return await base.AddAsync(entity as RecipeModel);
     }
 
-    public async Task UpdateAsync(IRecipeModel? entity)
+    public async Task<MethodResult> UpdateAsync(IRecipeModel? entity)
     {
-        await base.UpdateAsync(entity as RecipeModel);
+        return await base.UpdateAsync(entity as RecipeModel);
     }
 
-    public async Task DeleteAsync(IRecipeModel? entity)
+    public async Task<MethodResult> DeleteAsync(IRecipeModel? entity)
     {
-        await base.DeleteAsync(entity as RecipeModel);
+        return await base.DeleteAsync(entity as RecipeModel);
     }
 }
