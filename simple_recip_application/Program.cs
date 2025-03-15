@@ -24,6 +24,9 @@ builder.Services.AddFactories();
 // Ajout des services
 builder.Services.AddServices();
 
+// Ajout des httclient
+builder.Services.AddHttpClients(builder.Configuration);
+
 // Ajout des repositories
 builder.Services.AddApplicationRepositories();
 

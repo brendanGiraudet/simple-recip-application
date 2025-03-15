@@ -2,7 +2,7 @@ using simple_recip_application.Services;
 
 namespace simple_recip_application.Features.Importation.Services;
 
-public class RecipesFromHelloFreshPictureStrategy
+public class RecipesFromPictureStrategy
 (
     IServiceProvider _serviceProvider
 )
@@ -16,7 +16,6 @@ public class RecipesFromHelloFreshPictureStrategy
 
             var recipe = await _services.ExtractRecipeFromImageAsync(fileContent);
 
-            // TODO refactor le service IOpenAiDataAnalysisService
             // TODO faire une verif puis save en base
 
             return true;

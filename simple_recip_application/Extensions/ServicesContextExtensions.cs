@@ -1,3 +1,5 @@
+using System.Net.Http.Headers;
+using simple_recip_application.Constants;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Factories;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
@@ -16,9 +18,23 @@ public static class ServicesContextExtensions
     public static IServiceCollection AddSettings(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<FileSettings>(configuration.GetSection(nameof(FileSettings)));
+        services.Configure<OpenApisettings>(configuration.GetSection(nameof(OpenApisettings)));
         
         return services;
     }
+    
+    public static IServiceCollection AddHttpClients(this IServiceCollection services, IConfiguration configuration)
+    {
+        OpenApisettings openApisettings = new();
+        configuration.GetSection(nameof(OpenApisettings)).Bind(openApisettings); 
+
+        services.AddHttpClient(HttpClientNamesConstants.OpenApi, options => {
+            options.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", openApisettings.ApiKey);
+        });
+        
+        return services;
+    }
+
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
         services.AddTransient<IShoppingListGenerator, ShoppingListGenerator>();

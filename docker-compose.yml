@@ -30,5 +30,8 @@ services:
       
       FileSettings__MaxAllowedSize: 512000
 
+      OpenApisettings__ApiKey: "APIKEY"
+      OpenApisettings__ChatCompletionUrl: "https://api.openai.com/v1/chat/completions"
+
     volumes:
       - /home/ubuntu/data/simple_recip_application:/app/Data

@@ -12,7 +12,7 @@ public static class ImportStrategyFactory
         return _importStrategy switch
         {
             ImportStrategyEnum.ImportIngredientsFromCsv => new IngredientsFromCsvImportStrategy(_serviceProvider),
-            ImportStrategyEnum.RecipesFromHelloFreshPicture => new RecipesFromHelloFreshPictureStrategy(_serviceProvider),
+            ImportStrategyEnum.RecipesFromHelloFreshPicture => new RecipesFromPictureStrategy(_serviceProvider),
             _ => throw new NotImplementedException($"Strategy for {_importStrategy} is not implemented.")
         };
     }
