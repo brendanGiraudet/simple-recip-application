@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 using simple_recip_application.Constants;
+using simple_recip_application.Dtos;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.Converters;
 using simple_recip_application.Settings;
@@ -104,9 +105,9 @@ public class OpenAiDataAnalysisService
     public string Name { get; set; }
     public byte[] Image { get; set; }
     public string MeasureUnit { get; set; }
-} au final, je souhaite avoir seulement le resultat en json pur et rien d'autre pas même l'affichage en markdown";
+} au final, je souhaite avoir seulement le resultat en json pur et rien d'autre";
 
-    public async Task<IRecipeModel?> ExtractRecipeFromImageAsync(byte[] imageData)
+    public async Task<MethodResult<IRecipeModel?>> ExtractRecipeFromImageAsync(byte[] imageData)
     {
         try
         {
@@ -122,7 +123,7 @@ public class OpenAiDataAnalysisService
             if(text.Contains(endJsonMarkdownText))
                 text = text.Remove(text.IndexOf(endJsonMarkdownText), endJsonMarkdownText.Length);
 
-            return JsonSerializer.Deserialize<IRecipeModel>(text, new JsonSerializerOptions
+                var recipe = JsonSerializer.Deserialize<IRecipeModel>(text, new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 Converters =
@@ -133,12 +134,14 @@ public class OpenAiDataAnalysisService
                 },
                 PropertyNameCaseInsensitive = true
             });
+
+            return new MethodResult<IRecipeModel?>(true, recipe);
         }
         catch (System.Exception ex)
         {
             _logger.LogError(ex, "Erreur lors de l'extraction de la recette depuis l'image");
-        }
 
-        return null;
+            return new MethodResult<IRecipeModel?>(false, null);
+        }
     }
 }

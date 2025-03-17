@@ -2,9 +2,11 @@ using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Options;
+using simple_recip_application.Features.Importation.ApplicationCore.Entites;
 using simple_recip_application.Features.Importation.Enums;
 using simple_recip_application.Features.Importation.Store;
 using simple_recip_application.Features.Importation.Store.Actions;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
@@ -23,10 +25,18 @@ public partial class ImportPage
     [Inject] public required IState<RecipeState> RecipeState { get; set; }
     [Inject] public required ILogger<ImportPage> Logger { get; set; }
     [Inject] public required INotificationMessageFactory NotificationMessageFactory { get; set; }
+    [Inject] public required IImportModelFactory ImportModelFactory { get; set; }
     [Inject] public required IOptions<FileSettings> FileSettingsOptions { get; set; }
     private FileSettings _fileSettings => FileSettingsOptions.Value;
 
-    public ImportModel ImportModel { get; set; } = new();
+    public IImportModel ImportModel { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ImportModel = ImportModelFactory.CreateImportModel();
+    }
 
     private async Task HandleImport()
     {
@@ -64,9 +74,4 @@ public partial class ImportPage
     }
 
     private void CloseRecipeFormModal(bool isUpdated) => Dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
-}
-
-public class ImportModel
-{
-    public byte[]? FileContent { get; set; }
 }

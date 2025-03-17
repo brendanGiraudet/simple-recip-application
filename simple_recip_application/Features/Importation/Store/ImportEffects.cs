@@ -1,6 +1,7 @@
 using Fluxor;
 using simple_recip_application.Features.Importation.Services;
 using simple_recip_application.Features.Importation.Store.Actions;
+using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
@@ -13,7 +14,8 @@ public class ImportEffects
 (
     ILogger<ImportEffects> _logger,
     INotificationMessageFactory _notificationMessageFactory,
-    IServiceProvider _serviceProvider
+    IServiceProvider _serviceProvider,
+    IIngredientRepository _ingredientRepository
 )
 {
     [EffectMethod]
@@ -32,7 +34,7 @@ public class ImportEffects
                 return;
             }
 
-            var strategy = ImportStrategyFactory.CreateImportStrategy(action.ImportStrategy, _serviceProvider, dispatcher);
+            var strategy = ImportStrategyFactory.CreateImportStrategy(action.ImportStrategy, _serviceProvider, dispatcher, _ingredientRepository);
 
             var importService = new ImportService(strategy);
 

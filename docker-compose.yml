@@ -8,7 +8,7 @@ services:
       args:
         - configuration=release
 
-    image: simple_recip_application:1.11.31
+    image: simple_recip_application:1.11.32
 
     container_name: simple_recip_application
 
@@ -22,13 +22,14 @@ services:
       
       ConnectionStrings__DefaultConnection: "Data Source=/app/Data/recipes.db"
       
-      ApplicationVersion : "1.11.31"
+      ApplicationVersion : "1.11.32"
       
       FeatureManagement__RecipeFeature: true
       FeatureManagement__IngredientFeature: true
       FeatureManagement__ImportationFeature: false
+      FeatureManagement__RecipeImportationFeature: false
       
-      FileSettings__MaxAllowedSize: 512000
+      FileSettings__MaxAllowedSize: 1012000000
 
       OpenApisettings__ApiKey: "APIKEY"
       OpenApisettings__ChatCompletionUrl: "https://api.openai.com/v1/chat/completions"

@@ -2,10 +2,21 @@
 
 <h3>@(Recipe.Id.HasValue? LabelsTranslator.EditRecipe: LabelsTranslator.AddRecipe)</h3>
 
+<Loader IsVisible="@ImportState.Value.IsLoading" />
+
 <EditForm Model="Recipe" OnValidSubmit="Submit">
     <DataAnnotationsValidator />
 
     <div class="form-body">
+        <!-- Import recipe -->
+        @if (_isImportButtonVisible)
+        {
+            <div class="form-field">
+                <label>@LabelsTranslator.ImportLabel</label>
+                <InputFile OnChange="HandleImport" />
+            </div>
+        }
+
         <!-- Recipe Name -->
         <div class="form-field">
             <label>@LabelsTranslator.RecipeName</label>

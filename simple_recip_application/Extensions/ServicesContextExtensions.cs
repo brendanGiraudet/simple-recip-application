@@ -50,6 +50,7 @@ public static class ServicesContextExtensions
         services.AddTransient<IRecipeFactory, RecipeFactory>();
         services.AddTransient<IIngredientFactory, IngredientFactory>();
         services.AddTransient<INotificationMessageFactory, NotificationMessageFactory>();
+        services.AddTransient<IImportModelFactory, ImportModelFactory>();
         
         return services;
     }

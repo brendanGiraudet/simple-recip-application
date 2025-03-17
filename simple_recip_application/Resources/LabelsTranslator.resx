@@ -249,4 +249,7 @@
     <data name="Importation" xml:space="preserve">
         <value>Importer</value>
     </data>
+    <data name="ImportLabel" xml:space="preserve">
+        <value>Importer depuis un fichier</value>
+    </data>
 </root>

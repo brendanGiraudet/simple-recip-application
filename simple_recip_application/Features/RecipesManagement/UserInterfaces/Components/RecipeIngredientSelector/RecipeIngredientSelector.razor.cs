@@ -51,7 +51,7 @@ public partial class RecipeIngredientSelector
     {
         RecipeState.Value.Item.IngredientModels.Remove(ingredient);
 
-        RecipeState.Value.Item.IngredientModels = [.. RecipeState.Value.Item.IngredientModels.Where(c => c.IngredientModel.Id != ingredient.IngredientModel.Id)];
+        RecipeState.Value.Item.IngredientModels = [.. RecipeState.Value.Item.IngredientModels.Where(c => !string.Equals(c.IngredientModel.Name, ingredient.IngredientModel.Name, StringComparison.InvariantCultureIgnoreCase))];
 
         Dispatcher.Dispatch(new SetItemAction<IRecipeModel>(RecipeState.Value.Item));
     }
