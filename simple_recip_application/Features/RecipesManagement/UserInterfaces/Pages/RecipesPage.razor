@@ -13,9 +13,14 @@
 
     @foreach (var recipe in RecipeState.Value.Items)
     {
-        <Card TContent="IRecipeModel" Item="recipe" ImageSource="@recipe.Image.GetImageSource()" Title="@recipe.Name"
-            OnClick="@(() => RedirectToDetails(recipe.Id))" OnSelect="HandleSelection"
-            IsSelected="@(RecipeState.Value.SelectedItems.Contains(recipe))">
+        <Card TContent="IRecipeModel" 
+              Item="recipe" 
+              ImageSource="@recipe.Image.GetImageSource()" 
+              Title="@recipe.Name"
+              OnClick="@(() => RedirectToDetails(recipe.Id))" 
+              OnSelect="HandleSelection"
+              IsSelected="@(RecipeState.Value.SelectedItems.Contains(recipe))"
+              EnableSelection= "true">
             <BodyContent>
                 <h3 class="card-title">@recipe.Name</h3>
                 <div class="recipes-times">

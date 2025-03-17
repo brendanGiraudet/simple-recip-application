@@ -3,8 +3,13 @@
 <div class="card" @onclick="@(() => OnClickAsync())">
     <div class="card-img-container">
         <img src="@ImageSource" alt="@Title" class="card-img" />
-        <div class="selection-icon @GetSelectionIconClass()" @onclick:stopPropagation=true
-            @onclick="@(() => OnSelectAsync())"></div>
+
+        @if (EnableSelection)
+        {
+            <div class="selection-icon @GetSelectionIconClass()" @onclick:stopPropagation=true
+                @onclick="@(() => OnSelectAsync())"></div>
+        }
+
     </div>
     <div class="card-body">
 

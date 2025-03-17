@@ -23,6 +23,7 @@
               Title="@ingredient.Name"
               OnClick="OpenIngredientFormModalAsync" 
               OnSelect="HandleSelection" 
+              EnableSelection= "true"
               IsSelected="@(IngredientState.Value.SelectedItems.Contains(ingredient))" />
     }
 </div>
