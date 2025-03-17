@@ -1,0 +1,20 @@
+.recipe-ingredients {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-evenly;
+}
+
+.recipe-instructions {
+    text-align: justify;
+    padding: 0.5rem;
+}
+
+.recipe-ingredient-details-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe-ingredient-details {
+    padding: .5rem;
+}

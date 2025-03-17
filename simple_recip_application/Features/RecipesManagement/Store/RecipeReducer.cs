@@ -73,7 +73,7 @@ public static class RecipeReducer
     public static RecipeState ReduceUpdateItemSuccessAction(RecipeState state, UpdateItemSuccessAction<IRecipeModel> action)
     {
         var recipes = state.Items.Select(i => i.Id == action.Item.Id ? action.Item : i).ToList();
-        return state with { Items = recipes, IsLoading = false };
+        return state with { Items = recipes, IsLoading = false, Item = action.Item };
     }
 
     [ReducerMethod]

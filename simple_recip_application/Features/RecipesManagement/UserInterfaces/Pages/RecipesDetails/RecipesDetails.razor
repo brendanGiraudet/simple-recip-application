@@ -1,0 +1,34 @@
+@page "/recipes/{Id:guid}"
+
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+<Loader IsVisible="@RecipeState.Value.IsLoading" />
+
+<h3>@RecipeState.Value.Item?.Name</h3>
+
+<div class="recipe-ingredients">
+    @foreach (var ingredient in RecipeState.Value.Item?.IngredientModels ?? [])
+    {
+        <div class="recipe-ingredient-details-container">
+            <Card TContent="IIngredientModel" 
+                  Item="ingredient.IngredientModel"
+                  ImageSource="@ingredient.IngredientModel?.Image.GetImageSource()" 
+                  Title="@ingredient.IngredientModel?.Name" />
+
+            <div class="recipe-ingredient-details">@ingredient.Quantity @ingredient.IngredientModel?.MeasureUnit</div>
+
+        </div>
+    }
+</div>
+
+<h3>@LabelsTranslator.RecipeInstructions</h3>
+<div class="recipe-instructions">
+    @((MarkupString)RecipeState.Value.Item?.Instructions)
+</div>
+
+<Modal OnClose="CloseRecipeFormModal" IsVisible="@RecipeState.Value.RecipeFormModalVisibility">
+
+    <RecipeForm OnCancel="CloseRecipeFormModal" />
+</Modal>
+
+<OptionsMenu Options="GetOptions()" />

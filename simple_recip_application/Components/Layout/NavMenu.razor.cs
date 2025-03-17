@@ -21,13 +21,13 @@ public partial class NavMenu
         _navMenuItems = [];
 
         if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.RecipeFeature))
-            _navMenuItems = _navMenuItems.Append(new NavMenuItem("/", "ramen_dining", LabelsTranslator.Recipes));
+            _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.RecipesPage, "ramen_dining", LabelsTranslator.Recipes));
         
         if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.IngredientFeature))
-            _navMenuItems = _navMenuItems.Append(new NavMenuItem("/ingredients", "grocery", LabelsTranslator.Ingredients));
+            _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.IngredientsPage, "grocery", LabelsTranslator.Ingredients));
         
         if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.ImportationFeature))
-            _navMenuItems = _navMenuItems.Append(new NavMenuItem("/importation", "upload_file", LabelsTranslator.Importation));
+            _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.ImportationPage, "upload_file", LabelsTranslator.Importation));
     }
 
     private IEnumerable<NavMenuItem> _navMenuItems = [];

@@ -7,6 +7,8 @@ using simple_recip_application.Features.RecipesManagement.Store.Actions;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
+using Microsoft.AspNetCore.Components;
+using simple_recip_application.Constants;
 
 namespace simple_recip_application.Features.RecipesManagement.Store;
 
@@ -14,7 +16,8 @@ public class RecipeEffects
 (
     IRecipeRepository _repository,
     ILogger<RecipeEffects> _logger,
-    INotificationMessageFactory _notificationMessageFactory
+    INotificationMessageFactory _notificationMessageFactory,
+    NavigationManager _navigationManager
 )
 {
     [EffectMethod]
@@ -112,6 +115,12 @@ public class RecipeEffects
         }
     }
 
+    [EffectMethod]
+    public async Task HandleDeleteRecipe(DeleteItemSuccessAction<IRecipeModel> action, IDispatcher dispatcher)
+    {
+        _navigationManager.NavigateTo(PageUrlsConstants.RecipesPage);
+    }
+    
     [EffectMethod]
     public async Task HandleDeleteRecipe(DeleteItemAction<IRecipeModel> action, IDispatcher dispatcher)
     {

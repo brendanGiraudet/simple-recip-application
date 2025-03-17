@@ -3,6 +3,7 @@ using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using simple_recip_application.Components.OptionsMenu;
+using simple_recip_application.Constants;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Services;
@@ -21,6 +22,7 @@ public partial class RecipesPage
     [Inject] public required IRecipeFactory RecipeFactory { get; set; }
     [Inject] public required IJSRuntime JSRuntime { get; set; }
     [Inject] public required IShoppingListGenerator ShoppingListGenerator { get; set; }
+    [Inject] public required NavigationManager NavigationManager { get; set; }
 
     private IJSObjectReference? _module;
 
@@ -134,5 +136,10 @@ public partial class RecipesPage
         LoadFilteredRecipes(skip);
 
         await Task.CompletedTask;
+    }
+
+    private void RedirectToDetails(Guid? recipeId)
+    {
+        NavigationManager.NavigateTo(PageUrlsConstants.GetRecipeDetailsPage(recipeId));
     }
 }
