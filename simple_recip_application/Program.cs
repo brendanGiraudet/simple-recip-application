@@ -30,6 +30,9 @@ builder.Services.AddHttpClients(builder.Configuration);
 // Ajout des repositories
 builder.Services.AddApplicationRepositories();
 
+// Ajout des autorisations
+builder.Services.AddAuthorizations();
+
 // Ajout Fluxor
 builder.Services.AddFluxor(options => {
     options.ScanAssemblies(typeof(Program).Assembly);

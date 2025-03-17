@@ -1,4 +1,7 @@
 using System.Net.Http.Headers;
+using System.Reflection;
+using Microsoft.AspNetCore.Authorization;
+using simple_recip_application.AuthorizationHandlers.FeatureFlagsAuthorizationHandler;
 using simple_recip_application.Constants;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Factories;
@@ -19,19 +22,20 @@ public static class ServicesContextExtensions
     {
         services.Configure<FileSettings>(configuration.GetSection(nameof(FileSettings)));
         services.Configure<OpenApisettings>(configuration.GetSection(nameof(OpenApisettings)));
-        
+
         return services;
     }
-    
+
     public static IServiceCollection AddHttpClients(this IServiceCollection services, IConfiguration configuration)
     {
         OpenApisettings openApisettings = new();
-        configuration.GetSection(nameof(OpenApisettings)).Bind(openApisettings); 
+        configuration.GetSection(nameof(OpenApisettings)).Bind(openApisettings);
 
-        services.AddHttpClient(HttpClientNamesConstants.OpenApi, options => {
+        services.AddHttpClient(HttpClientNamesConstants.OpenApi, options =>
+        {
             options.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", openApisettings.ApiKey);
         });
-        
+
         return services;
     }
 
@@ -39,11 +43,11 @@ public static class ServicesContextExtensions
     {
         services.AddTransient<IShoppingListGenerator, ShoppingListGenerator>();
         services.AddTransient<IOpenAiDataAnalysisService, OpenAiDataAnalysisService>();
-        
+
         return services;
     }
-    
-    
+
+
     public static IServiceCollection AddFactories(this IServiceCollection services)
     {
         services.AddTransient<IRecipeIngredientFactory, RecipeIngredientFactory>();
@@ -51,7 +55,30 @@ public static class ServicesContextExtensions
         services.AddTransient<IIngredientFactory, IngredientFactory>();
         services.AddTransient<INotificationMessageFactory, NotificationMessageFactory>();
         services.AddTransient<IImportModelFactory, ImportModelFactory>();
-        
+
+        return services;
+    }
+
+    public static IServiceCollection AddAuthorizations(this IServiceCollection services)
+    {
+        services.AddSingleton<IAuthorizationHandler, FeatureFlagsAuthorizationHandler>();
+
+        services.AddCascadingAuthenticationState();
+
+        services.AddAuthorization(options =>
+        {
+            foreach (var field in typeof(FeatureFlagsConstants).GetFields(BindingFlags.Public | BindingFlags.Static))
+            {
+                var featureFlag = field.GetValue(null)?.ToString();
+
+                if (!string.IsNullOrEmpty(featureFlag))
+                {
+                    options.AddPolicy(featureFlag, policy =>
+                        policy.Requirements.Add(new FeatureFlagsAuthorizationRequirement(featureFlag)));
+                }
+            }
+        });
+
         return services;
     }
 }

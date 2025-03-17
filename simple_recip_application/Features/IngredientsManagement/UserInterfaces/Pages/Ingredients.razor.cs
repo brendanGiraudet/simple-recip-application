@@ -1,6 +1,9 @@
 using Fluxor;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using simple_recip_application.Components.OptionsMenu;
+using simple_recip_application.Constants;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.IngredientsManagement.Store;
@@ -13,14 +16,32 @@ namespace simple_recip_application.Features.IngredientsManagement.UserInterfaces
 
 public partial class Ingredients
 {
-    [Inject] protected IDispatcher Dispatcher { get; set; } = default!;
-    [Inject] protected IState<IngredientState> IngredientState { get; set; } = default!;
-    [Inject] protected IIngredientFactory IngredientFactory { get; set; } = default!;
+    [Inject] public required IDispatcher Dispatcher { get; set; }
+    [Inject] public required IState<IngredientState> IngredientState { get; set; }
+    [Inject] public required IIngredientFactory IngredientFactory { get; set; }
+    [Inject] public required IAuthorizationService AuthorizationService { get; set; }
+    [Inject] public required AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
     private IIngredientModel? _selectedIngredient { get; set; }
 
+    private bool _canManageIngredient;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+        var authorizationResult = await AuthorizationService.AuthorizeAsync(authenticationState.User, FeatureFlagsConstants.IngredientManagementFeature);
+
+        _canManageIngredient = authorizationResult.Succeeded;
+    }
+
     private async Task OpenIngredientFormModalAsync(IIngredientModel? model = null)
     {
+        if (!_canManageIngredient)
+            return;
+
         _selectedIngredient = model ?? IngredientFactory.CreateIngredient();
 
         Dispatcher.Dispatch(new SetIngredientModalVisibilityAction(true));
@@ -52,9 +73,10 @@ public partial class Ingredients
 
     private List<OptionMenuItem> GetOptions()
     {
-        List<OptionMenuItem> options = [
-            new ("add", string.Empty, () => OpenIngredientFormModalAsync(), LabelsTranslator.AddIngredient)
-        ];
+        List<OptionMenuItem> options = [];
+
+        if(_canManageIngredient)
+            options.Add(new ("add", string.Empty, () => OpenIngredientFormModalAsync(), LabelsTranslator.AddIngredient));
 
         return options;
     }
@@ -62,8 +84,8 @@ public partial class Ingredients
     private bool CanPreviousClick() => IngredientState.Value.Skip > 0;
     private async Task OnPrevious()
     {
-        if(!CanPreviousClick()) return;
-        
+        if (!CanPreviousClick()) return;
+
         var skip = IngredientState.Value.Skip - IngredientState.Value.Take;
 
         skip = skip < 0 ? 0 : skip;
@@ -76,7 +98,7 @@ public partial class Ingredients
     private async Task OnNext()
     {
         var skip = IngredientState.Value.Skip + IngredientState.Value.Take;
-        
+
         LoadFilteredIngredients(skip);
 
         await Task.CompletedTask;
@@ -94,7 +116,7 @@ public partial class Ingredients
     {
         Expression<Func<IIngredientModel, bool>>? filter = c => c.RemoveDate == null;
 
-        if(!string.IsNullOrEmpty(_searchTerm))
+        if (!string.IsNullOrEmpty(_searchTerm))
             filter = i => i.Name.ToLower().Contains(_searchTerm.ToLower()) && i.RemoveDate == null;
 
         Dispatcher.Dispatch(new LoadItemsAction<IIngredientModel>(Take: IngredientState.Value.Take, Skip: skip ?? 0, filter));

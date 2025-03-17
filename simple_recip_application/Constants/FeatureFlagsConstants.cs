@@ -6,4 +6,6 @@ public static class FeatureFlagsConstants
     public const string IngredientFeature = "IngredientFeature";
     public const string ImportationFeature = "ImportationFeature";
     public const string RecipeImportationFeature = "RecipeImportationFeature";
+    public const string RecipeManagementFeature = "RecipeManagementFeature";
+    public const string IngredientManagementFeature = "IngredientManagementFeature";
 }
