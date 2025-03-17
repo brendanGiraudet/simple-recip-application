@@ -47,10 +47,11 @@
 
     /* Card */
     --card-width: 100%;
-    --card-img-container-width: 100%;
-    --card-img-container-height: 80%;
+    --card-img-container-width: 15rem;
+    --card-img-container-height: 15rem;
+    --card-img-border-radius: 50%;
     --card-title-font-size: 1.2rem;
-    --card-title-margin: 1rem 0;
+    --card-title-margin: .5rem 0;
     --card-actions-flex-direction: column;
 
     /* Options Menu */
