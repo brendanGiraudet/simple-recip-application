@@ -93,11 +93,11 @@ public partial class RecipeForm
         try
         {
             using var memoryStream = new MemoryStream();
-            
+
             await file.OpenReadStream(_fileSettings.MaxAllowedSize).CopyToAsync(memoryStream);
 
             var importModel = ImportModelFactory.CreateImportModel();
-            
+
             importModel.FileContent = memoryStream.ToArray();
 
             Dispatcher.Dispatch(new StartImportAction(ImportStrategyEnum.RecipesFromHelloFreshPicture, importModel));
@@ -108,5 +108,7 @@ public partial class RecipeForm
         }
     }
 
-    private bool _isImportButtonVisible => !Recipe.Id.HasValue && FeatureManager.IsEnabledAsync(FeatureFlagsConstants.RecipeImportationFeature).Result;
+    private bool _isImportButtonVisible => !Recipe.Id.HasValue &&
+                                           FeatureManager.IsEnabledAsync(FeatureFlagsConstants.RecipeImportationFeature).Result &&
+                                           string.IsNullOrEmpty(Recipe.Name);
 }

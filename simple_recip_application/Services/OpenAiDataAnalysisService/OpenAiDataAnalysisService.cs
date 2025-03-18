@@ -83,7 +83,7 @@ public class OpenAiDataAnalysisService
             .GetProperty("content").GetString() ?? "";
     }
 
-    private string textPrompt => @"Peux tu transcrire cette image et me ressortir la recette et les ingrédients et j'aimerais que les instructions soient numéroté et termine par <br/><br/>, ensuite après avoir ressortit la recette peux tu parser la recette en json grace au class C# suivante public interface IRecipeModel : IEntityBase
+    private string textPrompt => @"Peux tu transcrire cette image et me ressortir la recette et les ingrédients, ensuite après avoir ressortit la recette peux tu parser la recette en json grace au class C# suivante public interface IRecipeModel : IEntityBase
 {
     public string Name { get; set; }
     public string Description { get; set; }
@@ -113,7 +113,7 @@ public class OpenAiDataAnalysisService
         {
             var text = await ExtractTextFromImageAsync(imageData);
 
-            // Suppression de "```json" du debut et "```" de fin
+            // Suppression du markdown json  "```json" du debut et "```" de fin
             var beginJsonMarkdownText = "```json";
             var endJsonMarkdownText = "```";
             
