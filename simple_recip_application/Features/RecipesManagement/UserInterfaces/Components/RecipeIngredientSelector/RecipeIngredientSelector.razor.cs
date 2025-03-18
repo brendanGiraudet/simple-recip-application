@@ -1,8 +1,13 @@
 using System.Linq.Expressions;
 using Fluxor;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using simple_recip_application.Constants;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.IngredientsManagement.Store;
+using simple_recip_application.Features.IngredientsManagement.Store.Actions;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipesManagement.Store;
@@ -16,7 +21,10 @@ public partial class RecipeIngredientSelector
     [Inject] public required IState<IngredientState> IngredientState { get; set; }
     [Inject] public required IDispatcher Dispatcher { get; set; }
     [Inject] public required IRecipeIngredientFactory RecipeIngredientFactory { get; set; }
-    
+    [Inject] public required IIngredientFactory IngredientFactory { get; set; }
+    [Inject] public required IAuthorizationService AuthorizationService { get; set; }
+    [Inject] public required AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
     private ICollection<IRecipeIngredientModel> RecipeIngredients => RecipeState.Value.Item?.IngredientModels ?? [];
 
     private async Task SearchIngredients(string? searchTerm = null)
@@ -64,9 +72,48 @@ public partial class RecipeIngredientSelector
     {
         await base.OnInitializedAsync();
 
-        if(RecipeState.Value.FilteredIngredients.Count() == 0)
+        if (RecipeState.Value.FilteredIngredients.Count() == 0)
         {
             await SearchIngredients();
         }
+
+        _selectedIngredient = IngredientFactory.CreateIngredient();
+
+        var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+        var authorizationResult = await AuthorizationService.AuthorizeAsync(authenticationState.User, FeatureFlagsConstants.IngredientManagementFeature);
+
+        _canManageIngredient = authorizationResult.Succeeded;
+    }
+
+    private void CloseIngredientModal(bool isUpdated) => Dispatcher.Dispatch(new SetIngredientModalVisibilityAction(false));
+
+    private IIngredientModel? _selectedIngredient;
+
+    private bool _canManageIngredient;
+
+    private async Task OpenIngredientFormModalAsync()
+    {
+        if (!_canManageIngredient)
+            return;
+
+        Dispatcher.Dispatch(new SetIngredientModalVisibilityAction(true));
+
+        await Task.CompletedTask;
+    }
+
+    private bool _isMouseOverDropdown = false;
+    private void OnMouseEnterDropdown() => _isMouseOverDropdown = true;
+
+    private void OnMouseLeaveDropdown() => _isMouseOverDropdown = false;
+
+    private async Task HideDropdownlist()
+    {
+        await Task.Delay(150);
+
+        if (!_isMouseOverDropdown)
+            _ddlVisibility = false;
+
+        StateHasChanged();
     }
 }

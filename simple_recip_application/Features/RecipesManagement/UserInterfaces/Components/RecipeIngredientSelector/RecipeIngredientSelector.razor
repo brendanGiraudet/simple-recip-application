@@ -1,29 +1,35 @@
 @inherits FluxorComponent
 
-<div class="ingredients-selector">
+<div class="ingredients-selector-container">
+    <div class="ingredients-selector">
 
-    <div class="ingredient-selector-search-bar">
-        <SearchBar OnSearch="@SearchIngredients" OnFocus="@(() => _ddlVisibility = true)" />
-        <ValidationMessage For="@(() => RecipeState.Value.Item.IngredientModels)" />
+        <button @onclick="OpenIngredientFormModalAsync" type="button" class="btn btn-secondary btn-add-ingredient"
+            title="@LabelsTranslator.AddIngredient"><span class="material-symbols-outlined">add</span></button>
 
-        <ul class="dropdown-list @DdlVisibilityCssClass">
+        <div class="ingredient-selector-search-bar">
+            <SearchBar OnSearch="@SearchIngredients" OnFocus="@(() => _ddlVisibility = true)"
+                OnBlur="@(() => HideDropdownlist())" />
+            <ValidationMessage For="@(() => RecipeState.Value.Item.IngredientModels)" />
 
-            @if (RecipeState.Value.FilteredIngredients.Count() == 0)
-            {
-                <li class="dropdown-item" @onclick="@(() => _ddlVisibility = false)">
-                    @LabelsTranslator.NoIngredientsFound
-                </li>
-            }
+            <ul class="dropdown-list @DdlVisibilityCssClass" @onmouseenter="OnMouseEnterDropdown"
+                @onmouseleave="OnMouseLeaveDropdown">
 
-            @foreach (var ingredient in RecipeState.Value.FilteredIngredients)
-            {
-                <li @onclick="() => AddIngredient(ingredient)" class="dropdown-item">
-                    @ingredient.Name
-                </li>
-            }
-        </ul>
+                @if (RecipeState.Value.FilteredIngredients.Count() == 0)
+                {
+                    <li class="dropdown-item" @onclick="@(() => _ddlVisibility = false)">
+                        @LabelsTranslator.NoIngredientsFound
+                    </li>
+                }
+
+                @foreach (var ingredient in RecipeState.Value.FilteredIngredients)
+                {
+                    <li @onclick="() => AddIngredient(ingredient)" class="dropdown-item">
+                        @ingredient.Name
+                    </li>
+                }
+            </ul>
+        </div>
     </div>
-
     <!-- Tags (Selected Ingredients with Quantity) -->
     <div class="tags">
         @if (RecipeIngredients.Count == 0)
@@ -39,16 +45,23 @@
 
                 @* Quantity *@
                 <div>
-                    <InputNumber @bind-Value="ingredient.Quantity" placeholder="@LabelsTranslator.Quantity" min="1" step="1" />
+                    <InputNumber @bind-Value="ingredient.Quantity" placeholder="@LabelsTranslator.Quantity" min="1"
+                        step="1" />
                     <ValidationMessage For="@(() => ingredient.Quantity)" />
                 </div>
 
                 @* MeasureUnit *@
                 <span>@ingredient.IngredientModel?.MeasureUnit</span>
-                
+
                 @* Remove *@
                 <span class="remove-tag" @onclick="(() => RemoveIngredient(ingredient))">x</span>
             </div>
         }
     </div>
 </div>
+
+
+<Modal OnClose="CloseIngredientModal" IsVisible="IngredientState.Value.IngredientModalVisibility">
+
+    <IngredientForm Ingredient="_selectedIngredient" OnCancel="CloseIngredientModal" />
+</Modal>
