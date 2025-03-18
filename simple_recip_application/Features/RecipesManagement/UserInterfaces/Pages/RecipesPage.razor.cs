@@ -1,6 +1,8 @@
 using System.Linq.Expressions;
 using Fluxor;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 using simple_recip_application.Components.OptionsMenu;
 using simple_recip_application.Constants;
@@ -23,6 +25,21 @@ public partial class RecipesPage
     [Inject] public required IJSRuntime JSRuntime { get; set; }
     [Inject] public required IShoppingListGenerator ShoppingListGenerator { get; set; }
     [Inject] public required NavigationManager NavigationManager { get; set; }
+    [Inject] public required IAuthorizationService AuthorizationService { get; set; }
+    [Inject] public required AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
+    private bool _canManageRecipe;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+        var authorizationResult = await AuthorizationService.AuthorizeAsync(authenticationState.User, FeatureFlagsConstants.RecipeManagementFeature);
+
+        _canManageRecipe = authorizationResult.Succeeded;
+    }
 
     private IJSObjectReference? _module;
 
@@ -30,15 +47,17 @@ public partial class RecipesPage
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if(firstRender)
+        if (firstRender)
             _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
             "./js/download.js");
     }
 
     private async Task OpenRecipFormModalAsync(IRecipeModel? model = null)
     {
-        if(model is not null && model.Id.HasValue)
-            Dispatcher.Dispatch(new LoadItemAction<IRecipeModel>(model.Id.Value));    
+        if (!_canManageRecipe) return;
+
+        if (model is not null && model.Id.HasValue)
+            Dispatcher.Dispatch(new LoadItemAction<IRecipeModel>(model.Id.Value));
 
         else
             Dispatcher.Dispatch(new SetItemAction<IRecipeModel>(RecipeFactory.Create()));
@@ -71,9 +90,11 @@ public partial class RecipesPage
     private List<OptionMenuItem> GetOptions()
     {
         List<OptionMenuItem> options = [
-            new ("add", string.Empty, () => OpenRecipFormModalAsync(), LabelsTranslator.AddRecipe),
             new ("shopping_cart_checkout", string.Empty, () => GenerateCsvAsync(), LabelsTranslator.GenerateShoppingList),
         ];
+
+        if (_canManageRecipe)
+            options.Add(new("add", string.Empty, () => OpenRecipFormModalAsync(), LabelsTranslator.AddRecipe));
 
         return options;
     }
@@ -93,7 +114,7 @@ public partial class RecipesPage
         }
         catch (Exception ex)
         {
-            Logger.LogError($"Error during GenerateCsvAsync: {ex.Message}");
+            Logger.LogError(ex, $"Error during GenerateCsvAsync: {ex.Message}");
         }
     }
 
@@ -140,6 +161,7 @@ public partial class RecipesPage
 
     private void RedirectToDetails(Guid? recipeId)
     {
-        NavigationManager.NavigateTo(PageUrlsConstants.GetRecipeDetailsPage(recipeId));
+        if(_canManageRecipe)
+            NavigationManager.NavigateTo(PageUrlsConstants.GetRecipeDetailsPage(recipeId));
     }
 }

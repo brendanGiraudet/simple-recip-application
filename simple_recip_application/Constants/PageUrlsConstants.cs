@@ -3,7 +3,7 @@ namespace simple_recip_application.Constants;
 public static class PageUrlsConstants
 {
     // Recipe
-    public const string RecipesPage = "/";
+    public const string RecipesPage = "/recipes";
     public const string RecipeDetailsPage = "/recipes/{0}";
     public static string GetRecipeDetailsPage(Guid? id) => string.Format(RecipeDetailsPage, id);
 
