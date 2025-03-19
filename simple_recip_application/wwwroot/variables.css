@@ -47,8 +47,8 @@
 
     /* Card */
     --card-width: 100%;
-    --card-img-container-width: 15rem;
-    --card-img-container-height: 15rem;
+    --card-img-container-width: 10rem;
+    --card-img-container-height: 10rem;
     --card-img-border-radius: 50%;
     --card-title-font-size: 1.2rem;
     --card-title-margin: .5rem 0;
@@ -83,6 +83,9 @@
     --scrollbar-color: var(--accent-color-2);
     --scrollbar-color-hover: var(--accent-color-1);
     --scrollbar-border-radius: 10px;
+
+    /* Pagination buttons*/
+    --pagination-buttons-container-gap: 2rem;
 }
 
 /* iPads, Tablets */
@@ -94,6 +97,9 @@
 
         /* Modal */
         --modal-body-width: 80vw;
+
+        /* Pagination buttons*/
+        --pagination-buttons-container-gap: 10rem;
     }
 }
 
@@ -102,9 +108,9 @@
         /* Modal */
         --modal-body-max-height: 80vh;
         --modal-content-height: 90%;
-        
+
         /* Menu*/
-        --menu-height:10%;
+        --menu-height: 10%;
 
         /* Mainlayout */
         --main-height: 90%;
