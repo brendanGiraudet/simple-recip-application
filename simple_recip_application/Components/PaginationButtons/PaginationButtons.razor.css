@@ -1,9 +1,10 @@
 .pagination-buttons-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     position: relative;
     width: 100%;
+    gap: 10rem;
 }
 
 .pagination-buttons-container button {

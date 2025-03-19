@@ -25,12 +25,14 @@
     border-radius: 10px;
     position: relative;
     z-index: 10;
+    max-width: var(--modal-content-max-width);
+    max-height: var(--modal-content-max-height);
 }
 
 .modal-body {
     overflow: auto;
-    max-width: var(--modal-body-width);
-    max-height: var(--modal-body-height);
+    max-width: var(--modal-body-max-width);
+    max-height: var(--modal-body-max-height);
     padding: 1rem;
 }
 
