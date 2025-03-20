@@ -50,4 +50,5 @@ public class LabelsTranslator
     public static string MeasureUnit => resourceManager.GetString("MeasureUnit", CultureInfo.CurrentCulture) ?? "MeasureUnit";
     public static string Done => resourceManager.GetString("Done", CultureInfo.CurrentCulture) ?? "Done";
     public static string Importation => resourceManager.GetString("Importation", CultureInfo.CurrentCulture) ?? "Importation";
+    public static string Planning => resourceManager.GetString("Planning", CultureInfo.CurrentCulture) ?? "Planning";
 }

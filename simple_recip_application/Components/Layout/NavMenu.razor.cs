@@ -28,6 +28,9 @@ public partial class NavMenu
         
         if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.ImportationFeature))
             _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.ImportationPage, "upload_file", LabelsTranslator.Importation));
+        
+        if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.RecipePlanningFeature))
+            _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.RecipePlannigPage, "calendar_month", LabelsTranslator.Planning));
     }
 
     private IEnumerable<NavMenuItem> _navMenuItems = [];

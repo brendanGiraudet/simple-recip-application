@@ -13,7 +13,7 @@ public class RecipeRepository
 (
     ApplicationDbContext _dbContext
 )
-: Repository<RecipeModel>(_dbContext), IRecipeRepository
+: EntityBaseRepository<RecipeModel>(_dbContext), IRecipeRepository
 {
     public new async Task<MethodResult<IRecipeModel?>> GetByIdAsync(Guid? id)
     {

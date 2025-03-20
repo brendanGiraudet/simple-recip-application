@@ -12,4 +12,7 @@ public static class PageUrlsConstants
     
     // Importation
     public const string ImportationPage = "/importation";
+    
+    // Recipes planning
+    public const string RecipePlannigPage = "/recipe-planning";
 }

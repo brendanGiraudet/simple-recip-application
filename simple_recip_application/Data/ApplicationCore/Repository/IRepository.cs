@@ -1,10 +1,9 @@
 using System.Linq.Expressions;
-using simple_recip_application.Data.ApplicationCore.Entities;
 using simple_recip_application.Dtos;
 
 namespace simple_recip_application.Data.ApplicationCore.Repository;
 
-public interface IRepository<T> where T : IEntityBase
+public interface IRepository<T> where T : class
 {
     Task<MethodResult<T?>> GetByIdAsync(Guid? id);
     Task<MethodResult<IEnumerable<T>>> GetAsync();

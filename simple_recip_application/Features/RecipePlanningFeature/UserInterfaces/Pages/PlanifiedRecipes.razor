@@ -1,0 +1,11 @@
+@page "/recipe-planning"
+
+<div class="planified-recipes">
+    @foreach (var recipe in PlanifiedRecipeState.Value.Items)
+    {
+        if (recipe.RecipeModel is not null)
+        {
+            <div>@recipe.RecipeModel?.Name</div>
+        }
+    }
+</div>

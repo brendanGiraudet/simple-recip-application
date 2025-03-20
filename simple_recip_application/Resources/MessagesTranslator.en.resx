@@ -72,4 +72,7 @@
     <data name="MinIngredientErrorMessage" xml:space="preserve">
         <value>Error it must have at least one ingredient</value>
     </data>
+    <data name="LoadPlanifiedRecipesErrorMessage" xml:space="preserve">
+        <value>Load planified recipes error</value>
+    </data>
 </root>

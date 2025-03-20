@@ -253,4 +253,7 @@
     <data name="Importation" xml:space="preserve">
         <value>Import</value>
     </data>
+    <data name="Planning" xml:space="preserve">
+        <value>Planning</value>
+    </data>
 </root>

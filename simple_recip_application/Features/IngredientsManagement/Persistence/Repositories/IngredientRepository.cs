@@ -12,7 +12,7 @@ public class IngredientRepository
 (
     ApplicationDbContext _dbContext
 )
- : Repository<IngredientModel>(_dbContext), IIngredientRepository
+ : EntityBaseRepository<IngredientModel>(_dbContext), IIngredientRepository
 {
     public new async Task<MethodResult<IIngredientModel?>> GetByIdAsync(Guid? id)
     {

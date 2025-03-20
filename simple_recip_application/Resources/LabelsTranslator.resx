@@ -252,4 +252,7 @@
     <data name="ImportLabel" xml:space="preserve">
         <value>Importer depuis un fichier</value>
     </data>
+    <data name="Planning" xml:space="preserve">
+        <value>Calendrier</value>
+    </data>
 </root>

@@ -30,6 +30,7 @@ services:
       FeatureManagement__RecipeImportationFeature: false
       FeatureManagement__RecipeManagementFeature: false
       FeatureManagement__IngredientManagementFeature: false
+      FeatureManagement__RecipePlanningFeature: false
       
       FileSettings__MaxAllowedSize: 1012000000
 

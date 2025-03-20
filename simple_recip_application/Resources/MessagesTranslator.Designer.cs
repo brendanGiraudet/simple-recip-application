@@ -14,6 +14,7 @@ public class MessagesTranslator
     public static string NameRequired => resourceManager.GetString("NameRequired", CultureInfo.CurrentCulture) ?? "NameRequired";
     public static string ImageRequired => resourceManager.GetString("ImageRequired", CultureInfo.CurrentCulture) ?? "ImageRequired";
     public static string LoadIngredientErrorMessage => resourceManager.GetString("LoadIngredientErrorMessage", CultureInfo.CurrentCulture) ?? "LoadIngredientErrorMessage";
+    public static string LoadPlanifiedRecipesErrorMessage => resourceManager.GetString("LoadPlanifiedRecipesErrorMessage", CultureInfo.CurrentCulture) ?? "LoadPlanifiedRecipesErrorMessage";
     public static string AddIngredientSuccessMessage => resourceManager.GetString("AddIngredientSuccessMessage", CultureInfo.CurrentCulture) ?? "AddIngredientSuccessMessage";
     public static string AddIngredientErrorMessage => resourceManager.GetString("AddIngredientErrorMessage", CultureInfo.CurrentCulture) ?? "AddIngredientErrorMessage";
     public static string DeleteIngredientErrorMessage => resourceManager.GetString("DeleteIngredientErrorMessage", CultureInfo.CurrentCulture) ?? "DeleteIngredientErrorMessage";
