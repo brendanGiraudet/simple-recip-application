@@ -5,6 +5,7 @@ using simple_recip_application.Features.RecipePlanningFeature.Persistence.Entiti
 using simple_recip_application.Dtos;
 using System.Linq.Expressions;
 using simple_recip_application.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace simple_recip_application.Features.RecipePlanningFeature.Persistence.Repositories;
 
@@ -30,11 +31,18 @@ public class PlanifiedRecipeRepository
 
     public async Task<MethodResult<IEnumerable<IPlanifiedRecipeModel>>> GetAsync(int take, int skip, Expression<Func<IPlanifiedRecipeModel, bool>>? predicate)
     {
-        var convertedPredicate = predicate?.Convert<IPlanifiedRecipeModel, PlanifiedRecipeModel, bool>();
-        
-        var result = await base.GetAsync(take, skip, convertedPredicate);
+        try
+        {
+            var convertedPredicate = predicate?.Convert<IPlanifiedRecipeModel, PlanifiedRecipeModel, bool>();
 
-        return new MethodResult<IEnumerable<IPlanifiedRecipeModel>>(result.Success, result.Item.OrderBy(c => c.PlanifiedDateTime).Cast<IPlanifiedRecipeModel>());
+            var planifiedRecipes = await base.Get(take, skip, convertedPredicate).Include(c => c.Recipe).ThenInclude(re => re.Ingredients).ThenInclude(c => c.Ingredient).OrderBy(c => c.PlanifiedDateTime).ToListAsync();
+
+            return new MethodResult<IEnumerable<IPlanifiedRecipeModel>>(true, planifiedRecipes.Cast<IPlanifiedRecipeModel>());
+        }
+        catch (System.Exception ex)
+        {
+            return new MethodResult<IEnumerable<IPlanifiedRecipeModel>>(true, []);
+        }
     }
 
     public async Task<MethodResult> AddAsync(IPlanifiedRecipeModel? entity)

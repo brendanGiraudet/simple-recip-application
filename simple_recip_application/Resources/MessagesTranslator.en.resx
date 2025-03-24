@@ -81,4 +81,7 @@
     <data name="AddPlanifiedRecipeSuccessMessage" xml:space="preserve">
         <value>Add planified recipe success</value>
     </data>
+    <data name="GenerateShoppingListCsvContentErrorMessage" xml:space="preserve">
+        <value>Generate shopping list error</value>
+    </data>
 </root>

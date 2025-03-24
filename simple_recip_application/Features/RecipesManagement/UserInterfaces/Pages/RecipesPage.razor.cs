@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using System.Text;
 using Fluxor;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
@@ -6,6 +7,9 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
 using simple_recip_application.Components.OptionsMenu;
 using simple_recip_application.Constants;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Services;
@@ -18,12 +22,13 @@ namespace simple_recip_application.Features.RecipesManagement.UserInterfaces.Pag
 
 public partial class RecipesPage
 {
+    [Inject] public required INotificationMessageFactory NotificationMessageFactory { get; set; }
     [Inject] public required ILogger<RecipesPage> Logger { get; set; }
     [Inject] public required IState<RecipeState> RecipeState { get; set; }
     [Inject] public required IDispatcher Dispatcher { get; set; }
     [Inject] public required IRecipeFactory RecipeFactory { get; set; }
     [Inject] public required IJSRuntime JSRuntime { get; set; }
-    [Inject] public required IShoppingListGenerator ShoppingListGenerator { get; set; }
+    [Inject] public required IShoppingListGeneratorService ShoppingListGenerator { get; set; }
     [Inject] public required NavigationManager NavigationManager { get; set; }
     [Inject] public required IAuthorizationService AuthorizationService { get; set; }
     [Inject] public required AuthenticationStateProvider AuthenticationStateProvider { get; set; }
@@ -103,9 +108,20 @@ public partial class RecipesPage
     {
         try
         {
-            var content = await ShoppingListGenerator.GenerateShoppingListCsvContentAsync(RecipeState.Value.SelectedItems);
+            var result = await ShoppingListGenerator.GenerateShoppingListCsvContentAsync(RecipeState.Value.SelectedItems);
 
-            var csvDataUrl = $"data:text/csv;base64,{content}";
+            if (result.Success && string.IsNullOrEmpty(result.Item))
+            {
+                var notification = NotificationMessageFactory.CreateNotificationMessage(MessagesTranslator.GenerateShoppingListCsvContentErrorMessage, NotificationType.Error);
+
+                Dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+                return;
+            }
+
+            var csvBytes = Encoding.UTF8.GetBytes(result.Item);
+
+            var csvDataUrl = $"data:text/csv;base64,{Convert.ToBase64String(csvBytes)}";
 
             var filename = "ingredients.csv";
 
@@ -161,7 +177,7 @@ public partial class RecipesPage
 
     private void RedirectToDetails(Guid? recipeId)
     {
-        if(_canManageRecipe)
+        if (_canManageRecipe)
             NavigationManager.NavigateTo(PageUrlsConstants.GetRecipeDetailsPage(recipeId));
     }
 }

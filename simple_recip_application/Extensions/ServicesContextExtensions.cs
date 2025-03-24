@@ -43,7 +43,7 @@ public static class ServicesContextExtensions
 
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
-        services.AddTransient<IShoppingListGenerator, ShoppingListGenerator>();
+        services.AddTransient<IShoppingListGeneratorService, ShoppingListGeneratorService>();
         services.AddTransient<IOpenAiDataAnalysisService, OpenAiDataAnalysisService>();
 
         return services;

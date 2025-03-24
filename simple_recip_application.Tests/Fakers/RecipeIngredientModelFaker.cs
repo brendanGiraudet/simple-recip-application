@@ -7,6 +7,7 @@ public class RecipeIngredientModelFaker : Faker<RecipeIngredientModel>
 {
     public RecipeIngredientModelFaker()
     {
-        RuleFor( c=> c.IngredientModel, f => new IngredientModelFaker().Generate());
+        RuleFor(c => c.IngredientModel, f => new IngredientModelFaker().Generate());
+        RuleFor(c => c.Quantity, f => f.Random.Decimal(1, 100));
     }
 }
