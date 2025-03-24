@@ -262,4 +262,13 @@
     <data name="SelectARecipe" xml:space="preserve">
         <value>Select a recipe</value>
     </data>
+    <data name="Noon" xml:space="preserve">
+        <value>Noon</value>
+    </data>
+    <data name="Evening" xml:space="preserve">
+        <value>Evening</value>
+    </data>
+    <data name="MomentOfTheDay" xml:space="preserve">
+        <value>Moment of the day</value>
+    </data>
 </root>

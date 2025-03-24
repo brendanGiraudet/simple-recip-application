@@ -7,11 +7,12 @@ namespace simple_recip_application.Features.RecipePlanningFeature.Persistence.Fa
 
 public class PlanifiedRecipeModelFactory : IPlanifiedRecipeModelFactory
 {
-    public IPlanifiedRecipeModel CreatePlanifiedRecipeModel(IRecipeModel? recipe = null, DateTime? planifiedDatetime = null, string? userId = null, string? momentOftheDay = null) => new PlanifiedRecipeModel
+    public IPlanifiedRecipeModel CreatePlanifiedRecipeModel(IRecipeModel? recipe = null, DateTime? planifiedDatetime = null, string? userId = null, string? momentOftheDay = null, Guid? recipeId = null) => new PlanifiedRecipeModel
     {
         MomentOftheDay = momentOftheDay,
         PlanifiedDateTime = planifiedDatetime ?? DateTime.UtcNow,
         RecipeModel = recipe,
-        UserId = userId
+        UserId = userId,
+        RecipeId = recipeId ?? new ()
     };
 }

@@ -5,5 +5,5 @@ namespace simple_recip_application.Features.RecipePlanningFeature.ApplicationCor
 
 public interface IPlanifiedRecipeModelFactory
 {
-    IPlanifiedRecipeModel CreatePlanifiedRecipeModel(IRecipeModel? recipe = null, DateTime? planifiedDatetime = null, string? userId = null, string? momentOftheDay = null);
+    IPlanifiedRecipeModel CreatePlanifiedRecipeModel(IRecipeModel? recipe = null, DateTime? planifiedDatetime = null, string? userId = null, string? momentOftheDay = null, Guid? recipeId = null);
 }

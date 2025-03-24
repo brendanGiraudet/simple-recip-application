@@ -4,6 +4,7 @@ namespace simple_recip_application.Features.RecipePlanningFeature.ApplicationCor
 
 public interface IPlanifiedRecipeModel
 {
+    public Guid RecipeId { get; set; }
     public IRecipeModel RecipeModel { get; set; }
     public DateTime PlanifiedDateTime { get; set; }
     public string UserId { get; set; }

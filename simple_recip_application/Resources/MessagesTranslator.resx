@@ -87,4 +87,7 @@
     <data name="GenerateShoppingListCsvContentErrorMessage" xml:space="preserve">
         <value>Erreur lors de la génération de la liste de courses</value>
     </data>
+    <data name="DeletePlanifiedRecipeErrorMessage" xml:space="preserve">
+        <value>Erreur lors de la suppression de la recette planifiée</value>
+    </data>
 </root>

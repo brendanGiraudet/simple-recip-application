@@ -84,4 +84,7 @@
     <data name="GenerateShoppingListCsvContentErrorMessage" xml:space="preserve">
         <value>Generate shopping list error</value>
     </data>
+    <data name="DeletePlanifiedRecipeErrorMessage" xml:space="preserve">
+        <value>Delete planified recipe error</value>
+    </data>
 </root>

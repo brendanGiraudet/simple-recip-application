@@ -1,5 +1,6 @@
 using Fluxor;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
+using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.EqualityComparers;
 using simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
 using simple_recip_application.Store.Actions;
 
@@ -46,6 +47,16 @@ public static class PlanifiedRecipeReducer
     [ReducerMethod]
     public static PlanifiedRecipeState ReduceAddItemFailureAction(PlanifiedRecipeState state, AddItemFailureAction<IPlanifiedRecipeModel> action)
         => state with { IsLoading = false };
+    #endregion
+
+    #region DeleteItem
+    [ReducerMethod]
+    public static PlanifiedRecipeState ReduceDeleteItemSuccessAction(PlanifiedRecipeState state, DeleteItemSuccessAction<IPlanifiedRecipeModel> action)
+    {
+        var items = state.Items.Where(c => !new PlanifiedRecipeEqualityComparer().Equals(c, action.Item));
+
+        return state with { IsLoading = false, Items = items, RecipesGroupedByDay = GroupRecipesByDay(items) };
+    }
     #endregion
 
     #region SetCurrentWeekStart

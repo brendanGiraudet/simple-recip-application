@@ -261,4 +261,16 @@
     <data name="SelectARecipe" xml:space="preserve">
         <value>Selectionne une recette</value>
     </data>
+    <data name="Morning" xml:space="preserve">
+        <value>Matin</value>
+    </data>
+    <data name="Noon" xml:space="preserve">
+        <value>Midi</value>
+    </data>
+    <data name="Evening" xml:space="preserve">
+        <value>Soir</value>
+    </data>
+    <data name="MomentOfTheDay" xml:space="preserve">
+        <value>Moment de la journée</value>
+    </data>
 </root>

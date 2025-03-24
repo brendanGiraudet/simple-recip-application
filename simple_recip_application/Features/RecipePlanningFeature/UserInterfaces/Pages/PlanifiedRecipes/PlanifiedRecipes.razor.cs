@@ -97,7 +97,7 @@ public partial class PlanifiedRecipes
 
     private void HandleRecipeSelected(IRecipeModel selectedRecipe)
     {
-        var planifiedDateTime = DateTime.UtcNow.StartOfWeek(DayOfWeek.Monday)
+        var planifiedDateTime = PlanifiedRecipeState.Value.CurrentWeekStart.StartOfWeek(DayOfWeek.Monday)
             .AddDays((int)_selectedDayForPlanning - 1)
             .Date;
 
@@ -162,5 +162,40 @@ public partial class PlanifiedRecipes
         {
             Logger.LogError(ex, $"Error during GenerateCsvAsync: {ex.Message}");
         }
+    }
+
+    private bool _isChangeRecipeModalVisible = false;
+    private IPlanifiedRecipeModel? _selectedPlanifiedRecipeForChange;
+    private string _selectedMomentOfTheDay = "Midi";
+
+    private void OpenChangeRecipeModal(IPlanifiedRecipeModel recipeToChange)
+    {
+        _selectedPlanifiedRecipeForChange = recipeToChange;
+        _selectedMomentOfTheDay = recipeToChange.MomentOftheDay ?? "Midi";
+        _isChangeRecipeModalVisible = true;
+    }
+
+    private void CloseChangeRecipeModal(bool _)
+    {
+        _isChangeRecipeModalVisible = false;
+    }
+
+    private void HandleRecipeChanged(IRecipeModel newRecipe)
+    {
+
+        if (_selectedPlanifiedRecipeForChange is null) return;
+
+        var newPlanifiedRecipe = PlanifiedRecipeFactory.CreatePlanifiedRecipeModel(
+            recipe: newRecipe,
+            planifiedDatetime: _selectedPlanifiedRecipeForChange.PlanifiedDateTime,
+            userId: _selectedPlanifiedRecipeForChange.UserId,
+            momentOftheDay: _selectedMomentOfTheDay,
+            recipeId: newRecipe.Id
+        );
+
+        Dispatcher.Dispatch(new DeleteItemAction<IPlanifiedRecipeModel>(_selectedPlanifiedRecipeForChange));
+        Dispatcher.Dispatch(new AddItemAction<IPlanifiedRecipeModel>(newPlanifiedRecipe));
+
+        _isChangeRecipeModalVisible = false;
     }
 }

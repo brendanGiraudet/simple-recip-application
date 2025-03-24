@@ -16,7 +16,18 @@
                               Item="@planifiedRecipe.RecipeModel"
                               ImageSource="@planifiedRecipe.RecipeModel.Image.GetImageSource()"
                               Title="@planifiedRecipe.RecipeModel.Name"
-                              OnClick="@(() => OpenRecipeDetails(planifiedRecipe.RecipeModel.Id.Value))" />
+                              OnClick="@(() => OpenRecipeDetails(planifiedRecipe.RecipeModel.Id.Value))">
+
+                            <BodyContent>
+                                <h5>@planifiedRecipe.RecipeModel.Name</h5>
+                                <div>@planifiedRecipe.MomentOftheDay</div>
+                                <button class="btn btn-secondary"
+                                        @onclick="(() => OpenChangeRecipeModal(planifiedRecipe))" @onclick:stopPropagation="true">
+                                    @LabelsTranslator.Update
+                                </button>
+                            </BodyContent>
+
+                        </Card>
                     }
                 </div>
             }
@@ -31,11 +42,23 @@
     }
 </div>
 
-<PaginationButtons CanPreviousClick="@(true)" OnPrevious="@LoadPreviousWeek" OnNext="@LoadNextWeek" />
+<PaginationButtons CanPreviousClick="true" OnPrevious="LoadPreviousWeek" OnNext="LoadNextWeek" />
 
-<!-- Fenêtre modale de sélection de recette -->
+<!-- Modal de sélection ou modification de recette -->
 <Modal IsVisible="@_isRecipeSelectionModalVisible" OnClose="@CloseRecipeSelectionModal">
     <RecipeSelector OnRecipeSelected="@HandleRecipeSelected" />
+</Modal>
+
+<Modal IsVisible="@_isChangeRecipeModalVisible" OnClose="@CloseChangeRecipeModal">
+    <RecipeSelector OnRecipeSelected="@HandleRecipeChanged" />
+    <div class="form-field">
+        <label>@LabelsTranslator.MomentOfTheDay</label>
+        <select @bind="@_selectedMomentOfTheDay">
+            <option value="Matin">@LabelsTranslator.Morning</option>
+            <option value="Midi">@LabelsTranslator.Noon</option>
+            <option value="Soir">@LabelsTranslator.Evening</option>
+        </select>
+    </div>
 </Modal>
 
 <OptionsMenu Options="GetOptions()" />
