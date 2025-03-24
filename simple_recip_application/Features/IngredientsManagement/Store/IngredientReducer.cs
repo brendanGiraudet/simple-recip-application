@@ -1,5 +1,6 @@
 using Fluxor;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.EqualityComparers;
 using simple_recip_application.Features.IngredientsManagement.Store.Actions;
 using simple_recip_application.Store.Actions;
 
@@ -41,7 +42,7 @@ public static class IngredientReducer
     [ReducerMethod]
     public static IngredientState ReduceDeleteItemSuccessAction(IngredientState state, DeleteItemSuccessAction<IIngredientModel> action)
     {
-        var ingredients = state.Items.Where(i => i.Id != action.Item.Id).ToList();
+        var ingredients = state.Items.Where(i => !new IngredientEqualityComparer().Equals(i, action.Item)).ToList();
 
         return state with { Items = ingredients, IsLoading = false };
     }

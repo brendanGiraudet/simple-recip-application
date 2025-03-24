@@ -8,7 +8,7 @@ services:
       args:
         - configuration=release
 
-    image: simple_recip_application:1.11.48
+    image: simple_recip_application:1.11.49
 
     container_name: simple_recip_application
 
@@ -22,7 +22,7 @@ services:
       
       ConnectionStrings__DefaultConnection: "Data Source=/app/Data/recipes.db"
       
-      ApplicationVersion : "1.11.48"
+      ApplicationVersion : "1.11.49"
       
       FeatureManagement__RecipeFeature: true
       FeatureManagement__IngredientFeature: true
