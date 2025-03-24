@@ -78,4 +78,10 @@
     <data name="LoadPlanifiedRecipesErrorMessage" xml:space="preserve">
         <value>Erreur lors de la récupération des recettes planifiées</value>
     </data>
+    <data name="AddPlanifiedRecipeErrorMessage" xml:space="preserve">
+        <value>Erreur lors de la planification de la recette</value>
+    </data>
+    <data name="AddPlanifiedRecipeSuccessMessage" xml:space="preserve">
+        <value>Recette planifiée avec succès</value>
+    </data>
 </root>

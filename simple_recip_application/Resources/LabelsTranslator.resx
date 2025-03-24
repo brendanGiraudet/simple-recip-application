@@ -255,4 +255,10 @@
     <data name="Planning" xml:space="preserve">
         <value>Calendrier</value>
     </data>
+    <data name="NoRecipesForThisDay" xml:space="preserve">
+        <value>Aucune recette pour ce jour</value>
+    </data>
+    <data name="SelectARecipe" xml:space="preserve">
+        <value>Selectionne une recette</value>
+    </data>
 </root>

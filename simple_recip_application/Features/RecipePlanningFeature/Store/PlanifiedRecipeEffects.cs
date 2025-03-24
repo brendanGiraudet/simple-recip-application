@@ -24,11 +24,39 @@ public class PlanifiedRecipeEffects
             dispatcher.Dispatch(new LoadItemsSuccessAction<IPlanifiedRecipeModel>(result.Item));
 
         else
-        {
             dispatcher.Dispatch(new LoadItemsFailureAction<IPlanifiedRecipeModel>());
-            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.LoadPlanifiedRecipesErrorMessage, NotificationType.Error);
+    }
+    
+    [EffectMethod]
+    public async Task HandleLoadItemsFailureAction(LoadItemsFailureAction<IPlanifiedRecipeModel> action, IDispatcher dispatcher)
+    {
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.LoadPlanifiedRecipesErrorMessage, NotificationType.Error);
 
-            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
+    
+    [EffectMethod]
+    public async Task HandleAddItemAction(AddItemAction<IPlanifiedRecipeModel> action, IDispatcher dispatcher)
+    {
+        var result = await _planifiedRecipeRepository.AddAsync(action.Item);
+
+        var message = MessagesTranslator.AddPlanifiedRecipeErrorMessage;
+        var notificationType = NotificationType.Error;
+
+        if(result.Success){
+            dispatcher.Dispatch(new AddItemSuccessAction<IPlanifiedRecipeModel>(action.Item));
+            message = MessagesTranslator.AddPlanifiedRecipeSuccessMessage;
+            notificationType = NotificationType.Success;
         }
+        
+        else
+            dispatcher.Dispatch(new AddItemFailureAction<IPlanifiedRecipeModel>(action.Item));
+
+            
+        var notification = _notificationMessageFactory.CreateNotificationMessage(message, notificationType);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
     }
 }

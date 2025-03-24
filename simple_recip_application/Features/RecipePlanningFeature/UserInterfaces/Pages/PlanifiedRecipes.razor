@@ -1,11 +1,36 @@
 @page "/recipe-planning"
+@inherits FluxorComponent
 
-<div class="planified-recipes">
-    @foreach (var recipe in PlanifiedRecipeState.Value.Items)
+<div class="weekly-recipes-container">
+    @foreach (var day in GetOrderedDaysOfWeek())
     {
-        if (recipe.RecipeModel is not null)
-        {
-            <div>@recipe.RecipeModel?.Name</div>
-        }
+        <div class="daily-recipes">
+            <h4>@day.FormattedDate</h4>
+
+            @if (PlanifiedRecipeState.Value.RecipesGroupedByDay.TryGetValue(day.DayOfWeek, out var recipesForDay) &&
+                    recipesForDay.Any())
+            {
+                <div class="recipes-grid">
+                    @foreach (var planifiedRecipe in recipesForDay)
+                    {
+                        <Card TContent="IRecipeModel" Item="@planifiedRecipe.RecipeModel"
+                            ImageSource="@planifiedRecipe.RecipeModel.Image.GetImageSource()"
+                            Title="@planifiedRecipe.RecipeModel.Name"
+                            OnClick="@(() => OpenRecipeDetails(planifiedRecipe.RecipeModel.Id.Value))" />
+                    }
+                </div>
+            }
+            else
+            {
+                <button class="btn btn-primary add-recipe-btn" @onclick="@(() => OpenRecipeSelectionModal(day.DayOfWeek))">
+                    @LabelsTranslator.AddRecipe
+                </button>
+            }
+        </div>
     }
 </div>
+
+<!-- Fenêtre modale de sélection de recette -->
+<Modal IsVisible="@_isRecipeSelectionModalVisible" OnClose="@CloseRecipeSelectionModal">
+    <RecipeSelector OnRecipeSelected="@HandleRecipeSelected" />
+</Modal>

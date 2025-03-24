@@ -256,4 +256,10 @@
     <data name="Planning" xml:space="preserve">
         <value>Planning</value>
     </data>
+    <data name="NoRecipesForThisDay" xml:space="preserve">
+        <value>No recipes for this day</value>
+    </data>
+    <data name="SelectARecipe" xml:space="preserve">
+        <value>Select a recipe</value>
+    </data>
 </root>

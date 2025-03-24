@@ -75,4 +75,10 @@
     <data name="LoadPlanifiedRecipesErrorMessage" xml:space="preserve">
         <value>Load planified recipes error</value>
     </data>
+    <data name="AddPlanifiedRecipeErrorMessage" xml:space="preserve">
+        <value>Add planified recipe error</value>
+    </data>
+    <data name="AddPlanifiedRecipeSuccessMessage" xml:space="preserve">
+        <value>Add planified recipe success</value>
+    </data>
 </root>

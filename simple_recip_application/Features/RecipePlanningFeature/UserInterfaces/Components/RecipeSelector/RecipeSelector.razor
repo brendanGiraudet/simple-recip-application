@@ -1,0 +1,15 @@
+@inherits FluxorComponent
+
+<div class="recipe-selector">
+    <h4>@LabelsTranslator.SelectARecipe</h4>
+    
+    @foreach (var recipe in RecipeState.Value.Items)
+    {
+        <Card TContent="IRecipeModel"
+              Item="@recipe"
+              Title="@recipe.Name"
+              ImageSource="@recipe.Image.GetImageSource()"
+              OnClick="@(() => OnRecipeSelected.InvokeAsync(recipe))">
+        </Card>
+    }
+</div>

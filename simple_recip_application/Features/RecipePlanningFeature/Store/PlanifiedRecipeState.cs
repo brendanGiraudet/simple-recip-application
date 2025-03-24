@@ -7,5 +7,5 @@ namespace simple_recip_application.Features.RecipePlanningFeature.Store;
 [FeatureState]
 public record class PlanifiedRecipeState : BaseState<IPlanifiedRecipeModel>
 {
-    
+    public Dictionary<DayOfWeek, List<IPlanifiedRecipeModel>> RecipesGroupedByDay { get; set; } = [];
 }

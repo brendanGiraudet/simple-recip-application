@@ -1,0 +1,25 @@
+.weekly-recipes-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.daily-recipes {
+    padding: 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--accent-color-2);
+}
+
+.recipes-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.planified-recipe-time {
+    font-size: 0.9rem;
+    color: var(--accent-color-1);
+    margin-top: 0.5rem;
+}
