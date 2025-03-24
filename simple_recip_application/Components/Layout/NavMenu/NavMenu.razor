@@ -4,7 +4,7 @@
     @foreach (var item in _navMenuItems)
     {
         <div class="nav-item">
-            <NavLink class="nav-link" href="@item.Url" Match="NavLinkMatch.All">
+            <NavLink class="nav-link" href="@item.Url" Match="NavLinkMatch.Prefix">
                 <span class="nav-item-text material-symbols-outlined">@item.Icon</span>
                 <span class="nav-item-text">@item.Text</span>
             </NavLink>

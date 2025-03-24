@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace simple_recip_application.Components.Layout;
+namespace simple_recip_application.Components.Layout.MainLayout;
 
 public partial class MainLayout
 {

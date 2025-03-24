@@ -3,7 +3,7 @@ using Microsoft.FeatureManagement;
 using simple_recip_application.Constants;
 using simple_recip_application.Resources;
 
-namespace simple_recip_application.Components.Layout;
+namespace simple_recip_application.Components.Layout.NavMenu;
 
 public partial class NavMenu
 {
