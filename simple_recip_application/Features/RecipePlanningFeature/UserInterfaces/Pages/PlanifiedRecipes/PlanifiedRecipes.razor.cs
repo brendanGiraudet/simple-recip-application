@@ -45,7 +45,7 @@ public partial class PlanifiedRecipes
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await OnAfterRenderAsync(firstRender);
+        await base.OnAfterRenderAsync(firstRender);
 
         if (firstRender)
             _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./js/download.js");
