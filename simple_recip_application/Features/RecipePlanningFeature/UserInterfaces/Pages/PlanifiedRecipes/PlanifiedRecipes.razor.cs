@@ -19,7 +19,7 @@ using simple_recip_application.Features.RecipesManagement.ApplicationCore.Servic
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 
-namespace simple_recip_application.Features.RecipePlanningFeature.UserInterfaces.Pages;
+namespace simple_recip_application.Features.RecipePlanningFeature.UserInterfaces.Pages.PlanifiedRecipes;
 
 public partial class PlanifiedRecipes
 {

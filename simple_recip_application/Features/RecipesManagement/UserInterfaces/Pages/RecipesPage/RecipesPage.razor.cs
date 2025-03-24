@@ -18,7 +18,7 @@ using simple_recip_application.Features.RecipesManagement.Store.Actions;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 
-namespace simple_recip_application.Features.RecipesManagement.UserInterfaces.Pages;
+namespace simple_recip_application.Features.RecipesManagement.UserInterfaces.Pages.RecipesPage;
 
 public partial class RecipesPage
 {

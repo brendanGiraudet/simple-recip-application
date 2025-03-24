@@ -12,7 +12,7 @@ using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 using System.Linq.Expressions;
 
-namespace simple_recip_application.Features.IngredientsManagement.UserInterfaces.Pages;
+namespace simple_recip_application.Features.IngredientsManagement.UserInterfaces.Pages.Ingredients;
 
 public partial class Ingredients
 {

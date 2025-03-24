@@ -16,7 +16,7 @@ using simple_recip_application.Resources;
 using simple_recip_application.Settings;
 using simple_recip_application.Store.Actions;
 
-namespace simple_recip_application.Features.Importation.UserInterfaces.Pages;
+namespace simple_recip_application.Features.Importation.UserInterfaces.Pages.ImportPage;
 
 public partial class ImportPage
 {
