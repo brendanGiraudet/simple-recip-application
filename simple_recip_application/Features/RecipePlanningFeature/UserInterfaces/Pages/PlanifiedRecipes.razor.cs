@@ -7,6 +7,7 @@ using simple_recip_application.Extensions;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipePlanningFeature.Store;
+using simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Store.Actions;
 
@@ -19,7 +20,6 @@ public partial class PlanifiedRecipes
     [Inject] public required IPlanifiedRecipeModelFactory PlanifiedRecipeFactory { get; set; }
     [Inject] public required NavigationManager NavigationManager { get; set; }
 
-    private Dictionary<DayOfWeek, List<IPlanifiedRecipeModel>> _recipesByDay = new();
     private bool _isRecipeSelectionModalVisible = false;
     private DayOfWeek _selectedDayForPlanning;
 
@@ -27,8 +27,13 @@ public partial class PlanifiedRecipes
     {
         base.OnInitialized();
 
-        var startOfWeek = DateTime.UtcNow.StartOfWeek(DayOfWeek.Monday);
-        var endOfWeek = DateTime.UtcNow.EndOfWeek(DayOfWeek.Monday);
+        LoadRecipesForCurrentWeek();
+    }
+
+    private void LoadRecipesForCurrentWeek()
+    {
+        var startOfWeek = PlanifiedRecipeState.Value.CurrentWeekStart.Date.StartOfDay();
+        var endOfWeek = PlanifiedRecipeState.Value.CurrentWeekStart.EndOfWeek().EndOfDay();
 
         Expression<Func<IPlanifiedRecipeModel, bool>> predicate =
             c => c.PlanifiedDateTime >= startOfWeek && c.PlanifiedDateTime <= endOfWeek;
@@ -36,22 +41,19 @@ public partial class PlanifiedRecipes
         Dispatcher.Dispatch(new LoadItemsAction<IPlanifiedRecipeModel>(Predicate: predicate));
     }
 
-    protected override void OnParametersSet()
+
+    private void LoadPreviousWeek()
     {
-        base.OnParametersSet();
-        GroupRecipesByDay();
+        Dispatcher.Dispatch(new SetCurrentWeekStartAction(PlanifiedRecipeState.Value.CurrentWeekStart.AddDays(-7)));
+
+        LoadRecipesForCurrentWeek();
     }
 
-    private void GroupRecipesByDay()
+    private void LoadNextWeek()
     {
-        _recipesByDay = Enum.GetValues<DayOfWeek>()
-            .OrderBy(d => d == DayOfWeek.Sunday ? 7 : (int)d)
-            .ToDictionary(day => day, day => new List<IPlanifiedRecipeModel>());
+        Dispatcher.Dispatch(new SetCurrentWeekStartAction(PlanifiedRecipeState.Value.CurrentWeekStart.AddDays(7)));
 
-        foreach (var recipe in PlanifiedRecipeState.Value.Items)
-        {
-            _recipesByDay[recipe.PlanifiedDateTime.DayOfWeek].Add(recipe);
-        }
+        LoadRecipesForCurrentWeek();
     }
 
     private void OpenRecipeDetails(Guid recipeId)
@@ -87,9 +89,9 @@ public partial class PlanifiedRecipes
         _isRecipeSelectionModalVisible = false;
     }
 
-    private static IEnumerable<(DayOfWeek DayOfWeek, string FormattedDate)> GetOrderedDaysOfWeek()
+    private IEnumerable<(DayOfWeek DayOfWeek, string FormattedDate)> GetOrderedDaysOfWeek()
     {
-        var startOfWeek = DateTime.UtcNow.StartOfWeek(DayOfWeek.Monday);
+        var startOfWeek = PlanifiedRecipeState.Value.CurrentWeekStart;
 
         var daysOfWeekWithFullDates = Enumerable.Range(0, 7)
             .Select(i => startOfWeek.AddDays(i))

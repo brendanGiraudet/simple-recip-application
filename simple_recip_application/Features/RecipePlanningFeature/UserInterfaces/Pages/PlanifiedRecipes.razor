@@ -7,28 +7,31 @@
         <div class="daily-recipes">
             <h4>@day.FormattedDate</h4>
 
-            @if (PlanifiedRecipeState.Value.RecipesGroupedByDay.TryGetValue(day.DayOfWeek, out var recipesForDay) &&
-                    recipesForDay.Any())
+            @if (PlanifiedRecipeState.Value.RecipesGroupedByDay.TryGetValue(day.DayOfWeek, out var recipesForDay) && recipesForDay.Any())
             {
                 <div class="recipes-grid">
                     @foreach (var planifiedRecipe in recipesForDay)
                     {
-                        <Card TContent="IRecipeModel" Item="@planifiedRecipe.RecipeModel"
-                            ImageSource="@planifiedRecipe.RecipeModel.Image.GetImageSource()"
-                            Title="@planifiedRecipe.RecipeModel.Name"
-                            OnClick="@(() => OpenRecipeDetails(planifiedRecipe.RecipeModel.Id.Value))" />
+                        <Card TContent="IRecipeModel"
+                              Item="@planifiedRecipe.RecipeModel"
+                              ImageSource="@planifiedRecipe.RecipeModel.Image.GetImageSource()"
+                              Title="@planifiedRecipe.RecipeModel.Name"
+                              OnClick="@(() => OpenRecipeDetails(planifiedRecipe.RecipeModel.Id.Value))" />
                     }
                 </div>
             }
             else
             {
-                <button class="btn btn-primary add-recipe-btn" @onclick="@(() => OpenRecipeSelectionModal(day.DayOfWeek))">
+                <button class="btn btn-primary add-recipe-btn"
+                        @onclick="@(() => OpenRecipeSelectionModal(day.DayOfWeek))">
                     @LabelsTranslator.AddRecipe
                 </button>
             }
         </div>
     }
 </div>
+
+<PaginationButtons CanPreviousClick="@(true)" OnPrevious="@LoadPreviousWeek" OnNext="@LoadNextWeek" />
 
 <!-- Fenêtre modale de sélection de recette -->
 <Modal IsVisible="@_isRecipeSelectionModalVisible" OnClose="@CloseRecipeSelectionModal">

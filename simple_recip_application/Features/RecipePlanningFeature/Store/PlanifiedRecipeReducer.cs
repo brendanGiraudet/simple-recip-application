@@ -1,5 +1,6 @@
 using Fluxor;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
+using simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.RecipePlanningFeature.Store;
@@ -45,5 +46,11 @@ public static class PlanifiedRecipeReducer
     [ReducerMethod]
     public static PlanifiedRecipeState ReduceAddItemFailureAction(PlanifiedRecipeState state, AddItemFailureAction<IPlanifiedRecipeModel> action)
         => state with { IsLoading = false };
+    #endregion
+
+    #region SetCurrentWeekStart
+    [ReducerMethod]
+    public static PlanifiedRecipeState ReduceSetCurrentWeekStartAction(PlanifiedRecipeState state, SetCurrentWeekStartAction action)
+        => state with { CurrentWeekStart = action.CurrentWeekStart };
     #endregion
 }
