@@ -15,7 +15,7 @@
                   ImageSource="@ingredient.IngredientModel?.Image.GetImageSource()" 
                   Title="@ingredient.IngredientModel?.Name" />
 
-            <div class="recipe-ingredient-details">@ingredient.Quantity @ingredient.IngredientModel?.MeasureUnit</div>
+            <div class="recipe-ingredient-details">@ingredient.Quantity.ToString("0.##") @ingredient.IngredientModel?.MeasureUnit</div>
 
         </div>
     }
