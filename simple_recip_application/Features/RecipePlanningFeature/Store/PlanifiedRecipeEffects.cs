@@ -4,6 +4,8 @@ using simple_recip_application.Features.NotificationsManagement.ApplicationCore.
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Repositories;
+using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Services;
+using simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 
@@ -12,7 +14,8 @@ namespace simple_recip_application.Features.RecipesManagement.Store;
 public class PlanifiedRecipeEffects
 (
     IPlanifiedRecipeRepository _planifiedRecipeRepository,
-    INotificationMessageFactory _notificationMessageFactory
+    INotificationMessageFactory _notificationMessageFactory,
+    IRecipePlanifierService _recipePlanifierService
 )
 {
     [EffectMethod]
@@ -72,6 +75,37 @@ public class PlanifiedRecipeEffects
         else
         {
             dispatcher.Dispatch(new DeleteItemFailureAction<IPlanifiedRecipeModel>(action.Item));
+
+            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddPlanifiedRecipeErrorMessage, NotificationType.Error);
+            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+        }
+    }
+    
+    [EffectMethod]
+    public async Task HandleGetPlanifiedRecipesForTheWeekAction(GetPlanifiedRecipesForTheWeekAction action, IDispatcher dispatcher)
+    {
+        var result = await _recipePlanifierService.GetPlanifiedRecipesForTheWeekAsync(action.CurrentDate);
+
+        if(!result.Success)
+        {
+            dispatcher.Dispatch(new GetPlanifiedRecipesForTheWeekFailureAction());
+
+            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddPlanifiedRecipeErrorMessage, NotificationType.Error);
+            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+            return;
+        }
+
+        var recipesList = result.Item.SelectMany(entry => entry.Value).ToList();
+
+        var addResult = await _planifiedRecipeRepository.AddRangeAsync(recipesList);
+
+        if (addResult.Success)
+            dispatcher.Dispatch(new GetPlanifiedRecipesForTheWeekSuccessAction(result.Item));
+
+        else
+        {
+            dispatcher.Dispatch(new GetPlanifiedRecipesForTheWeekFailureAction());
 
             var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddPlanifiedRecipeErrorMessage, NotificationType.Error);
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));

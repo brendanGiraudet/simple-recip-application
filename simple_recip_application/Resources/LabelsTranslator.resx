@@ -273,4 +273,7 @@
     <data name="MomentOfTheDay" xml:space="preserve">
         <value>Moment de la journée</value>
     </data>
+    <data name="PlanifiedRecipesAutomaticaly" xml:space="preserve">
+        <value>Planifie les recettes de maniere automatique</value>
+    </data>
 </root>

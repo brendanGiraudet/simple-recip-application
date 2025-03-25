@@ -11,5 +11,6 @@ public class PlanifiedRecipeModelFaker : Faker<PlanifiedRecipeModel>
         RuleFor(c => c.PlanifiedDateTime, f => f.Date.Future());
         RuleFor(c => c.RecipeId, f => Guid.NewGuid());
         RuleFor(c => c.UserId, f => f.Random.String2(10));
+        RuleFor(c => c.RecipeModel, new RecipeModelFaker().Generate());
     }
 }

@@ -271,4 +271,7 @@
     <data name="MomentOfTheDay" xml:space="preserve">
         <value>Moment of the day</value>
     </data>
+    <data name="PlanifiedRecipesAutomaticaly" xml:space="preserve">
+        <value>Planified recipes automaticaly</value>
+    </data>
 </root>

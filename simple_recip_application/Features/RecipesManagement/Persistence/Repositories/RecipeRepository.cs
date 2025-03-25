@@ -64,6 +64,11 @@ public class RecipeRepository
     {
         return await base.AddAsync(entity as RecipeModel);
     }
+    
+    public async Task<MethodResult> AddRangeAsync(IEnumerable<IRecipeModel>? entities)
+    {
+        return await base.AddRangeAsync(entities?.Cast<RecipeModel>() ?? []);
+    }
 
     public async Task<MethodResult> UpdateAsync(IRecipeModel? entity)
     {

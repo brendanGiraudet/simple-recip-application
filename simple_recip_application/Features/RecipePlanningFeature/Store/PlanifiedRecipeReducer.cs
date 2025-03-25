@@ -64,4 +64,18 @@ public static class PlanifiedRecipeReducer
     public static PlanifiedRecipeState ReduceSetCurrentWeekStartAction(PlanifiedRecipeState state, SetCurrentWeekStartAction action)
         => state with { CurrentWeekStart = action.CurrentWeekStart };
     #endregion
+
+    #region  GetPlanifiedRecipesForTheWeek
+    [ReducerMethod]
+    public static PlanifiedRecipeState ReduceGetPlanifiedRecipesForTheWeekAction(PlanifiedRecipeState state, GetPlanifiedRecipesForTheWeekAction action)
+        => state with { IsLoading = true };
+
+    [ReducerMethod]
+    public static PlanifiedRecipeState ReduceGetPlanifiedRecipesForTheWeekSuccessAction(PlanifiedRecipeState state, GetPlanifiedRecipesForTheWeekSuccessAction action)
+        => state with { IsLoading = false, RecipesGroupedByDay = action.PlanifiedRecipes };
+
+    [ReducerMethod]
+    public static PlanifiedRecipeState ReduceGetPlanifiedRecipesForTheWeekFailureAction(PlanifiedRecipeState state, GetPlanifiedRecipesForTheWeekFailureAction action)
+        => state with { IsLoading = false };
+    #endregion
 }

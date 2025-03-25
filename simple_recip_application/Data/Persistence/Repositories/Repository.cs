@@ -72,7 +72,25 @@ public class Repository<T>
 
         try
         {
-            _dbContext.Set<T>().Add(entity);
+            await _dbContext.Set<T>().AddAsync(entity);
+
+            await _dbContext.SaveChangesAsync();
+
+            return new MethodResult(true);
+        }
+        catch (System.Exception ex)
+        {
+            return new MethodResult(false);
+        }
+    }
+    
+    public virtual async Task<MethodResult> AddRangeAsync(IEnumerable<T>? entities)
+    {
+        if (entities is null) return new MethodResult(false);
+
+        try
+        {
+            await _dbContext.Set<T>().AddRangeAsync(entities);
 
             await _dbContext.SaveChangesAsync();
 

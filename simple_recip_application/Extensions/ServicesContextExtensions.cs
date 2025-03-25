@@ -8,7 +8,9 @@ using simple_recip_application.Features.IngredientsManagement.Persistence.Factor
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.NotificationsManagement.Persistence.Factories;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Factories;
+using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Services;
 using simple_recip_application.Features.RecipePlanningFeature.Persistence.Factories;
+using simple_recip_application.Features.RecipePlanningFeature.Persistence.Services;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Services;
 using simple_recip_application.Features.RecipesManagement.Persistence.Factories;
@@ -45,6 +47,7 @@ public static class ServicesContextExtensions
     {
         services.AddTransient<IShoppingListGeneratorService, ShoppingListGeneratorService>();
         services.AddTransient<IOpenAiDataAnalysisService, OpenAiDataAnalysisService>();
+        services.AddTransient<IRecipePlanifierService, RecipePlanifierService>();
 
         return services;
     }

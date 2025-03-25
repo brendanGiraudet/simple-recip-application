@@ -43,6 +43,11 @@ public class IngredientRepository
         return await base.AddAsync(entity as IngredientModel);
     }
 
+    public async Task<MethodResult> AddRangeAsync(IEnumerable<IIngredientModel>? entities)
+    {
+        return await base.AddRangeAsync(entities?.Cast<IngredientModel>() ?? []);
+    }
+
     public async Task<MethodResult> UpdateAsync(IIngredientModel? entity)
     {
         return await base.UpdateAsync(entity as IngredientModel);

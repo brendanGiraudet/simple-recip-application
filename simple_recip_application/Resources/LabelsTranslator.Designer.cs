@@ -57,4 +57,5 @@ public class LabelsTranslator
     public static string Noon => resourceManager.GetString("Noon", CultureInfo.CurrentCulture) ?? "Noon";
     public static string Evening => resourceManager.GetString("Evening", CultureInfo.CurrentCulture) ?? "Evening";
     public static string MomentOfTheDay => resourceManager.GetString("MomentOfTheDay", CultureInfo.CurrentCulture) ?? "MomentOfTheDay";
+    public static string PlanifiedRecipesAutomaticaly => resourceManager.GetString("PlanifiedRecipesAutomaticaly", CultureInfo.CurrentCulture) ?? "PlanifiedRecipesAutomaticaly";
 }

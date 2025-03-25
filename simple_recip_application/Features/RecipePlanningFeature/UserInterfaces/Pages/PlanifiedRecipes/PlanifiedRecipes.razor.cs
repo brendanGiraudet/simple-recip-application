@@ -20,12 +20,14 @@ using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 using simple_recip_application.Enums;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.EqualityComparers;
+using Microsoft.FeatureManagement;
 
 namespace simple_recip_application.Features.RecipePlanningFeature.UserInterfaces.Pages.PlanifiedRecipes;
 
 
 public partial class PlanifiedRecipes
 {
+    [Inject] public required IFeatureManager FeatureManager { get; set; }
     [Inject] public required ILogger<PlanifiedRecipes> Logger { get; set; }
     [Inject] public required IState<PlanifiedRecipeState> PlanifiedRecipeState { get; set; }
     [Inject] public required IDispatcher Dispatcher { get; set; }
@@ -164,9 +166,17 @@ public partial class PlanifiedRecipes
             .OrderBy(tuple => tuple.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)tuple.DayOfWeek);
     }
 
-    private List<OptionMenuItem> GetOptions() => [
-        new("shopping_cart_checkout", string.Empty, () => GenerateCsvAsync(), LabelsTranslator.GenerateShoppingList)
-    ];
+    private List<OptionMenuItem> GetOptions()
+    {
+        List<OptionMenuItem> options = [
+            new("shopping_cart_checkout", string.Empty, () => GenerateCsvAsync(), LabelsTranslator.GenerateShoppingList)
+        ];
+
+        if (!PlanifiedRecipeState.Value.RecipesGroupedByDay.Any(c => c.Value.Count() > 0) && FeatureManager.IsEnabledAsync(FeatureFlagsConstants.PlanifiedRecipesAutomaticaly).Result)
+            options.Add(new("autorenew", string.Empty, () => PlanifiedRecipesAutomaticaly(), LabelsTranslator.PlanifiedRecipesAutomaticaly));
+
+        return options;
+    }
 
     private async Task GenerateCsvAsync()
     {
@@ -196,5 +206,10 @@ public partial class PlanifiedRecipes
         {
             Logger.LogError(ex, $"Error during GenerateCsvAsync: {ex.Message}");
         }
+    }
+
+    private async Task PlanifiedRecipesAutomaticaly()
+    {
+        Dispatcher.Dispatch(new GetPlanifiedRecipesForTheWeekAction(PlanifiedRecipeState.Value.CurrentWeekStart));
     }
 }
