@@ -2,7 +2,7 @@ using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
-using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Repositories;
 
 namespace simple_recip_application.Features.Importation.Services;
 

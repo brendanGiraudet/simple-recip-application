@@ -1,6 +1,6 @@
 using Fluxor;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
-using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.IngredientsManagement.Store.Actions;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;

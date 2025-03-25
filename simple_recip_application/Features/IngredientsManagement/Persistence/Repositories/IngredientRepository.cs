@@ -4,6 +4,7 @@ using simple_recip_application.Data.Persistence.Repository;
 using simple_recip_application.Dtos;
 using simple_recip_application.Extensions;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
 
 namespace simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;

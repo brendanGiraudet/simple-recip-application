@@ -1,6 +1,6 @@
 using Fluxor;
 using simple_recip_application.Features.Importation.Enums;
-using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Repositories;
 
 namespace simple_recip_application.Features.Importation.Services;
 
