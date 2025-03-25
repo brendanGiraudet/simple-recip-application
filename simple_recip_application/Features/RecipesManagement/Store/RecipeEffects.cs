@@ -1,5 +1,4 @@
 using Fluxor;
-using simple_recip_application.Features.RecipesManagement.Persistence.Repositories;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
@@ -9,6 +8,7 @@ using simple_recip_application.Features.NotificationsManagement.ApplicationCore.
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
 using Microsoft.AspNetCore.Components;
 using simple_recip_application.Constants;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Repositories;
 
 namespace simple_recip_application.Features.RecipesManagement.Store;
 

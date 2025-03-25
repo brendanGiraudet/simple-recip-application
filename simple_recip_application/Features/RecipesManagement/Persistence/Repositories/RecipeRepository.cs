@@ -6,6 +6,7 @@ using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 using simple_recip_application.Extensions;
 using Microsoft.EntityFrameworkCore;
 using simple_recip_application.Dtos;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Repositories;
 
 namespace simple_recip_application.Features.RecipesManagement.Persistence.Repositories;
 

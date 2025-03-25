@@ -2,7 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using simple_recip_application.Data;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Repositories;
+using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Repositories;
 using simple_recip_application.Features.RecipePlanningFeature.Persistence.Repositories;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.RecipesManagement.Persistence.Repositories;
 
 namespace simple_recip_application.Extensions;

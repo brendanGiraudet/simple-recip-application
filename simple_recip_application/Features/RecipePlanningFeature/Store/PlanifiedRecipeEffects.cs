@@ -3,7 +3,7 @@ using simple_recip_application.Features.NotificationsManagement.ApplicationCore.
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
-using simple_recip_application.Features.RecipePlanningFeature.Persistence.Repositories;
+using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Repositories;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 
