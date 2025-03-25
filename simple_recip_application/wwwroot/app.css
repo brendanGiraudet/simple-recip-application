@@ -205,7 +205,6 @@ textarea {
 
 /**** Style des Grids ****/
 .grid {
-    height: var(--grid-height);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -214,4 +213,8 @@ textarea {
     margin-bottom: 1rem;
     gap: 2rem;
     row-gap: 2rem;
+}
+
+.page-grid {
+    height: var(--grid-height);
 }

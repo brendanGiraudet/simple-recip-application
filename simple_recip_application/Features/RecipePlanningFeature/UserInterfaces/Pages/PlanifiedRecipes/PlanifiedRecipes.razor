@@ -9,7 +9,7 @@
 
             @if (PlanifiedRecipeState.Value.RecipesGroupedByDay.TryGetValue(day.DayOfWeek, out var recipesForDay) && recipesForDay.Any())
             {
-                <div class="recipes-grid">
+                <div class="grid">
                     @foreach (var planifiedRecipe in recipesForDay)
                     {
                         <Card TContent="IRecipeModel"

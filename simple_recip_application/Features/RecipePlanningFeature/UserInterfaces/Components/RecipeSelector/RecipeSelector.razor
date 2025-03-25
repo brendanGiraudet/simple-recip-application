@@ -1,15 +1,20 @@
 @inherits FluxorComponent
 
-<div class="recipe-selector">
+<div class="recipe-selector @GetRecipesVisibilityCssClass()">
     <h4>@LabelsTranslator.SelectARecipe</h4>
-    
-    @foreach (var recipe in RecipeState.Value.Items)
-    {
-        <Card TContent="IRecipeModel"
-              Item="@recipe"
-              Title="@recipe.Name"
-              ImageSource="@recipe.Image.GetImageSource()"
-              OnClick="@(() => OnRecipeSelected.InvokeAsync(recipe))">
-        </Card>
-    }
+
+    <SearchBar OnSearch="@OnSearchTermChanged" />
+
+    <div class="grid">
+        @foreach (var recipe in RecipeState.Value.Items)
+        {
+            <Card TContent="IRecipeModel" Item="@recipe" Title="@recipe.Name" ImageSource="@recipe.Image.GetImageSource()"
+                OnClick="@(() => OnRecipeSelected.InvokeAsync(recipe))">
+            </Card>
+        }
+    </div>
 </div>
+
+<PaginationButtons CanPreviousClick="@CanPreviousClick()" OnPrevious="@OnPrevious" OnNext="@OnNext" />
+
+<Loader IsVisible="@RecipeState.Value.IsLoading" />
