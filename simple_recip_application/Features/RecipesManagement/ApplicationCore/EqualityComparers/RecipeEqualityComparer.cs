@@ -9,10 +9,10 @@ public class RecipeEqualityComparer : IEqualityComparer<IRecipeModel>
     {
         if(x is null || y is null) return false;
 
-        return x.Category.Equals(y.Category) &&
-               x.CookingTime.Equals(y.CookingTime) &&
-               x.PreparationTime.Equals(y.PreparationTime) &&
-               x.Name.Equals(y.Name);
+        return string.Equals(x.Category, y.Category) &&
+               DateTime.Equals(x.CookingTime, y.CookingTime) &&
+               DateTime.Equals(x.PreparationTime, y.PreparationTime) &&
+               string.Equals(x.Name, y.Name);
     }
 
     public int GetHashCode([DisallowNull] IRecipeModel obj)

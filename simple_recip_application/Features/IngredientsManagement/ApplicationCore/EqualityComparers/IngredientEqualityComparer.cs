@@ -9,8 +9,8 @@ public class IngredientEqualityComparer : IEqualityComparer<IIngredientModel>
     {
         if(x is null || y is null) return false;
 
-        return x.Name.Equals(y.Name) &&
-               x.Id.Equals(y.Id);
+        return string.Equals(x.Name, y.Name) &&
+               Guid.Equals(x.Id, y.Id);
     }
 
     public int GetHashCode([DisallowNull] IIngredientModel obj)

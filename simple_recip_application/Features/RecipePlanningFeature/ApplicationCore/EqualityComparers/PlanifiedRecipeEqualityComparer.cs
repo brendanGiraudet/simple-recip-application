@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore.EqualityComparers;
 
 namespace simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.EqualityComparers;
 
@@ -10,10 +9,10 @@ public class PlanifiedRecipeEqualityComparer : IEqualityComparer<IPlanifiedRecip
     {
         if(x is null || y is null) return false;
 
-        return x.MomentOftheDay?.Equals(y.MomentOftheDay ?? string.Empty) ?? false &&
-               x.RecipeId.Equals(y.RecipeId) &&
-               x.PlanifiedDateTime.Equals(y.PlanifiedDateTime) &&
-               x.UserId.Equals(y.UserId);
+        return string.Equals(x.MomentOftheDay, y.MomentOftheDay) &&
+               Guid.Equals(x.RecipeId, y.RecipeId) &&
+               DateTime.Equals(x.PlanifiedDateTime, y.PlanifiedDateTime) &&
+               string.Equals(x.UserId, y.UserId);
     }
 
     public int GetHashCode([DisallowNull] IPlanifiedRecipeModel obj)

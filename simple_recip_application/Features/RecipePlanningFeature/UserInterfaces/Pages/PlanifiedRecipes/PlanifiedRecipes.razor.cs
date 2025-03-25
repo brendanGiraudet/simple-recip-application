@@ -19,6 +19,7 @@ using simple_recip_application.Features.RecipePlanningFeature.Enums;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 using simple_recip_application.Enums;
+using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.EqualityComparers;
 
 namespace simple_recip_application.Features.RecipePlanningFeature.UserInterfaces.Pages.PlanifiedRecipes;
 
@@ -137,7 +138,7 @@ public partial class PlanifiedRecipes
     {
         if (_selectedPlanifiedRecipe is null) return;
 
-        var updatedPlanifiedRecipe = PlanifiedRecipeFactory.CreatePlanifiedRecipeModel(
+        var newPlanifiedRecipe = PlanifiedRecipeFactory.CreatePlanifiedRecipeModel(
             recipe: newRecipe,
             planifiedDatetime: _selectedPlanifiedRecipe.PlanifiedDateTime,
             userId: _selectedPlanifiedRecipe.UserId,
@@ -145,8 +146,12 @@ public partial class PlanifiedRecipes
             recipeId: newRecipe.Id
         );
 
-        Dispatcher.Dispatch(new DeleteItemAction<IPlanifiedRecipeModel>(_selectedPlanifiedRecipe));
-        Dispatcher.Dispatch(new AddItemAction<IPlanifiedRecipeModel>(updatedPlanifiedRecipe));
+        if (!new PlanifiedRecipeEqualityComparer().Equals(_selectedPlanifiedRecipe, newPlanifiedRecipe))
+        {
+            Dispatcher.Dispatch(new AddItemAction<IPlanifiedRecipeModel>(newPlanifiedRecipe));
+
+            Dispatcher.Dispatch(new DeleteItemAction<IPlanifiedRecipeModel>(_selectedPlanifiedRecipe));
+        }
     }
 
     private IEnumerable<(DayOfWeek DayOfWeek, string FormattedDate)> GetOrderedDaysOfWeek()
