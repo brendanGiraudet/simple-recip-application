@@ -1,8 +1,8 @@
-using simple_recip_application.Data.ApplicationCore.Repository;
+using simple_recip_application.Data.ApplicationCore.Repositories;
 using simple_recip_application.Data.Persistence.Entities;
 using simple_recip_application.Dtos;
 
-namespace simple_recip_application.Data.Persistence.Repository;
+namespace simple_recip_application.Data.Persistence.Repositories;
 
 public class EntityBaseRepository<T>
 (

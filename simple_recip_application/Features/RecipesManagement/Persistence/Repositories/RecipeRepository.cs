@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 using simple_recip_application.Data;
-using simple_recip_application.Data.Persistence.Repository;
+using simple_recip_application.Data.Persistence.Repositories;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 using simple_recip_application.Extensions;

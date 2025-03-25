@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using simple_recip_application.Dtos;
 
-namespace simple_recip_application.Data.ApplicationCore.Repository;
+namespace simple_recip_application.Data.ApplicationCore.Repositories;
 
 public interface IRepository<T> where T : class
 {
