@@ -4,7 +4,7 @@
     <div class="ingredients-selector">
 
         <button @onclick="OpenIngredientFormModalAsync" type="button" class="btn btn-secondary btn-add-ingredient"
-            title="@LabelsTranslator.AddIngredient"><span class="material-symbols-outlined">add</span></button>
+            title="@LabelsTranslator.AddIngredient"><span class="material-symbols-outlined">@MaterialIconsConstants.Add</span></button>
 
         <div class="ingredient-selector-search-bar">
             <SearchBar OnSearch="@SearchIngredients" OnFocus="@(() => _ddlVisibility = true)"

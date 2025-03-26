@@ -3,12 +3,12 @@
     @* Previous *@
     <button @onclick="@(() => HandlePreviousClickAsync())" class="btn btn-primary" disabled="@(!CanPreviousClick)"
         title="@LabelsTranslator.Previous">
-        <span class="material-symbols-outlined">chevron_left</span>
+        <span class="material-symbols-outlined">@MaterialIconsConstants.LeftArrow</span>
     </button>
 
     @* Next *@
     <button @onclick="@(() => HandleNextClickAsync())" class="btn btn-primary" title="@LabelsTranslator.Next">
-        <span class="material-symbols-outlined">chevron_right</span>
+        <span class="material-symbols-outlined">@MaterialIconsConstants.RightArrow</span>
     </button>
 
 </div>
