@@ -2,7 +2,6 @@
 @page "/recipes"
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 @rendermode InteractiveServer
-@attribute [Authorize(Policy = FeatureFlagsConstants.RecipeFeature)]
 
 <SearchBar OnSearch="@OnSearchTermChanged" />
 

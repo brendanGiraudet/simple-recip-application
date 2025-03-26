@@ -41,4 +41,5 @@ public class MessagesTranslator
     public static string UpdateRecipeErrorMessage => resourceManager.GetString("UpdateRecipeErrorMessage", CultureInfo.CurrentCulture) ?? "UpdateRecipeErrorMessage";
     public static string MinIngredientErrorMessage => resourceManager.GetString("MinIngredientErrorMessage", CultureInfo.CurrentCulture) ?? "MinIngredientErrorMessage";
     public static string GenerateShoppingListCsvContentErrorMessage => resourceManager.GetString("GenerateShoppingListCsvContentErrorMessage", CultureInfo.CurrentCulture) ?? "GenerateShoppingListCsvContentErrorMessage";
+    public static string AccessDenied => resourceManager.GetString("AccessDenied", CultureInfo.CurrentCulture) ?? "AccessDenied";
 }

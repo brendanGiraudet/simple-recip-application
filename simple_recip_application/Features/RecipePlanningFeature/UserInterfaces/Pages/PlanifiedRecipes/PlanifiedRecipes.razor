@@ -1,17 +1,7 @@
 @page "/recipe-planning"
 @inherits FluxorComponent
 
-@attribute [Authorize]
 @attribute [Authorize(Policy = FeatureFlagsConstants.RecipePlanningFeature)]
-
-<AuthorizeView>
-    <NotAuthorized>
-        @if (!context.User.Identity.IsAuthenticated)
-        {
-            <RedirectToLogin />
-        }
-    </NotAuthorized>
-</AuthorizeView>
 
 <div class="weekly-recipes-container">
     @foreach (var day in GetOrderedDaysOfWeek())

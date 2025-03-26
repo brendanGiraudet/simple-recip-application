@@ -90,4 +90,7 @@
     <data name="DeletePlanifiedRecipeErrorMessage" xml:space="preserve">
         <value>Erreur lors de la suppression de la recette planifiée</value>
     </data>
+    <data name="AccessDenied" xml:space="preserve">
+        <value>Accès non autorisé</value>
+    </data>
 </root>
