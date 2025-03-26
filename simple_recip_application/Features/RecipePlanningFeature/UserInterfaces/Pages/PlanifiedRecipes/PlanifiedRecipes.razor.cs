@@ -21,6 +21,7 @@ using simple_recip_application.Store.Actions;
 using simple_recip_application.Enums;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.EqualityComparers;
 using Microsoft.FeatureManagement;
+using simple_recip_application.Features.UserInfos.Store;
 
 namespace simple_recip_application.Features.RecipePlanningFeature.UserInterfaces.Pages.PlanifiedRecipes;
 
@@ -36,6 +37,7 @@ public partial class PlanifiedRecipes
     [Inject] public required IShoppingListGeneratorService ShoppingListGenerator { get; set; }
     [Inject] public required INotificationMessageFactory NotificationMessageFactory { get; set; }
     [Inject] public required IJSRuntime JSRuntime { get; set; }
+    [Inject] public required IState<UserInfosState> UserInfosState { get; set; }
 
     private bool _isRecipeModalVisible = false;
     private ModalModeEnum _recipeModalMode;
@@ -130,7 +132,7 @@ public partial class PlanifiedRecipes
             recipe: selectedRecipe,
             planifiedDatetime: planifiedDateTime,
             momentOftheDay: _selectedMomentOfTheDay.ToString(),
-            userId: "currentUserId"
+            userId: UserInfosState.Value.UserInfo.Id
         );
 
         Dispatcher.Dispatch(new AddItemAction<IPlanifiedRecipeModel>(planifiedRecipe));
@@ -219,7 +221,7 @@ public partial class PlanifiedRecipes
     {
         planifiedRecipeModel = planifiedRecipeModel ?? PlanifiedRecipeFactory.CreatePlanifiedRecipeModel(
             planifiedDatetime: day,
-            userId: "currentUserId",
+            userId: UserInfosState.Value.UserInfo.Id,
             momentOftheDay: momentOftheDay
         );
 

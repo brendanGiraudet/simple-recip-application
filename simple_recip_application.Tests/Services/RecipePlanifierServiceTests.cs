@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using Fluxor;
 using Microsoft.Extensions.Logging;
 using Moq;
 using simple_recip_application.Dtos;
@@ -7,6 +8,7 @@ using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Se
 using simple_recip_application.Features.RecipePlanningFeature.Persistence.Services;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Repositories;
+using simple_recip_application.Features.UserInfos.Store;
 using simple_recip_application.Tests.Fakers;
 
 namespace simple_recip_application.Tests;
@@ -16,11 +18,13 @@ public class RecipePlanifierServiceTests
     private readonly Mock<ILogger<RecipePlanifierService>> _loggerMock = new();
     private readonly Mock<IRecipeRepository> _recipeRepositoryMock = new();
     private readonly Mock<IPlanifiedRecipeModelFactory> _planifiedRecipeModelFactoryMock = new();
+    private readonly Mock<IState<UserInfosState>> _userInfosStateMock = new();
 
     private IRecipePlanifierService GetRecipePlanifierService() => new RecipePlanifierService(
         _loggerMock.Object,
         _recipeRepositoryMock.Object,
-        _planifiedRecipeModelFactoryMock.Object);
+        _planifiedRecipeModelFactoryMock.Object,
+        _userInfosStateMock.Object);
 
     [Fact]
     public async Task ShouldMethodResultSuccessAndNotEmptyDictionary_WhenGetPlanifiedRecipesForTheWeek()

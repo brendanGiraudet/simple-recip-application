@@ -1,3 +1,4 @@
+using Fluxor;
 using simple_recip_application.Dtos;
 using simple_recip_application.Extensions;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
@@ -5,6 +6,7 @@ using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Fa
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Services;
 using simple_recip_application.Features.RecipePlanningFeature.Enums;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Repositories;
+using simple_recip_application.Features.UserInfos.Store;
 
 namespace simple_recip_application.Features.RecipePlanningFeature.Persistence.Services;
 
@@ -12,7 +14,8 @@ public class RecipePlanifierService
 (
     ILogger<RecipePlanifierService> _logger,
     IRecipeRepository _recipeRepository,
-    IPlanifiedRecipeModelFactory _planifiedRecipeFactory
+    IPlanifiedRecipeModelFactory _planifiedRecipeFactory,
+    IState<UserInfosState> _userInfosState
 )
  : IRecipePlanifierService
 {
@@ -20,7 +23,6 @@ public class RecipePlanifierService
     {
         try
         {
-            string userId = "currentUserId";
             Dictionary<DayOfWeek, List<IPlanifiedRecipeModel>> recipesByDay = [];
 
             var startOfWeek = currentWeekDate.StartOfWeek(DayOfWeek.Monday);
@@ -40,7 +42,7 @@ public class RecipePlanifierService
                 var planifiedRecipe = _planifiedRecipeFactory.CreatePlanifiedRecipeModel(
                     recipe: recipesList[i],
                     planifiedDatetime: dayDate.Date,
-                    userId: userId,
+                    userId: _userInfosState.Value.UserInfo.Id,
                     momentOftheDay: MomentOfTheDayEnum.Evening.ToString()
                 );
 
