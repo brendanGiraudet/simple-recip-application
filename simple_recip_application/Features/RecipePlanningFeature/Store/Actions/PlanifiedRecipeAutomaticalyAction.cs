@@ -1,0 +1,7 @@
+using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
+
+namespace simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
+
+public record PlanifiedRecipeAutomaticalyAction(IPlanifiedRecipeModel PlanifiedRecipe);
+public record PlanifiedRecipeAutomaticalySuccessAction(IPlanifiedRecipeModel OldPlanifiedRecipe, IPlanifiedRecipeModel NewPlanifiedRecipe);
+public record PlanifiedRecipeAutomaticalyFailureAction();

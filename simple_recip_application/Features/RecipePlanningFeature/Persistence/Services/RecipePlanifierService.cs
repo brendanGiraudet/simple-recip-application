@@ -56,4 +56,33 @@ public class RecipePlanifierService
             return new MethodResult<Dictionary<DayOfWeek, List<IPlanifiedRecipeModel>>>(false, []);
         }
     }
+    
+    public async Task<MethodResult<IPlanifiedRecipeModel>> GetPlanifiedRecipeAutomaticalyAsync(IPlanifiedRecipeModel currentPlanifiedRecipe)
+    {
+        try
+        {
+            var recipesResult = await _recipeRepository.GetAsync(1, 0);
+
+            if (!recipesResult.Success || recipesResult.Item.Count() < 1)
+                return new MethodResult<IPlanifiedRecipeModel>(false, null);
+
+            var recipe = recipesResult.Item.First();
+
+            var newPlanifiedRecipe = _planifiedRecipeFactory.CreatePlanifiedRecipeModel(
+                recipe,
+                currentPlanifiedRecipe.PlanifiedDateTime,
+                currentPlanifiedRecipe.UserId,
+                currentPlanifiedRecipe.MomentOftheDay,
+                recipe.Id
+            );
+
+            return new MethodResult<IPlanifiedRecipeModel>(true, newPlanifiedRecipe);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Erreur lors de la planification automatique");
+
+            return new MethodResult<IPlanifiedRecipeModel>(false, null);
+        }
+    }
 }

@@ -65,17 +65,31 @@ public static class PlanifiedRecipeReducer
         => state with { CurrentWeekStart = action.CurrentWeekStart };
     #endregion
 
-    #region  GetPlanifiedRecipesForTheWeek
+    #region  PlanifiedRecipesForTheWeek
     [ReducerMethod]
-    public static PlanifiedRecipeState ReduceGetPlanifiedRecipesForTheWeekAction(PlanifiedRecipeState state, GetPlanifiedRecipesForTheWeekAction action)
+    public static PlanifiedRecipeState ReducePlanifiedRecipesForTheWeekAction(PlanifiedRecipeState state, PlanifiedRecipesForTheWeekAction action)
         => state with { IsLoading = true };
 
     [ReducerMethod]
-    public static PlanifiedRecipeState ReduceGetPlanifiedRecipesForTheWeekSuccessAction(PlanifiedRecipeState state, GetPlanifiedRecipesForTheWeekSuccessAction action)
+    public static PlanifiedRecipeState ReducePlanifiedRecipesForTheWeekSuccessAction(PlanifiedRecipeState state, PlanifiedRecipesForTheWeekSuccessAction action)
         => state with { IsLoading = false, RecipesGroupedByDay = action.PlanifiedRecipes };
 
     [ReducerMethod]
-    public static PlanifiedRecipeState ReduceGetPlanifiedRecipesForTheWeekFailureAction(PlanifiedRecipeState state, GetPlanifiedRecipesForTheWeekFailureAction action)
+    public static PlanifiedRecipeState ReducePlanifiedRecipesForTheWeekFailureAction(PlanifiedRecipeState state, PlanifiedRecipesForTheWeekFailureAction action)
+        => state with { IsLoading = false };
+    #endregion
+
+    #region  PlanifiedRecipeAutomaticaly
+    [ReducerMethod]
+    public static PlanifiedRecipeState ReducePlanifiedRecipeAutomaticalyAction(PlanifiedRecipeState state, PlanifiedRecipeAutomaticalyAction action)
+        => state with { IsLoading = true };
+
+    [ReducerMethod]
+    public static PlanifiedRecipeState ReducePlanifiedRecipeAutomaticalySuccessAction(PlanifiedRecipeState state, PlanifiedRecipeAutomaticalySuccessAction action) 
+        => state with { IsLoading = false };
+
+    [ReducerMethod]
+    public static PlanifiedRecipeState ReducePlanifiedRecipeAutomaticalyFailureAction(PlanifiedRecipeState state, PlanifiedRecipeAutomaticalyFailureAction action)
         => state with { IsLoading = false };
     #endregion
 }

@@ -173,7 +173,7 @@ public partial class PlanifiedRecipes
         ];
 
         if (!PlanifiedRecipeState.Value.RecipesGroupedByDay.Any(c => c.Value.Count() > 0) && FeatureManager.IsEnabledAsync(FeatureFlagsConstants.PlanifiedRecipesAutomaticaly).Result)
-            options.Add(new("autorenew", string.Empty, () => PlanifiedRecipesAutomaticaly(), LabelsTranslator.PlanifiedRecipesAutomaticaly));
+            options.Add(new("autorenew", string.Empty, () => PlanifiedRecipesForTheWeek(), LabelsTranslator.PlanifiedRecipesAutomaticaly));
 
         return options;
     }
@@ -208,8 +208,17 @@ public partial class PlanifiedRecipes
         }
     }
 
-    private async Task PlanifiedRecipesAutomaticaly()
+    private async Task PlanifiedRecipesForTheWeek()
     {
-        Dispatcher.Dispatch(new GetPlanifiedRecipesForTheWeekAction(PlanifiedRecipeState.Value.CurrentWeekStart));
+        Dispatcher.Dispatch(new PlanifiedRecipesForTheWeekAction(PlanifiedRecipeState.Value.CurrentWeekStart));
+
+        await Task.CompletedTask;
+    }
+    
+    private async Task PlanifiedRecipeAutomaticaly(IPlanifiedRecipeModel planifiedRecipeModel)
+    {
+        Dispatcher.Dispatch(new PlanifiedRecipeAutomaticalyAction(planifiedRecipeModel));
+
+        await Task.CompletedTask;
     }
 }

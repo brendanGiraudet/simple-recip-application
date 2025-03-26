@@ -6,4 +6,6 @@ namespace simple_recip_application.Features.RecipePlanningFeature.ApplicationCor
 public interface IRecipePlanifierService
 {
     Task<MethodResult<Dictionary<DayOfWeek, List<IPlanifiedRecipeModel>>>> GetPlanifiedRecipesForTheWeekAsync(DateTime currentWeekDate);
+
+    Task<MethodResult<IPlanifiedRecipeModel>> GetPlanifiedRecipeAutomaticalyAsync(IPlanifiedRecipeModel currentPlanifiedRecipe);
 }

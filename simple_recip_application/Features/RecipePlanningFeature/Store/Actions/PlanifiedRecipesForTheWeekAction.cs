@@ -1,0 +1,7 @@
+using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
+
+namespace simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
+
+public record PlanifiedRecipesForTheWeekAction(DateTime CurrentDate);
+public record PlanifiedRecipesForTheWeekSuccessAction(Dictionary<DayOfWeek, List<IPlanifiedRecipeModel>> PlanifiedRecipes);
+public record PlanifiedRecipesForTheWeekFailureAction();

@@ -3,6 +3,7 @@ using simple_recip_application.Features.NotificationsManagement.ApplicationCore.
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
+using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.EqualityComparers;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Repositories;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Services;
 using simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
@@ -80,15 +81,15 @@ public class PlanifiedRecipeEffects
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
         }
     }
-    
+
     [EffectMethod]
-    public async Task HandleGetPlanifiedRecipesForTheWeekAction(GetPlanifiedRecipesForTheWeekAction action, IDispatcher dispatcher)
+    public async Task HandlePlanifiedRecipesForTheWeekAction(PlanifiedRecipesForTheWeekAction action, IDispatcher dispatcher)
     {
         var result = await _recipePlanifierService.GetPlanifiedRecipesForTheWeekAsync(action.CurrentDate);
 
-        if(!result.Success)
+        if (!result.Success)
         {
-            dispatcher.Dispatch(new GetPlanifiedRecipesForTheWeekFailureAction());
+            dispatcher.Dispatch(new PlanifiedRecipesForTheWeekFailureAction());
 
             var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddPlanifiedRecipeErrorMessage, NotificationType.Error);
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
@@ -101,14 +102,45 @@ public class PlanifiedRecipeEffects
         var addResult = await _planifiedRecipeRepository.AddRangeAsync(recipesList);
 
         if (addResult.Success)
-            dispatcher.Dispatch(new GetPlanifiedRecipesForTheWeekSuccessAction(result.Item));
+            dispatcher.Dispatch(new PlanifiedRecipesForTheWeekSuccessAction(result.Item));
 
         else
         {
-            dispatcher.Dispatch(new GetPlanifiedRecipesForTheWeekFailureAction());
+            dispatcher.Dispatch(new PlanifiedRecipesForTheWeekFailureAction());
 
             var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddPlanifiedRecipeErrorMessage, NotificationType.Error);
             dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
         }
+    }
+
+    [EffectMethod]
+    public async Task HandlePlanifiedRecipeAutomaticalyAction(PlanifiedRecipeAutomaticalyAction action, IDispatcher dispatcher)
+    {
+        var result = await _recipePlanifierService.GetPlanifiedRecipeAutomaticalyAsync(action.PlanifiedRecipe);
+
+        if (!result.Success)
+        {
+            dispatcher.Dispatch(new PlanifiedRecipeAutomaticalyFailureAction());
+
+            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddPlanifiedRecipeErrorMessage, NotificationType.Error);
+
+            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+        }
+
+        else
+            dispatcher.Dispatch(new PlanifiedRecipeAutomaticalySuccessAction(action.PlanifiedRecipe, result.Item));
+    }
+
+    [EffectMethod]
+    public async Task HandlePlanifiedRecipeAutomaticalySuccessAction(PlanifiedRecipeAutomaticalySuccessAction action, IDispatcher dispatcher)
+    {
+        if(new PlanifiedRecipeEqualityComparer().Equals(action.OldPlanifiedRecipe, action.NewPlanifiedRecipe))
+            return;
+            
+        dispatcher.Dispatch(new AddItemAction<IPlanifiedRecipeModel>(action.NewPlanifiedRecipe));
+
+        dispatcher.Dispatch(new DeleteItemAction<IPlanifiedRecipeModel>(action.OldPlanifiedRecipe));
+
+        await Task.CompletedTask;
     }
 }
