@@ -1,5 +1,7 @@
 using System.Net.Http.Headers;
 using System.Reflection;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using simple_recip_application.AuthorizationHandlers.FeatureFlagsAuthorizationHandler;
 using simple_recip_application.Constants;
@@ -28,6 +30,7 @@ public static class ServicesContextExtensions
     {
         services.Configure<FileSettings>(configuration.GetSection(nameof(FileSettings)));
         services.Configure<OpenApisettings>(configuration.GetSection(nameof(OpenApisettings)));
+        services.Configure<OAuthGoogleSettings>(configuration.GetSection(nameof(OAuthGoogleSettings)));
 
         return services;
     }
@@ -86,6 +89,29 @@ public static class ServicesContextExtensions
                         policy.Requirements.Add(new FeatureFlagsAuthorizationRequirement(featureFlag)));
                 }
             }
+        });
+
+        return services;
+    }
+
+    public static IServiceCollection AddAuthentications(this IServiceCollection services, IConfiguration configuration)
+    {
+        var oAuthGoogleSettings = new OAuthGoogleSettings();
+        configuration.GetSection(nameof(OAuthGoogleSettings)).Bind(oAuthGoogleSettings);
+
+        // Authentification Google
+        services.AddAuthentication(options =>
+        {
+            options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+        })
+        .AddCookie(options => {
+            options.Cookie.Name = "SimpleRecipApplication";
+        })
+        .AddGoogle(options =>
+        {
+            options.ClientId = oAuthGoogleSettings.ClientId;
+            options.ClientSecret = oAuthGoogleSettings.ClientSecret;
         });
 
         return services;

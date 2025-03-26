@@ -38,5 +38,8 @@ services:
       OpenApisettings__ApiKey: "APIKEY"
       OpenApisettings__ChatCompletionUrl: "https://api.openai.com/v1/chat/completions"
 
+      OAuthGoogleSettings__ClientId: "CLIENTID"
+      OAuthGoogleSettings__ClientSecret: "CLIENTSECRET"
+
     volumes:
       - /home/ubuntu/data/simple_recip_application:/app/Data

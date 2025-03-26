@@ -1,13 +1,26 @@
 @page "/recipe-planning"
 @inherits FluxorComponent
 
+@attribute [Authorize]
+@attribute [Authorize(Policy = FeatureFlagsConstants.RecipePlanningFeature)]
+
+<AuthorizeView>
+    <NotAuthorized>
+        @if (!context.User.Identity.IsAuthenticated)
+        {
+            <RedirectToLogin />
+        }
+    </NotAuthorized>
+</AuthorizeView>
+
 <div class="weekly-recipes-container">
     @foreach (var day in GetOrderedDaysOfWeek())
     {
         <div class="daily-recipes">
             <h4>@day.FormattedDate</h4>
 
-            @if (PlanifiedRecipeState.Value.RecipesGroupedByDay.TryGetValue(day.Date.DayOfWeek, out var recipesForDay) &&
+            @if (PlanifiedRecipeState.Value.RecipesGroupedByDay.TryGetValue(day.Date.DayOfWeek, out var
+                    recipesForDay) &&
                     recipesForDay.Any())
             {
                 <div class="grid">
@@ -42,7 +55,8 @@
                     @LabelsTranslator.AddRecipe
                 </button>
 
-                <button class="btn btn-primary" @onclick="@(() => PlanifiedRecipeAutomaticaly(day: day.Date, momentOftheDay: MomentOfTheDayEnum.Evening.ToString()))">
+                <button class="btn btn-primary"
+                    @onclick="@(() => PlanifiedRecipeAutomaticaly(day: day.Date, momentOftheDay: MomentOfTheDayEnum.Evening.ToString()))">
                     <span class="material-symbols-outlined">@MaterialIconsConstants.Generate</span>
                 </button>
             }

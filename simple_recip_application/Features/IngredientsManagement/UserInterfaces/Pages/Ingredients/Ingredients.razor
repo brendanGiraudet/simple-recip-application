@@ -5,40 +5,32 @@
 
 @rendermode InteractiveServer
 @attribute [StreamRendering]
+@attribute [Authorize(Policy = FeatureFlagsConstants.IngredientFeature)]
 
 <SearchBar OnSearch="@OnSearchTermChanged" />
 
 <div class="grid page-grid @GetIngredientsVisibilityCssClass()">
 
-    @if(IngredientState.Value.Items.Count() == 0)
+    @if (IngredientState.Value.Items.Count() == 0)
     {
         <p class="no-ingredients-message">@LabelsTranslator.NoIngredientsFound</p>
     }
 
     @foreach (var ingredient in IngredientState.Value.Items)
     {
-        <Card TContent="IIngredientModel"
-              Item="ingredient"
-              ImageSource="@ingredient.Image.GetImageSource()"
-              Title="@ingredient.Name"
-              OnClick="OpenIngredientFormModalAsync" 
-              OnSelect="HandleSelection" 
-              EnableSelection= "true"
-              IsSelected="@(IngredientState.Value.SelectedItems.Contains(ingredient))" />
+        <Card TContent="IIngredientModel" Item="ingredient" ImageSource="@ingredient.Image.GetImageSource()"
+            Title="@ingredient.Name" OnClick="OpenIngredientFormModalAsync" OnSelect="HandleSelection"
+            EnableSelection="true" IsSelected="@(IngredientState.Value.SelectedItems.Contains(ingredient))" />
     }
 </div>
 
-<PaginationButtons CanPreviousClick="@CanPreviousClick()"
-                    OnPrevious="@OnPrevious"
-                    OnNext="@OnNext" />
+<PaginationButtons CanPreviousClick="@CanPreviousClick()" OnPrevious="@OnPrevious" OnNext="@OnNext" />
 
 <Loader IsVisible="@IngredientState.Value.IsLoading" />
 
-<Modal OnClose="CloseIngredientModal" 
-       IsVisible="IngredientState.Value.IngredientModalVisibility">
+<Modal OnClose="CloseIngredientModal" IsVisible="IngredientState.Value.IngredientModalVisibility">
 
-    <IngredientForm Ingredient="_selectedIngredient" 
-                    OnCancel="CloseIngredientModal" />
+    <IngredientForm Ingredient="_selectedIngredient" OnCancel="CloseIngredientModal" />
 </Modal>
 
-<OptionsMenu Options="GetOptions()"/>
+<OptionsMenu Options="GetOptions()" />

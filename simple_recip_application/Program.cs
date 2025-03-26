@@ -3,6 +3,9 @@ using simple_recip_application.Extensions;
 using Fluxor;
 using Fluxor.Blazor.Web.ReduxDevTools;
 using Microsoft.FeatureManagement;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
+using simple_recip_application.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +32,9 @@ builder.Services.AddHttpClients(builder.Configuration);
 
 // Ajout des repositories
 builder.Services.AddApplicationRepositories();
+
+// Ajout des authentifications
+builder.Services.AddAuthentications(builder.Configuration);
 
 // Ajout des autorisations
 builder.Services.AddAuthorizations();
@@ -61,6 +67,8 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseAntiforgery();
 
@@ -81,5 +89,13 @@ app.UseRequestLocalization(options =>
 app.Services.ApplyMigrations();
 
 app.MapControllers();
+
+app.MapGet(PageUrlsConstants.Authentication, async context =>
+{
+    if (!context.User.Identity.IsAuthenticated)
+        await context.ChallengeAsync(GoogleDefaults.AuthenticationScheme);
+    else
+        context.Response.Redirect("/");
+});
 
 app.Run();

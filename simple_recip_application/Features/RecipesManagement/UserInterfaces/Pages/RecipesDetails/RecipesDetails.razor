@@ -1,6 +1,7 @@
 @page "/recipes/{Id:guid}"
 
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@attribute [Authorize(Policy = FeatureFlagsConstants.RecipeFeature)]
 
 <Loader IsVisible="@RecipeState.Value.IsLoading" />
 

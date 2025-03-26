@@ -15,4 +15,7 @@ public static class PageUrlsConstants
     
     // Recipes planning
     public const string RecipePlannigPage = "/recipe-planning";
+    
+    // Authentication
+    public const string Authentication = "/authentication/login";
 }
