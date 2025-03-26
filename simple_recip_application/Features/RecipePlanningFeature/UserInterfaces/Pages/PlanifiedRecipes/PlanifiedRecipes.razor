@@ -7,7 +7,7 @@
         <div class="daily-recipes">
             <h4>@day.FormattedDate</h4>
 
-            @if (PlanifiedRecipeState.Value.RecipesGroupedByDay.TryGetValue(day.DayOfWeek, out var recipesForDay) &&
+            @if (PlanifiedRecipeState.Value.RecipesGroupedByDay.TryGetValue(day.Date.DayOfWeek, out var recipesForDay) &&
                     recipesForDay.Any())
             {
                 <div class="grid">
@@ -20,14 +20,14 @@
 
                             <BodyContent>
                                 <h5>@planifiedRecipe.RecipeModel.Name</h5>
-                                <button class="btn btn-secondary" 
-                                        @onclick="@(() => OpenChangeRecipeModal(planifiedRecipe))"
-                                        @onclick:stopPropagation="true">
+
+                                <button class="btn btn-secondary" @onclick="@(() => OpenChangeRecipeModal(planifiedRecipe))"
+                                    @onclick:stopPropagation="true">
                                     @LabelsTranslator.Update
                                 </button>
-                                <button class="btn btn-primary" 
-                                        @onclick="@(() => PlanifiedRecipeAutomaticaly(planifiedRecipe))"
-                                        @onclick:stopPropagation="true">
+
+                                <button class="btn btn-primary" @onclick="@(() => PlanifiedRecipeAutomaticaly(planifiedRecipe))"
+                                    @onclick:stopPropagation="true">
                                     <span class="material-symbols-outlined">@MaterialIconsConstants.Generate</span>
                                 </button>
                             </BodyContent>
@@ -38,8 +38,12 @@
             }
             else
             {
-                <button class="btn btn-primary add-recipe-btn" @onclick="@(() => OpenRecipeSelectionModal(day.DayOfWeek))">
+                <button class="btn btn-primary add-recipe-btn" @onclick="@(() => OpenRecipeSelectionModal(day.Date.DayOfWeek))">
                     @LabelsTranslator.AddRecipe
+                </button>
+
+                <button class="btn btn-primary" @onclick="@(() => PlanifiedRecipeAutomaticaly(day: day.Date, momentOftheDay: MomentOfTheDayEnum.Evening.ToString()))">
+                    <span class="material-symbols-outlined">@MaterialIconsConstants.Generate</span>
                 </button>
             }
         </div>

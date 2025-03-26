@@ -156,14 +156,14 @@ public partial class PlanifiedRecipes
         }
     }
 
-    private IEnumerable<(DayOfWeek DayOfWeek, string FormattedDate)> GetOrderedDaysOfWeek()
+    private IEnumerable<(DateTime Date, string FormattedDate)> GetOrderedDaysOfWeek()
     {
         var startOfWeek = PlanifiedRecipeState.Value.CurrentWeekStart;
 
         return Enumerable.Range(0, 7)
             .Select(i => startOfWeek.AddDays(i))
-            .Select(date => (date.DayOfWeek, date.ToString("dddd dd MMMM yyyy", CultureInfo.CurrentCulture).ToUpper()))
-            .OrderBy(tuple => tuple.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)tuple.DayOfWeek);
+            .Select(date => (date, date.ToString("dddd dd MMMM yyyy", CultureInfo.CurrentCulture).ToUpper()))
+            .OrderBy(tuple => tuple.date.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)tuple.date.DayOfWeek);
     }
 
     private List<OptionMenuItem> GetOptions()
@@ -214,9 +214,15 @@ public partial class PlanifiedRecipes
 
         await Task.CompletedTask;
     }
-    
-    private async Task PlanifiedRecipeAutomaticaly(IPlanifiedRecipeModel planifiedRecipeModel)
+
+    private async Task PlanifiedRecipeAutomaticaly(IPlanifiedRecipeModel? planifiedRecipeModel = null, DateTime? day = null, string? momentOftheDay = null)
     {
+        planifiedRecipeModel = planifiedRecipeModel ?? PlanifiedRecipeFactory.CreatePlanifiedRecipeModel(
+            planifiedDatetime: day,
+            userId: "currentUserId",
+            momentOftheDay: momentOftheDay
+        );
+
         Dispatcher.Dispatch(new PlanifiedRecipeAutomaticalyAction(planifiedRecipeModel));
 
         await Task.CompletedTask;

@@ -134,12 +134,13 @@ public class PlanifiedRecipeEffects
     [EffectMethod]
     public async Task HandlePlanifiedRecipeAutomaticalySuccessAction(PlanifiedRecipeAutomaticalySuccessAction action, IDispatcher dispatcher)
     {
-        if(new PlanifiedRecipeEqualityComparer().Equals(action.OldPlanifiedRecipe, action.NewPlanifiedRecipe))
+        if (new PlanifiedRecipeEqualityComparer().Equals(action.OldPlanifiedRecipe, action.NewPlanifiedRecipe))
             return;
-            
+
         dispatcher.Dispatch(new AddItemAction<IPlanifiedRecipeModel>(action.NewPlanifiedRecipe));
 
-        dispatcher.Dispatch(new DeleteItemAction<IPlanifiedRecipeModel>(action.OldPlanifiedRecipe));
+        if (action.OldPlanifiedRecipe.RecipeModel is not null)
+            dispatcher.Dispatch(new DeleteItemAction<IPlanifiedRecipeModel>(action.OldPlanifiedRecipe));
 
         await Task.CompletedTask;
     }
