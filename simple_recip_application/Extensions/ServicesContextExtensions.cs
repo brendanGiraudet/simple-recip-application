@@ -6,18 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using simple_recip_application.AuthorizationHandlers.FeatureFlagsAuthorizationHandler;
 using simple_recip_application.Constants;
-using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
-using simple_recip_application.Features.IngredientsManagement.Persistence.Factories;
-using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
-using simple_recip_application.Features.NotificationsManagement.Persistence.Factories;
-using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Factories;
-using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Services;
-using simple_recip_application.Features.RecipePlanningFeature.Persistence.Factories;
-using simple_recip_application.Features.RecipePlanningFeature.Persistence.Services;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore.Factories;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore.Services;
-using simple_recip_application.Features.RecipesManagement.Persistence.Factories;
-using simple_recip_application.Features.RecipesManagement.Persistence.Services;
 using simple_recip_application.Features.UserInfos.ApplicationCore.AuthenticationStateProvider;
 using simple_recip_application.Features.UserInfos.ApplicationCore.Factories;
 using simple_recip_application.Features.UserInfos.Persistence.Factories;
@@ -50,26 +38,10 @@ public static class ServicesContextExtensions
         return services;
     }
 
-    public static IServiceCollection AddServices(this IServiceCollection services)
+    public static IServiceCollection AddSharedServices(this IServiceCollection services)
     {
-        services.AddTransient<IShoppingListGeneratorService, ShoppingListGeneratorService>();
         services.AddTransient<IOpenAiDataAnalysisService, OpenAiDataAnalysisService>();
-        services.AddTransient<IRecipePlanifierService, RecipePlanifierService>();
         services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
-
-        return services;
-    }
-
-
-    public static IServiceCollection AddFactories(this IServiceCollection services)
-    {
-        services.AddTransient<IRecipeIngredientFactory, RecipeIngredientFactory>();
-        services.AddTransient<IRecipeFactory, RecipeFactory>();
-        services.AddTransient<IIngredientFactory, IngredientFactory>();
-        services.AddTransient<INotificationMessageFactory, NotificationMessageFactory>();
-        services.AddTransient<IImportModelFactory, ImportModelFactory>();
-        services.AddTransient<IPlanifiedRecipeModelFactory, PlanifiedRecipeModelFactory>();
-        services.AddTransient<IUserInfosModelFactory, UserInfosModelFactory>();
 
         return services;
     }
@@ -108,7 +80,8 @@ public static class ServicesContextExtensions
             options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
         })
-        .AddCookie(options => {
+        .AddCookie(options =>
+        {
             options.Cookie.Name = "SimpleRecipApplication";
         })
         .AddGoogle(options =>

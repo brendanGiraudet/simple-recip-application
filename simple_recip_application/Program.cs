@@ -21,11 +21,16 @@ builder.Services.AddApplicationDbContext(builder.Configuration);
 // Ajout des services de l’application
 builder.Services.AddSettings(builder.Configuration);
 
-// Ajout des factories
-builder.Services.AddFactories();
-
 // Ajout des services
-builder.Services.AddServices();
+builder.Services.AddSharedServices();
+
+// Ajout des DI des features
+builder.Services.AddDIForImportationFeature();
+builder.Services.AddDIForIngredientFeature();
+builder.Services.AddDIForNotificationFeature();
+builder.Services.AddDIForRecipePlannigFeature();
+builder.Services.AddDIForRecipesFeature();
+builder.Services.AddDIForUserinfosFeature();
 
 // Ajout des httclient
 builder.Services.AddHttpClients(builder.Configuration);
