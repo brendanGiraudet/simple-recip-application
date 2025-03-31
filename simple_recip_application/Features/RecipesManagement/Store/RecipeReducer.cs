@@ -99,9 +99,4 @@ public static class RecipeReducer
     [ReducerMethod]
     public static RecipeState ReduceLoadItemsSuccessAction(RecipeState state, LoadItemsSuccessAction<IIngredientModel> action) => state with { FilteredIngredients = action.Items.Where(c => state.Item?.IngredientModels?.FirstOrDefault(p => p.IngredientId == c.Id) == null) };
     #endregion
-
-    #region SetLoadingAction<ImportStrategyEnum>
-    [ReducerMethod]
-    public static RecipeState ReduceSetLoadingAction(RecipeState state, SetLoadingAction<ImportStrategyEnum> action) => state with { IsLoading = action.IsLoading };
-    #endregion
 }
