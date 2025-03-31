@@ -1,6 +1,8 @@
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
+using Polly;
+using Polly.Retry;
 using simple_recip_application.Constants;
 using simple_recip_application.Dtos;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
@@ -19,12 +21,21 @@ public class OpenAiDataAnalysisService
 {
     OpenApisettings _openApisettings => _openApisettingsOptions.Value;
 
+    private AsyncRetryPolicy _retryPolicy => Policy
+       .Handle<Exception>()
+       .WaitAndRetryAsync(
+           retryCount: _openApisettings.RetryCount,
+           sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(_openApisettings.RetryDelaySeconds),
+           onRetry: (exception, timeSpan, retryCount, context) =>
+           {
+               _logger.LogWarning(exception, $"Tentative #{retryCount} échouée. Nouvelle tentative dans {timeSpan.TotalSeconds}s...");
+           });
+
     public async Task<string> ExtractTextFromImageAsync(byte[] imageData)
     {
-        try
+        return await _retryPolicy.ExecuteAsync(async () =>
         {
             var apiKey = _openApisettings.ApiKey;
-
             var base64Image = Convert.ToBase64String(imageData);
 
             var requestBody = new
@@ -32,47 +43,42 @@ public class OpenAiDataAnalysisService
                 model = "gpt-4o",
                 messages = new object[]
                 {
-                new
-                {
-                    role = "user",
-                    content = new object[]
+                    new
                     {
-                        new { type = "text", text = textPrompt },
-                        new
+                        role = "user",
+                        content = new object[]
                         {
-                            type = "image_url",
-                            image_url = new
+                            new { type = "text", text = textPrompt },
+                            new
                             {
-                                url = $"data:image/jpeg;base64,{base64Image}"
+                                type = "image_url",
+                                image_url = new
+                                {
+                                    url = $"data:image/jpeg;base64,{base64Image}"
+                                }
                             }
                         }
                     }
-                }
                 },
-                max_tokens = 1000
+                max_tokens = _openApisettings.MaxToken
             };
 
             var jsonContent = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
-
             var httpClient = _httpClientFactory.CreateClient(HttpClientNamesConstants.OpenApi);
 
             using var response = await httpClient.PostAsync(_openApisettings.ChatCompletionUrl, jsonContent);
 
             if (!response.IsSuccessStatusCode)
-                throw new Exception($"Erreur: {response.StatusCode}, Détail: {response.Content.ReadAsStringAsync().Result}");
+                throw new Exception($"Erreur: {response.StatusCode}, Détail: {await response.Content.ReadAsStringAsync()}");
 
             var responseString = await response.Content.ReadAsStringAsync();
 
+            _logger.LogInformation($"Réponse de l'API OpenAI: {responseString}");
+
             var responseData = JsonSerializer.Deserialize<JsonElement>(responseString);
 
-            return GetResponseData(responseBody: responseData);
-        }
-        catch (System.Exception ex)
-        {
-            _logger.LogError(ex, "Erreur lors de l'analyse de l'image");
-        }
-
-        return string.Empty;
+            return GetResponseData(responseData);
+        });
     }
 
     private static string GetResponseData(JsonElement responseBody)
@@ -109,21 +115,21 @@ public class OpenAiDataAnalysisService
 
     public async Task<MethodResult<IRecipeModel?>> ExtractRecipeFromImageAsync(byte[] imageData)
     {
-        try
+        return await _retryPolicy.ExecuteAsync(async () =>
         {
             var text = await ExtractTextFromImageAsync(imageData);
 
             // Suppression du markdown json  "```json" du debut et "```" de fin
             var beginJsonMarkdownText = "```json";
             var endJsonMarkdownText = "```";
-            
-            if(text.Contains(beginJsonMarkdownText))
+
+            if (text.Contains(beginJsonMarkdownText))
                 text = text.Remove(text.IndexOf(beginJsonMarkdownText), beginJsonMarkdownText.Length);
-            
-            if(text.Contains(endJsonMarkdownText))
+
+            if (text.Contains(endJsonMarkdownText))
                 text = text.Remove(text.IndexOf(endJsonMarkdownText), endJsonMarkdownText.Length);
 
-                var recipe = JsonSerializer.Deserialize<IRecipeModel>(text, new JsonSerializerOptions
+            var recipe = JsonSerializer.Deserialize<IRecipeModel>(text, new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 Converters =
@@ -136,12 +142,6 @@ public class OpenAiDataAnalysisService
             });
 
             return new MethodResult<IRecipeModel?>(true, recipe);
-        }
-        catch (System.Exception ex)
-        {
-            _logger.LogError(ex, "Erreur lors de l'extraction de la recette depuis l'image");
-
-            return new MethodResult<IRecipeModel?>(false, null);
-        }
+        });
     }
 }

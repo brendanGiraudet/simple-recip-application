@@ -100,7 +100,7 @@ public partial class RecipeForm
 
             importModel.FileContent = memoryStream.ToArray();
 
-            Dispatcher.Dispatch(new StartImportAction(ImportStrategyEnum.RecipesFromHelloFreshPicture, importModel));
+            Dispatcher.Dispatch(new StartImportAction(ImportStrategyEnum.RecipesFromPicture, importModel));
         }
         catch (System.Exception ex)
         {

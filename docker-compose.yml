@@ -37,6 +37,9 @@ services:
 
       OpenApisettings__ApiKey: "APIKEY"
       OpenApisettings__ChatCompletionUrl: "https://api.openai.com/v1/chat/completions"
+      OpenApisettings__RetryCount: 3
+      OpenApisettings__RetryDelaySeconds: 2
+      OpenApisettings__MaxToken: 1000
 
       OAuthGoogleSettings__ClientId: "CLIENTID"
       OAuthGoogleSettings__ClientSecret: "CLIENTSECRET"

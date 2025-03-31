@@ -40,7 +40,7 @@ public partial class ImportPage
 
     private async Task HandleImport()
     {
-        Dispatcher.Dispatch(new StartImportAction(ImportStrategyEnum.RecipesFromHelloFreshPicture, ImportModel));
+        Dispatcher.Dispatch(new StartImportAction(ImportStrategyEnum.RecipesFromPicture, ImportModel));
 
         await Task.CompletedTask;
     }

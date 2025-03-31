@@ -17,7 +17,7 @@ public static class ImportStrategyFactory
         {
             ImportStrategyEnum.ImportIngredientsFromCsv => new IngredientsFromCsvImportStrategy(_serviceProvider),
 
-            ImportStrategyEnum.RecipesFromHelloFreshPicture => new RecipesFromPictureStrategy(_serviceProvider, _dispatcher, _ingredientRepository),
+            ImportStrategyEnum.RecipesFromPicture => new RecipesFromPictureStrategy(_serviceProvider, _dispatcher, _ingredientRepository),
 
             _ => throw new NotImplementedException($"Strategy for {_importStrategy} is not implemented.")
         };
