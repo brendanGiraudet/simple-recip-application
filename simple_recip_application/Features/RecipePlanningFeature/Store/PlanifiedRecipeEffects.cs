@@ -1,13 +1,9 @@
 using Fluxor;
-using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
-using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
-using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.EqualityComparers;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Repositories;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Services;
 using simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
-using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.RecipesManagement.Store;
@@ -15,7 +11,6 @@ namespace simple_recip_application.Features.RecipesManagement.Store;
 public class PlanifiedRecipeEffects
 (
     IPlanifiedRecipeRepository _planifiedRecipeRepository,
-    INotificationMessageFactory _notificationMessageFactory,
     IRecipePlanifierService _recipePlanifierService
 )
 {
@@ -32,37 +27,15 @@ public class PlanifiedRecipeEffects
     }
 
     [EffectMethod]
-    public async Task HandleLoadItemsFailureAction(LoadItemsFailureAction<IPlanifiedRecipeModel> action, IDispatcher dispatcher)
-    {
-        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.LoadPlanifiedRecipesErrorMessage, NotificationType.Error);
-
-        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
-
-        await Task.CompletedTask;
-    }
-
-    [EffectMethod]
     public async Task HandleAddItemAction(AddItemAction<IPlanifiedRecipeModel> action, IDispatcher dispatcher)
     {
         var result = await _planifiedRecipeRepository.AddAsync(action.Item);
 
-        var message = MessagesTranslator.AddPlanifiedRecipeErrorMessage;
-        var notificationType = NotificationType.Error;
-
         if (result.Success)
-        {
             dispatcher.Dispatch(new AddItemSuccessAction<IPlanifiedRecipeModel>(action.Item));
-            message = MessagesTranslator.AddPlanifiedRecipeSuccessMessage;
-            notificationType = NotificationType.Success;
-        }
 
         else
             dispatcher.Dispatch(new AddItemFailureAction<IPlanifiedRecipeModel>(action.Item));
-
-
-        var notification = _notificationMessageFactory.CreateNotificationMessage(message, notificationType);
-
-        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
     }
 
     [EffectMethod]
@@ -74,12 +47,7 @@ public class PlanifiedRecipeEffects
             dispatcher.Dispatch(new DeleteItemSuccessAction<IPlanifiedRecipeModel>(action.Item));
 
         else
-        {
             dispatcher.Dispatch(new DeleteItemFailureAction<IPlanifiedRecipeModel>(action.Item));
-
-            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddPlanifiedRecipeErrorMessage, NotificationType.Error);
-            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
-        }
     }
 
     [EffectMethod]
@@ -90,9 +58,6 @@ public class PlanifiedRecipeEffects
         if (!result.Success)
         {
             dispatcher.Dispatch(new PlanifiedRecipesForTheWeekFailureAction());
-
-            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddPlanifiedRecipeErrorMessage, NotificationType.Error);
-            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
             return;
         }
@@ -105,12 +70,7 @@ public class PlanifiedRecipeEffects
             dispatcher.Dispatch(new PlanifiedRecipesForTheWeekSuccessAction(result.Item));
 
         else
-        {
             dispatcher.Dispatch(new PlanifiedRecipesForTheWeekFailureAction());
-
-            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddPlanifiedRecipeErrorMessage, NotificationType.Error);
-            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
-        }
     }
 
     [EffectMethod]
@@ -119,13 +79,7 @@ public class PlanifiedRecipeEffects
         var result = await _recipePlanifierService.GetPlanifiedRecipeAutomaticalyAsync(action.PlanifiedRecipe);
 
         if (!result.Success)
-        {
             dispatcher.Dispatch(new PlanifiedRecipeAutomaticalyFailureAction());
-
-            var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddPlanifiedRecipeErrorMessage, NotificationType.Error);
-
-            dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
-        }
 
         else
             dispatcher.Dispatch(new PlanifiedRecipeAutomaticalySuccessAction(action.PlanifiedRecipe, result.Item));

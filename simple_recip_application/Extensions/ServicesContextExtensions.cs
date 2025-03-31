@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 using simple_recip_application.AuthorizationHandlers.FeatureFlagsAuthorizationHandler;
 using simple_recip_application.Constants;
 using simple_recip_application.Features.UserInfos.ApplicationCore.AuthenticationStateProvider;
-using simple_recip_application.Features.UserInfos.ApplicationCore.Factories;
-using simple_recip_application.Features.UserInfos.Persistence.Factories;
 using simple_recip_application.Services;
 using simple_recip_application.Settings;
 
