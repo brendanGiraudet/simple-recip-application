@@ -1,4 +1,5 @@
 using Fluxor;
+using simple_recip_application.Features.Importation.Enums;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.EqualityComparers;
@@ -21,7 +22,7 @@ public static class RecipeReducer
     public static RecipeState ReduceLoadItemsFailureAction(RecipeState state, LoadItemsFailureAction<IRecipeModel> action)
         => state with { IsLoading = false };
     #endregion
-    
+
     #region LoadItem
     [ReducerMethod]
     public static RecipeState ReduceLoadItemAction(RecipeState state, LoadItemAction<IRecipeModel> action) => state with { IsLoading = true };
@@ -56,7 +57,7 @@ public static class RecipeReducer
     [ReducerMethod]
     public static RecipeState ReduceDeleteItemSuccessAction(RecipeState state, DeleteItemSuccessAction<IRecipeModel> action)
     {
-        var recipes = state.Items.Where(i => !new RecipeEqualityComparer().Equals(i , action.Item)).ToList();
+        var recipes = state.Items.Where(i => !new RecipeEqualityComparer().Equals(i, action.Item)).ToList();
 
         return state with { Items = recipes, IsLoading = false };
     }
@@ -97,5 +98,10 @@ public static class RecipeReducer
     #region LoadItemsSuccessAction<IIngredientModel>
     [ReducerMethod]
     public static RecipeState ReduceLoadItemsSuccessAction(RecipeState state, LoadItemsSuccessAction<IIngredientModel> action) => state with { FilteredIngredients = action.Items.Where(c => state.Item?.IngredientModels?.FirstOrDefault(p => p.IngredientId == c.Id) == null) };
+    #endregion
+
+    #region SetLoadingAction<ImportStrategyEnum>
+    [ReducerMethod]
+    public static RecipeState ReduceSetLoadingAction(RecipeState state, SetLoadingAction<ImportStrategyEnum> action) => state with { IsLoading = action.IsLoading };
     #endregion
 }

@@ -78,6 +78,7 @@ public partial class RecipeForm
 
     protected async Task HandleImport(InputFileChangeEventArgs e)
     {
+        Dispatcher.Dispatch(new SetLoadingAction<ImportStrategyEnum>(true));
         var file = e.File;
         if (file == null) return;
 
@@ -86,6 +87,8 @@ public partial class RecipeForm
             var notification = NotificationMessageFactory.CreateNotificationMessage(MessagesTranslator.MaxAllowedSizeError, NotificationType.Error);
 
             Dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+            Dispatcher.Dispatch(new SetLoadingAction<ImportStrategyEnum>(false));
 
             return;
         }
