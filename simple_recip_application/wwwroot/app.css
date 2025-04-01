@@ -43,22 +43,22 @@ h1:focus {
     color: white;
 }
 
-.blazor-error-boundary::after {
-    content: "An error has occurred."
-}
+    .blazor-error-boundary::after {
+        content: "An error has occurred."
+    }
 
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
 
-.form-floating>.form-control-plaintext::placeholder,
-.form-floating>.form-control::placeholder {
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
     color: var(--bs-secondary-color);
     text-align: end;
 }
 
-.form-floating>.form-control-plaintext:focus::placeholder,
-.form-floating>.form-control:focus::placeholder {
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
 
@@ -77,10 +77,10 @@ h1:focus {
     align-items: center;
 }
 
-.btn:hover:not(:disabled) {
-    background-color: var(--button-text-color);
-    color: var(--button-bg-color);
-}
+    .btn:hover:not(:disabled) {
+        background-color: var(--button-text-color);
+        color: var(--button-bg-color);
+    }
 
 .btn-primary {
     --button-bg-color: var(--accent-color-1);
@@ -148,6 +148,7 @@ form {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .form-field {
@@ -160,10 +161,10 @@ form {
     row-gap: .5rem;
 }
 
-.form-field input,
-.form-field textarea {
-    width: var(--input-width);
-}
+    .form-field input,
+    .form-field textarea {
+        width: var(--input-width);
+    }
 
 /************/
 
@@ -196,10 +197,10 @@ textarea {
     border-radius: var(--scrollbar-border-radius);
 }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-color-hover);
-}
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--scrollbar-color-hover);
+    }
 
 /************/
 
