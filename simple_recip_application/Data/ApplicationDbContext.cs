@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
+using simple_recip_application.Features.PantryIngredientManagement.Persistence.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.Persistence.Entities;
 using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 
@@ -16,6 +17,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<RecipeIngredientModel> RecipeIngredients => Set<RecipeIngredientModel>();
     public DbSet<RecipeModel> Recipes => Set<RecipeModel>();
     public DbSet<PlanifiedRecipeModel> PlanifiedRecipes => Set<PlanifiedRecipeModel>();
+    public DbSet<UserPantryIngredientModel> UserPantryIngredients => Set<UserPantryIngredientModel>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -99,6 +101,21 @@ public class ApplicationDbContext : DbContext
             entity.Property(r => r.UserId).IsRequired();
 
             entity.Property(r => r.MomentOftheDay);
+        });
+        
+        modelBuilder.Entity<UserPantryIngredientModel>(entity =>
+        {
+            entity.HasKey(r => new { r.UserId, r.IngredientId });
+
+            entity.HasOne(r => r.Ingredient)
+                  .WithMany()
+                  .HasForeignKey(r => r.IngredientId);
+
+            entity.Ignore(r => r.IngredientModel);
+
+            entity.Property(r => r.UserId).IsRequired();
+
+            entity.Property(r => r.Quantity).IsRequired();
         });
     }
 }

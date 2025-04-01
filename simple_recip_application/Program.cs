@@ -31,6 +31,7 @@ builder.Services.AddDIForNotificationFeature();
 builder.Services.AddDIForRecipePlannigFeature();
 builder.Services.AddDIForRecipesFeature();
 builder.Services.AddDIForUserinfosFeature();
+builder.Services.AddDIForPantryIngredientManagementFeature();
 
 // Ajout des httclient
 builder.Services.AddHttpClients(builder.Configuration);

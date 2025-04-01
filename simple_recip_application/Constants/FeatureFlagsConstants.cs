@@ -10,4 +10,5 @@ public static class FeatureFlagsConstants
     public const string IngredientManagementFeature = "IngredientManagementFeature";
     public const string RecipePlanningFeature = "RecipePlanningFeature";
     public const string PlanifiedRecipesAutomaticaly = "PlanifiedRecipesAutomaticaly";
+    public const string PantryIngredientManagement = "PantryIngredientManagement";
 }

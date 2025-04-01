@@ -18,4 +18,7 @@ public static class PageUrlsConstants
     
     // Authentication
     public const string Authentication = "/authentication/login";
+
+    // Pantry
+    public const string PantryIngredients = "/pantry-ingredients";
 }

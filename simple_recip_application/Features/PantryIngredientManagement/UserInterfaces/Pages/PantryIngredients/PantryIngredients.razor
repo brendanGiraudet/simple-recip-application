@@ -1,0 +1,34 @@
+﻿@page "/pantry-ingredients"
+@inherits FluxorComponent
+
+@attribute [Authorize]
+@attribute [Authorize(Policy = FeatureFlagsConstants.PantryIngredientManagement)]
+
+
+<div class="pantry-ingredients @GetIngredientsVisibilityCssClass()">
+	@foreach (var ingredient in UserPantryIngredientState.Value.Items)
+	{
+		<div class="pantry-ingredient-card">
+			<span>@ingredient.IngredientModel.Name</span>
+			<span>@ingredient.Quantity @ingredient.IngredientModel.MeasureUnit</span>
+			<button class="btn btn-danger" @onclick="() => DeleteIngredientAsync(ingredient)">
+				@LabelsTranslator.Delete
+			</button>
+		</div>
+	}
+</div>
+
+<button class="btn btn-primary" @onclick="OpenAddIngredientModal">
+	@LabelsTranslator.AddIngredient
+</button>
+
+<Loader IsVisible="@UserPantryIngredientState.Value.IsLoading" />
+
+<Modal IsVisible="@_isAddIngredientModalVisible" OnClose="CloseAddIngredientModal">
+	@* <RecipeIngredientSelector  OnIngredientSelected="HandleIngredientSelected" /> *@
+	<div class="form-field">
+		<label>@LabelsTranslator.Quantity</label>
+		<InputNumber @bind-Value="_selectedQuantity" />
+	</div>
+	<button class="btn btn-primary" @onclick="AddIngredientAsync">@LabelsTranslator.AddIngredient</button>
+</Modal>

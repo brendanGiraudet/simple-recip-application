@@ -1,96 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-    <data name="NameRequired" xml:space="preserve">
-        <value>Le nom de l’ingrédient est requis.</value>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
     </data>
-    <data name="ImageRequired" xml:space="preserve">
-        <value>L’image est requise.</value>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
     </data>
-    <data name="LoadIngredientErrorMessage" xml:space="preserve">
-        <value>Erreur lors de la récuperation des ingrédients</value>
-    </data>
-    <data name="AddIngredientSuccessMessage" xml:space="preserve">
-        <value>L'ingrédient a été ajouté avec succès !</value>
-    </data>
-    <data name="AddIngredientErrorMessage" xml:space="preserve">
-        <value>Erreur lors de l'ajout de l'ingrédient</value>
-    </data>
-    <data name="DeleteIngredientErrorMessage" xml:space="preserve">
-        <value>Erreur lors de la suppression de l'ingrédient</value>
-    </data>
-    <data name="LoadingInProgress" xml:space="preserve">
-        <value>Chargement en cours...</value>
-    </data>
-    <data name="ImportFailure" xml:space="preserve">
-        <value>Erreur lors de l'importation</value>
-    </data>
-    <data name="ImportSuccess" xml:space="preserve">
-        <value>Importation réussi</value>
-    </data>
-    <data name="PreparationTimeRequired" xml:space="preserve">
-        <value>Temps de préparation obligatoire</value>
-    </data>
-    <data name="CookingTimeRequired" xml:space="preserve">
-        <value>Temps de cuisson obligatoire</value>
-    </data>
-    <data name="MaxAllowedSizeError" xml:space="preserve">
-        <value>Le fichier est trop volumineux</value>
-    </data>
-    <data name="QuantityRequired" xml:space="preserve">
-        <value>La quantité est à renseigner</value>
-    </data>
-    <data name="DeleteIngredientSuccessMessage" xml:space="preserve">
-        <value>L'ingrédient à bien été supprimé</value>
-    </data>
-    <data name="UpdateIngredientSuccessMessage" xml:space="preserve">
-        <value>Mise à jour de l'ingrédient reussi</value>
-    </data>
-    <data name="UpdateIngredientErrorMessage" xml:space="preserve">
-        <value>Erreur lors de la mise à jour de l'ingrédient</value>
-    </data>
-    <data name="LoadRecipeErrorMessage" xml:space="preserve">
-        <value>Erreur lors du chargement des recettes</value>
-    </data>
-    <data name="AddRecipeSuccessMessage" xml:space="preserve">
-        <value>Ajout de la recette reussi</value>
-    </data>
-    <data name="AddRecipeErrorMessage" xml:space="preserve">
-        <value>Erreur lors de l'ajout de la recette</value>
-    </data>
-    <data name="DeleteRecipeSuccessMessage" xml:space="preserve">
-        <value>Suppression de la recette reussi</value>
-    </data>
-    <data name="DeleteRecipeErrorMessage" xml:space="preserve">
-        <value>Erreur lors de la suppression de la recette</value>
-    </data>
-    <data name="UpdateRecipeSuccessMessage" xml:space="preserve">
-        <value>Mise à jour de la recette reussi</value>
-    </data>
-    <data name="UpdateRecipeErrorMessage" xml:space="preserve">
-        <value>Erreur lors de la mise à jour de la recette</value>
-    </data>
-    <data name="MeasureUnitRequired" xml:space="preserve">
-        <value>L'unité de mesure est obligatoire</value>
-    </data>
-    <data name="MinIngredientErrorMessage" xml:space="preserve">
-        <value>Il est nécessaire d'avoir au moins un ingrédient</value>
-    </data>
-    <data name="LoadPlanifiedRecipesErrorMessage" xml:space="preserve">
-        <value>Erreur lors de la récupération des recettes planifiées</value>
-    </data>
-    <data name="AddPlanifiedRecipeErrorMessage" xml:space="preserve">
-        <value>Erreur lors de la planification de la recette</value>
-    </data>
-    <data name="AddPlanifiedRecipeSuccessMessage" xml:space="preserve">
-        <value>Recette planifiée avec succès</value>
-    </data>
-    <data name="GenerateShoppingListCsvContentErrorMessage" xml:space="preserve">
-        <value>Erreur lors de la génération de la liste de courses</value>
-    </data>
-    <data name="DeletePlanifiedRecipeErrorMessage" xml:space="preserve">
-        <value>Erreur lors de la suppression de la recette planifiée</value>
-    </data>
-    <data name="AccessDenied" xml:space="preserve">
-        <value>Accès non autorisé</value>
-    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DeletePantryIngredientFailed" xml:space="preserve">
+    <value>Erreur lors de la suppression de l'ingredient du placard</value>
+  </data>
+  <data name="DeletePantryIngredientSuccess" xml:space="preserve">
+    <value>Suppression de l'ingredient du placard reussi</value>
+  </data>
+  <data name="LoadPantryIngredientsFailed" xml:space="preserve">
+    <value>Erreur lors du chargement des ingredients du placard</value>
+  </data>
+  <data name="SavePantryIngredientFailed" xml:space="preserve">
+    <value>Erreur lors de la sauvegarde de l'ingredient du placard</value>
+  </data>
+  <data name="SavePantryIngredientSuccess" xml:space="preserve">
+    <value>L'ingredient du placard a bien été sauvegardé</value>
+  </data>
 </root>

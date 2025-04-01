@@ -42,4 +42,9 @@ public class MessagesTranslator
     public static string MinIngredientErrorMessage => resourceManager.GetString("MinIngredientErrorMessage", CultureInfo.CurrentCulture) ?? "MinIngredientErrorMessage";
     public static string GenerateShoppingListCsvContentErrorMessage => resourceManager.GetString("GenerateShoppingListCsvContentErrorMessage", CultureInfo.CurrentCulture) ?? "GenerateShoppingListCsvContentErrorMessage";
     public static string AccessDenied => resourceManager.GetString("AccessDenied", CultureInfo.CurrentCulture) ?? "AccessDenied";
+    public static string LoadPantryIngredientsFailed => resourceManager.GetString("LoadPantryIngredientsFailed", CultureInfo.CurrentCulture) ?? "LoadPantryIngredientsFailed";
+    public static string SavePantryIngredientSuccess => resourceManager.GetString("SavePantryIngredientSuccess", CultureInfo.CurrentCulture) ?? "SavePantryIngredientSuccess";
+    public static string SavePantryIngredientFailed => resourceManager.GetString("SavePantryIngredientFailed", CultureInfo.CurrentCulture) ?? "SavePantryIngredientFailed";
+    public static string DeletePantryIngredientSuccess => resourceManager.GetString("DeletePantryIngredientSuccess", CultureInfo.CurrentCulture) ?? "DeletePantryIngredientSuccess";
+    public static string DeletePantryIngredientFailed => resourceManager.GetString("DeletePantryIngredientFailed", CultureInfo.CurrentCulture) ?? "DeletePantryIngredientFailed";
 }
