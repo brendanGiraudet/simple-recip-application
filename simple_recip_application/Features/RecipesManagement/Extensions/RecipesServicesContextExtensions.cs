@@ -7,7 +7,7 @@ namespace simple_recip_application.Extensions;
 
 public static class RecipesServicesContextExtensions
 {
-    public static IServiceCollection AddDIForRecipesFeature(this IServiceCollection services)
+    public static IServiceCollection AddRecipesFeatureDependencies(this IServiceCollection services)
     {
         services.AddTransient<IShoppingListGeneratorService, ShoppingListGeneratorService>();
         services.AddTransient<IRecipeIngredientFactory, RecipeIngredientFactory>();

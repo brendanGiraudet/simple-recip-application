@@ -32,8 +32,8 @@ public partial class NavMenu
         if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.RecipePlanningFeature))
             _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.RecipePlannigPage, MaterialIconsConstants.RecipePlannigPage, LabelsTranslator.Planning));
         
-        if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.PantryIngredientManagement))
-            _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.PantryIngredients, MaterialIconsConstants.PantryIngredients, LabelsTranslator.Pantry));
+        if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.ProductManagementFeature))
+            _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.Products, MaterialIconsConstants.Products, LabelsTranslator.Products));
     }
 
     private IEnumerable<NavMenuItem> _navMenuItems = [];

@@ -117,19 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddProductErrorMessage" xml:space="preserve">
+    <value>Erreur lors de l'ajout du produit</value>
+  </data>
+  <data name="AddProductSuccessMessage" xml:space="preserve">
+    <value>Ajout du produit avec succès</value>
+  </data>
   <data name="DeletePantryIngredientFailed" xml:space="preserve">
     <value>Erreur lors de la suppression de l'ingredient du placard</value>
   </data>
   <data name="DeletePantryIngredientSuccess" xml:space="preserve">
     <value>Suppression de l'ingredient du placard reussi</value>
   </data>
+  <data name="DeleteProductErrorMessage" xml:space="preserve">
+    <value>Erreur lors de la suppression du produit</value>
+  </data>
+  <data name="DeleteProductSuccessMessage" xml:space="preserve">
+    <value>Suppression du produit avec succès</value>
+  </data>
   <data name="LoadPantryIngredientsFailed" xml:space="preserve">
     <value>Erreur lors du chargement des ingredients du placard</value>
+  </data>
+  <data name="LoadProductErrorMessage" xml:space="preserve">
+    <value>Erreur lors du chargement des produits</value>
   </data>
   <data name="SavePantryIngredientFailed" xml:space="preserve">
     <value>Erreur lors de la sauvegarde de l'ingredient du placard</value>
   </data>
   <data name="SavePantryIngredientSuccess" xml:space="preserve">
     <value>L'ingredient du placard a bien été sauvegardé</value>
+  </data>
+  <data name="UpdateProductErrorMessage" xml:space="preserve">
+    <value>Erreur lors de la mise à jour du produit</value>
+  </data>
+  <data name="UpdateProductSuccessMessage" xml:space="preserve">
+    <value>Mise à jour du produit avec succès</value>
   </data>
 </root>

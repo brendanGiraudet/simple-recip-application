@@ -5,7 +5,7 @@ namespace simple_recip_application.Extensions;
 
 public static class UserInfosServicesContextExtensions
 {
-    public static IServiceCollection AddDIForUserinfosFeature(this IServiceCollection services)
+    public static IServiceCollection AddUserFeatureDependencies(this IServiceCollection services)
     {
         services.AddTransient<IUserInfosModelFactory, UserInfosModelFactory>();
 

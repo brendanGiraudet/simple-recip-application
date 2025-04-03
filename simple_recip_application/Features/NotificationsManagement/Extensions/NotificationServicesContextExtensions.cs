@@ -5,7 +5,7 @@ namespace simple_recip_application.Extensions;
 
 public static class NotificationServicesContextExtensions
 {
-    public static IServiceCollection AddDIForNotificationFeature(this IServiceCollection services)
+    public static IServiceCollection AddNotificationFeatureDependencies(this IServiceCollection services)
     {
         services.AddTransient<INotificationMessageFactory, NotificationMessageFactory>();
 

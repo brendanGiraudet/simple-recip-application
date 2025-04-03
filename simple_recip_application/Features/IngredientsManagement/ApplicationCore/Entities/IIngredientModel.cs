@@ -1,10 +1,8 @@
-using simple_recip_application.Data.ApplicationCore.Entities;
+using simple_recip_application.Features.ProductsManagement.ApplicationCore.Entities;
 
 namespace simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 
-public interface IIngredientModel : IEntityBase
+public interface IIngredientModel : IProductModel
 {
-    public string Name { get; set; }
-    public byte[] Image { get; set; }
-    public string MeasureUnit { get; set; }
+
 }

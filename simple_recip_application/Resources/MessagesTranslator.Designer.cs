@@ -47,4 +47,11 @@ public class MessagesTranslator
     public static string SavePantryIngredientFailed => resourceManager.GetString("SavePantryIngredientFailed", CultureInfo.CurrentCulture) ?? "SavePantryIngredientFailed";
     public static string DeletePantryIngredientSuccess => resourceManager.GetString("DeletePantryIngredientSuccess", CultureInfo.CurrentCulture) ?? "DeletePantryIngredientSuccess";
     public static string DeletePantryIngredientFailed => resourceManager.GetString("DeletePantryIngredientFailed", CultureInfo.CurrentCulture) ?? "DeletePantryIngredientFailed";
+    public static string LoadProductErrorMessage => resourceManager.GetString("LoadProductErrorMessage", CultureInfo.CurrentCulture) ?? "LoadProductErrorMessage";
+    public static string AddProductErrorMessage => resourceManager.GetString("AddProductErrorMessage", CultureInfo.CurrentCulture) ?? "AddProductErrorMessage";
+    public static string AddProductSuccessMessage => resourceManager.GetString("AddProductSuccessMessage", CultureInfo.CurrentCulture) ?? "AddProductSuccessMessage";
+    public static string DeleteProductErrorMessage => resourceManager.GetString("DeleteProductErrorMessage", CultureInfo.CurrentCulture) ?? "DeleteProductErrorMessage";
+    public static string DeleteProductSuccessMessage => resourceManager.GetString("DeleteProductSuccessMessage", CultureInfo.CurrentCulture) ?? "DeleteProductSuccessMessage";
+    public static string UpdateProductErrorMessage => resourceManager.GetString("UpdateProductErrorMessage", CultureInfo.CurrentCulture) ?? "UpdateProductErrorMessage";
+    public static string UpdateProductSuccessMessage => resourceManager.GetString("UpdateProductSuccessMessage", CultureInfo.CurrentCulture) ?? "UpdateProductSuccessMessage";
 }

@@ -5,7 +5,7 @@ namespace simple_recip_application.Extensions;
 
 public static class IngredientServicesContextExtensions
 {
-    public static IServiceCollection AddDIForIngredientFeature(this IServiceCollection services)
+    public static IServiceCollection AddIngredientFeatureDependencies(this IServiceCollection services)
     {
         services.AddTransient<IIngredientFactory, IngredientFactory>();
 

@@ -5,7 +5,7 @@ namespace simple_recip_application.Extensions;
 public static class ImportationServicesContextExtensions
 {
 
-    public static IServiceCollection AddDIForImportationFeature(this IServiceCollection services)
+    public static IServiceCollection AddImportationFeatureDependencies(this IServiceCollection services)
     {
         services.AddTransient<IImportModelFactory, ImportModelFactory>();
 

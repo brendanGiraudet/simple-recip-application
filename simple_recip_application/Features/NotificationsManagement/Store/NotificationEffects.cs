@@ -4,7 +4,7 @@ using simple_recip_application.Features.IngredientsManagement.ApplicationCore.En
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
-using simple_recip_application.Features.PantryIngredientManagement.Store.Actions;
+using simple_recip_application.Features.ProductsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
@@ -172,7 +172,7 @@ public class NotificationEffects
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
     public async Task HandlePlanifiedRecipesForTheWeekFailureAction(PlanifiedRecipesForTheWeekFailureAction action, IDispatcher dispatcher)
     {
@@ -182,7 +182,7 @@ public class NotificationEffects
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
     public async Task HandlePlanifiedRecipeAutomaticalyFailureAction(PlanifiedRecipeAutomaticalyFailureAction action, IDispatcher dispatcher)
     {
@@ -204,7 +204,7 @@ public class NotificationEffects
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
     public async Task HandleLoadItemFailureAction(LoadItemFailureAction<IRecipeModel> action, IDispatcher dispatcher)
     {
@@ -214,7 +214,7 @@ public class NotificationEffects
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
     public async Task HandleAddItemFailureAction(AddItemFailureAction<IRecipeModel> action, IDispatcher dispatcher)
     {
@@ -224,7 +224,7 @@ public class NotificationEffects
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
     public async Task HandleAddItemSuccessAction(AddItemSuccessAction<IRecipeModel> action, IDispatcher dispatcher)
     {
@@ -234,7 +234,7 @@ public class NotificationEffects
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
     public async Task HandleDeleteItemAction(DeleteItemAction<IRecipeModel> action, IDispatcher dispatcher)
     {
@@ -244,7 +244,7 @@ public class NotificationEffects
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
     public async Task HandleDeleteItemSuccessAction(DeleteItemSuccessAction<IRecipeModel> action, IDispatcher dispatcher)
     {
@@ -254,7 +254,7 @@ public class NotificationEffects
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
     public async Task HandleUpdateItemFailureAction(UpdateItemFailureAction<IRecipeModel> action, IDispatcher dispatcher)
     {
@@ -264,7 +264,7 @@ public class NotificationEffects
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
     public async Task HandleUpdateItemSuccessAction(UpdateItemSuccessAction<IRecipeModel> action, IDispatcher dispatcher)
     {
@@ -276,56 +276,78 @@ public class NotificationEffects
     }
     #endregion
 
-    #region UserPantryIngredients
+    #region Products
     [EffectMethod]
-    public async Task HandleLoadUserPantryIngredientsFailureAction(LoadUserPantryIngredientsFailureAction action, IDispatcher dispatcher)
+    public async Task HandleLoadItemsFailureAction(LoadItemsFailureAction<IProductModel> action, IDispatcher dispatcher)
     {
 
-        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.LoadPantryIngredientsFailed, NotificationType.Error);
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.LoadProductErrorMessage, NotificationType.Error);
 
         dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
-    public async Task HandleAddOrUpdateUserPantryIngredientSuccessAction(AddOrUpdateUserPantryIngredientSuccessAction action, IDispatcher dispatcher)
+    public async Task HandleAddItemFailureAction(AddItemFailureAction<IProductModel> action, IDispatcher dispatcher)
     {
 
-        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.SavePantryIngredientSuccess, NotificationType.Success);
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddProductErrorMessage, NotificationType.Error);
 
         dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
-    public async Task HandleAddOrUpdateUserPantryIngredientFailureAction(AddOrUpdateUserPantryIngredientFailureAction action, IDispatcher dispatcher)
+    public async Task HandleAddItemSuccessAction(AddItemSuccessAction<IProductModel> action, IDispatcher dispatcher)
     {
 
-        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.SavePantryIngredientFailed, NotificationType.Error);
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddProductSuccessMessage, NotificationType.Success);
 
         dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
-    public async Task HandleDeleteUserPantryIngredientSuccessAction(DeleteUserPantryIngredientSuccessAction action, IDispatcher dispatcher)
+    public async Task HandleDeleteItemFailureAction(DeleteItemFailureAction<IProductModel> action, IDispatcher dispatcher)
     {
 
-        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeletePantryIngredientSuccess, NotificationType.Success);
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeleteProductErrorMessage, NotificationType.Error);
 
         dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
-    public async Task HandleDeleteUserPantryIngredientFailureAction(DeleteUserPantryIngredientFailureAction action, IDispatcher dispatcher)
+    public async Task HandleDeleteItemSuccessAction(DeleteItemSuccessAction<IProductModel> action, IDispatcher dispatcher)
     {
 
-        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeletePantryIngredientFailed, NotificationType.Success);
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeleteProductSuccessMessage, NotificationType.Success);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
+
+    [EffectMethod]
+    public async Task HandleUpdateItemFailureAction(UpdateItemFailureAction<IProductModel> action, IDispatcher dispatcher)
+    {
+
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.UpdateProductErrorMessage, NotificationType.Error);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
+
+    [EffectMethod]
+    public async Task HandleUpdateItemSuccessAction(UpdateItemSuccessAction<IProductModel> action, IDispatcher dispatcher)
+    {
+
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.UpdateProductSuccessMessage, NotificationType.Success);
 
         dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 

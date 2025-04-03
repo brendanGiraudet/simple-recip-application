@@ -8,7 +8,7 @@ services:
       args:
         - configuration=release
 
-    image: simple_recip_application:1.12.13
+    image: simple_recip_application:1.12.14
 
     container_name: simple_recip_application
 
@@ -22,7 +22,7 @@ services:
       
       ConnectionStrings__DefaultConnection: "Data Source=/app/Data/recipes.db"
       
-      ApplicationVersion : "1.12.13"
+      ApplicationVersion : "1.12.14"
       
       FeatureManagement__RecipeFeature: true
       FeatureManagement__IngredientFeature: true
@@ -33,6 +33,7 @@ services:
       FeatureManagement__RecipePlanningFeature: false
       FeatureManagement__PlanifiedRecipesAutomaticaly: false
       FeatureManagement__PantryIngredientManagement: false
+      FeatureManagement__ProductManagementFeature: false
       
       FileSettings__MaxAllowedSize: 1012000000
 

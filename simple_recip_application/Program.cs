@@ -25,13 +25,13 @@ builder.Services.AddSettings(builder.Configuration);
 builder.Services.AddSharedServices();
 
 // Ajout des DI des features
-builder.Services.AddDIForImportationFeature();
-builder.Services.AddDIForIngredientFeature();
-builder.Services.AddDIForNotificationFeature();
-builder.Services.AddDIForRecipePlannigFeature();
-builder.Services.AddDIForRecipesFeature();
-builder.Services.AddDIForUserinfosFeature();
-builder.Services.AddDIForPantryIngredientManagementFeature();
+builder.Services.AddImportationFeatureDependencies();
+builder.Services.AddIngredientFeatureDependencies();
+builder.Services.AddNotificationFeatureDependencies();
+builder.Services.AddRecipePlanningFeatureDependencies();
+builder.Services.AddRecipesFeatureDependencies();
+builder.Services.AddUserFeatureDependencies();
+builder.Services.AddProductFeatureDependencies();
 
 // Ajout des httclient
 builder.Services.AddHttpClients(builder.Configuration);

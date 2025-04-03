@@ -1,0 +1,36 @@
+@page "/products"
+@using simple_recip_application.Resources;
+
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent;
+
+@rendermode InteractiveServer
+@attribute [StreamRendering]
+@attribute [Authorize(Policy = FeatureFlagsConstants.ProductManagementFeature)]
+
+<SearchBar OnSearch="@OnSearchTermChanged" />
+
+<div class="grid page-grid @GetProductsVisibilityCssClass()">
+
+    @if (ProductState.Value.Items.Count() == 0)
+    {
+        <p class="no-ingredients-message">@LabelsTranslator.NoProductsFound</p>
+    }
+
+    @foreach (var product in ProductState.Value.Items)
+    {
+        <Card TContent="IProductModel" Item="product" ImageSource="@product.Image.GetImageSource()"
+            Title="@product.Name" OnClick="OpenProductFormModalAsync" OnSelect="HandleSelection"
+            EnableSelection="true" IsSelected="@(ProductState.Value.SelectedItems.Contains(product))" />
+    }
+</div>
+
+<PaginationButtons CanPreviousClick="@CanPreviousClick()" OnPrevious="@OnPrevious" OnNext="@OnNext" />
+
+<Loader IsVisible="@ProductState.Value.IsLoading" />
+
+<Modal OnClose="CloseProductModal" IsVisible="ProductState.Value.ProductModalVisibility">
+
+    <ProductForm Product="_selectedProduct" OnCancel="CloseProductModal" />
+</Modal>
+
+<OptionsMenu Options="GetOptions()" />

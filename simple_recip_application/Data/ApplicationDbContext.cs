@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
-using simple_recip_application.Features.PantryIngredientManagement.Persistence.Entities;
+using simple_recip_application.Features.ProductsManagement.Persistence.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.Persistence.Entities;
 using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 
@@ -17,13 +17,30 @@ public class ApplicationDbContext : DbContext
     public DbSet<RecipeIngredientModel> RecipeIngredients => Set<RecipeIngredientModel>();
     public DbSet<RecipeModel> Recipes => Set<RecipeModel>();
     public DbSet<PlanifiedRecipeModel> PlanifiedRecipes => Set<PlanifiedRecipeModel>();
-    public DbSet<UserPantryIngredientModel> UserPantryIngredients => Set<UserPantryIngredientModel>();
+    public DbSet<ProductModel> Products => Set<ProductModel>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<IngredientModel>(entity =>
+        {
+            entity.HasKey(i => i.Id);
+
+            entity.Property(i => i.Name).IsRequired().HasMaxLength(255);
+
+            entity.Property(i => i.Image).HasColumnType("BLOB").IsRequired();
+
+            entity.Property(r => r.MeasureUnit).IsRequired().HasMaxLength(50);
+
+            entity.Property(i => i.CreationDate).IsRequired();
+
+            entity.Property(i => i.ModificationDate);
+
+            entity.Property(i => i.RemoveDate);
+        });
+
+        modelBuilder.Entity<ProductModel>(entity =>
         {
             entity.HasKey(i => i.Id);
 
@@ -101,21 +118,6 @@ public class ApplicationDbContext : DbContext
             entity.Property(r => r.UserId).IsRequired();
 
             entity.Property(r => r.MomentOftheDay);
-        });
-        
-        modelBuilder.Entity<UserPantryIngredientModel>(entity =>
-        {
-            entity.HasKey(r => new { r.UserId, r.IngredientId });
-
-            entity.HasOne(r => r.Ingredient)
-                  .WithMany()
-                  .HasForeignKey(r => r.IngredientId);
-
-            entity.Ignore(r => r.IngredientModel);
-
-            entity.Property(r => r.UserId).IsRequired();
-
-            entity.Property(r => r.Quantity).IsRequired();
         });
     }
 }

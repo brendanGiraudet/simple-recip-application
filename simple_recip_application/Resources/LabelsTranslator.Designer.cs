@@ -59,4 +59,9 @@ public class LabelsTranslator
     public static string MomentOfTheDay => resourceManager.GetString("MomentOfTheDay", CultureInfo.CurrentCulture) ?? "MomentOfTheDay";
     public static string PlanifiedRecipesAutomaticaly => resourceManager.GetString("PlanifiedRecipesAutomaticaly", CultureInfo.CurrentCulture) ?? "PlanifiedRecipesAutomaticaly";
     public static string Pantry => resourceManager.GetString("Pantry", CultureInfo.CurrentCulture) ?? "Pantry";
+    public static string AddProduct => resourceManager.GetString("AddProduct", CultureInfo.CurrentCulture) ?? "AddProduct";
+    public static string NoProductsFound => resourceManager.GetString("NoProductsFound", CultureInfo.CurrentCulture) ?? "NoProductsFound";
+    public static string Products => resourceManager.GetString("Products", CultureInfo.CurrentCulture) ?? "Products";
+    public static string EditProduct => resourceManager.GetString("EditProduct", CultureInfo.CurrentCulture) ?? "EditProduct";
+    public static string ProductName => resourceManager.GetString("ProductName", CultureInfo.CurrentCulture) ?? "ProductName";
 }
