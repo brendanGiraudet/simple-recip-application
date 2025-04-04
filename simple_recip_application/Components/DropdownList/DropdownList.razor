@@ -1,0 +1,27 @@
+﻿@typeparam TItem
+
+<div class="dropdownlist-container">
+	<SearchBar OnSearch="@OnSearchTermChanged" 
+			   OnFocus="@(() => _ddlVisibility = true)"
+			   OnBlur="@(() => HideDropdownlist())" />
+
+	<ul class="dropdown-list @DdlVisibilityCssClass" 
+		@onmouseenter="OnMouseEnterDropdown"
+		@onmouseleave="OnMouseLeaveDropdown">
+
+        @if (Items.Count() == 0)
+        {
+            <li class="dropdown-item" @onclick="@(() => _ddlVisibility = false)">
+                @LabelsTranslator.NoItems
+            </li>
+        }
+
+        @foreach (var item in Items)
+        {
+            <li @onclick="() => HandleOnClick(item)" class="dropdown-item">
+                @GetOptionText(item)
+            </li>
+        }
+
+	</ul>
+</div>

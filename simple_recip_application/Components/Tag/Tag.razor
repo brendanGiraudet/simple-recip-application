@@ -1,0 +1,10 @@
+﻿<div class="tag-container">
+
+    <div class="tag-content">
+        @ChildContent
+    </div>
+
+    @* Remove *@
+    <span class="remove-tag" @onclick="(async () => await HandleRemoveClickAsync())">x</span>
+
+</div>

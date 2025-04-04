@@ -7,27 +7,11 @@
             title="@LabelsTranslator.AddIngredient"><span class="material-symbols-outlined">@MaterialIconsConstants.Add</span></button>
 
         <div class="ingredient-selector-search-bar">
-            <SearchBar OnSearch="@SearchIngredients" OnFocus="@(() => _ddlVisibility = true)"
-                OnBlur="@(() => HideDropdownlist())" />
-            <ValidationMessage For="@(() => RecipeState.Value.Item.IngredientModels)" />
-
-            <ul class="dropdown-list @DdlVisibilityCssClass" @onmouseenter="OnMouseEnterDropdown"
-                @onmouseleave="OnMouseLeaveDropdown">
-
-                @if (RecipeState.Value.FilteredIngredients.Count() == 0)
-                {
-                    <li class="dropdown-item" @onclick="@(() => _ddlVisibility = false)">
-                        @LabelsTranslator.NoIngredientsFound
-                    </li>
-                }
-
-                @foreach (var ingredient in RecipeState.Value.FilteredIngredients)
-                {
-                    <li @onclick="() => AddIngredient(ingredient)" class="dropdown-item">
-                        @ingredient.Name
-                    </li>
-                }
-            </ul>
+            <DropdownList OnSearch="@SearchIngredients"
+                          Items="RecipeState.Value.FilteredIngredients"
+                          TItem="@(IIngredientModel)"
+                          OnClick="@((ingredient) => AddIngredient(ingredient))"
+                          PropertyNameToDisplay="@(nameof(IIngredientModel.Name))"/>
         </div>
     </div>
     <!-- Tags (Selected Ingredients with Quantity) -->
@@ -39,29 +23,24 @@
 
         @foreach (var ingredient in RecipeIngredients)
         {
-            <div class="tag-item">
+            <Tag OnRemoveClick="@(() => RemoveIngredient(ingredient))">
                 @* Name *@
                 <span class="badge badge-primary">@ingredient.IngredientModel?.Name</span>
 
                 @* Quantity *@
                 <div>
                     <InputNumber @bind-Value="ingredient.Quantity" placeholder="@LabelsTranslator.Quantity" min="0.5"
-                        step="0.5" />
+                                 step="0.5" />
                     <ValidationMessage For="@(() => ingredient.Quantity)" />
                 </div>
 
                 @* MeasureUnit *@
                 <span>@ingredient.IngredientModel?.MeasureUnit</span>
-
-                @* Remove *@
-                <span class="remove-tag" @onclick="(() => RemoveIngredient(ingredient))">x</span>
-            </div>
+            </Tag>
         }
     </div>
 </div>
 
-
 <Modal OnClose="CloseIngredientModal" IsVisible="IngredientState.Value.IngredientModalVisibility">
-
     <IngredientForm Ingredient="_selectedIngredient" OnCancel="CloseIngredientModal" />
 </Modal>

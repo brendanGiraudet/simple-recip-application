@@ -50,8 +50,6 @@ public partial class RecipeIngredientSelector
             Dispatcher.Dispatch(new SetItemAction<IRecipeModel>(RecipeState.Value.Item));
         }
 
-        _ddlVisibility = false;
-
         await Task.CompletedTask;
     }
 
@@ -63,10 +61,6 @@ public partial class RecipeIngredientSelector
 
         Dispatcher.Dispatch(new SetItemAction<IRecipeModel>(RecipeState.Value.Item));
     }
-
-    private bool _ddlVisibility = false;
-
-    private string DdlVisibilityCssClass => _ddlVisibility ? "visible" : "hidden";
 
     protected override async Task OnInitializedAsync()
     {
@@ -100,20 +94,5 @@ public partial class RecipeIngredientSelector
         Dispatcher.Dispatch(new SetIngredientModalVisibilityAction(true));
 
         await Task.CompletedTask;
-    }
-
-    private bool _isMouseOverDropdown = false;
-    private void OnMouseEnterDropdown() => _isMouseOverDropdown = true;
-
-    private void OnMouseLeaveDropdown() => _isMouseOverDropdown = false;
-
-    private async Task HideDropdownlist()
-    {
-        await Task.Delay(150);
-
-        if (!_isMouseOverDropdown)
-            _ddlVisibility = false;
-
-        StateHasChanged();
     }
 }

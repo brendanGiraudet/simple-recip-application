@@ -273,4 +273,7 @@
   <data name="ProductName" xml:space="preserve">
     <value>Product name</value>
   </data>
+  <data name="NoItems" xml:space="preserve">
+    <value>No items</value>
+  </data>
 </root>

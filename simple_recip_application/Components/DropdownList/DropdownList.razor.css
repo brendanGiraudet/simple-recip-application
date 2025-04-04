@@ -1,0 +1,26 @@
+﻿.dropdownlist-container {
+}
+.dropdown-list {
+    position: absolute;
+    background-color: var(--secondary-color);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--accent-color-2);
+}
+
+.dropdown-item {
+    padding: 8px;
+    cursor: pointer;
+    width: var(--input-width);
+    padding: .5rem;
+}
+
+    .dropdown-item:hover {
+        color: var(--secondary-color);
+        background-color: var(--accent-color-2);
+    }
