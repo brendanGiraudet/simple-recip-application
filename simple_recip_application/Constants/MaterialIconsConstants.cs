@@ -13,6 +13,6 @@ public static class MaterialIconsConstants
     public const string IngredientsPage = "grocery";
     public const string ImportationPage = "upload_file";
     public const string RecipePlannigPage = "calendar_month";
-    public const string PantryIngredients = "inventory";
     public const string Products = "household_supplies";
+    public const string UserPantry = "inventory";
 }

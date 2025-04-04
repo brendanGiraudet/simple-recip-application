@@ -1,5 +1,10 @@
 ﻿.dropdownlist-container {
 }
+
+    .dropdownlist-container ::deep .searchbar-container {
+        margin: 0;
+    }
+
 .dropdown-list {
     position: absolute;
     background-color: var(--secondary-color);
@@ -11,12 +16,12 @@
     margin: 0;
     border-radius: var(--border-radius);
     border: 2px solid var(--accent-color-2);
+    width: var(--input-width);
 }
 
 .dropdown-item {
     padding: 8px;
     cursor: pointer;
-    width: var(--input-width);
     padding: .5rem;
 }
 

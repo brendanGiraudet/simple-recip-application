@@ -11,18 +11,12 @@ public partial class DropdownList<TItem>
 
     private void OnSearchTermChanged(string searchTerm)
     {
-        if (OnSearch.HasDelegate)
-        {
-            InvokeAsync(() => OnSearch.InvokeAsync(searchTerm));
-        }
+        if (OnSearch.HasDelegate) OnSearch.InvokeAsync(searchTerm);
     }
 
     private void HandleOnClick(TItem item)
     {
-        if (OnClick.HasDelegate)
-        {
-            InvokeAsync(() => OnClick.InvokeAsync(item));
-        }
+        if (OnClick.HasDelegate) OnClick.InvokeAsync(item);
 
         _ddlVisibility = false;
     }

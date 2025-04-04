@@ -28,4 +28,8 @@
     <PackageReference Include="Polly" Version="8.5.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\UserPantryManagement\UserInterfaces\Components\" />
+  </ItemGroup>
+
 </Project>

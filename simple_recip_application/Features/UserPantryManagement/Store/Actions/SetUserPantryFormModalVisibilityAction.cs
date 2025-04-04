@@ -1,0 +1,3 @@
+﻿namespace simple_recip_application.Features.UserPantryManagement.Store.Actions;
+
+public record SetUserPantryFormModalVisibilityAction(bool IsVisible);

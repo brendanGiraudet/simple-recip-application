@@ -1,0 +1,7 @@
+﻿using simple_recip_application.Features.UserPantryManagement.ApplicationCore.Entities;
+
+namespace simple_recip_application.Features.UserPantryManagement.Store.Actions;
+
+public record AddOrUpdateUserPantryItemAction(IUserPantryItemModel Item);
+public record AddOrUpdateUserPantryItemSuccessAction(IUserPantryItemModel Item);
+public record AddOrUpdateUserPantryItemFailureAction();

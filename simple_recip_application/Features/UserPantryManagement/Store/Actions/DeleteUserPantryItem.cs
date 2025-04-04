@@ -1,0 +1,7 @@
+﻿using simple_recip_application.Features.UserPantryManagement.ApplicationCore.Entities;
+
+namespace simple_recip_application.Features.UserPantryManagement.Store.Actions;
+
+public record DeleteUserPantryItemAction(IUserPantryItemModel Item);
+public record DeleteUserPantryItemSuccessAction(IUserPantryItemModel Item);
+public record DeleteUserPantryItemFailureAction();

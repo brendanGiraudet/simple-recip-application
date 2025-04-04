@@ -21,4 +21,7 @@ public static class PageUrlsConstants
 
     // Products
     public const string Products = "/products";
+    
+    // User Pantry
+    public const string UserPantry = "/user-pantry";
 }

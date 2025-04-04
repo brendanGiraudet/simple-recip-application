@@ -3,8 +3,10 @@
     justify-content: center;
     align-items: center;
     margin: 20px 0;
+    width: var(--input-width);
 }
 
-.searchbar-container>input {
-    border-radius: 6.25rem;
-}
+    .searchbar-container > input {
+        border-radius: 6.25rem;
+        width: 100%;
+    }

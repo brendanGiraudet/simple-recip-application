@@ -32,6 +32,7 @@ builder.Services.AddRecipePlanningFeatureDependencies();
 builder.Services.AddRecipesFeatureDependencies();
 builder.Services.AddUserFeatureDependencies();
 builder.Services.AddProductFeatureDependencies();
+builder.Services.AddUserPantryFeatureDependencies();
 
 // Ajout des httclient
 builder.Services.AddHttpClients(builder.Configuration);

@@ -8,6 +8,7 @@ using simple_recip_application.Features.ProductsManagement.ApplicationCore.Entit
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
+using simple_recip_application.Features.UserPantryManagement.Store.Actions;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 
@@ -348,6 +349,18 @@ public class NotificationEffects
     {
 
         var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.UpdateProductSuccessMessage, NotificationType.Success);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
+    #endregion
+
+    #region UserPantry
+    [EffectMethod]
+    public async Task HandleSearchProductsFailureAction(SearchProductsFailureAction action, IDispatcher dispatcher)
+    {
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.LoadProductErrorMessage, NotificationType.Error);
 
         dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 

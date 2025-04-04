@@ -32,8 +32,8 @@ services:
       FeatureManagement__IngredientManagementFeature: false
       FeatureManagement__RecipePlanningFeature: false
       FeatureManagement__PlanifiedRecipesAutomaticaly: false
-      FeatureManagement__PantryIngredientManagement: false
       FeatureManagement__ProductManagementFeature: false
+      FeatureManagement__UserPantryManagement: false
       
       FileSettings__MaxAllowedSize: 1012000000
 
