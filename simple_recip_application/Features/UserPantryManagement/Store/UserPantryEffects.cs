@@ -2,8 +2,8 @@
 using Fluxor;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Repositories;
-using simple_recip_application.Features.ProductsManagement.ApplicationCore.Entities;
-using simple_recip_application.Features.ProductsManagement.ApplicationCore.Repositories;
+using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.UserPantryManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.UserPantryManagement.Store.Actions;
 
@@ -13,7 +13,7 @@ public class UserPantryEffects
 (
     IUserPantryItemRepository _userPantryItemRepository,
     IIngredientRepository _ingredientRepository,
-    IProductRepository _productRepository,
+    IHouseholdProductRepository _productRepository,
     IState<UserPantryState> _userPantryState
 )
 {
@@ -74,7 +74,7 @@ public class UserPantryEffects
             return;
         }
 
-        Expression<Func<IProductModel, bool>>? productPredicate = null;
+        Expression<Func<IHouseholdProductModel, bool>>? productPredicate = null;
 
         if (!string.IsNullOrWhiteSpace(action.SearchTerm))
             productPredicate = c => string.Equals(c.Name.ToLower(), action.SearchTerm.ToLower());
@@ -87,7 +87,7 @@ public class UserPantryEffects
             return;
         }
 
-        var products = productsResult.Item
+        var products = productsResult.Item.Cast<IProductModel>()
             .Concat(ingredientsResult.Item)
             .OrderBy(c => c.Name)
             .Take(take)

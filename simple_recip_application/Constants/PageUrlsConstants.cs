@@ -19,8 +19,8 @@ public static class PageUrlsConstants
     // Authentication
     public const string Authentication = "/authentication/login";
 
-    // Products
-    public const string Products = "/products";
+    // HouseholdProducts
+    public const string HouseholdProducts = "/household-products";
     
     // User Pantry
     public const string UserPantry = "/user-pantry";

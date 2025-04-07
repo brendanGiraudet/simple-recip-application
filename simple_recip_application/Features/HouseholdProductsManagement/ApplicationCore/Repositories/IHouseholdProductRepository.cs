@@ -1,0 +1,9 @@
+using simple_recip_application.Data.ApplicationCore.Repositories;
+using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
+
+namespace simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Repositories;
+
+public interface IHouseholdProductRepository : IRepository<IHouseholdProductModel>
+{
+
+}

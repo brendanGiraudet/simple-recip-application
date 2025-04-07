@@ -4,7 +4,7 @@ using simple_recip_application.Features.IngredientsManagement.ApplicationCore.En
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
-using simple_recip_application.Features.ProductsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
@@ -279,7 +279,7 @@ public class NotificationEffects
 
     #region Products
     [EffectMethod]
-    public async Task HandleLoadItemsFailureAction(LoadItemsFailureAction<IProductModel> action, IDispatcher dispatcher)
+    public async Task HandleLoadItemsFailureAction(LoadItemsFailureAction<IHouseholdProductModel> action, IDispatcher dispatcher)
     {
 
         var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.LoadProductErrorMessage, NotificationType.Error);
@@ -290,7 +290,7 @@ public class NotificationEffects
     }
 
     [EffectMethod]
-    public async Task HandleAddItemFailureAction(AddItemFailureAction<IProductModel> action, IDispatcher dispatcher)
+    public async Task HandleAddItemFailureAction(AddItemFailureAction<IHouseholdProductModel> action, IDispatcher dispatcher)
     {
 
         var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddProductErrorMessage, NotificationType.Error);
@@ -301,7 +301,7 @@ public class NotificationEffects
     }
 
     [EffectMethod]
-    public async Task HandleAddItemSuccessAction(AddItemSuccessAction<IProductModel> action, IDispatcher dispatcher)
+    public async Task HandleAddItemSuccessAction(AddItemSuccessAction<IHouseholdProductModel> action, IDispatcher dispatcher)
     {
 
         var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddProductSuccessMessage, NotificationType.Success);
@@ -312,7 +312,7 @@ public class NotificationEffects
     }
 
     [EffectMethod]
-    public async Task HandleDeleteItemFailureAction(DeleteItemFailureAction<IProductModel> action, IDispatcher dispatcher)
+    public async Task HandleDeleteItemFailureAction(DeleteItemFailureAction<IHouseholdProductModel> action, IDispatcher dispatcher)
     {
 
         var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeleteProductErrorMessage, NotificationType.Error);
@@ -323,7 +323,7 @@ public class NotificationEffects
     }
 
     [EffectMethod]
-    public async Task HandleDeleteItemSuccessAction(DeleteItemSuccessAction<IProductModel> action, IDispatcher dispatcher)
+    public async Task HandleDeleteItemSuccessAction(DeleteItemSuccessAction<IHouseholdProductModel> action, IDispatcher dispatcher)
     {
 
         var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeleteProductSuccessMessage, NotificationType.Success);
@@ -334,7 +334,7 @@ public class NotificationEffects
     }
 
     [EffectMethod]
-    public async Task HandleUpdateItemFailureAction(UpdateItemFailureAction<IProductModel> action, IDispatcher dispatcher)
+    public async Task HandleUpdateItemFailureAction(UpdateItemFailureAction<IHouseholdProductModel> action, IDispatcher dispatcher)
     {
 
         var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.UpdateProductErrorMessage, NotificationType.Error);
@@ -345,7 +345,7 @@ public class NotificationEffects
     }
 
     [EffectMethod]
-    public async Task HandleUpdateItemSuccessAction(UpdateItemSuccessAction<IProductModel> action, IDispatcher dispatcher)
+    public async Task HandleUpdateItemSuccessAction(UpdateItemSuccessAction<IHouseholdProductModel> action, IDispatcher dispatcher)
     {
 
         var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.UpdateProductSuccessMessage, NotificationType.Success);

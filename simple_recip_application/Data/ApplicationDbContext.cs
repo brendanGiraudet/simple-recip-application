@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
-using simple_recip_application.Features.ProductsManagement.Persistence.Entities;
+using simple_recip_application.Features.HouseholdProductsManagement.Persistence.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.Persistence.Entities;
 using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 
@@ -17,7 +17,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<RecipeIngredientModel> RecipeIngredients => Set<RecipeIngredientModel>();
     public DbSet<RecipeModel> Recipes => Set<RecipeModel>();
     public DbSet<PlanifiedRecipeModel> PlanifiedRecipes => Set<PlanifiedRecipeModel>();
-    public DbSet<ProductModel> Products => Set<ProductModel>();
+    public DbSet<HouseholdProductModel> HouseholdProducts => Set<HouseholdProductModel>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -40,7 +40,7 @@ public class ApplicationDbContext : DbContext
             entity.Property(i => i.RemoveDate);
         });
 
-        modelBuilder.Entity<ProductModel>(entity =>
+        modelBuilder.Entity<HouseholdProductModel>(entity =>
         {
             entity.HasKey(i => i.Id);
 

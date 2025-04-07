@@ -32,7 +32,6 @@ public class UserPantryItemRepository(ApplicationDbContext _dbContext)
         try
         {
             var item = await _dbContext.Set<UserPantryItemModel>()
-            .Include(pi => pi.Product)
             .FirstOrDefaultAsync(pi => pi.UserId == userId && pi.ProductId == productId);
 
             return new MethodResult<IUserPantryItemModel?>(true, item);

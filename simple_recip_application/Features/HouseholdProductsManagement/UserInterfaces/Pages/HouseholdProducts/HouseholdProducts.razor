@@ -1,0 +1,38 @@
+@page "/household-products"
+@using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities
+@using simple_recip_application.Features.HouseholdProductsManagement.UserInterfaces.Components.HouseholdProductForm
+@using simple_recip_application.Resources;
+
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent;
+
+@rendermode InteractiveServer
+@attribute [StreamRendering]
+@attribute [Authorize(Policy = FeatureFlagsConstants.ProductManagementFeature)]
+
+<SearchBar OnSearch="@OnSearchTermChanged" />
+
+<div class="grid page-grid @GetProductsVisibilityCssClass()">
+
+	@if (HouseholdProductState.Value.Items.Count() == 0)
+	{
+		<p class="no-ingredients-message">@LabelsTranslator.NoProductsFound</p>
+	}
+
+	@foreach (var product in HouseholdProductState.Value.Items)
+	{
+		<Card TContent="IProductModel" Item="product" ImageSource="@product.Image.GetImageSource()"
+			  Title="@product.Name" OnClick="@(() => OpenProductFormModalAsync(product))" OnSelect="@(() => HandleSelection(product))"
+			  EnableSelection="true" IsSelected="@(HouseholdProductState.Value.SelectedItems.Contains(product))" />
+	}
+</div>
+
+<PaginationButtons CanPreviousClick="@CanPreviousClick()" OnPrevious="@OnPrevious" OnNext="@OnNext" />
+
+<Loader IsVisible="@HouseholdProductState.Value.IsLoading" />
+
+<Modal OnClose="CloseProductModal" IsVisible="HouseholdProductState.Value.HouseholdProductModalVisibility">
+
+	<HouseholdProductForm Product="_selectedProduct" OnCancel="CloseProductModal" />
+</Modal>
+
+<OptionsMenu Options="GetOptions()" />

@@ -1,4 +1,5 @@
 ﻿@page "/user-pantry"
+@using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities
 @using simple_recip_application.Resources
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
@@ -13,7 +14,7 @@
 						  Items="UserPantryState.Value.FilteredProducts"
 						  TItem="@(IProductModel)"
 						  OnClick="@((product) => AddUserPantryItemModel(product))"
-						  PropertyNameToDisplay="@(nameof(IProductModel.Name))" />
+						  PropertyNameToDisplay="@(nameof(IHouseholdProductModel.Name))" />
 		</div>
 	</div>
 	<!-- Tags (Selected Ingredients with Quantity) -->

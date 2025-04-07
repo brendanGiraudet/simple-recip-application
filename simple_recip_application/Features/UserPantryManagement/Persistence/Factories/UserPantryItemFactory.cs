@@ -1,4 +1,4 @@
-﻿using simple_recip_application.Features.ProductsManagement.ApplicationCore.Entities;
+﻿using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.UserPantryManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.UserPantryManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.UserPantryManagement.Persistence.Entities;

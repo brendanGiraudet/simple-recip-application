@@ -1,12 +1,12 @@
-using System.ComponentModel.DataAnnotations;
 using simple_recip_application.Data.ApplicationCore.ValidationAttributes;
-using simple_recip_application.Data.Persistence.Entities;
-using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
+using System.ComponentModel.DataAnnotations;
+using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
 using simple_recip_application.Resources;
+using simple_recip_application.Data.Persistence.Entities;
 
-namespace simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
+namespace simple_recip_application.Features.HouseholdProductsManagement.Persistence.Entities;
 
-public class IngredientModel : EntityBase, IIngredientModel
+public class HouseholdProductModel : EntityBase, IHouseholdProductModel
 {
     [Required(ErrorMessageResourceName = nameof(MessagesTranslator.NameRequired), ErrorMessageResourceType = typeof(MessagesTranslator))]
     [MaxLength(255)]

@@ -1,2 +1,0 @@
-namespace simple_recip_application.Features.ProductsManagement.Store.Actions;
-public record class SetProductModalVisibilityAction(bool IsVisible);

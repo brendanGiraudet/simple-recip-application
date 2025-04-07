@@ -1,9 +1,9 @@
 ﻿using Fluxor;
 using Microsoft.AspNetCore.Components;
 using simple_recip_application.Features.IngredientsManagement.Store;
-using simple_recip_application.Features.ProductsManagement.ApplicationCore.Entities;
-using simple_recip_application.Features.ProductsManagement.ApplicationCore.EqualityComparers;
-using simple_recip_application.Features.ProductsManagement.Store;
+using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.EqualityComparers;
+using simple_recip_application.Features.HouseholdProductsManagement.Store;
 using simple_recip_application.Features.UserInfos.Store;
 using simple_recip_application.Features.UserPantryManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.UserPantryManagement.ApplicationCore.Factories;
@@ -16,7 +16,7 @@ public partial class UserPantry
 {
     [Inject] public required IState<UserPantryState> UserPantryState { get; set; }
     [Inject] public required IState<IngredientState> IngredientState { get; set; }
-    [Inject] public required IState<ProductState> ProductState { get; set; }
+    [Inject] public required IState<HouseholdProductState> ProductState { get; set; }
     [Inject] public required IState<UserInfosState> UserInfosState { get; set; }
     [Inject] public required IDispatcher Dispatcher { get; set; }
     [Inject] public required IUserPantryItemFactory UserPantryItemFactory { get; set; }
