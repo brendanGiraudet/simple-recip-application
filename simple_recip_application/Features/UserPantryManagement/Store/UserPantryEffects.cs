@@ -65,7 +65,7 @@ public class UserPantryEffects
         Expression<Func<IIngredientModel, bool>>? ingredientPredicate = c => !alreadyExistedProductIds.Contains(c.Id);
 
         if(!string.IsNullOrWhiteSpace(action.SearchTerm))
-            ingredientPredicate = c => !alreadyExistedProductIds.Contains(c.Id) && string.Equals(c.Name.ToLower(), action.SearchTerm.ToLower());
+            ingredientPredicate = c => !alreadyExistedProductIds.Contains(c.Id) && c.Name.ToLower().Contains(action.SearchTerm.ToLower());
 
         var ingredientsResult = await _ingredientRepository.GetAsync(take, skip, ingredientPredicate);
 
@@ -79,7 +79,7 @@ public class UserPantryEffects
         Expression<Func<IHouseholdProductModel, bool>>? productPredicate = c => !alreadyExistedProductIds.Contains(c.Id);
 
         if (!string.IsNullOrWhiteSpace(action.SearchTerm))
-            productPredicate = c => !alreadyExistedProductIds.Contains(c.Id) && string.Equals(c.Name.ToLower(), action.SearchTerm.ToLower());
+            productPredicate = c => !alreadyExistedProductIds.Contains(c.Id) && c.Name.ToLower().Contains(action.SearchTerm.ToLower());
 
         var productsResult = await _productRepository.GetAsync(take, skip, productPredicate);
 
