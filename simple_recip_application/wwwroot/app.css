@@ -219,3 +219,17 @@ textarea {
 .page-grid {
     height: var(--grid-height);
 }
+/************/
+
+
+/**** Style des Tags ****/
+.tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    row-gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+/************/

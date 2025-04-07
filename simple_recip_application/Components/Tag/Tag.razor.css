@@ -10,9 +10,7 @@
     padding: .25rem 1rem;
 }
 
-    .tag-container ::deep input {
-        width: 3rem;
-    }
+
 
 .remove-tag {
     margin-left: 10px;
@@ -24,4 +22,9 @@
     align-items: center;
     justify-content: space-evenly;
     width: -webkit-fill-available;
+    gap: 0.5rem;
 }
+
+    .tag-content ::deep input {
+        width: 3rem;
+    }
