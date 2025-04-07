@@ -19,27 +19,34 @@
 	</div>
 	<!-- Tags (Selected Ingredients with Quantity) -->
 	<div class="tags">
-		@if (UserPantryState.Value.Items.Count() == 0)
-		{
-			<span class="badge badge-secondary">@LabelsTranslator.NoIngredientsFound</span>
-		}
+		<EditForm Model="new()">
+			@if (UserPantryState.Value.Items.Count() == 0)
+			{
+				<span class="badge badge-secondary">@LabelsTranslator.NoIngredientsFound</span>
+			}
 
-		@foreach (var userPantryItem in UserPantryState.Value.Items)
-		{
-			<Tag OnRemoveClick="@(() => RemoveUserPantryItemModel(userPantryItem))">
-				@* Name *@
-				<span class="badge badge-primary">@userPantryItem.ProductModel?.Name</span>
+			@foreach (var userPantryItem in UserPantryState.Value.Items)
+			{
+				<Tag OnRemoveClick="@(() => RemoveUserPantryItemModel(userPantryItem))">
+					@* Name *@
+					<span class="badge badge-primary">@userPantryItem.ProductModel?.Name</span>
 
-				@* Quantity *@
-				<div>
-					<InputNumber @bind-Value="userPantryItem.Quantity" placeholder="@LabelsTranslator.Quantity" min="0.5"
-								 step="0.5" />
-					<ValidationMessage For="@(() => userPantryItem.Quantity)" />
-				</div>
+					@* Quantity *@
+					<div>
+						<InputNumber Value="userPantryItem.Quantity"
+									 ValueChanged="@((quantity) => UpdateUserPantryItem(userPantryItem, quantity))"
+									 ValueExpression="@(() => userPantryItem.Quantity)"
+									 TValue="decimal"
+									 placeholder="@LabelsTranslator.Quantity" 
+									 min="0.5"
+									 step="0.5" />
+						<ValidationMessage For="@(() => userPantryItem.Quantity)" />
+					</div>
 
-				@* MeasureUnit *@
-				<span>@userPantryItem.ProductModel?.MeasureUnit</span>
-			</Tag>
-		}
+					@* MeasureUnit *@
+					<span>@userPantryItem.ProductModel?.MeasureUnit</span>
+				</Tag>
+			}
+		</EditForm>
 	</div>
 </div>

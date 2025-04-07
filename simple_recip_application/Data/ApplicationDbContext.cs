@@ -3,6 +3,7 @@ using simple_recip_application.Features.IngredientsManagement.Persistence.Entiti
 using simple_recip_application.Features.HouseholdProductsManagement.Persistence.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.Persistence.Entities;
 using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
+using simple_recip_application.Features.UserPantryManagement.Persistence.Entities;
 
 namespace simple_recip_application.Data;
 
@@ -18,11 +19,21 @@ public class ApplicationDbContext : DbContext
     public DbSet<RecipeModel> Recipes => Set<RecipeModel>();
     public DbSet<PlanifiedRecipeModel> PlanifiedRecipes => Set<PlanifiedRecipeModel>();
     public DbSet<HouseholdProductModel> HouseholdProducts => Set<HouseholdProductModel>();
+    public DbSet<UserPantryItemModel> UserPantryItems => Set<UserPantryItemModel>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<UserPantryItemModel>(entity =>
+        {
+            entity.HasKey(ri => new { ri.UserId, ri.ProductId });
+
+            entity.Property(i => i.Quantity).IsRequired();
+            
+            entity.Ignore(i => i.ProductModel);
+        });
+        
         modelBuilder.Entity<IngredientModel>(entity =>
         {
             entity.HasKey(i => i.Id);

@@ -147,6 +147,12 @@
   <data name="SavePantryIngredientSuccess" xml:space="preserve">
     <value>Save pantry ingredient success</value>
   </data>
+  <data name="SaveUserPantryErrorMessage" xml:space="preserve">
+    <value>Save user pantry error</value>
+  </data>
+  <data name="SaveUserPantrySuccess" xml:space="preserve">
+    <value>Save user pantry success</value>
+  </data>
   <data name="UpdateProductErrorMessage" xml:space="preserve">
     <value>Update product error</value>
   </data>

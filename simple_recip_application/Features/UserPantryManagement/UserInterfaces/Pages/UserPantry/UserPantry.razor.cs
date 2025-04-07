@@ -1,9 +1,7 @@
 ﻿using Fluxor;
 using Microsoft.AspNetCore.Components;
-using simple_recip_application.Features.IngredientsManagement.Store;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.EqualityComparers;
-using simple_recip_application.Features.HouseholdProductsManagement.Store;
 using simple_recip_application.Features.UserInfos.Store;
 using simple_recip_application.Features.UserPantryManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.UserPantryManagement.ApplicationCore.Factories;
@@ -15,8 +13,6 @@ namespace simple_recip_application.Features.UserPantryManagement.UserInterfaces.
 public partial class UserPantry
 {
     [Inject] public required IState<UserPantryState> UserPantryState { get; set; }
-    [Inject] public required IState<IngredientState> IngredientState { get; set; }
-    [Inject] public required IState<HouseholdProductState> ProductState { get; set; }
     [Inject] public required IState<UserInfosState> UserInfosState { get; set; }
     [Inject] public required IDispatcher Dispatcher { get; set; }
     [Inject] public required IUserPantryItemFactory UserPantryItemFactory { get; set; }
@@ -53,5 +49,20 @@ public partial class UserPantry
         {
             await SearchProducts();
         }
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (UserInfosState.Value.UserInfo is not null)
+            Dispatcher.Dispatch(new LoadUserPantryItemsAction(UserInfosState.Value.UserInfo?.Id));
+    }
+
+    private void UpdateUserPantryItem(IUserPantryItemModel userPantryItemModel, decimal quantity)
+    {
+        userPantryItemModel.Quantity = quantity;
+
+        Dispatcher.Dispatch(new AddOrUpdateUserPantryItemAction(userPantryItemModel));
     }
 }

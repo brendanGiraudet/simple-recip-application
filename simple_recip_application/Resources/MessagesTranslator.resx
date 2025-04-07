@@ -147,6 +147,12 @@
   <data name="SavePantryIngredientSuccess" xml:space="preserve">
     <value>L'ingredient du placard a bien été sauvegardé</value>
   </data>
+  <data name="SaveUserPantryErrorMessage" xml:space="preserve">
+    <value>Erreur lors de la sauvegarde du produit dans la placard</value>
+  </data>
+  <data name="SaveUserPantrySuccess" xml:space="preserve">
+    <value>Sauvegarde du produit dans le placard reussi</value>
+  </data>
   <data name="UpdateProductErrorMessage" xml:space="preserve">
     <value>Erreur lors de la mise à jour du produit</value>
   </data>

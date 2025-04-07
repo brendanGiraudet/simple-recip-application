@@ -13,7 +13,7 @@ public static class UserPantryReducer
 
     [ReducerMethod]
     public static UserPantryState OnLoadSuccess(UserPantryState state, LoadUserPantryItemsSuccessAction action)
-        => state with { Items = action.Items, IsLoading = false };
+        => state with { Items = action.Items.OrderBy(c => c.ProductModel?.Name), IsLoading = false };
 
     [ReducerMethod]
     public static UserPantryState OnLoadFailure(UserPantryState state, LoadUserPantryItemsFailureAction action)
@@ -27,7 +27,7 @@ public static class UserPantryReducer
 
     [ReducerMethod]
     public static UserPantryState OnSearchProductsSuccessAction(UserPantryState state, SearchProductsSuccessAction action)
-        => state with { FilteredProducts = action.ProductModels, IsLoading = false };
+        => state with { FilteredProducts = action.ProductModels.OrderBy(c => c.Name), IsLoading = false };
 
     [ReducerMethod]
     public static UserPantryState OnSearchProductsFailureAction(UserPantryState state, SearchProductsFailureAction action)
@@ -37,12 +37,12 @@ public static class UserPantryReducer
     #region AddOrUpdate
     [ReducerMethod]
     public static UserPantryState OnAddOrUpdateSuccess(UserPantryState state, AddOrUpdateUserPantryItemSuccessAction action)
-        => state with { Items = state.Items.Where(i => i.ProductId != action.Item.ProductId).Append(action.Item) };
+        => state with { Items = state.Items.Where(i => i.ProductId != action.Item.ProductId).Append(action.Item).OrderBy(c => c.ProductModel?.Name) };
     #endregion
 
     #region Delete
     [ReducerMethod]
     public static UserPantryState OnDeleteSuccess(UserPantryState state, DeleteUserPantryItemSuccessAction action)
-        => state with { Items = state.Items.Where(i => !new UserPantryItemEqualityComparer().Equals(i, action.Item)) };
+        => state with { Items = state.Items.Where(i => !new UserPantryItemEqualityComparer().Equals(i, action.Item)).OrderBy(c => c.ProductModel?.Name) };
     #endregion
 }

@@ -366,5 +366,25 @@ public class NotificationEffects
 
         await Task.CompletedTask;
     }
+    
+    [EffectMethod]
+    public async Task HandleAddOrUpdateUserPantryItemFailureAction(AddOrUpdateUserPantryItemFailureAction action, IDispatcher dispatcher)
+    {
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.SaveUserPantryErrorMessage, NotificationType.Error);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
+    
+    [EffectMethod]
+    public async Task HandleAddOrUpdateUserPantryItemSuccessAction(AddOrUpdateUserPantryItemSuccessAction action, IDispatcher dispatcher)
+    {
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.SaveUserPantrySuccess, NotificationType.Success);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
     #endregion
 }
