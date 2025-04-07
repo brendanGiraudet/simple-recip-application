@@ -9,4 +9,5 @@ namespace simple_recip_application.Features.UserPantryManagement.Store;
 public record UserPantryState : BaseState<IUserPantryItemModel>
 {
     public IEnumerable<IProductModel> FilteredProducts { get; set; } = [];
+    public bool IsLoadingFilteredProducts { get; set; } = false;
 }

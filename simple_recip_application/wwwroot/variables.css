@@ -4,22 +4,18 @@
     --secondary-color: #FFFFFF;
     --accent-color-1: #FF8C00;
     --accent-color-2: #8B4513;
-
     /* Couleurs d’état */
     --success-color: #4CAF50;
     --danger-color: #F44336;
     --info-color: #2196F3;
     --warning-color: goldenrod;
-
     /* Typographie */
     --font-primary: 'Arial', sans-serif;
-
     /* Mainlayout */
     --page-height: 93vh;
     --main-height: 85%;
     --header-height: 7vh;
     --header-padding: .5rem;
-
     /* Menu */
     --menu-bg-color: var(--accent-color-2);
     --menu-hover-bg: rgba(255, 255, 255, 0.1);
@@ -30,21 +26,17 @@
     --menu-width: 100%;
     --menu-height: 15%;
     --menu-item-height: 100%;
-
     /* Tailles */
     --icon-size: 1.25rem;
     --sidebar-width: 100%;
-
     /* CultureSelector*/
     --flag-width: 1.5rem;
     --flag-height: 1.5rem;
-
     /* Buttons */
     --button-bg-color: var(--accent-color-1);
     --button-text-color: var(--secondary-color);
     --button-box-shadow-background-color: var(var(--secondary-color));
     --button-box-shadow-border-color: var(var(--primary-color));
-
     /* Card */
     --card-width: 100%;
     --card-img-container-width: 10rem;
@@ -53,39 +45,34 @@
     --card-title-font-size: 1.2rem;
     --card-title-margin: .5rem 0;
     --card-actions-flex-direction: column;
-
     /* Options Menu */
     --option-menu-bottom: calc(var(--menu-height) + 1vh);
     --option-menu-font-size: 1rem;
     --option-menu-height: 4rem;
-
     --border-radius: 5px;
     --border-size: 2px;
-
     /* Grid */
     --grid-height: 60vh;
-
     /* Modal */
     --modal-content-max-width: 100%;
     --modal-content-max-height: 100%;
     --modal-body-max-width: 90vw;
     --modal-body-max-height: 90vh;
-
     /* Form */
     --form-body-max-height: 60vh;
-
     /* Input */
     --input-width: 76vw;
-
     /* Scrollbar */
     --scrollbar-width: 5px;
     --scrollbar-height: 5px;
     --scrollbar-color: var(--accent-color-2);
     --scrollbar-color-hover: var(--accent-color-1);
     --scrollbar-border-radius: 10px;
-
     /* Pagination buttons*/
     --pagination-buttons-container-gap: 2rem;
+    /* Loader */
+    --loader-color: var(--accent-color-1);
+    --loader-cursor-color: var(--accent-color-2);
 }
 
 /* iPads, Tablets */

@@ -11,10 +11,11 @@
 
 		<div class="userpantry-selector-search-bar">
 			<DropdownList OnSearch="@SearchProducts"
-						  Items="UserPantryState.Value.FilteredProducts"
+						  Items="@UserPantryState.Value.FilteredProducts"
 						  TItem="@(IProductModel)"
 						  OnClick="@((product) => AddUserPantryItemModel(product))"
-						  PropertyNameToDisplay="@(nameof(IHouseholdProductModel.Name))" />
+						  PropertyNameToDisplay="@(nameof(IHouseholdProductModel.Name))"
+						  IsLoading="@UserPantryState.Value.IsLoadingFilteredProducts" />
 		</div>
 	</div>
 	<!-- Tags (Selected Products with Quantity) -->

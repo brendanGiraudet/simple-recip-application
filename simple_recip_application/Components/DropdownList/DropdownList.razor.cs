@@ -8,6 +8,7 @@ public partial class DropdownList<TItem>
     [Parameter] public EventCallback<TItem> OnClick { get; set; }
     [Parameter] public required IEnumerable<TItem> Items { get; set; } = [];
     [Parameter] public required string PropertyNameToDisplay { get; set; }
+    [Parameter] public bool IsLoading { get; set; } = false;
 
     private void OnSearchTermChanged(string searchTerm)
     {

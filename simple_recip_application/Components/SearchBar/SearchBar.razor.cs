@@ -7,6 +7,7 @@ public partial class SearchBar : IDisposable
     [Parameter] public EventCallback<string> OnSearch { get; set; }
     [Parameter] public EventCallback<string> OnFocus { get; set; }
     [Parameter] public EventCallback<string> OnBlur { get; set; }
+    [Parameter] public bool IsLoading { get; set; } = false;
 
     private string SearchTerm { get; set; } = string.Empty;
     private Timer? _timer;

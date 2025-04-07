@@ -1,9 +1,11 @@
 <div class="searchbar-container">
-    <input type="text" 
-           @bind="SearchTerm" 
-           @oninput="OnSearchTermChanged" 
-           placeholder="@LabelsTranslator.Search"
-           class="form-control mb-3"
-           @onfocus="OnFocusHandler"
-           @onblur="OnBlurHandler" />
+	<input type="text"
+		   @bind="SearchTerm"
+		   @oninput="OnSearchTermChanged"
+		   placeholder="@LabelsTranslator.Search"
+		   class="form-control mb-3"
+		   @onfocus="OnFocusHandler"
+		   @onblur="OnBlurHandler" />
+	<Loader IsVisible="@IsLoading"
+			FillPage ="false"/>
 </div>

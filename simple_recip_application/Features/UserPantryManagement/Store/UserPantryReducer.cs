@@ -23,15 +23,15 @@ public static class UserPantryReducer
     #region SearchProducts
     [ReducerMethod]
     public static UserPantryState OnSearchProductsAction(UserPantryState state, SearchProductsAction action)
-        => state with { IsLoading = true };
+        => state with { IsLoadingFilteredProducts = true };
 
     [ReducerMethod]
     public static UserPantryState OnSearchProductsSuccessAction(UserPantryState state, SearchProductsSuccessAction action)
-        => state with { FilteredProducts = action.ProductModels.OrderBy(c => c.Name), IsLoading = false };
+        => state with { FilteredProducts = action.ProductModels.OrderBy(c => c.Name), IsLoadingFilteredProducts = false };
 
     [ReducerMethod]
     public static UserPantryState OnSearchProductsFailureAction(UserPantryState state, SearchProductsFailureAction action)
-        => state with { IsLoading = false };
+        => state with { IsLoadingFilteredProducts = false };
     #endregion
 
     #region AddOrUpdate
