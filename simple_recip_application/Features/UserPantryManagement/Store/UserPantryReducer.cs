@@ -37,12 +37,26 @@ public static class UserPantryReducer
     #region AddOrUpdate
     [ReducerMethod]
     public static UserPantryState OnAddOrUpdateSuccess(UserPantryState state, AddOrUpdateUserPantryItemSuccessAction action)
-        => state with { Items = state.Items.Where(i => i.ProductId != action.Item.ProductId).Append(action.Item).OrderBy(c => c.ProductModel?.Name) };
+        => state with { 
+            Items = state.Items
+                         .Where(i => i.ProductId != action.Item.ProductId)
+                         .Append(action.Item)
+                         .OrderBy(c => c.ProductModel?.Name), 
+            FilteredProducts = state.FilteredProducts
+                                    .Where(i => i.Id != action.Item.ProductId)
+                                    .OrderBy(c => c.Name) 
+        };
     #endregion
 
     #region Delete
     [ReducerMethod]
     public static UserPantryState OnDeleteSuccess(UserPantryState state, DeleteUserPantryItemSuccessAction action)
-        => state with { Items = state.Items.Where(i => !new UserPantryItemEqualityComparer().Equals(i, action.Item)).OrderBy(c => c.ProductModel?.Name) };
+        => state with { 
+            Items = state.Items
+                         .Where(i => !new UserPantryItemEqualityComparer().Equals(i, action.Item))
+                         .OrderBy(c => c.ProductModel?.Name),
+            FilteredProducts = state.FilteredProducts.Append(action.Item.ProductModel)
+                                                     .OrderBy(c => c.Name)
+        };
     #endregion
 }

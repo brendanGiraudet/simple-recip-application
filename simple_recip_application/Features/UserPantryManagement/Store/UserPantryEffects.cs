@@ -60,10 +60,12 @@ public class UserPantryEffects
         var take = _userPantryState.Value.Take;
         var skip = _userPantryState.Value.Skip;
 
-        Expression<Func<IIngredientModel, bool>>? ingredientPredicate =null;
+        IEnumerable<Guid?> alreadyExistedProductIds = _userPantryState.Value.Items.Select(c => (Guid?)c.ProductId);
+
+        Expression<Func<IIngredientModel, bool>>? ingredientPredicate = c => !alreadyExistedProductIds.Contains(c.Id);
 
         if(!string.IsNullOrWhiteSpace(action.SearchTerm))
-            ingredientPredicate = c => string.Equals(c.Name.ToLower(), action.SearchTerm.ToLower());
+            ingredientPredicate = c => !alreadyExistedProductIds.Contains(c.Id) && string.Equals(c.Name.ToLower(), action.SearchTerm.ToLower());
 
         var ingredientsResult = await _ingredientRepository.GetAsync(take, skip, ingredientPredicate);
 
@@ -74,10 +76,10 @@ public class UserPantryEffects
             return;
         }
 
-        Expression<Func<IHouseholdProductModel, bool>>? productPredicate = null;
+        Expression<Func<IHouseholdProductModel, bool>>? productPredicate = c => !alreadyExistedProductIds.Contains(c.Id);
 
         if (!string.IsNullOrWhiteSpace(action.SearchTerm))
-            productPredicate = c => string.Equals(c.Name.ToLower(), action.SearchTerm.ToLower());
+            productPredicate = c => !alreadyExistedProductIds.Contains(c.Id) && string.Equals(c.Name.ToLower(), action.SearchTerm.ToLower());
 
         var productsResult = await _productRepository.GetAsync(take, skip, productPredicate);
 
