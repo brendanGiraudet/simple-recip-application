@@ -164,6 +164,7 @@ form {
     .form-field input,
     .form-field textarea {
         width: var(--input-width);
+
     }
 
 /************/
@@ -174,14 +175,16 @@ textarea {
     padding: .5rem;
     border-radius: var(--border-radius);
     border: 2px solid var(--accent-color-2);
-    font-size: 1.25rem;
+    font-size: 1rem;
 }
 
-/************/
-
-/**** Style scrollbar ****/
-/* width */
-::-webkit-scrollbar {
+textarea {
+    height: 8rem;
+}
+    /************/
+    /**** Style scrollbar ****/
+    /* width */
+    :: -webkit-scrollbar {
     width: var(--scrollbar-width);
     height: var(--scrollbar-height);
 }

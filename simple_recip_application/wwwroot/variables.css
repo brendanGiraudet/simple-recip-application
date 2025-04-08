@@ -25,7 +25,7 @@
     --menu-font-size: 1rem;
     --menu-width: 100%;
     --menu-height: 15%;
-    --menu-item-height: 100%;
+    --menu-item-height: 5rem;
     --menu-item-width: -webkit-fill-available;
     /* Tailles */
     --icon-size: 1.25rem;
@@ -87,7 +87,7 @@
         /* Pagination buttons*/
         --pagination-buttons-container-gap: 10rem;
         /* Menu */
-        --menu-item-width: auto;
+        --menu-item-width: 8rem;
     }
 }
 
@@ -111,12 +111,10 @@
         /* Card */
         --card-width: 40vw;
         --card-title-font-size: 1.1rem;
-
         /* Input */
-        --input-width: 25vw;
-
+        --input-width: 30vw;
         /* Modal */
-        --modal-content-width: 70%;
+        --modal-content-max-width: 70%;
     }
 }
 
@@ -138,9 +136,8 @@
     :root {
         /* Card */
         --card-width: 25vw;
-
         /* Modal */
-        --modal-content-width: 60%;
+        --modal-content-max-width: 60%;
     }
 }
 
@@ -154,9 +151,8 @@
     :root {
         /* Card */
         --card-width: 20vw;
-
         /* Modal */
-        --modal-content-width: 55%;
+        --modal-content-max-width: 55%;
     }
 }
 

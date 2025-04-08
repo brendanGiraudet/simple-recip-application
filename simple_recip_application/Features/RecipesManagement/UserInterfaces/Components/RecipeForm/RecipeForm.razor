@@ -12,59 +12,59 @@
         @if (_isImportButtonVisible)
         {
             <div class="form-field">
-                <label>@LabelsTranslator.ImportLabel</label>
-                <InputFile OnChange="HandleImport" />
+                <label for="import">@LabelsTranslator.ImportLabel</label>
+                <InputFile id="import" OnChange="HandleImport" />
             </div>
         }
 
         <!-- Recipe Name -->
         <div class="form-field">
-            <label>@LabelsTranslator.RecipeName</label>
-            <InputText @bind-Value="Recipe.Name" class="form-control" />
+            <label for="@(nameof(IRecipeModel.Name))">@LabelsTranslator.RecipeName</label>
+            <InputText id="@(nameof(IRecipeModel.Name))" @bind-Value="Recipe.Name" class="form-control" />
             <ValidationMessage For="@(() => Recipe.Name)" />
         </div>
 
         <!-- Recipe Description -->
         <div class="form-field">
-            <label>@LabelsTranslator.RecipeDescription</label>
-            <InputText @bind-Value="Recipe.Description" class="form-control" />
+            <label for="@(nameof(IRecipeModel.Description))">@LabelsTranslator.RecipeDescription</label>
+            <InputText id="@(nameof(IRecipeModel.Description))" @bind-Value="Recipe.Description" class="form-control" />
             <ValidationMessage For="@(() => Recipe.Description)" />
         </div>
 
         <!-- Instructions -->
         <div class="form-field">
-            <label>@LabelsTranslator.RecipeInstructions</label>
-            <InputTextArea @bind-Value="Recipe.Instructions" class="form-control" />
+            <label for="@(nameof(IRecipeModel.Instructions))">@LabelsTranslator.RecipeInstructions</label>
+            <InputTextArea id="@(nameof(IRecipeModel.Instructions))" @bind-Value="Recipe.Instructions" class="form-control" />
             <ValidationMessage For="@(() => Recipe.Instructions)" />
         </div>
 
         <!-- Preparation Time -->
         <div class="form-field">
-            <label>@LabelsTranslator.RecipePreparationTime</label>
-            <InputDate Type="InputDateType.Time" TValue="TimeOnly" @bind-Value="Recipe.PreparationTime"
+            <label for="@(nameof(IRecipeModel.PreparationTime))">@LabelsTranslator.RecipePreparationTime</label>
+            <InputDate id="@(nameof(IRecipeModel.PreparationTime))" Type="InputDateType.Time" TValue="TimeOnly" @bind-Value="Recipe.PreparationTime"
                 class="form-control" />
             <ValidationMessage For="@(() => Recipe.PreparationTime)" />
         </div>
 
         <!-- Cooking Time -->
         <div class="form-field">
-            <label>@LabelsTranslator.RecipeCookingTime</label>
-            <InputDate Type="InputDateType.Time" TValue="TimeOnly" @bind-Value="Recipe.CookingTime"
+            <label for="@(nameof(IRecipeModel.CookingTime))">@LabelsTranslator.RecipeCookingTime</label>
+            <InputDate id="@(nameof(IRecipeModel.CookingTime))" Type="InputDateType.Time" TValue="TimeOnly" @bind-Value="Recipe.CookingTime"
                 class="form-control" />
             <ValidationMessage For="@(() => Recipe.CookingTime)" />
         </div>
 
         <!-- Recipe Image -->
         <div class="form-field">
-            <label>@LabelsTranslator.RecipeImageLabel</label>
-            <InputFile OnChange="HandleImageUpload" accept="image/*" />
+            <label for="@(nameof(IRecipeModel.Image))">@LabelsTranslator.RecipeImageLabel</label>
+            <InputFile id="@(nameof(IRecipeModel.Image))" OnChange="HandleImageUpload" accept="image/*" />
             <ValidationMessage For="@(() => Recipe.Image)" />
         </div>
 
         <!-- Recipe Category -->
         <div class="form-field">
-            <label>@LabelsTranslator.RecipeCategory</label>
-            <InputText @bind-Value="Recipe.Category" class="form-control" />
+            <label for="@(nameof(IRecipeModel.Category))">@LabelsTranslator.RecipeCategory</label>
+            <InputText id="@(nameof(IRecipeModel.Category))" @bind-Value="Recipe.Category" class="form-control" />
             <ValidationMessage For="@(() => Recipe.Category)" />
         </div>
 
