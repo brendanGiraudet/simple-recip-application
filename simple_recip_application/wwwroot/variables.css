@@ -26,6 +26,7 @@
     --menu-width: 100%;
     --menu-height: 15%;
     --menu-item-height: 100%;
+    --menu-item-width: -webkit-fill-available;
     /* Tailles */
     --icon-size: 1.25rem;
     --sidebar-width: 100%;
@@ -69,7 +70,7 @@
     --scrollbar-color-hover: var(--accent-color-1);
     --scrollbar-border-radius: 10px;
     /* Pagination buttons*/
-    --pagination-buttons-container-gap: 2rem;
+    --pagination-buttons-container-gap: 4rem;
     /* Loader */
     --loader-color: var(--accent-color-1);
     --loader-cursor-color: var(--accent-color-2);
@@ -81,12 +82,12 @@
         /* Card */
         --card-width: 80%;
         --card-title-font-size: 1.1rem;
-
         /* Modal */
         --modal-body-width: 80vw;
-
         /* Pagination buttons*/
         --pagination-buttons-container-gap: 10rem;
+        /* Menu */
+        --menu-item-width: auto;
     }
 }
 

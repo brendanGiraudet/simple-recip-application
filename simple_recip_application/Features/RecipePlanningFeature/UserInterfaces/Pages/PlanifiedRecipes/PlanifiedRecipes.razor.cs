@@ -68,7 +68,7 @@ public partial class PlanifiedRecipes
         var endOfWeek = PlanifiedRecipeState.Value.CurrentWeekStart.EndOfWeek().EndOfDay();
 
         Expression<Func<IPlanifiedRecipeModel, bool>> predicate =
-            c => c.PlanifiedDateTime >= startOfWeek && c.PlanifiedDateTime <= endOfWeek;
+            c => c.PlanifiedDateTime >= startOfWeek && c.PlanifiedDateTime <= endOfWeek && c.UserId == UserInfosState.Value.UserInfo.Id;
 
         Dispatcher.Dispatch(new LoadItemsAction<IPlanifiedRecipeModel>(Predicate: predicate));
     }

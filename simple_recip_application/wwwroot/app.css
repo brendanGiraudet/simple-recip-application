@@ -215,6 +215,7 @@ textarea {
     margin-bottom: 1rem;
     gap: 2rem;
     row-gap: 2rem;
+    width: 100%;
 }
 
 .page-grid {

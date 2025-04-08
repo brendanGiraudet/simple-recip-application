@@ -10,6 +10,7 @@
     justify-content: space-around;
     align-items: center;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    flex-wrap: wrap;
 }
 
 .nav-item-text {
@@ -17,7 +18,7 @@
 }
 
 .nav-item {
-    width: -webkit-fill-available;
+    width: var(--menu-item-width);
     height: 100%;
 }
 
