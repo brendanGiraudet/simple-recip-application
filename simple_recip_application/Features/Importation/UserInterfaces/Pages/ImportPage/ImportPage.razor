@@ -7,8 +7,13 @@
 
 <EditForm Model="@ImportModel" OnValidSubmit="HandleImport" FormName="import">
     <div class="form-field">
-        <label for="@nameof(IImportModel.FileContent)">@LabelsTranslator.ImportLabel</label>
-        <InputFile id="@nameof(IImportModel.FileContent)" OnChange="HandleImageUpload" />
+        <label for="@nameof(IImportModel.FilesContent)">@LabelsTranslator.ImportLabel</label>
+        <InputFile id="@nameof(IImportModel.FilesContent)" OnChange="HandleImageUpload" multiple />
+    </div>
+    
+    <div class="form-field">
+        <label for="@nameof(IImportModel.ImportStrategy)">@LabelsTranslator.ImportStrategyLabel</label>
+        <DropdownList Items="@(Enum.GetValues<ImportStrategyEnum>())" TItem="ImportStrategyEnum" />
     </div>
 
     <button type="submit" class="btn btn-primary">@LabelsTranslator.Import</button>

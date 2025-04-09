@@ -276,4 +276,7 @@
   <data name="NoItems" xml:space="preserve">
     <value>Aucun élément</value>
   </data>
+  <data name="ImportStrategyLabel" xml:space="preserve">
+    <value>Strategie d'import</value>
+  </data>
 </root>

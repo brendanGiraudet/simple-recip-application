@@ -2,7 +2,6 @@ using Fluxor;
 using simple_recip_application.Dtos;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
-using simple_recip_application.Features.RecipesManagement.Store.Actions;
 using simple_recip_application.Resources;
 using simple_recip_application.Services;
 using simple_recip_application.Store.Actions;
@@ -49,9 +48,9 @@ public class RecipesFromPictureStrategy
                     ingredient.IngredientModel.Image = defaultImage;
             }
 
-            _dispatcher.Dispatch(new SetItemAction<IRecipeModel>(recipeResult.Item!));
+            recipeResult.Item.Image = defaultImage;
 
-            _dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(true));
+            _dispatcher.Dispatch(new AddItemAction<IRecipeModel>(recipeResult.Item!));
 
             return new MethodResult(true, MessagesTranslator.ImportSuccess);
         }

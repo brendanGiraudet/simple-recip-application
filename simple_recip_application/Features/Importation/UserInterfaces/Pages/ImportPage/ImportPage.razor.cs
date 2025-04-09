@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Options;
 using simple_recip_application.Features.Importation.ApplicationCore.Entites;
-using simple_recip_application.Features.Importation.Enums;
 using simple_recip_application.Features.Importation.Store;
 using simple_recip_application.Features.Importation.Store.Actions;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
@@ -40,36 +39,40 @@ public partial class ImportPage
 
     private async Task HandleImport()
     {
-        Dispatcher.Dispatch(new StartImportAction(ImportStrategyEnum.RecipesFromPicture, ImportModel));
+        Dispatcher.Dispatch(new StartImportAction(ImportModel.ImportStrategy.Value, ImportModel));
 
         await Task.CompletedTask;
     }
 
     protected async Task HandleImageUpload(InputFileChangeEventArgs e)
     {
-        var file = e.File;
-        if (file == null) return;
+        var files = e.GetMultipleFiles(_fileSettings.MaxFileCount);
 
-        if (file.Size > _fileSettings.MaxAllowedSize)
+        foreach (var file in files)
         {
-            var notification = NotificationMessageFactory.CreateNotificationMessage(MessagesTranslator.MaxAllowedSizeError, NotificationType.Error);
+            if (file == null) continue;
 
-            Dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+            if (file.Size > _fileSettings.MaxAllowedSize)
+            {
+                var notification = NotificationMessageFactory.CreateNotificationMessage(MessagesTranslator.MaxAllowedSizeError, NotificationType.Error);
 
-            return;
-        }
+                Dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 
-        try
-        {
-            using var memoryStream = new MemoryStream();
-            
-            await file.OpenReadStream(_fileSettings.MaxAllowedSize).CopyToAsync(memoryStream);
-            
-            ImportModel.FileContent = memoryStream.ToArray();
-        }
-        catch (System.Exception ex)
-        {
-            Logger.LogError(ex, "Error while uploading image");
+                continue;
+            }
+
+            try
+            {
+                using var memoryStream = new MemoryStream();
+
+                await file.OpenReadStream(_fileSettings.MaxAllowedSize).CopyToAsync(memoryStream);
+
+                ImportModel.FilesContent.Add(memoryStream.ToArray());
+            }
+            catch (System.Exception ex)
+            {
+                Logger.LogError(ex, "Error while uploading image");
+            }
         }
     }
 

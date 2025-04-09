@@ -99,9 +99,7 @@ public partial class RecipeForm
 
             await file.OpenReadStream(_fileSettings.MaxAllowedSize).CopyToAsync(memoryStream);
 
-            var importModel = ImportModelFactory.CreateImportModel();
-
-            importModel.FileContent = memoryStream.ToArray();
+            var importModel = ImportModelFactory.CreateImportModel([memoryStream.ToArray()]);
 
             Dispatcher.Dispatch(new StartImportAction(ImportStrategyEnum.RecipesFromPicture, importModel));
         }

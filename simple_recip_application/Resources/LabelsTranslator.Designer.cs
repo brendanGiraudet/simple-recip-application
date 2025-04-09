@@ -65,4 +65,5 @@ public class LabelsTranslator
     public static string EditProduct => resourceManager.GetString("EditProduct", CultureInfo.CurrentCulture) ?? "EditProduct";
     public static string ProductName => resourceManager.GetString("ProductName", CultureInfo.CurrentCulture) ?? "ProductName";
     public static string NoItems => resourceManager.GetString("NoItems", CultureInfo.CurrentCulture) ?? "NoItems";
+    public static string ImportStrategyLabel => resourceManager.GetString("ImportStrategyLabel", CultureInfo.CurrentCulture) ?? "ImportStrategyLabel";
 }

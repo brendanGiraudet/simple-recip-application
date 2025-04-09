@@ -102,7 +102,11 @@ app.MapGet(PageUrlsConstants.Authentication, async context =>
     if (!context.User.Identity.IsAuthenticated)
         await context.ChallengeAsync(GoogleDefaults.AuthenticationScheme);
     else
-        context.Response.Redirect("/");
+    {
+        var redirectUrl = context.Request.Query["returnUrl"].ToString();
+        
+        context.Response.Redirect(redirectUrl);
+    }
 });
 
 app.Run();

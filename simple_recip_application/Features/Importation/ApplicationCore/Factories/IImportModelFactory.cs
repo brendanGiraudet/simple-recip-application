@@ -4,5 +4,5 @@ namespace simple_recip_application.Features.IngredientsManagement.ApplicationCor
 
 public interface IImportModelFactory
 {
-    IImportModel CreateImportModel(byte[]? FileContent = null);
+    IImportModel CreateImportModel(List<byte[]>? FilesContent = null);
 }

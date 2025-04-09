@@ -17,25 +17,27 @@ public class ImportEffects
     {
         try
         {
-            if (action.ImportModel.FileContent?.Length == 0)
-            {
-                dispatcher.Dispatch(new ImportFailureAction());
-
-                return;
-            }
-
             var strategy = ImportStrategyFactory.CreateImportStrategy(action.ImportStrategy, _serviceProvider, dispatcher, _ingredientRepository);
 
             var importService = new ImportService(strategy);
 
-            var result = await importService.ExecuteImport(action.ImportModel.FileContent!);
+            foreach (var file in action.ImportModel.FilesContent)
+            {
+                if (file?.Length == 0)
+                {
+                    dispatcher.Dispatch(new ImportFailureAction());
 
-            if (result.Success)
-                dispatcher.Dispatch(new ImportSuccessAction());
+                    continue;
+                }
 
-            else
-                dispatcher.Dispatch(new ImportFailureAction());
+                var result = await importService.ExecuteImport(file!);
 
+                if (result.Success)
+                    dispatcher.Dispatch(new ImportSuccessAction());
+
+                else
+                    dispatcher.Dispatch(new ImportFailureAction());
+            }
         }
         catch (Exception ex)
         {
