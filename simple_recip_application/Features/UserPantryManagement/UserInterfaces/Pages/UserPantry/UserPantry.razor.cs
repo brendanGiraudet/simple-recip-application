@@ -49,11 +49,6 @@ public partial class UserPantry
         {
             await SearchProducts();
         }
-    }
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
 
         if (UserInfosState.Value.UserInfo is not null)
             Dispatcher.Dispatch(new LoadUserPantryItemsAction(UserInfosState.Value.UserInfo?.Id));

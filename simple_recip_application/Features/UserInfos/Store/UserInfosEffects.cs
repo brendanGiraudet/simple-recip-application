@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using Fluxor;
 using simple_recip_application.Features.UserInfos.ApplicationCore.Factories;
