@@ -99,4 +99,9 @@ public static class RecipeReducer
     [ReducerMethod]
     public static RecipeState ReduceLoadItemsSuccessAction(RecipeState state, LoadItemsSuccessAction<IIngredientModel> action) => state with { FilteredIngredients = action.Items.Where(c => state.Item?.IngredientModels?.FirstOrDefault(p => p.IngredientId == c.Id) == null) };
     #endregion
+
+    #region DeleteRecipes
+    [ReducerMethod]
+    public static RecipeState ReduceDeleteItemsSuccessAction(RecipeState state, DeleteItemsSuccessAction<IRecipeModel> action) => state with { Items = state.Items.Where(c => !action.Items.Contains(c)) };
+    #endregion
 }

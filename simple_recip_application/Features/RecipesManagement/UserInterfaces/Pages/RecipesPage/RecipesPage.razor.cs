@@ -95,13 +95,26 @@ public partial class RecipesPage
     private List<OptionMenuItem> GetOptions()
     {
         List<OptionMenuItem> options = [
-            new ("shopping_cart_checkout", string.Empty, () => GenerateCsvAsync(), LabelsTranslator.GenerateShoppingList),
+            new (MaterialIconsConstants.ShoppingCard, string.Empty, () => GenerateCsvAsync(), LabelsTranslator.GenerateShoppingList),
         ];
 
         if (_canManageRecipe)
-            options.Add(new("add", string.Empty, () => OpenRecipFormModalAsync(), LabelsTranslator.AddRecipe));
+            options.Add(new(MaterialIconsConstants.Add, string.Empty, () => OpenRecipFormModalAsync(), LabelsTranslator.AddRecipe));
+        
+        if (_canManageRecipe && RecipeState.Value.SelectedItems.Count() > 0)
+            options.Add(new(MaterialIconsConstants.Delete, string.Empty, () => DeleteSelectedRecipesAsync(), LabelsTranslator.Delete));
 
         return options;
+    }
+
+    private async Task DeleteSelectedRecipesAsync()
+    {
+        if(RecipeState.Value.SelectedItems.Count() > 0)
+        {
+            Dispatcher.Dispatch(new DeleteItemsAction<IRecipeModel>(RecipeState.Value.SelectedItems));
+        }
+
+        await Task.CompletedTask;
     }
 
     private async Task GenerateCsvAsync()
@@ -110,7 +123,7 @@ public partial class RecipesPage
         {
             var result = await ShoppingListGenerator.GenerateShoppingListCsvContentAsync(RecipeState.Value.SelectedItems);
 
-            if (result.Success && string.IsNullOrEmpty(result.Item))
+            if (!result.Success || string.IsNullOrEmpty(result.Item))
             {
                 var notification = NotificationMessageFactory.CreateNotificationMessage(MessagesTranslator.GenerateShoppingListCsvContentErrorMessage, NotificationType.Error);
 

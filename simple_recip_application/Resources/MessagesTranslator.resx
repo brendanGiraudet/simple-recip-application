@@ -135,6 +135,12 @@
   <data name="DeleteProductSuccessMessage" xml:space="preserve">
     <value>Suppression du produit avec succès</value>
   </data>
+  <data name="DeleteRecipesErrorMessage" xml:space="preserve">
+    <value>Une erreur à été rencontré lors de la suppression d'une ou plusieurs recettes</value>
+  </data>
+  <data name="DeleteRecipesSuccess" xml:space="preserve">
+    <value>Suppression des recettes reussi</value>
+  </data>
   <data name="LoadPantryIngredientsFailed" xml:space="preserve">
     <value>Erreur lors du chargement des ingredients du placard</value>
   </data>

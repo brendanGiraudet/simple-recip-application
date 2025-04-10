@@ -237,7 +237,7 @@ public class NotificationEffects
     }
 
     [EffectMethod]
-    public async Task HandleDeleteItemAction(DeleteItemAction<IRecipeModel> action, IDispatcher dispatcher)
+    public async Task HandleDeleteItemFailureAction(DeleteItemFailureAction<IRecipeModel> action, IDispatcher dispatcher)
     {
         var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeleteRecipeErrorMessage, NotificationType.Error);
 
@@ -270,6 +270,26 @@ public class NotificationEffects
     public async Task HandleUpdateItemSuccessAction(UpdateItemSuccessAction<IRecipeModel> action, IDispatcher dispatcher)
     {
         var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.UpdateRecipeSuccessMessage, NotificationType.Success);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
+    
+    [EffectMethod]
+    public async Task HandleDeleteItemsActionFailureAction(DeleteItemsFailureAction<IRecipeModel> action, IDispatcher dispatcher)
+    {
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeleteRecipesErrorMessage, NotificationType.Error);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
+    
+    [EffectMethod]
+    public async Task HandleDeleteItemsActionSuccessAction(DeleteItemsSuccessAction<IRecipeModel> action, IDispatcher dispatcher)
+    {
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeleteRecipesSuccess, NotificationType.Success);
 
         dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 

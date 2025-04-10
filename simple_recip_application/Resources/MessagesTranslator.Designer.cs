@@ -56,4 +56,6 @@ public class MessagesTranslator
     public static string UpdateProductSuccessMessage => resourceManager.GetString("UpdateProductSuccessMessage", CultureInfo.CurrentCulture) ?? "UpdateProductSuccessMessage";
     public static string SaveUserPantryErrorMessage => resourceManager.GetString("SaveUserPantryErrorMessage", CultureInfo.CurrentCulture) ?? "SaveUserPantryErrorMessage";
     public static string SaveUserPantrySuccess => resourceManager.GetString("SaveUserPantrySuccess", CultureInfo.CurrentCulture) ?? "SaveUserPantrySuccess";
+    public static string DeleteRecipesErrorMessage => resourceManager.GetString("DeleteRecipesErrorMessage", CultureInfo.CurrentCulture) ?? "DeleteRecipesErrorMessage";
+    public static string DeleteRecipesSuccess => resourceManager.GetString("DeleteRecipesSuccess", CultureInfo.CurrentCulture) ?? "DeleteRecipesSuccess";
 }

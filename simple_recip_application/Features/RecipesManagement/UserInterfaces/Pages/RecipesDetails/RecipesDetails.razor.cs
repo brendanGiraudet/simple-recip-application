@@ -26,7 +26,7 @@ public partial class RecipesDetails
     private List<OptionMenuItem> GetOptions()
     {
         List<OptionMenuItem> options = [
-            new ("update", string.Empty, () => OpenRecipFormModalAsync(), LabelsTranslator.Update),
+            new (MaterialIconsConstants.Update, string.Empty, () => OpenRecipFormModalAsync(), LabelsTranslator.Update),
         ];
 
         return options;

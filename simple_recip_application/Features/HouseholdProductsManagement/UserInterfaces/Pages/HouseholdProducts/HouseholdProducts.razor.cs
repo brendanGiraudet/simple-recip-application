@@ -76,7 +76,7 @@ public partial class HouseholdProducts
         List<OptionMenuItem> options = [];
 
         if(_canManageProduct)
-            options.Add(new ("add", string.Empty, () => OpenProductFormModalAsync(), LabelsTranslator.AddProduct));
+            options.Add(new (MaterialIconsConstants.Add, string.Empty, () => OpenProductFormModalAsync(), LabelsTranslator.AddProduct));
 
         return options;
     }

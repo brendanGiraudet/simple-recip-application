@@ -171,11 +171,11 @@ public partial class PlanifiedRecipes
     private List<OptionMenuItem> GetOptions()
     {
         List<OptionMenuItem> options = [
-            new("shopping_cart_checkout", string.Empty, () => GenerateCsvAsync(), LabelsTranslator.GenerateShoppingList)
+            new(MaterialIconsConstants.ShoppingCard, string.Empty, () => GenerateCsvAsync(), LabelsTranslator.GenerateShoppingList)
         ];
 
         if (!PlanifiedRecipeState.Value.RecipesGroupedByDay.Any(c => c.Value.Count() > 0) && FeatureManager.IsEnabledAsync(FeatureFlagsConstants.PlanifiedRecipesAutomaticaly).Result)
-            options.Add(new("autorenew", string.Empty, () => PlanifiedRecipesForTheWeek(), LabelsTranslator.PlanifiedRecipesAutomaticaly));
+            options.Add(new(MaterialIconsConstants.Generate, string.Empty, () => PlanifiedRecipesForTheWeek(), LabelsTranslator.PlanifiedRecipesAutomaticaly));
 
         return options;
     }

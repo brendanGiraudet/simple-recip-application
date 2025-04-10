@@ -1,6 +1,7 @@
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using simple_recip_application.Constants;
+using simple_recip_application.Dtos;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.RecipesManagement.Store.Actions;
@@ -90,39 +91,57 @@ public class RecipeEffects
     [EffectMethod]
     public async Task HandleDeleteRecipe(DeleteItemAction<IRecipeModel> action, IDispatcher dispatcher)
     {
+        var deleteResult = await DeleteRecipe(action.Item);
+
+        if (!deleteResult.Success)
+            dispatcher.Dispatch(new DeleteItemFailureAction<IRecipeModel>(action.Item));
+
+        else
+        {
+            dispatcher.Dispatch(new DeleteItemSuccessAction<IRecipeModel>(action.Item));
+            dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
+        }
+    }
+
+    private async Task<MethodResult> DeleteRecipe(IRecipeModel recipe)
+    {
         try
         {
-            if (!action.Item.Id.HasValue)
-            {
-                dispatcher.Dispatch(new DeleteItemFailureAction<IRecipeModel>(action.Item));
+            if (!recipe.Id.HasValue)
+                return new MethodResult(false);
 
-                return;
-            }
-
-            var recipeResult = await _repository.GetByIdAsync(action.Item.Id.Value);
+            var recipeResult = await _repository.GetByIdAsync(recipe.Id.Value);
             if (!recipeResult.Success || recipeResult.Item == null)
-            {
-                dispatcher.Dispatch(new DeleteItemFailureAction<IRecipeModel>(action.Item));
-
-                return;
-            }
+                return new MethodResult(false);
 
             var deleteResult = await _repository.DeleteAsync(recipeResult.Item);
 
-            if (deleteResult.Success)
-                dispatcher.Dispatch(new DeleteItemFailureAction<IRecipeModel>(action.Item));
-
-            else
-            {
-                dispatcher.Dispatch(new DeleteItemSuccessAction<IRecipeModel>(action.Item));
-                dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
-            }
+            return new MethodResult(deleteResult.Success);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, $"Erreur lors de la suppression de la recette");
 
-            dispatcher.Dispatch(new DeleteItemFailureAction<IRecipeModel>(action.Item));
+            return new MethodResult(false);
+        }
+    }
+
+    [EffectMethod]
+    public async Task HandleDeleteRecipes(DeleteItemsAction<IRecipeModel> action, IDispatcher dispatcher)
+    {
+        var deleteSuccess = true;
+        foreach (var recipe in action.Items)
+        {
+            var deleteResult = await DeleteRecipe(recipe);
+
+            deleteSuccess &= deleteResult.Success;
+        }
+
+        if(!deleteSuccess)
+            dispatcher.Dispatch(new DeleteItemsFailureAction<IRecipeModel>(action.Items));
+        else
+        {
+            dispatcher.Dispatch(new DeleteItemsSuccessAction<IRecipeModel>(action.Items));
         }
     }
 

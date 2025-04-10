@@ -15,4 +15,7 @@ public static class MaterialIconsConstants
     public const string RecipePlannigPage = "calendar_month";
     public const string Products = "household_supplies";
     public const string UserPantry = "inventory";
+    public const string Delete = "delete";
+    public const string ShoppingCard = "shopping_cart_checkout";
+    public const string Update = "update";
 }

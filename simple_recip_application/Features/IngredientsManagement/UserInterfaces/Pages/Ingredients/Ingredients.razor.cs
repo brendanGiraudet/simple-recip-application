@@ -76,7 +76,7 @@ public partial class Ingredients
         List<OptionMenuItem> options = [];
 
         if(_canManageIngredient)
-            options.Add(new ("add", string.Empty, () => OpenIngredientFormModalAsync(), LabelsTranslator.AddIngredient));
+            options.Add(new (MaterialIconsConstants.Add, string.Empty, () => OpenIngredientFormModalAsync(), LabelsTranslator.AddIngredient));
 
         return options;
     }

@@ -135,6 +135,12 @@
   <data name="DeleteProductSuccessMessage" xml:space="preserve">
     <value>Delete product success</value>
   </data>
+  <data name="DeleteRecipesErrorMessage" xml:space="preserve">
+    <value>Delete recipes error</value>
+  </data>
+  <data name="DeleteRecipesSuccess" xml:space="preserve">
+    <value>Delete recipes success</value>
+  </data>
   <data name="LoadPantryIngredientsFailed" xml:space="preserve">
     <value>Load pantry ingredients error</value>
   </data>
