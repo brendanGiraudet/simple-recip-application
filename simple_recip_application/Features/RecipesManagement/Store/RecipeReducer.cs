@@ -1,9 +1,7 @@
 using Fluxor;
-using simple_recip_application.Features.Importation.Enums;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.EqualityComparers;
-using simple_recip_application.Features.RecipesManagement.Store.Actions;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.RecipesManagement.Store;
@@ -85,8 +83,8 @@ public static class RecipeReducer
 
     #region SetRecipeFormModalVisibility
     [ReducerMethod]
-    public static RecipeState ReduceSetRecipeFormModalVisibilityAction(RecipeState state, SetRecipeFormModalVisibilityAction action) =>
-        state with { RecipeFormModalVisibility = action.IsVisible };
+    public static RecipeState ReduceSetRecipeFormModalVisibilityAction(RecipeState state, SetFormModalVisibilityAction<IRecipeModel> action) =>
+        state with { FormModalVisibility = action.IsVisible };
     #endregion
 
     #region SetItem

@@ -4,6 +4,7 @@ using simple_recip_application.Features.HouseholdProductsManagement.Persistence.
 using simple_recip_application.Features.RecipePlanningFeature.Persistence.Entities;
 using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 using simple_recip_application.Features.UserPantryManagement.Persistence.Entities;
+using simple_recip_application.Features.TagsManagement.Persistence.Entities;
 
 namespace simple_recip_application.Data;
 
@@ -20,6 +21,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<PlanifiedRecipeModel> PlanifiedRecipes => Set<PlanifiedRecipeModel>();
     public DbSet<HouseholdProductModel> HouseholdProducts => Set<HouseholdProductModel>();
     public DbSet<UserPantryItemModel> UserPantryItems => Set<UserPantryItemModel>();
+    public DbSet<TagModel> Tags => Set<TagModel>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -32,6 +34,19 @@ public class ApplicationDbContext : DbContext
             entity.Property(i => i.Quantity).IsRequired();
             
             entity.Ignore(i => i.ProductModel);
+        });
+        
+        modelBuilder.Entity<TagModel>(entity =>
+        {
+            entity.HasKey(i => i.Id);
+
+            entity.Property(i => i.Name).IsRequired().HasMaxLength(50);
+
+            entity.Property(i => i.CreationDate).IsRequired();
+
+            entity.Property(i => i.ModificationDate);
+
+            entity.Property(i => i.RemoveDate);
         });
         
         modelBuilder.Entity<IngredientModel>(entity =>

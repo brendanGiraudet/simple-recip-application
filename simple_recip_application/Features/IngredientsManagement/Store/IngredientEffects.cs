@@ -1,7 +1,6 @@
 using Fluxor;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Repositories;
-using simple_recip_application.Features.IngredientsManagement.Store.Actions;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.IngredientsManagement.Store;
@@ -47,7 +46,7 @@ public class IngredientEffects
             else
             {
                 dispatcher.Dispatch(new AddItemSuccessAction<IIngredientModel>(action.Item));
-                dispatcher.Dispatch(new SetIngredientModalVisibilityAction(false));
+                dispatcher.Dispatch(new SetFormModalVisibilityAction<IIngredientModel>(false));
             }
         }
         catch (Exception ex)
@@ -86,7 +85,7 @@ public class IngredientEffects
             else
             {
                 dispatcher.Dispatch(new DeleteItemSuccessAction<IIngredientModel>(action.Item));
-                dispatcher.Dispatch(new SetIngredientModalVisibilityAction(false));
+                dispatcher.Dispatch(new SetFormModalVisibilityAction<IIngredientModel>(false));
             }
         }
         catch (Exception ex)
@@ -110,7 +109,7 @@ public class IngredientEffects
             else
             {
                 dispatcher.Dispatch(new UpdateItemSuccessAction<IIngredientModel>(action.Item));
-                dispatcher.Dispatch(new SetIngredientModalVisibilityAction(false));
+                dispatcher.Dispatch(new SetFormModalVisibilityAction<IIngredientModel>(false));
             }
         }
         catch (Exception ex)

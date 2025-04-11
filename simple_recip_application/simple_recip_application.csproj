@@ -29,6 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\HouseholdProductsManagement\Store\Actions\" />
+    <Folder Include="Features\IngredientsManagement\Store\Actions\" />
+    <Folder Include="Features\RecipesManagement\Store\Actions\" />
+    <Folder Include="Features\TagsManagement\UserInterfaces\Components\" />
     <Folder Include="Features\UserPantryManagement\UserInterfaces\Components\" />
   </ItemGroup>
 

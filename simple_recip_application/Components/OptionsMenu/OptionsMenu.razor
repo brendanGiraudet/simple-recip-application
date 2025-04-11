@@ -9,7 +9,7 @@
                 <button @onclick="@(async () => await option.OnClickAction.Invoke())" 
                         class="btn btn-secondary options-button"
                         title="@option.ToolTip">
-                    <span class="material-symbols-outlined">@option.Icon</span>
+                    <Icon IconName="@option.Icon" />
                     @if (!string.IsNullOrEmpty(option.Text))
                     {
                         @option.Text
@@ -22,6 +22,6 @@
     <button class="btn btn-primary options-button" 
             @onclick="ToggleOptionsList"
             title="@LabelsTranslator.Options">
-        <span class="material-symbols-outlined">@MaterialIconsConstants.List</span>
+        <Icon IconName="@MaterialIconsConstants.List" />
     </button>
 </div>

@@ -27,7 +27,7 @@
     @((MarkupString)RecipeState.Value.Item?.Instructions)
 </div>
 
-<Modal OnClose="CloseRecipeFormModal" IsVisible="@RecipeState.Value.RecipeFormModalVisibility">
+<Modal OnClose="CloseRecipeFormModal" IsVisible="@RecipeState.Value.FormModalVisibility">
 
     <RecipeForm OnCancel="CloseRecipeFormModal" />
 </Modal>

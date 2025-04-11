@@ -58,4 +58,9 @@ public class MessagesTranslator
     public static string SaveUserPantrySuccess => resourceManager.GetString("SaveUserPantrySuccess", CultureInfo.CurrentCulture) ?? "SaveUserPantrySuccess";
     public static string DeleteRecipesErrorMessage => resourceManager.GetString("DeleteRecipesErrorMessage", CultureInfo.CurrentCulture) ?? "DeleteRecipesErrorMessage";
     public static string DeleteRecipesSuccess => resourceManager.GetString("DeleteRecipesSuccess", CultureInfo.CurrentCulture) ?? "DeleteRecipesSuccess";
+    public static string LoadTagErrorMessage => resourceManager.GetString("LoadTagErrorMessage", CultureInfo.CurrentCulture) ?? "LoadTagErrorMessage";
+    public static string AddTagErrorMessage => resourceManager.GetString("AddTagErrorMessage", CultureInfo.CurrentCulture) ?? "AddTagErrorMessage";
+    public static string AddTagSuccessMessage => resourceManager.GetString("AddTagSuccessMessage", CultureInfo.CurrentCulture) ?? "AddTagSuccessMessage";
+    public static string DeleteTagErrorMessage => resourceManager.GetString("DeleteTagErrorMessage", CultureInfo.CurrentCulture) ?? "DeleteTagErrorMessage";
+    public static string DeleteTagSuccessMessage => resourceManager.GetString("DeleteTagSuccessMessage", CultureInfo.CurrentCulture) ?? "DeleteTagSuccessMessage";
 }

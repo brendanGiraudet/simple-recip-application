@@ -18,4 +18,5 @@ public static class MaterialIconsConstants
     public const string Delete = "delete";
     public const string ShoppingCard = "shopping_cart_checkout";
     public const string Update = "update";
+    public const string TagManagement = "sell";
 }

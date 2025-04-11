@@ -32,7 +32,7 @@
 
                                 <button class="btn btn-primary" @onclick="@(() => PlanifiedRecipeAutomaticaly(planifiedRecipe))"
                                     @onclick:stopPropagation="true">
-                                    <span class="material-symbols-outlined">@MaterialIconsConstants.Generate</span>
+                                    <Icon IconName="@MaterialIconsConstants.Generate" />
                                 </button>
                             </BodyContent>
 
@@ -48,7 +48,7 @@
 
                 <button class="btn btn-primary"
                     @onclick="@(() => PlanifiedRecipeAutomaticaly(day: day.Date, momentOftheDay: MomentOfTheDayEnum.Evening.ToString()))">
-                    <span class="material-symbols-outlined">@MaterialIconsConstants.Generate</span>
+                    <Icon IconName="@MaterialIconsConstants.Generate" />
                 </button>
             }
         </div>

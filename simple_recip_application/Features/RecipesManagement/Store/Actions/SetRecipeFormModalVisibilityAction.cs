@@ -1,3 +1,0 @@
-namespace simple_recip_application.Features.RecipesManagement.Store.Actions;
-
-public record class SetRecipeFormModalVisibilityAction(bool IsVisible);

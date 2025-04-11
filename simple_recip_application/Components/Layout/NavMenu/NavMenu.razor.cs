@@ -37,6 +37,9 @@ public partial class NavMenu
         
         if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.UserPantryManagement))
             _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.UserPantry, MaterialIconsConstants.UserPantry, LabelsTranslator.Pantry));
+        
+        if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.TagManagement))
+            _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.TagManagement, MaterialIconsConstants.TagManagement, LabelsTranslator.Tags));
     }
 
     private IEnumerable<NavMenuItem> _navMenuItems = [];

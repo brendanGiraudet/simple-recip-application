@@ -1,2 +1,0 @@
-namespace simple_recip_application.Features.HouseholdProductsManagement.Store.Actions;
-public record class SetHouseholdProductModalVisibilityAction(bool IsVisible);

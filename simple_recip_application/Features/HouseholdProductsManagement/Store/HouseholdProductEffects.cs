@@ -1,7 +1,6 @@
 using Fluxor;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Repositories;
-using simple_recip_application.Features.HouseholdProductsManagement.Store.Actions;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.HouseholdProductsManagement.Store;
@@ -47,7 +46,7 @@ public class HouseholdProductEffects
             else
             {
                 dispatcher.Dispatch(new AddItemSuccessAction<IHouseholdProductModel>(action.Item));
-                dispatcher.Dispatch(new SetHouseholdProductModalVisibilityAction(false));
+                dispatcher.Dispatch(new SetFormModalVisibilityAction<IHouseholdProductModel>(false));
             }
         }
         catch (Exception ex)
@@ -86,7 +85,7 @@ public class HouseholdProductEffects
             else
             {
                 dispatcher.Dispatch(new DeleteItemSuccessAction<IHouseholdProductModel>(action.Item));
-                dispatcher.Dispatch(new SetHouseholdProductModalVisibilityAction(false));
+                dispatcher.Dispatch(new SetFormModalVisibilityAction<IHouseholdProductModel>(false));
             }
         }
         catch (Exception ex)
@@ -110,7 +109,7 @@ public class HouseholdProductEffects
             else
             {
                 dispatcher.Dispatch(new UpdateItemSuccessAction<IHouseholdProductModel>(action.Item));
-                dispatcher.Dispatch(new SetHouseholdProductModalVisibilityAction(false));
+                dispatcher.Dispatch(new SetFormModalVisibilityAction<IHouseholdProductModel>(false));
             }
         }
         catch (Exception ex)

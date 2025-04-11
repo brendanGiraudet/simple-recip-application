@@ -171,6 +171,31 @@ namespace simplerecipapplication.Data.Migrations
                     b.ToTable("Recipes");
                 });
 
+            modelBuilder.Entity("simple_recip_application.Features.TagsManagement.Persistence.Entities.TagModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("ModificationDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("RemoveDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
+                });
+
             modelBuilder.Entity("simple_recip_application.Features.UserPantryManagement.Persistence.Entities.UserPantryItemModel", b =>
                 {
                     b.Property<string>("UserId")

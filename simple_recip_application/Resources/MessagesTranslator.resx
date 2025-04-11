@@ -123,6 +123,12 @@
   <data name="AddProductSuccessMessage" xml:space="preserve">
     <value>Ajout du produit avec succès</value>
   </data>
+  <data name="AddTagErrorMessage" xml:space="preserve">
+    <value>Erreur lors de l'ajout du tag</value>
+  </data>
+  <data name="AddTagSuccessMessage" xml:space="preserve">
+    <value>Ajout du tag reussi</value>
+  </data>
   <data name="DeletePantryIngredientFailed" xml:space="preserve">
     <value>Erreur lors de la suppression de l'ingredient du placard</value>
   </data>
@@ -141,11 +147,20 @@
   <data name="DeleteRecipesSuccess" xml:space="preserve">
     <value>Suppression des recettes reussi</value>
   </data>
+  <data name="DeleteTagErrorMessage" xml:space="preserve">
+    <value>Erreur lors de la suppression du tag</value>
+  </data>
+  <data name="DeleteTagSuccessMessage" xml:space="preserve">
+    <value>Suppression du tag reussi</value>
+  </data>
   <data name="LoadPantryIngredientsFailed" xml:space="preserve">
     <value>Erreur lors du chargement des ingredients du placard</value>
   </data>
   <data name="LoadProductErrorMessage" xml:space="preserve">
     <value>Erreur lors du chargement des produits</value>
+  </data>
+  <data name="LoadTagErrorMessage" xml:space="preserve">
+    <value>Erreur lors du chargement des tags</value>
   </data>
   <data name="SavePantryIngredientFailed" xml:space="preserve">
     <value>Erreur lors de la sauvegarde de l'ingredient du placard</value>

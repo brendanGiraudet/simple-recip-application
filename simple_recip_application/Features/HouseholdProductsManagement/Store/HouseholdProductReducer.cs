@@ -1,7 +1,6 @@
 using Fluxor;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.EqualityComparers;
-using simple_recip_application.Features.HouseholdProductsManagement.Store.Actions;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.HouseholdProductsManagement.Store;
@@ -70,7 +69,7 @@ public static class HouseholdProductReducer
 
     #region SetHouseholdProductModalVisibility
     [ReducerMethod]
-    public static HouseholdProductState ReduceSetHouseholdProductModalVisibilityAction(HouseholdProductState state, SetHouseholdProductModalVisibilityAction action) =>
-        state with { HouseholdProductModalVisibility = action.IsVisible };
+    public static HouseholdProductState ReduceSetHouseholdProductModalVisibilityAction(HouseholdProductState state, SetFormModalVisibilityAction<IHouseholdProductModel> action) =>
+        state with { FormModalVisibility = action.IsVisible };
     #endregion
 }

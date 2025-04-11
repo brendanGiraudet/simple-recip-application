@@ -14,7 +14,6 @@ using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entite
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Services;
 using simple_recip_application.Features.RecipesManagement.Store;
-using simple_recip_application.Features.RecipesManagement.Store.Actions;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 
@@ -67,12 +66,12 @@ public partial class RecipesPage
         else
             Dispatcher.Dispatch(new SetItemAction<IRecipeModel>(RecipeFactory.Create()));
 
-        Dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(true));
+        Dispatcher.Dispatch(new SetFormModalVisibilityAction<IRecipeModel>(true));
 
         await Task.CompletedTask;
     }
 
-    private void CloseRecipeFormModal(bool isUpdated) => Dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
+    private void CloseRecipeFormModal(bool isUpdated) => Dispatcher.Dispatch(new SetFormModalVisibilityAction<IRecipeModel>(false));
 
     protected override void OnInitialized()
     {
@@ -100,7 +99,7 @@ public partial class RecipesPage
 
         if (_canManageRecipe)
             options.Add(new(MaterialIconsConstants.Add, string.Empty, () => OpenRecipFormModalAsync(), LabelsTranslator.AddRecipe));
-        
+
         if (_canManageRecipe && RecipeState.Value.SelectedItems.Count() > 0)
             options.Add(new(MaterialIconsConstants.Delete, string.Empty, () => DeleteSelectedRecipesAsync(), LabelsTranslator.Delete));
 
@@ -109,7 +108,7 @@ public partial class RecipesPage
 
     private async Task DeleteSelectedRecipesAsync()
     {
-        if(RecipeState.Value.SelectedItems.Count() > 0)
+        if (RecipeState.Value.SelectedItems.Count() > 0)
         {
             Dispatcher.Dispatch(new DeleteItemsAction<IRecipeModel>(RecipeState.Value.SelectedItems));
         }

@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Fluxor;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
@@ -7,10 +8,8 @@ using simple_recip_application.Constants;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.IngredientsManagement.Store;
-using simple_recip_application.Features.IngredientsManagement.Store.Actions;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
-using System.Linq.Expressions;
 
 namespace simple_recip_application.Features.IngredientsManagement.UserInterfaces.Pages.Ingredients;
 
@@ -44,12 +43,12 @@ public partial class Ingredients
 
         _selectedIngredient = model ?? IngredientFactory.CreateIngredient();
 
-        Dispatcher.Dispatch(new SetIngredientModalVisibilityAction(true));
+        Dispatcher.Dispatch(new SetFormModalVisibilityAction<IIngredientModel>(true));
 
         await Task.CompletedTask;
     }
 
-    private void CloseIngredientModal(bool isUpdated) => Dispatcher.Dispatch(new SetIngredientModalVisibilityAction(false));
+    private void CloseIngredientModal(bool isUpdated) => Dispatcher.Dispatch(new SetFormModalVisibilityAction<IIngredientModel>(false));
 
     protected override void OnInitialized()
     {
@@ -75,8 +74,8 @@ public partial class Ingredients
     {
         List<OptionMenuItem> options = [];
 
-        if(_canManageIngredient)
-            options.Add(new (MaterialIconsConstants.Add, string.Empty, () => OpenIngredientFormModalAsync(), LabelsTranslator.AddIngredient));
+        if (_canManageIngredient)
+            options.Add(new(MaterialIconsConstants.Add, string.Empty, () => OpenIngredientFormModalAsync(), LabelsTranslator.AddIngredient));
 
         return options;
     }

@@ -7,9 +7,8 @@ using simple_recip_application.Store;
 namespace simple_recip_application.Features.RecipesManagement.Store;
 
 [FeatureState]
-public record class RecipeState : BaseState<IRecipeModel>
+public record class RecipeState : EntityBaseState<IRecipeModel>
 {
-    public bool RecipeFormModalVisibility { get; set; } = false;
     public IEnumerable<IIngredientModel> FilteredIngredients { get; set; } = [];
 
     private RecipeState()

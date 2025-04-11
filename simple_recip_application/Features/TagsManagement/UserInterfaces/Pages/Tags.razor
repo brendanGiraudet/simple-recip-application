@@ -1,0 +1,21 @@
+﻿@page "/tags"
+@inherits FluxorComponent
+
+<div>
+	<button @onclick="@(() => AddTag())"><Icon IconName="@MaterialIconsConstants.Add" Title="@LabelsTranslator.AddIngredient" /></button>
+	<SearchBar OnSearch="@OnSearchTermChanged" />
+</div>
+
+
+<div class="grid @GetTagsVisibilityCssClass()">
+	@foreach (var tag in TagState.Value.Items)
+	{
+		<Tag OnRemoveClick="@(() => DeleteTag(tag))">
+			<span>@tag.Name</span>
+		</Tag>
+	}
+</div>
+
+<PaginationButtons CanPreviousClick="@CanPreviousClick()" OnPrevious="@OnPrevious" OnNext="@OnNext" />
+
+<Loader IsVisible="@TagState.Value.IsLoading" />

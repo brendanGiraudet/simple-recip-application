@@ -11,6 +11,7 @@ using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entite
 using simple_recip_application.Features.UserPantryManagement.Store.Actions;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
+using simple_recip_application.Features.TagsManagement.ApplicationCore.Entities;
 
 namespace simple_recip_application.Features.NotificationsManagement.Store;
 
@@ -401,6 +402,63 @@ public class NotificationEffects
     public async Task HandleAddOrUpdateUserPantryItemSuccessAction(AddOrUpdateUserPantryItemSuccessAction action, IDispatcher dispatcher)
     {
         var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.SaveUserPantrySuccess, NotificationType.Success);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
+    #endregion
+
+    #region Tags
+    [EffectMethod]
+    public async Task HandleLoadItemsFailureAction(LoadItemsFailureAction<ITagModel> action, IDispatcher dispatcher)
+    {
+
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.LoadTagErrorMessage, NotificationType.Error);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
+
+    [EffectMethod]
+    public async Task HandleAddItemFailureAction(AddItemFailureAction<ITagModel> action, IDispatcher dispatcher)
+    {
+
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddTagErrorMessage, NotificationType.Error);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
+
+    [EffectMethod]
+    public async Task HandleAddItemSuccessAction(AddItemSuccessAction<ITagModel> action, IDispatcher dispatcher)
+    {
+
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddTagSuccessMessage, NotificationType.Success);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
+
+    [EffectMethod]
+    public async Task HandleDeleteItemFailureAction(DeleteItemFailureAction<ITagModel> action, IDispatcher dispatcher)
+    {
+
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeleteTagErrorMessage, NotificationType.Error);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
+
+    [EffectMethod]
+    public async Task HandleDeleteItemSuccessAction(DeleteItemSuccessAction<ITagModel> action, IDispatcher dispatcher)
+    {
+
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeleteTagSuccessMessage, NotificationType.Success);
 
         dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 

@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Fluxor;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
@@ -7,10 +8,8 @@ using simple_recip_application.Constants;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.HouseholdProductsManagement.Store;
-using simple_recip_application.Features.HouseholdProductsManagement.Store.Actions;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
-using System.Linq.Expressions;
 
 namespace simple_recip_application.Features.HouseholdProductsManagement.UserInterfaces.Pages.HouseholdProducts;
 
@@ -44,12 +43,12 @@ public partial class HouseholdProducts
 
         _selectedProduct = model ?? HouseholdProductFactory.CreateHouseholdProduct();
 
-        Dispatcher.Dispatch(new SetHouseholdProductModalVisibilityAction(true));
+        Dispatcher.Dispatch(new SetFormModalVisibilityAction<IHouseholdProductModel>(true));
 
         await Task.CompletedTask;
     }
 
-    private void CloseProductModal(bool isUpdated) => Dispatcher.Dispatch(new SetHouseholdProductModalVisibilityAction(false));
+    private void CloseProductModal(bool isUpdated) => Dispatcher.Dispatch(new SetFormModalVisibilityAction<IHouseholdProductModel>(false));
 
     protected override void OnInitialized()
     {
@@ -75,8 +74,8 @@ public partial class HouseholdProducts
     {
         List<OptionMenuItem> options = [];
 
-        if(_canManageProduct)
-            options.Add(new (MaterialIconsConstants.Add, string.Empty, () => OpenProductFormModalAsync(), LabelsTranslator.AddProduct));
+        if (_canManageProduct)
+            options.Add(new(MaterialIconsConstants.Add, string.Empty, () => OpenProductFormModalAsync(), LabelsTranslator.AddProduct));
 
         return options;
     }

@@ -24,4 +24,7 @@ public static class PageUrlsConstants
     
     // User Pantry
     public const string UserPantry = "/user-pantry";
+    
+    // Tags
+    public const string TagManagement = "/tags";
 }

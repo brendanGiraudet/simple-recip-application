@@ -4,7 +4,6 @@ using simple_recip_application.Constants;
 using simple_recip_application.Dtos;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Repositories;
-using simple_recip_application.Features.RecipesManagement.Store.Actions;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.RecipesManagement.Store;
@@ -71,7 +70,7 @@ public class RecipeEffects
             else
             {
                 dispatcher.Dispatch(new AddItemSuccessAction<IRecipeModel>(action.Item));
-                dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
+                dispatcher.Dispatch(new SetFormModalVisibilityAction<IRecipeModel>(false));
             }
         }
         catch (Exception ex)
@@ -99,7 +98,7 @@ public class RecipeEffects
         else
         {
             dispatcher.Dispatch(new DeleteItemSuccessAction<IRecipeModel>(action.Item));
-            dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
+            dispatcher.Dispatch(new SetFormModalVisibilityAction<IRecipeModel>(false));
         }
     }
 
@@ -137,7 +136,7 @@ public class RecipeEffects
             deleteSuccess &= deleteResult.Success;
         }
 
-        if(!deleteSuccess)
+        if (!deleteSuccess)
             dispatcher.Dispatch(new DeleteItemsFailureAction<IRecipeModel>(action.Items));
         else
         {
@@ -158,7 +157,7 @@ public class RecipeEffects
             else
             {
                 dispatcher.Dispatch(new UpdateItemSuccessAction<IRecipeModel>(action.Item));
-                dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
+                dispatcher.Dispatch(new SetFormModalVisibilityAction<IRecipeModel>(false));
             }
         }
         catch (Exception ex)

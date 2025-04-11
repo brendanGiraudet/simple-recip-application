@@ -6,7 +6,6 @@ using simple_recip_application.Components.OptionsMenu;
 using simple_recip_application.Constants;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.Store;
-using simple_recip_application.Features.RecipesManagement.Store.Actions;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
 
@@ -21,7 +20,7 @@ public partial class RecipesDetails
     [Inject] public required IAuthorizationService AuthorizationService { get; set; }
     [Inject] public required AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
-    private void CloseRecipeFormModal(bool isUpdated) => Dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
+    private void CloseRecipeFormModal(bool isUpdated) => Dispatcher.Dispatch(new SetFormModalVisibilityAction<IRecipeModel>(false));
 
     private List<OptionMenuItem> GetOptions()
     {
@@ -34,7 +33,7 @@ public partial class RecipesDetails
 
     private async Task OpenRecipFormModalAsync()
     {
-        Dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(true));
+        Dispatcher.Dispatch(new SetFormModalVisibilityAction<IRecipeModel>(true));
 
         await Task.CompletedTask;
     }

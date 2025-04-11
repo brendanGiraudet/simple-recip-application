@@ -30,7 +30,7 @@
 
 <Loader IsVisible="@HouseholdProductState.Value.IsLoading" />
 
-<Modal OnClose="CloseProductModal" IsVisible="HouseholdProductState.Value.HouseholdProductModalVisibility">
+<Modal OnClose="CloseProductModal" IsVisible="HouseholdProductState.Value.FormModalVisibility">
 
 	<HouseholdProductForm Product="_selectedProduct" OnCancel="CloseProductModal" />
 </Modal>

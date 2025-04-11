@@ -33,12 +33,10 @@ builder.Services.AddRecipesFeatureDependencies();
 builder.Services.AddUserFeatureDependencies();
 builder.Services.AddHouseholdProductFeatureDependencies();
 builder.Services.AddUserPantryFeatureDependencies();
+builder.Services.AddTagFeatureDependencies();
 
 // Ajout des httclient
 builder.Services.AddHttpClients(builder.Configuration);
-
-// Ajout des repositories
-builder.Services.AddApplicationRepositories();
 
 // Ajout des authentifications
 builder.Services.AddAuthentications(builder.Configuration);

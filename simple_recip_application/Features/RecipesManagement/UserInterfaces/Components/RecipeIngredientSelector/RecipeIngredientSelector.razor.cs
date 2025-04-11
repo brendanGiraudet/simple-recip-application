@@ -7,7 +7,6 @@ using simple_recip_application.Constants;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.IngredientsManagement.Store;
-using simple_recip_application.Features.IngredientsManagement.Store.Actions;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipesManagement.Store;
@@ -80,7 +79,7 @@ public partial class RecipeIngredientSelector
         _canManageIngredient = authorizationResult.Succeeded;
     }
 
-    private void CloseIngredientModal(bool isUpdated) => Dispatcher.Dispatch(new SetIngredientModalVisibilityAction(false));
+    private void CloseIngredientModal(bool isUpdated) => Dispatcher.Dispatch(new SetFormModalVisibilityAction<IIngredientModel>(false));
 
     private IIngredientModel? _selectedIngredient;
 
@@ -91,7 +90,7 @@ public partial class RecipeIngredientSelector
         if (!_canManageIngredient)
             return;
 
-        Dispatcher.Dispatch(new SetIngredientModalVisibilityAction(true));
+        Dispatcher.Dispatch(new SetFormModalVisibilityAction<IIngredientModel>(true));
 
         await Task.CompletedTask;
     }

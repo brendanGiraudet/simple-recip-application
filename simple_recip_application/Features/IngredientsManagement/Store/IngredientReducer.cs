@@ -1,7 +1,6 @@
 using Fluxor;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.EqualityComparers;
-using simple_recip_application.Features.IngredientsManagement.Store.Actions;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.IngredientsManagement.Store;
@@ -70,7 +69,7 @@ public static class IngredientReducer
 
     #region SetIngredientModalVisibility
     [ReducerMethod]
-    public static IngredientState ReduceSetIngredientModalVisibilityAction(IngredientState state, SetIngredientModalVisibilityAction action) =>
-        state with { IngredientModalVisibility = action.IsVisible };
+    public static IngredientState ReduceSetIngredientModalVisibilityAction(IngredientState state, SetFormModalVisibilityAction<IIngredientModel> action) =>
+        state with { FormModalVisibility = action.IsVisible };
     #endregion
 }

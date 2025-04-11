@@ -279,4 +279,10 @@
   <data name="ImportStrategyLabel" xml:space="preserve">
     <value>Import strategy</value>
   </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>Add tag</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
 </root>

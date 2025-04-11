@@ -123,6 +123,12 @@
   <data name="AddProductSuccessMessage" xml:space="preserve">
     <value>Add product success</value>
   </data>
+  <data name="AddTagErrorMessage" xml:space="preserve">
+    <value>Add tag error</value>
+  </data>
+  <data name="AddTagSuccessMessage" xml:space="preserve">
+    <value>Add tag success</value>
+  </data>
   <data name="DeletePantryIngredientFailed" xml:space="preserve">
     <value>Delete pantry ingredient failed</value>
   </data>
@@ -141,11 +147,20 @@
   <data name="DeleteRecipesSuccess" xml:space="preserve">
     <value>Delete recipes success</value>
   </data>
+  <data name="DeleteTagErrorMessage" xml:space="preserve">
+    <value>Delete tag error</value>
+  </data>
+  <data name="DeleteTagSuccessMessage" xml:space="preserve">
+    <value>Delete tag success</value>
+  </data>
   <data name="LoadPantryIngredientsFailed" xml:space="preserve">
     <value>Load pantry ingredients error</value>
   </data>
   <data name="LoadProductErrorMessage" xml:space="preserve">
     <value>Load products error</value>
+  </data>
+  <data name="LoadTagErrorMessage" xml:space="preserve">
+    <value>Load tag error</value>
   </data>
   <data name="SavePantryIngredientFailed" xml:space="preserve">
     <value>Save pantry ingredient error</value>

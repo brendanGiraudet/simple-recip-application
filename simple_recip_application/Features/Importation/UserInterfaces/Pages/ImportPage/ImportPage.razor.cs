@@ -9,8 +9,8 @@ using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Fa
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.Store;
-using simple_recip_application.Features.RecipesManagement.Store.Actions;
 using simple_recip_application.Resources;
 using simple_recip_application.Settings;
 using simple_recip_application.Store.Actions;
@@ -76,5 +76,5 @@ public partial class ImportPage
         }
     }
 
-    private void CloseRecipeFormModal(bool isUpdated) => Dispatcher.Dispatch(new SetRecipeFormModalVisibilityAction(false));
+    private void CloseRecipeFormModal(bool isUpdated) => Dispatcher.Dispatch(new SetFormModalVisibilityAction<IRecipeModel>(false));
 }

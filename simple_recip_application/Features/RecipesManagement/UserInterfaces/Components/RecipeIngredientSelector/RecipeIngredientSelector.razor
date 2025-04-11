@@ -4,7 +4,9 @@
     <div class="ingredients-selector">
 
         <button @onclick="OpenIngredientFormModalAsync" type="button" class="btn btn-secondary btn-add-ingredient"
-            title="@LabelsTranslator.AddIngredient"><span class="material-symbols-outlined">@MaterialIconsConstants.Add</span></button>
+            title="@LabelsTranslator.AddIngredient">
+            <Icon IconName="@MaterialIconsConstants.Add" />
+        </button>
 
         <div class="ingredient-selector-search-bar">
             <DropdownList OnSearch="@SearchIngredients"
@@ -41,6 +43,6 @@
     </div>
 </div>
 
-<Modal OnClose="CloseIngredientModal" IsVisible="IngredientState.Value.IngredientModalVisibility">
+<Modal OnClose="CloseIngredientModal" IsVisible="IngredientState.Value.FormModalVisibility">
     <IngredientForm Ingredient="_selectedIngredient" OnCancel="CloseIngredientModal" />
 </Modal>
