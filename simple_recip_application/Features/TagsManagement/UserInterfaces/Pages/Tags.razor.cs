@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using simple_recip_application.Constants;
+using simple_recip_application.Features.NotificationsManagement.Store;
 using simple_recip_application.Features.TagsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.TagsManagement.ApplicationCore.Factories;
 using simple_recip_application.Store.Actions;
@@ -18,7 +19,6 @@ public partial class Tags
     [Inject] public required IAuthorizationService AuthorizationService { get; set; }
     [Inject] public required AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
-    private string newTagName = string.Empty;
     private bool _canManageTag;
 
     protected override async Task OnInitializedAsync()
@@ -82,9 +82,17 @@ public partial class Tags
     }
 
     private void DeleteTag(ITagModel tagModel) => Dispatcher.Dispatch(new DeleteItemAction<ITagModel>(tagModel));
+
     private void AddTag()
     {
+        if (string.IsNullOrWhiteSpace(_searchTerm)) return;
+
         var tagModel = ITagFactory.Create(_searchTerm);
         Dispatcher.Dispatch(new AddItemAction<ITagModel>(tagModel));
+    }
+
+    private string GetAddButtonVisibilityCssClass()
+    {
+        return !string.IsNullOrWhiteSpace(_searchTerm) && !TagState.Value.Items.Any() ? string.Empty : "hidden";
     }
 }

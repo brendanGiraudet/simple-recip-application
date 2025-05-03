@@ -51,7 +51,7 @@ public class TagEffects
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Erreur lors de l'ajout d'un ingrédient");
+            _logger.LogError(ex, $"Erreur lors de l'ajout d'un tag");
 
             dispatcher.Dispatch(new AddItemFailureAction<ITagModel>(action.Item));
         }

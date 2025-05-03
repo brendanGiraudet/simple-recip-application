@@ -2,7 +2,7 @@
 @inherits FluxorComponent
 
 <div>
-	<button @onclick="@(() => AddTag())"><Icon IconName="@MaterialIconsConstants.Add" Title="@LabelsTranslator.AddIngredient" /></button>
+	<button type="button" @onclick="@(() => AddTag())" class="@GetAddButtonVisibilityCssClass()"><Icon IconName="@MaterialIconsConstants.Add" Title="@LabelsTranslator.AddIngredient" /></button>
 	<SearchBar OnSearch="@OnSearchTermChanged" />
 </div>
 

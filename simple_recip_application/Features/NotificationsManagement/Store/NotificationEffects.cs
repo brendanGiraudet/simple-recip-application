@@ -1,17 +1,17 @@
 using Fluxor;
+using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.Importation.Store.Actions;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
-using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
+using simple_recip_application.Features.TagsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.UserPantryManagement.Store.Actions;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
-using simple_recip_application.Features.TagsManagement.ApplicationCore.Entities;
 
 namespace simple_recip_application.Features.NotificationsManagement.Store;
 
@@ -276,7 +276,7 @@ public class NotificationEffects
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
     public async Task HandleDeleteItemsActionFailureAction(DeleteItemsFailureAction<IRecipeModel> action, IDispatcher dispatcher)
     {
@@ -286,7 +286,7 @@ public class NotificationEffects
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
     public async Task HandleDeleteItemsActionSuccessAction(DeleteItemsSuccessAction<IRecipeModel> action, IDispatcher dispatcher)
     {
@@ -387,7 +387,7 @@ public class NotificationEffects
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
     public async Task HandleAddOrUpdateUserPantryItemFailureAction(AddOrUpdateUserPantryItemFailureAction action, IDispatcher dispatcher)
     {
@@ -397,7 +397,7 @@ public class NotificationEffects
 
         await Task.CompletedTask;
     }
-    
+
     [EffectMethod]
     public async Task HandleAddOrUpdateUserPantryItemSuccessAction(AddOrUpdateUserPantryItemSuccessAction action, IDispatcher dispatcher)
     {
@@ -446,7 +446,6 @@ public class NotificationEffects
     [EffectMethod]
     public async Task HandleDeleteItemFailureAction(DeleteItemFailureAction<ITagModel> action, IDispatcher dispatcher)
     {
-
         var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.DeleteTagErrorMessage, NotificationType.Error);
 
         dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
