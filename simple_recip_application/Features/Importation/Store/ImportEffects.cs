@@ -13,7 +13,7 @@ public class ImportEffects
 )
 {
     [EffectMethod]
-    public async Task HandleLoadIngredients(StartImportAction action, IDispatcher dispatcher)
+    public async Task HandleStartImportAction(StartImportAction action, IDispatcher dispatcher)
     {
         try
         {
@@ -25,8 +25,6 @@ public class ImportEffects
             {
                 if (file?.Length == 0)
                 {
-                    dispatcher.Dispatch(new ImportFailureAction());
-
                     continue;
                 }
 

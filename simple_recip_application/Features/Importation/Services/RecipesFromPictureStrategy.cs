@@ -24,7 +24,7 @@ public class RecipesFromPictureStrategy
 
             var recipeResult = await _services.ExtractRecipeFromImageAsync(fileContent);
 
-            if (!recipeResult.Success && recipeResult.Item is not null)
+            if (!recipeResult.Success || recipeResult.Item is null)
                 return new MethodResult(false, MessagesTranslator.ImportFailure);
 
             var ingredients = recipeResult.Item.IngredientModels.Select(t => t.IngredientModel?.Name) ?? [];
