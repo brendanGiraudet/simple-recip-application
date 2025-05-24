@@ -39,4 +39,7 @@ public static class TagReducer
     [ReducerMethod]
     public static TagState OnDeleteItemFailureAction(TagState state, DeleteItemFailureAction<ITagModel> _) => state with { IsLoading = false };
     #endregion
+
+    [ReducerMethod]
+    public static TagState OnSetSearchTermAction(TagState state, SetSearchTermAction<ITagModel> action) => state with { SearchTerm = action.SearchTerm };
 }

@@ -23,6 +23,8 @@ public class RecipeRepository
             var recipe = await _dbContext.Set<RecipeModel>()
                                          .Include(c => c.Ingredients)
                                          .ThenInclude(c => c.Ingredient)
+                                         .Include(c=> c.Tags)
+                                         .ThenInclude(c => c.Tag)
                                          .FirstOrDefaultAsync(c => c.Id == id);
 
             return new MethodResult<IRecipeModel?>(true, recipe);
@@ -48,7 +50,9 @@ public class RecipeRepository
 
             var recipesRequest = base.Get(take, skip, convertedPredicate)
                                      .Include(c => c.Ingredients)
-                                     .ThenInclude(c => c.Ingredient);    
+                                     .ThenInclude(c => c.Ingredient)
+                                     .Include(c => c.Tags)
+                                     .ThenInclude(c => c.Tag);    
 
             var recipes = await recipesRequest.OrderBy(c => c.Name).Cast<IRecipeModel>().ToListAsync();
 

@@ -7,5 +7,4 @@ namespace simple_recip_application.Features.NotificationsManagement.Store;
 [FeatureState]
 public record TagState : EntityBaseState<ITagModel>
 {
-    
 }

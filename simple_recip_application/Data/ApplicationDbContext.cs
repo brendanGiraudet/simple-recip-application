@@ -17,6 +17,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<IngredientModel> Ingredients => Set<IngredientModel>();
     public DbSet<RecipeIngredientModel> RecipeIngredients => Set<RecipeIngredientModel>();
+    public DbSet<RecipeTagModel> RecipeTagModels => Set<RecipeTagModel>();
     public DbSet<RecipeModel> Recipes => Set<RecipeModel>();
     public DbSet<PlanifiedRecipeModel> PlanifiedRecipes => Set<PlanifiedRecipeModel>();
     public DbSet<HouseholdProductModel> HouseholdProducts => Set<HouseholdProductModel>();
@@ -108,6 +109,8 @@ public class ApplicationDbContext : DbContext
             entity.Property(r => r.RemoveDate);
 
             entity.Ignore(r => r.IngredientModels);
+            
+            entity.Ignore(r => r.TagModels);
         });
 
         modelBuilder.Entity<RecipeIngredientModel>(entity =>
@@ -127,6 +130,23 @@ public class ApplicationDbContext : DbContext
             entity.Ignore(ri => ri.RecipeModel);
 
             entity.Ignore(ri => ri.IngredientModel);
+        });
+        
+        modelBuilder.Entity<RecipeTagModel>(entity =>
+        {
+            entity.HasKey(ri => new { ri.RecipeId, ri.TagId });
+
+            entity.HasOne(ri => ri.Recipe)
+                  .WithMany(r => r.Tags)
+                  .HasForeignKey(ri => ri.RecipeId);
+
+            entity.HasOne(ri => ri.Tag)
+                  .WithMany()
+                  .HasForeignKey(ri => ri.TagId);
+
+            entity.Ignore(ri => ri.RecipeModel);
+
+            entity.Ignore(ri => ri.TagModel);
         });
 
         modelBuilder.Entity<PlanifiedRecipeModel>(entity =>

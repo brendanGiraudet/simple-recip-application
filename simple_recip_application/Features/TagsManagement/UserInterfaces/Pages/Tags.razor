@@ -1,8 +1,12 @@
 ﻿@page "/tags"
 @inherits FluxorComponent
 
-<div>
-	<button type="button" @onclick="@(() => AddTag())" class="@GetAddButtonVisibilityCssClass()"><Icon IconName="@MaterialIconsConstants.Add" Title="@LabelsTranslator.AddIngredient" /></button>
+<div class="searchbar-container">
+	<button type="button" 
+			@onclick="@(() => AddTag())" 
+			class="@GetAddButtonVisibilityCssClass() btn btn-primary btn-rounded">
+			<Icon IconName="@MaterialIconsConstants.Add" Title="@LabelsTranslator.AddIngredient" />
+	</button>
 	<SearchBar OnSearch="@OnSearchTermChanged" />
 </div>
 

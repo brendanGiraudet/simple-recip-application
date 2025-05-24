@@ -1,0 +1,36 @@
+@inherits FluxorComponent
+
+<div class="tags-selector-container">
+    <div class="tags-selector">
+
+        <button @onclick="CreateTag" 
+                type="button" 
+                class="btn btn-secondary btn-rounded"
+                title="@LabelsTranslator.AddTag">
+            <Icon IconName="@MaterialIconsConstants.Add" />
+        </button>
+
+        <div class="tag-selector-search-bar">
+            <DropdownList OnSearch="@SearchTags"
+                          Items="RecipeState.Value.FilteredTags"
+                          TItem="@(ITagModel)"
+                          OnClick="@((tag) => AddTag(tag))"
+                          PropertyNameToDisplay="@(nameof(ITagModel.Name))"/>
+        </div>
+    </div>
+    <!-- Tags (Selected Tag) -->
+    <div class="tags">
+        @if (RecipeTags.Count == 0)
+        {
+            <span class="badge badge-secondary">@LabelsTranslator.NoTagsFound</span>
+        }
+
+        @foreach (var tag in RecipeTags)
+        {
+            <Tag OnRemoveClick="@(() => RemoveTag(tag))">
+                @* Name *@
+                <span>@tag.TagModel?.Name</span>
+            </Tag>
+        }
+    </div>
+</div>

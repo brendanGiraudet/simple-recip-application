@@ -22,6 +22,14 @@ public class RecipeModel : EntityBase, IRecipeModel
         set => Ingredients = value.Cast<RecipeIngredientModel>().ToList();
     }
     public ICollection<RecipeIngredientModel> Ingredients { get; set; } = [];
+    
+    [MinLength(1, ErrorMessageResourceName = nameof(MessagesTranslator.MinIngredientErrorMessage), ErrorMessageResourceType = typeof(MessagesTranslator))]
+    public ICollection<IRecipeTagModel> TagModels
+    {
+        get => Tags.Cast<IRecipeTagModel>().ToList();
+        set => Tags = value.Cast<RecipeTagModel>().ToList();
+    }
+    public ICollection<RecipeTagModel> Tags { get; set; } = [];
 
     [MaxLength(3000)]
     public string Instructions { get; set; } = string.Empty;

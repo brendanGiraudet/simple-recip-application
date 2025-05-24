@@ -9,7 +9,5 @@
 }
 
 .pagination-buttons-container button {
-    border-radius: 50%;
-    padding: .5rem;
     display: flex;
 }

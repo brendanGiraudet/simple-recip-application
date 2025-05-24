@@ -2,6 +2,7 @@ using Fluxor;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.EqualityComparers;
+using simple_recip_application.Features.TagsManagement.ApplicationCore.Entities;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.RecipesManagement.Store;
@@ -90,12 +91,20 @@ public static class RecipeReducer
     #region SetItem
     [ReducerMethod]
     public static RecipeState ReduceSetItemAction(RecipeState state, SetItemAction<IRecipeModel> action) =>
-        state with { Item = action.Item, FilteredIngredients = state.FilteredIngredients.Where(c => state.Item?.IngredientModels?.FirstOrDefault(p => p.IngredientModel?.Id == c.Id) == null) };
+        state with { Item = action.Item, 
+                     FilteredIngredients = state.FilteredIngredients.Where(c => state.Item?.IngredientModels?.FirstOrDefault(p => p.IngredientModel?.Id == c.Id) == null),
+                     FilteredTags = state.FilteredTags.Where(c => state.Item?.TagModels?.FirstOrDefault(p => p.TagModel?.Id == c.Id) == null),
+                   };
     #endregion
 
     #region LoadItemsSuccessAction<IIngredientModel>
     [ReducerMethod]
     public static RecipeState ReduceLoadItemsSuccessAction(RecipeState state, LoadItemsSuccessAction<IIngredientModel> action) => state with { FilteredIngredients = action.Items.Where(c => state.Item?.IngredientModels?.FirstOrDefault(p => p.IngredientId == c.Id) == null) };
+    #endregion
+    
+    #region LoadItemsSuccessAction<ITagModel>
+    [ReducerMethod]
+    public static RecipeState ReduceLoadItemsSuccessAction(RecipeState state, LoadItemsSuccessAction<ITagModel> action) => state with { FilteredTags = action.Items.Where(c => state.Item?.TagModels?.FirstOrDefault(p => p.TagId == c.Id) == null) };
     #endregion
 
     #region DeleteRecipes

@@ -1,0 +1,7 @@
+﻿.searchbar-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    row-gap: 1rem;
+    align-items: center;
+}

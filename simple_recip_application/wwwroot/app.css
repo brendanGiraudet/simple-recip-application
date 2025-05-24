@@ -118,6 +118,11 @@ h1:focus {
     outline: none;
 }
 
+.btn-rounded {
+    border-radius: 50%;
+    padding: .5rem;
+}
+
 /************/
 
 .hidden {

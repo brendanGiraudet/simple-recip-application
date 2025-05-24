@@ -1,13 +1,13 @@
 <div class="pagination-buttons-container">
 
 	@* Previous *@
-	<button @onclick="@(() => HandlePreviousClickAsync())" class="btn btn-primary" disabled="@(!CanPreviousClick)"
+	<button @onclick="@(() => HandlePreviousClickAsync())" class="btn btn-primary btn-rounded" disabled="@(!CanPreviousClick)"
 			title="@LabelsTranslator.Previous">
 		<Icon IconName="@MaterialIconsConstants.LeftArrow" />
 	</button>
 
 	@* Next *@
-	<button @onclick="@(() => HandleNextClickAsync())" class="btn btn-primary" title="@LabelsTranslator.Next">
+	<button @onclick="@(() => HandleNextClickAsync())" class="btn btn-primary btn-rounded" title="@LabelsTranslator.Next">
 		<Icon IconName="@MaterialIconsConstants.RightArrow" />
 	</button>
 

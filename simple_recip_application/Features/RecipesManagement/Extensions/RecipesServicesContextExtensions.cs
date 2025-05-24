@@ -13,6 +13,7 @@ public static class RecipesServicesContextExtensions
     {
         services.AddTransient<IShoppingListGeneratorService, ShoppingListGeneratorService>();
         services.AddTransient<IRecipeIngredientFactory, RecipeIngredientFactory>();
+        services.AddTransient<IRecipeTagFactory, RecipeTagFactory>();
         services.AddTransient<IRecipeFactory, RecipeFactory>();
         services.AddScoped<IRecipeRepository, RecipeRepository>();
 
