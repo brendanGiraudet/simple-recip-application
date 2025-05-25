@@ -7,7 +7,7 @@ public interface IRecipeModel : IEntityBase
     public string Name { get; set; }
     public string Description { get; set; }
     public ICollection<IRecipeIngredientModel> IngredientModels { get; set; }
-    public ICollection<IRecipeTagModel> TagModels { get; set; }
+    public ICollection<IRecipeTagModel>? TagModels { get; set; }
     public string Instructions { get; set; }
     public TimeOnly PreparationTime { get; set; }
     public TimeOnly CookingTime { get; set; }
