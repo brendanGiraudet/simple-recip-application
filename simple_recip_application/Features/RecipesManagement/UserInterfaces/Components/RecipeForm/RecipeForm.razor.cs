@@ -1,21 +1,21 @@
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components;
-using simple_recip_application.Store.Actions;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using Fluxor;
-using simple_recip_application.Features.RecipesManagement.Store;
-using simple_recip_application.Settings;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Options;
-using simple_recip_application.Features.Importation.Store.Actions;
-using simple_recip_application.Features.Importation.Enums;
-using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
-using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
-using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
-using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
-using simple_recip_application.Resources;
-using simple_recip_application.Features.Importation.Store;
 using Microsoft.FeatureManagement;
 using simple_recip_application.Constants;
+using simple_recip_application.Features.Importation.Enums;
+using simple_recip_application.Features.Importation.Store;
+using simple_recip_application.Features.Importation.Store.Actions;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Enums;
+using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
+using simple_recip_application.Features.RecipesManagement.Store;
+using simple_recip_application.Resources;
+using simple_recip_application.Settings;
+using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.RecipesManagement.UserInterfaces.Components.RecipeForm;
 
@@ -52,11 +52,28 @@ public partial class RecipeForm
     protected async Task HandleImageUpload(InputFileChangeEventArgs e)
     {
         var file = e.File;
-        if (file != null)
+        if (file == null) return;
+
+        if (file.Size > _fileSettings.MaxAllowedSize)
+        {
+            var notification = NotificationMessageFactory.CreateNotificationMessage(MessagesTranslator.MaxAllowedSizeError, NotificationType.Error);
+
+            Dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+            return;
+        }
+
+        try
         {
             using var memoryStream = new MemoryStream();
-            await file.OpenReadStream().CopyToAsync(memoryStream);
+
+            await file.OpenReadStream(_fileSettings.MaxAllowedSize).CopyToAsync(memoryStream);
+
             Recipe.Image = memoryStream.ToArray();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error while handle image");
         }
     }
 
