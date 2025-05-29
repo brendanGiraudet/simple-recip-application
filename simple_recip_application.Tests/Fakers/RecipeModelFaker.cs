@@ -13,5 +13,6 @@ public class RecipeModelFaker : Faker<RecipeModel>
         RuleFor(c => c.Description, f => f.Random.String2(10));
         RuleFor(c => c.Name, f => f.Random.String2(10));
         RuleFor(c => c.Ingredients, f => new RecipeIngredientModelFaker().Generate(2));
+        RuleFor(c => c.Image, f => f.Random.Bytes(9999999));
     }
 }

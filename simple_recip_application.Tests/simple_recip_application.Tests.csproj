@@ -24,4 +24,8 @@
     <ProjectReference Include="..\simple_recip_application\simple_recip_application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 </Project>
