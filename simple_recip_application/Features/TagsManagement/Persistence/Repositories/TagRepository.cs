@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using simple_recip_application.Data;
 using simple_recip_application.Data.Persistence.Repositories;
 using simple_recip_application.Dtos;
@@ -31,12 +32,24 @@ public class TagRepository
 
     public async Task<MethodResult<IEnumerable<ITagModel>>> GetAsync(int take, int skip, Expression<Func<ITagModel, bool>>? predicate, Expression<Func<ITagModel, object>>? sort = null)
     {
-        var convertedPredicate = predicate?.Convert<ITagModel, TagModel, bool>();
-        var convertedSort = sort?.Convert<ITagModel, TagModel, object>();
+        try
+        {
+            if (sort is null)
+                sort = c => c.Name;
 
-        var result = await base.GetAsync(take, skip, convertedPredicate, convertedSort);
+            var convertedPredicate = predicate?.Convert<ITagModel, TagModel, bool>();
+            var convertedSort = sort?.Convert<ITagModel, TagModel, object>();
 
-        return new MethodResult<IEnumerable<ITagModel>>(result.Success, result.Item.Cast<ITagModel>());
+            var tagsRequest = base.Get(take, skip, convertedPredicate, convertedSort);
+
+            var tags = await tagsRequest.Cast<ITagModel>().ToListAsync();
+
+            return new MethodResult<IEnumerable<ITagModel>>(true, tags);
+        }
+        catch (Exception ex)
+        {
+            return new MethodResult<IEnumerable<ITagModel>>(false, []);
+        }
     }
 
     public async Task<MethodResult> AddAsync(ITagModel? entity)

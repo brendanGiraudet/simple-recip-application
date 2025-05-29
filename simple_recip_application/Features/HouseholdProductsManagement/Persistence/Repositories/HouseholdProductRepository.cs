@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using simple_recip_application.Data;
 using simple_recip_application.Data.Persistence.Repositories;
 using simple_recip_application.Dtos;
@@ -31,15 +32,24 @@ public class HouseholdProductRepository
 
     public async Task<MethodResult<IEnumerable<IHouseholdProductModel>>> GetAsync(int take, int skip, Expression<Func<IHouseholdProductModel, bool>>? predicate, Expression<Func<IHouseholdProductModel, object>>? sort = null)
     {
-        if (sort is null)
-            sort = c => c.Name;
+        try
+        {
+            if (sort is null)
+                sort = c => c.Name;
 
-        var convertedPredicate = predicate?.Convert<IHouseholdProductModel, HouseholdProductModel, bool>();
-        var convertedSort = sort?.Convert<IHouseholdProductModel, HouseholdProductModel, object>();
-        
-        var result = await base.GetAsync(take, skip, convertedPredicate, convertedSort);
+            var convertedPredicate = predicate?.Convert<IHouseholdProductModel, HouseholdProductModel, bool>();
+            var convertedSort = sort?.Convert<IHouseholdProductModel, HouseholdProductModel, object>();
 
-        return new MethodResult<IEnumerable<IHouseholdProductModel>>(result.Success, result.Item.Cast<IHouseholdProductModel>());
+            var householdProductsRequest = base.Get(take, skip, convertedPredicate, convertedSort);
+
+            var householdProducts = await householdProductsRequest.Cast<IHouseholdProductModel>().ToListAsync();
+
+            return new MethodResult<IEnumerable<IHouseholdProductModel>>(true, householdProducts);
+        }
+        catch (Exception ex)
+        {
+            return new MethodResult<IEnumerable<IHouseholdProductModel>>(false, []);
+        }
     }
 
     public async Task<MethodResult> AddAsync(IHouseholdProductModel? entity)

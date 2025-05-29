@@ -55,6 +55,7 @@ public class RecipeRepository
             var recipesRequest = base.Get(take, skip, convertedPredicate, convertedSort)
                                      .Select(c => new RecipeModel
                                      {
+                                         Id = c.Id,
                                          Name = c.Name,
                                          Image = c.Image,
                                          CookingTime = c.CookingTime,
