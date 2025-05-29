@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using simple_recip_application.Data;
 using simple_recip_application.Data.Persistence.Repositories;
 using simple_recip_application.Dtos;
@@ -31,15 +32,24 @@ public class IngredientRepository
 
     public async Task<MethodResult<IEnumerable<IIngredientModel>>> GetAsync(int take, int skip, Expression<Func<IIngredientModel, bool>>? predicate, Expression<Func<IIngredientModel, object>>? sort = null)
     {
-        if (sort is null)
-            sort = c => c.Name;
+        try
+        {
+            if (sort is null)
+                sort = c => c.Name;
 
-        var convertedPredicate = predicate?.Convert<IIngredientModel, IngredientModel, bool>();
-        var convertedSort = sort?.Convert<IIngredientModel, IngredientModel, object>();
-        
-        var result = await base.GetAsync(take, skip, convertedPredicate, convertedSort);
+            var convertedPredicate = predicate?.Convert<IIngredientModel, IngredientModel, bool>();
+            var convertedSort = sort?.Convert<IIngredientModel, IngredientModel, object>();
 
-        return new MethodResult<IEnumerable<IIngredientModel>>(result.Success, result.Item.Cast<IIngredientModel>());
+            var ingredientsRequest = base.Get(take, skip, convertedPredicate, convertedSort);
+
+            var ingredients = await ingredientsRequest.Cast<IIngredientModel>().ToListAsync();
+
+            return new MethodResult<IEnumerable<IIngredientModel>>(true, ingredients);
+        }
+        catch (Exception ex)
+        {
+            return new MethodResult<IEnumerable<IIngredientModel>>(false, []);
+        }
     }
 
     public async Task<MethodResult> AddAsync(IIngredientModel? entity)
