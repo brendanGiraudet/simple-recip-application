@@ -29,13 +29,17 @@ public class HouseholdProductRepository
         return new MethodResult<IEnumerable<IHouseholdProductModel>>(result.Success, result.Item);
     }
 
-    public async Task<MethodResult<IEnumerable<IHouseholdProductModel>>> GetAsync(int take, int skip, Expression<Func<IHouseholdProductModel, bool>>? predicate)
+    public async Task<MethodResult<IEnumerable<IHouseholdProductModel>>> GetAsync(int take, int skip, Expression<Func<IHouseholdProductModel, bool>>? predicate, Expression<Func<IHouseholdProductModel, object>>? sort = null)
     {
-        var convertedPredicate = predicate?.Convert<IHouseholdProductModel, HouseholdProductModel, bool>();
-        
-        var result = await base.GetAsync(take, skip, convertedPredicate);
+        if (sort is null)
+            sort = c => c.Name;
 
-        return new MethodResult<IEnumerable<IHouseholdProductModel>>(result.Success, result.Item.OrderBy(c => c.Name).Cast<IHouseholdProductModel>());
+        var convertedPredicate = predicate?.Convert<IHouseholdProductModel, HouseholdProductModel, bool>();
+        var convertedSort = sort?.Convert<IHouseholdProductModel, HouseholdProductModel, object>();
+        
+        var result = await base.GetAsync(take, skip, convertedPredicate, convertedSort);
+
+        return new MethodResult<IEnumerable<IHouseholdProductModel>>(result.Success, result.Item.Cast<IHouseholdProductModel>());
     }
 
     public async Task<MethodResult> AddAsync(IHouseholdProductModel? entity)

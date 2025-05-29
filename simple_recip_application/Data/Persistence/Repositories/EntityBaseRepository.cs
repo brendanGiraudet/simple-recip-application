@@ -11,14 +11,12 @@ public class EntityBaseRepository<T>
 )
 : Repository<T>(_dbContext), IRepository<T> where T : EntityBase
 {
-    protected override IQueryable<T> Get(int take, int skip, Expression<Func<T, bool>>? predicate = null)
+    protected override IQueryable<T> Get(int take, int skip, Expression<Func<T, bool>>? predicate = null, Expression<Func<T, object>>? sort = null)
     {
-        IQueryable<T> query = _dbContext.Set<T>();
+        if (sort is null)
+            sort = c => c.Id;
 
-        if (predicate is not null)
-            query = query.Where(predicate);
-
-        return query.OrderBy(c => c.Id).Skip(skip).Take(take);
+        return base.Get(take, skip, predicate, sort);
     }
 
     public override async Task<MethodResult> AddAsync(T? entity)

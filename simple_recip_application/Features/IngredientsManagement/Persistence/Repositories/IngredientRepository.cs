@@ -29,13 +29,17 @@ public class IngredientRepository
         return new MethodResult<IEnumerable<IIngredientModel>>(result.Success, result.Item);
     }
 
-    public async Task<MethodResult<IEnumerable<IIngredientModel>>> GetAsync(int take, int skip, Expression<Func<IIngredientModel, bool>>? predicate)
+    public async Task<MethodResult<IEnumerable<IIngredientModel>>> GetAsync(int take, int skip, Expression<Func<IIngredientModel, bool>>? predicate, Expression<Func<IIngredientModel, object>>? sort = null)
     {
-        var convertedPredicate = predicate?.Convert<IIngredientModel, IngredientModel, bool>();
-        
-        var result = await base.GetAsync(take, skip, convertedPredicate);
+        if (sort is null)
+            sort = c => c.Name;
 
-        return new MethodResult<IEnumerable<IIngredientModel>>(result.Success, result.Item.OrderBy(c => c.Name).Cast<IIngredientModel>());
+        var convertedPredicate = predicate?.Convert<IIngredientModel, IngredientModel, bool>();
+        var convertedSort = sort?.Convert<IIngredientModel, IngredientModel, object>();
+        
+        var result = await base.GetAsync(take, skip, convertedPredicate, convertedSort);
+
+        return new MethodResult<IEnumerable<IIngredientModel>>(result.Success, result.Item.Cast<IIngredientModel>());
     }
 
     public async Task<MethodResult> AddAsync(IIngredientModel? entity)

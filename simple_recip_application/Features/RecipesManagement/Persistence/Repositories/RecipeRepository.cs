@@ -42,19 +42,26 @@ public class RecipeRepository
         return new MethodResult<IEnumerable<IRecipeModel>>(result.Success, result.Item);
     }
 
-    public async Task<MethodResult<IEnumerable<IRecipeModel>>> GetAsync(int take, int skip, Expression<Func<IRecipeModel, bool>>? predicate)
+    public async Task<MethodResult<IEnumerable<IRecipeModel>>> GetAsync(int take, int skip, Expression<Func<IRecipeModel, bool>>? predicate = null, Expression<Func<IRecipeModel, object>>? sort = null)
     {
         try
         {
+            if(sort is null)
+                sort = c => c.Name;
+
             var convertedPredicate = predicate?.Convert<IRecipeModel, RecipeModel, bool>();
+            var convertedSort = sort?.Convert<IRecipeModel, RecipeModel, object>();
 
-            var recipesRequest = base.Get(take, skip, convertedPredicate)
-                                     .Include(c => c.Ingredients)
-                                     .ThenInclude(c => c.Ingredient)
-                                     .Include(c => c.Tags)
-                                     .ThenInclude(c => c.Tag);    
+            var recipesRequest = base.Get(take, skip, convertedPredicate, convertedSort)
+                                     .Select(c => new RecipeModel
+                                     {
+                                         Name = c.Name,
+                                         Image = c.Image,
+                                         CookingTime = c.CookingTime,
+                                         PreparationTime = c.PreparationTime,
+                                     });    
 
-            var recipes = await recipesRequest.OrderBy(c => c.Name).Cast<IRecipeModel>().ToListAsync();
+            var recipes = await recipesRequest.Cast<IRecipeModel>().ToListAsync();
 
             return new MethodResult<IEnumerable<IRecipeModel>>(true, recipes);
         }

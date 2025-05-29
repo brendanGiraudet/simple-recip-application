@@ -35,7 +35,7 @@ public class RecipePlanifierServiceTests
         var recipes = new RecipeModelFaker().Generate(7);
 
         _recipeRepositoryMock
-            .Setup(repo => repo.GetAsync(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<Expression<Func<IRecipeModel, bool>>>()))
+            .Setup(repo => repo.GetAsync(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<Expression<Func<IRecipeModel, bool>>>(), It.IsAny<Expression<Func<IRecipeModel, object>>>()))
             .ReturnsAsync(new MethodResult<IEnumerable<IRecipeModel>>(true, recipes));
 
         _planifiedRecipeModelFactoryMock

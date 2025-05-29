@@ -30,13 +30,21 @@ public class PlanifiedRecipeRepository
         return new MethodResult<IEnumerable<IPlanifiedRecipeModel>>(result.Success, result.Item);
     }
 
-    public async Task<MethodResult<IEnumerable<IPlanifiedRecipeModel>>> GetAsync(int take, int skip, Expression<Func<IPlanifiedRecipeModel, bool>>? predicate)
+    public async Task<MethodResult<IEnumerable<IPlanifiedRecipeModel>>> GetAsync(int take, int skip, Expression<Func<IPlanifiedRecipeModel, bool>>? predicate, Expression<Func<IPlanifiedRecipeModel, object>>? sort = null)
     {
         try
         {
-            var convertedPredicate = predicate?.Convert<IPlanifiedRecipeModel, PlanifiedRecipeModel, bool>();
+            if (sort is null)
+                sort = c => c.PlanifiedDateTime;
 
-            var planifiedRecipes = await base.Get(take, skip, convertedPredicate).Include(c => c.Recipe).ThenInclude(re => re.Ingredients).ThenInclude(c => c.Ingredient).OrderBy(c => c.PlanifiedDateTime).ToListAsync();
+            var convertedPredicate = predicate?.Convert<IPlanifiedRecipeModel, PlanifiedRecipeModel, bool>();
+            var convertedSort = sort?.Convert<IPlanifiedRecipeModel, PlanifiedRecipeModel, object>();
+
+            var planifiedRecipes = await base.Get(take, skip, convertedPredicate, convertedSort)
+                                             .Include(c => c.Recipe)
+                                             .ThenInclude(re => re.Ingredients)
+                                             .ThenInclude(c => c.Ingredient)
+                                             .ToListAsync();
 
             return new MethodResult<IEnumerable<IPlanifiedRecipeModel>>(true, planifiedRecipes.Cast<IPlanifiedRecipeModel>());
         }

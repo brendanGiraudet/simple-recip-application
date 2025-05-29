@@ -41,11 +41,11 @@ public class Repository<T>
         }
     }
 
-    public virtual async Task<MethodResult<IEnumerable<T>>> GetAsync(int take, int skip, Expression<Func<T, bool>>? predicate = null)
+    public virtual async Task<MethodResult<IEnumerable<T>>> GetAsync(int take, int skip, Expression<Func<T, bool>>? predicate = null, Expression<Func<T, object>>? sort = null)
     {
         try
         {
-            var items = await Get(take, skip, predicate).ToListAsync();
+            var items = await Get(take, skip, predicate, sort).ToListAsync();
 
             return new MethodResult<IEnumerable<T>>(true, items);
         }
@@ -56,12 +56,15 @@ public class Repository<T>
         }
     }
 
-    protected virtual IQueryable<T> Get(int take, int skip, Expression<Func<T, bool>>? predicate = null)
+    protected virtual IQueryable<T> Get(int take, int skip, Expression<Func<T, bool>>? predicate = null, Expression<Func<T, object>>? sort = null)
     {
         IQueryable<T> query = _dbContext.Set<T>();
 
         if (predicate is not null)
             query = query.Where(predicate);
+
+        if (sort is not null)
+            query.OrderBy(sort);
 
         return query.Skip(skip).Take(take);
     }

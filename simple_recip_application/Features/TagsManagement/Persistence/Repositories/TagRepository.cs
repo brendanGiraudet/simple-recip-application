@@ -29,13 +29,14 @@ public class TagRepository
         return new MethodResult<IEnumerable<ITagModel>>(result.Success, result.Item);
     }
 
-    public async Task<MethodResult<IEnumerable<ITagModel>>> GetAsync(int take, int skip, Expression<Func<ITagModel, bool>>? predicate)
+    public async Task<MethodResult<IEnumerable<ITagModel>>> GetAsync(int take, int skip, Expression<Func<ITagModel, bool>>? predicate, Expression<Func<ITagModel, object>>? sort = null)
     {
         var convertedPredicate = predicate?.Convert<ITagModel, TagModel, bool>();
+        var convertedSort = sort?.Convert<ITagModel, TagModel, object>();
 
-        var result = await base.GetAsync(take, skip, convertedPredicate);
+        var result = await base.GetAsync(take, skip, convertedPredicate, convertedSort);
 
-        return new MethodResult<IEnumerable<ITagModel>>(result.Success, result.Item.OrderBy(c => c.Name).Cast<ITagModel>());
+        return new MethodResult<IEnumerable<ITagModel>>(result.Success, result.Item.Cast<ITagModel>());
     }
 
     public async Task<MethodResult> AddAsync(ITagModel? entity)
