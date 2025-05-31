@@ -10,79 +10,106 @@ namespace simple_recip_application.Features.RecipesManagement.Store;
 
 public class PlanifiedRecipeEffects
 (
-    IPlanifiedRecipeRepository _planifiedRecipeRepository,
+    IServiceScopeFactory _scopeFactory,
     IRecipePlanifierService _recipePlanifierService
 )
 {
     [EffectMethod]
     public async Task HandleLoadItemsAction(LoadItemsAction<IPlanifiedRecipeModel> action, IDispatcher dispatcher)
     {
-        var result = await _planifiedRecipeRepository.GetAsync(action.Take, action.Skip, action.Predicate);
+        await Task.Run(async () =>
+        {
+            using var scope = _scopeFactory.CreateScope();
+            var repository = scope.ServiceProvider.GetRequiredService<IPlanifiedRecipeRepository>();
 
-        if (result.Success)
-            dispatcher.Dispatch(new LoadItemsSuccessAction<IPlanifiedRecipeModel>(result.Item));
+            var result = await repository.GetAsync(action.Take, action.Skip, action.Predicate);
 
-        else
-            dispatcher.Dispatch(new LoadItemsFailureAction<IPlanifiedRecipeModel>());
+            if (result.Success)
+                dispatcher.Dispatch(new LoadItemsSuccessAction<IPlanifiedRecipeModel>(result.Item));
+
+            else
+                dispatcher.Dispatch(new LoadItemsFailureAction<IPlanifiedRecipeModel>());
+        });
     }
 
     [EffectMethod]
     public async Task HandleAddItemAction(AddItemAction<IPlanifiedRecipeModel> action, IDispatcher dispatcher)
     {
-        var result = await _planifiedRecipeRepository.AddAsync(action.Item);
+        await Task.Run(async () =>
+        {
+            using var scope = _scopeFactory.CreateScope();
+            var repository = scope.ServiceProvider.GetRequiredService<IPlanifiedRecipeRepository>();
 
-        if (result.Success)
-            dispatcher.Dispatch(new AddItemSuccessAction<IPlanifiedRecipeModel>(action.Item));
+            var result = await repository.AddAsync(action.Item);
 
-        else
-            dispatcher.Dispatch(new AddItemFailureAction<IPlanifiedRecipeModel>(action.Item));
+            if (result.Success)
+                dispatcher.Dispatch(new AddItemSuccessAction<IPlanifiedRecipeModel>(action.Item));
+
+            else
+                dispatcher.Dispatch(new AddItemFailureAction<IPlanifiedRecipeModel>(action.Item));
+        });
     }
 
     [EffectMethod]
     public async Task HandleDeleteItemAction(DeleteItemAction<IPlanifiedRecipeModel> action, IDispatcher dispatcher)
     {
-        var result = await _planifiedRecipeRepository.DeleteAsync(action.Item);
+        await Task.Run(async () =>
+        {
+            using var scope = _scopeFactory.CreateScope();
+            var repository = scope.ServiceProvider.GetRequiredService<IPlanifiedRecipeRepository>();
 
-        if (result.Success)
-            dispatcher.Dispatch(new DeleteItemSuccessAction<IPlanifiedRecipeModel>(action.Item));
+            var result = await repository.DeleteAsync(action.Item);
 
-        else
-            dispatcher.Dispatch(new DeleteItemFailureAction<IPlanifiedRecipeModel>(action.Item));
+            if (result.Success)
+                dispatcher.Dispatch(new DeleteItemSuccessAction<IPlanifiedRecipeModel>(action.Item));
+
+            else
+                dispatcher.Dispatch(new DeleteItemFailureAction<IPlanifiedRecipeModel>(action.Item));
+        });
     }
 
     [EffectMethod]
     public async Task HandlePlanifiedRecipesForTheWeekAction(PlanifiedRecipesForTheWeekAction action, IDispatcher dispatcher)
     {
-        var result = await _recipePlanifierService.GetPlanifiedRecipesForTheWeekAsync(action.CurrentDate);
-
-        if (!result.Success)
+        await Task.Run(async () =>
         {
-            dispatcher.Dispatch(new PlanifiedRecipesForTheWeekFailureAction());
+            using var scope = _scopeFactory.CreateScope();
+            var repository = scope.ServiceProvider.GetRequiredService<IPlanifiedRecipeRepository>();
 
-            return;
-        }
+            var result = await _recipePlanifierService.GetPlanifiedRecipesForTheWeekAsync(action.CurrentDate);
 
-        var recipesList = result.Item.SelectMany(entry => entry.Value).ToList();
+            if (!result.Success)
+            {
+                dispatcher.Dispatch(new PlanifiedRecipesForTheWeekFailureAction());
 
-        var addResult = await _planifiedRecipeRepository.AddRangeAsync(recipesList);
+                return;
+            }
 
-        if (addResult.Success)
-            dispatcher.Dispatch(new PlanifiedRecipesForTheWeekSuccessAction(result.Item));
+            var recipesList = result.Item.SelectMany(entry => entry.Value).ToList();
 
-        else
-            dispatcher.Dispatch(new PlanifiedRecipesForTheWeekFailureAction());
+            var addResult = await repository.AddRangeAsync(recipesList);
+
+            if (addResult.Success)
+                dispatcher.Dispatch(new PlanifiedRecipesForTheWeekSuccessAction(result.Item));
+
+            else
+                dispatcher.Dispatch(new PlanifiedRecipesForTheWeekFailureAction());
+        });
     }
 
     [EffectMethod]
     public async Task HandlePlanifiedRecipeAutomaticalyAction(PlanifiedRecipeAutomaticalyAction action, IDispatcher dispatcher)
     {
-        var result = await _recipePlanifierService.GetPlanifiedRecipeAutomaticalyAsync(action.PlanifiedRecipe);
+        await Task.Run(async () =>
+        {
+            var result = await _recipePlanifierService.GetPlanifiedRecipeAutomaticalyAsync(action.PlanifiedRecipe);
 
-        if (!result.Success)
-            dispatcher.Dispatch(new PlanifiedRecipeAutomaticalyFailureAction());
+            if (!result.Success)
+                dispatcher.Dispatch(new PlanifiedRecipeAutomaticalyFailureAction());
 
-        else
-            dispatcher.Dispatch(new PlanifiedRecipeAutomaticalySuccessAction(action.PlanifiedRecipe, result.Item));
+            else
+                dispatcher.Dispatch(new PlanifiedRecipeAutomaticalySuccessAction(action.PlanifiedRecipe, result.Item));
+        });
     }
 
     [EffectMethod]
@@ -91,10 +118,10 @@ public class PlanifiedRecipeEffects
         if (new PlanifiedRecipeEqualityComparer().Equals(action.OldPlanifiedRecipe, action.NewPlanifiedRecipe))
             return;
 
-        dispatcher.Dispatch(new AddItemAction<IPlanifiedRecipeModel>(action.NewPlanifiedRecipe));
-
         if (action.OldPlanifiedRecipe.RecipeModel is not null)
             dispatcher.Dispatch(new DeleteItemAction<IPlanifiedRecipeModel>(action.OldPlanifiedRecipe));
+
+        dispatcher.Dispatch(new AddItemAction<IPlanifiedRecipeModel>(action.NewPlanifiedRecipe));
 
         await Task.CompletedTask;
     }

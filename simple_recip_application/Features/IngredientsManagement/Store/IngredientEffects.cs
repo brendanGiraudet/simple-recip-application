@@ -7,7 +7,7 @@ namespace simple_recip_application.Features.IngredientsManagement.Store;
 
 public class IngredientEffects
 (
-    IIngredientRepository _repository,
+    IServiceScopeFactory _scopeFactory,
     ILogger<IngredientEffects> _logger
 )
 {
@@ -16,13 +16,19 @@ public class IngredientEffects
     {
         try
         {
-            var ingredientsResult = await _repository.GetAsync(action.Take, action.Skip, action.Predicate);
+            await Task.Run(async () =>
+            {
+                using var scope = _scopeFactory.CreateScope();
+                var repository = scope.ServiceProvider.GetRequiredService<IIngredientRepository>();
 
-            if (ingredientsResult.Success)
-                dispatcher.Dispatch(new LoadItemsSuccessAction<IIngredientModel>(ingredientsResult.Item));
+                var ingredientsResult = await repository.GetAsync(action.Take, action.Skip, action.Predicate);
 
-            else
-                dispatcher.Dispatch(new LoadItemsFailureAction<IIngredientModel>());
+                if (ingredientsResult.Success)
+                    dispatcher.Dispatch(new LoadItemsSuccessAction<IIngredientModel>(ingredientsResult.Item));
+
+                else
+                    dispatcher.Dispatch(new LoadItemsFailureAction<IIngredientModel>());
+            });
 
         }
         catch (Exception ex)
@@ -38,16 +44,22 @@ public class IngredientEffects
     {
         try
         {
-            var addResult = await _repository.AddAsync(action.Item);
-
-            if (!addResult.Success)
-                dispatcher.Dispatch(new AddItemFailureAction<IIngredientModel>(action.Item));
-
-            else
+            await Task.Run(async () =>
             {
-                dispatcher.Dispatch(new AddItemSuccessAction<IIngredientModel>(action.Item));
-                dispatcher.Dispatch(new SetFormModalVisibilityAction<IIngredientModel>(false));
-            }
+                using var scope = _scopeFactory.CreateScope();
+                var repository = scope.ServiceProvider.GetRequiredService<IIngredientRepository>();
+
+                var addResult = await repository.AddAsync(action.Item);
+
+                if (!addResult.Success)
+                    dispatcher.Dispatch(new AddItemFailureAction<IIngredientModel>(action.Item));
+
+                else
+                {
+                    dispatcher.Dispatch(new AddItemSuccessAction<IIngredientModel>(action.Item));
+                    dispatcher.Dispatch(new SetFormModalVisibilityAction<IIngredientModel>(false));
+                }
+            });
         }
         catch (Exception ex)
         {
@@ -62,31 +74,37 @@ public class IngredientEffects
     {
         try
         {
-            if (!action.Item.Id.HasValue)
+            await Task.Run(async () =>
             {
-                dispatcher.Dispatch(new DeleteItemFailureAction<IIngredientModel>(action.Item));
+                using var scope = _scopeFactory.CreateScope();
+                var repository = scope.ServiceProvider.GetRequiredService<IIngredientRepository>();
 
-                return;
-            }
+                if (!action.Item.Id.HasValue)
+                {
+                    dispatcher.Dispatch(new DeleteItemFailureAction<IIngredientModel>(action.Item));
 
-            var ingredientResult = await _repository.GetByIdAsync(action.Item.Id.Value);
-            if (!ingredientResult.Success || ingredientResult.Item == null)
-            {
-                dispatcher.Dispatch(new DeleteItemFailureAction<IIngredientModel>(action.Item));
+                    return;
+                }
 
-                return;
-            }
+                var ingredientResult = await repository.GetByIdAsync(action.Item.Id.Value);
+                if (!ingredientResult.Success || ingredientResult.Item == null)
+                {
+                    dispatcher.Dispatch(new DeleteItemFailureAction<IIngredientModel>(action.Item));
 
-            var deleteResult = await _repository.DeleteAsync(ingredientResult.Item);
+                    return;
+                }
 
-            if (!deleteResult.Success)
-                dispatcher.Dispatch(new DeleteItemFailureAction<IIngredientModel>(action.Item));
+                var deleteResult = await repository.DeleteAsync(ingredientResult.Item);
 
-            else
-            {
-                dispatcher.Dispatch(new DeleteItemSuccessAction<IIngredientModel>(action.Item));
-                dispatcher.Dispatch(new SetFormModalVisibilityAction<IIngredientModel>(false));
-            }
+                if (!deleteResult.Success)
+                    dispatcher.Dispatch(new DeleteItemFailureAction<IIngredientModel>(action.Item));
+
+                else
+                {
+                    dispatcher.Dispatch(new DeleteItemSuccessAction<IIngredientModel>(action.Item));
+                    dispatcher.Dispatch(new SetFormModalVisibilityAction<IIngredientModel>(false));
+                }
+            });
         }
         catch (Exception ex)
         {
@@ -101,16 +119,22 @@ public class IngredientEffects
     {
         try
         {
-            var updateResult = await _repository.UpdateAsync(action.Item);
-
-            if (!updateResult.Success)
-                dispatcher.Dispatch(new UpdateItemFailureAction<IIngredientModel>(action.Item));
-
-            else
+            await Task.Run(async () =>
             {
-                dispatcher.Dispatch(new UpdateItemSuccessAction<IIngredientModel>(action.Item));
-                dispatcher.Dispatch(new SetFormModalVisibilityAction<IIngredientModel>(false));
-            }
+                using var scope = _scopeFactory.CreateScope();
+                var repository = scope.ServiceProvider.GetRequiredService<IIngredientRepository>();
+
+                var updateResult = await repository.UpdateAsync(action.Item);
+
+                if (!updateResult.Success)
+                    dispatcher.Dispatch(new UpdateItemFailureAction<IIngredientModel>(action.Item));
+
+                else
+                {
+                    dispatcher.Dispatch(new UpdateItemSuccessAction<IIngredientModel>(action.Item));
+                    dispatcher.Dispatch(new SetFormModalVisibilityAction<IIngredientModel>(false));
+                }
+            });
         }
         catch (Exception ex)
         {

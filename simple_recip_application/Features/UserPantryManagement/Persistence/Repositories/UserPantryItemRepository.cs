@@ -55,7 +55,8 @@ public class UserPantryItemRepository
         try
         {
             var item = await _dbContext.Set<UserPantryItemModel>()
-            .FirstOrDefaultAsync(pi => pi.UserId == userId && pi.ProductId == productId);
+                                       .AsNoTracking()
+                                       .FirstOrDefaultAsync(pi => pi.UserId == userId && pi.ProductId == productId);
 
             return new MethodResult<IUserPantryItemModel?>(true, item);
         }

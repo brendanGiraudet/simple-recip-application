@@ -1,13 +1,13 @@
 ﻿using Fluxor;
-using simple_recip_application.Features.TagsManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.TagsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.TagsManagement.ApplicationCore.Repositories;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.TagsManagement.Store;
 
 public class TagEffects
 (
-    ITagRepository _repository,
+    IServiceScopeFactory _scopeFactory,
     ILogger<TagEffects> _logger
 )
 {
@@ -16,14 +16,19 @@ public class TagEffects
     {
         try
         {
-            var tagsResult = await _repository.GetAsync(action.Take, action.Skip, action.Predicate);
+            await Task.Run(async () =>
+            {
+                using var scope = _scopeFactory.CreateScope();
+                var repository = scope.ServiceProvider.GetRequiredService<ITagRepository>();
 
-            if (tagsResult.Success)
-                dispatcher.Dispatch(new LoadItemsSuccessAction<ITagModel>(tagsResult.Item));
+                var tagsResult = await repository.GetAsync(action.Take, action.Skip, action.Predicate);
 
-            else
-                dispatcher.Dispatch(new LoadItemsFailureAction<ITagModel>());
+                if (tagsResult.Success)
+                    dispatcher.Dispatch(new LoadItemsSuccessAction<ITagModel>(tagsResult.Item));
 
+                else
+                    dispatcher.Dispatch(new LoadItemsFailureAction<ITagModel>());
+            });
         }
         catch (Exception ex)
         {
@@ -38,16 +43,22 @@ public class TagEffects
     {
         try
         {
-            var addResult = await _repository.AddAsync(action.Item);
-
-            if (!addResult.Success)
-                dispatcher.Dispatch(new AddItemFailureAction<ITagModel>(action.Item));
-
-            else
+            await Task.Run(async () =>
             {
-                dispatcher.Dispatch(new AddItemSuccessAction<ITagModel>(action.Item));
-                dispatcher.Dispatch(new SetFormModalVisibilityAction<ITagModel>(false));
-            }
+                using var scope = _scopeFactory.CreateScope();
+                var repository = scope.ServiceProvider.GetRequiredService<ITagRepository>();
+
+                var addResult = await repository.AddAsync(action.Item);
+
+                if (!addResult.Success)
+                    dispatcher.Dispatch(new AddItemFailureAction<ITagModel>(action.Item));
+
+                else
+                {
+                    dispatcher.Dispatch(new AddItemSuccessAction<ITagModel>(action.Item));
+                    dispatcher.Dispatch(new SetFormModalVisibilityAction<ITagModel>(false));
+                }
+            });
         }
         catch (Exception ex)
         {
@@ -62,28 +73,34 @@ public class TagEffects
     {
         try
         {
-            if (!action.Item.Id.HasValue)
+            await Task.Run(async () =>
             {
-                dispatcher.Dispatch(new DeleteItemFailureAction<ITagModel>(action.Item));
+                using var scope = _scopeFactory.CreateScope();
+                var repository = scope.ServiceProvider.GetRequiredService<ITagRepository>();
 
-                return;
-            }
+                if (!action.Item.Id.HasValue)
+                {
+                    dispatcher.Dispatch(new DeleteItemFailureAction<ITagModel>(action.Item));
 
-            var tagResult = await _repository.GetByIdAsync(action.Item.Id.Value);
-            if (!tagResult.Success || tagResult.Item == null)
-            {
-                dispatcher.Dispatch(new DeleteItemFailureAction<ITagModel>(action.Item));
+                    return;
+                }
 
-                return;
-            }
+                var tagResult = await repository.GetByIdAsync(action.Item.Id.Value);
+                if (!tagResult.Success || tagResult.Item == null)
+                {
+                    dispatcher.Dispatch(new DeleteItemFailureAction<ITagModel>(action.Item));
 
-            var deleteResult = await _repository.DeleteAsync(tagResult.Item);
+                    return;
+                }
 
-            if (!deleteResult.Success)
-                dispatcher.Dispatch(new DeleteItemFailureAction<ITagModel>(action.Item));
+                var deleteResult = await repository.DeleteAsync(tagResult.Item);
 
-            else
-                dispatcher.Dispatch(new DeleteItemSuccessAction<ITagModel>(action.Item));
+                if (!deleteResult.Success)
+                    dispatcher.Dispatch(new DeleteItemFailureAction<ITagModel>(action.Item));
+
+                else
+                    dispatcher.Dispatch(new DeleteItemSuccessAction<ITagModel>(action.Item));
+            });
         }
         catch (Exception ex)
         {

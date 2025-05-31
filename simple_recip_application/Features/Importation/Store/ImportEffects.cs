@@ -9,7 +9,7 @@ public class ImportEffects
 (
     ILogger<ImportEffects> _logger,
     IServiceProvider _serviceProvider,
-    IIngredientRepository _ingredientRepository
+    IServiceScopeFactory _scopeFactory
 )
 {
     [EffectMethod]
@@ -17,25 +17,31 @@ public class ImportEffects
     {
         try
         {
-            var strategy = ImportStrategyFactory.CreateImportStrategy(action.ImportStrategy, _serviceProvider, dispatcher, _ingredientRepository);
-
-            var importService = new ImportService(strategy);
-
-            foreach (var file in action.ImportModel.FilesContent)
+            await Task.Run(async () =>
             {
-                if (file?.Length == 0)
+                using var scope = _scopeFactory.CreateScope();
+                var repository = scope.ServiceProvider.GetRequiredService<IIngredientRepository>();
+
+                var strategy = ImportStrategyFactory.CreateImportStrategy(action.ImportStrategy, _serviceProvider, dispatcher, repository);
+
+                var importService = new ImportService(strategy);
+
+                foreach (var file in action.ImportModel.FilesContent)
                 {
-                    continue;
+                    if (file?.Length == 0)
+                    {
+                        continue;
+                    }
+
+                    var result = await importService.ExecuteImport(file!);
+
+                    if (result.Success)
+                        dispatcher.Dispatch(new ImportSuccessAction());
+
+                    else
+                        dispatcher.Dispatch(new ImportFailureAction());
                 }
-
-                var result = await importService.ExecuteImport(file!);
-
-                if (result.Success)
-                    dispatcher.Dispatch(new ImportSuccessAction());
-
-                else
-                    dispatcher.Dispatch(new ImportFailureAction());
-            }
+            });
         }
         catch (Exception ex)
         {

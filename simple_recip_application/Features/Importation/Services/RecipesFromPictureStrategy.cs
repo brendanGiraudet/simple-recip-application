@@ -39,7 +39,10 @@ public class RecipesFromPictureStrategy
 
             foreach (var ingredient in recipeResult.Item.IngredientModels)
             {
-                var existedIngredient = existedIngredientsResult.Item.FirstOrDefault(c => string.Equals(c.Name, ingredient.IngredientModel?.Name, StringComparison.InvariantCultureIgnoreCase));
+                if(ingredient.IngredientModel is null)
+                    continue;
+
+                var existedIngredient = existedIngredientsResult.Item.FirstOrDefault(c => string.Equals(c.Name, ingredient.IngredientModel.Name, StringComparison.InvariantCultureIgnoreCase));
 
                 if (existedIngredient is not null)
                     ingredient.IngredientModel = existedIngredient;
