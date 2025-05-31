@@ -165,7 +165,7 @@ public partial class RecipesPage
     }
 
     private bool CanPreviousClick() => RecipeState.Value.Skip > 0;
-    private async Task OnPrevious()
+    private async Task OnPreviousAsync()
     {
         if (!CanPreviousClick()) return;
 
@@ -178,7 +178,7 @@ public partial class RecipesPage
         await Task.CompletedTask;
     }
 
-    private async Task OnNext()
+    private async Task OnNextAsync()
     {
         var skip = RecipeState.Value.Skip + RecipeState.Value.Take;
 

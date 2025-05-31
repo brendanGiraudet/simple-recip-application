@@ -40,7 +40,7 @@
     }
 </div>
 
-<PaginationButtons CanPreviousClick="@CanPreviousClick()" OnPrevious="@OnPrevious" OnNext="@OnNext" />
+<PaginationButtons CanPreviousClick="@CanPreviousClick()" OnPrevious="@OnPreviousAsync" OnNext="@OnNextAsync" />
 
 <Loader IsVisible="@RecipeState.Value.IsLoading" />
 

@@ -1,12 +1,12 @@
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using simple_recip_application.Data;
 using simple_recip_application.Data.Persistence.Repositories;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
-using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
-using simple_recip_application.Extensions;
-using Microsoft.EntityFrameworkCore;
 using simple_recip_application.Dtos;
+using simple_recip_application.Extensions;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Repositories;
+using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 
 namespace simple_recip_application.Features.RecipesManagement.Persistence.Repositories;
 
@@ -23,7 +23,7 @@ public class RecipeRepository
             var recipe = await _dbContext.Set<RecipeModel>()
                                          .Include(c => c.Ingredients)
                                          .ThenInclude(c => c.Ingredient)
-                                         .Include(c=> c.Tags)
+                                         .Include(c => c.Tags)
                                          .ThenInclude(c => c.Tag)
                                          .FirstOrDefaultAsync(c => c.Id == id);
 
@@ -46,7 +46,7 @@ public class RecipeRepository
     {
         try
         {
-            if(sort is null)
+            if (sort is null)
                 sort = c => c.Name;
 
             var convertedPredicate = predicate?.Convert<IRecipeModel, RecipeModel, bool>();
@@ -60,7 +60,7 @@ public class RecipeRepository
                                          Image = c.Image,
                                          CookingTime = c.CookingTime,
                                          PreparationTime = c.PreparationTime,
-                                     });    
+                                     });
 
             var recipes = await recipesRequest.Cast<IRecipeModel>().ToListAsync();
 
@@ -76,7 +76,7 @@ public class RecipeRepository
     {
         return await base.AddAsync(entity as RecipeModel);
     }
-    
+
     public async Task<MethodResult> AddRangeAsync(IEnumerable<IRecipeModel>? entities)
     {
         return await base.AddRangeAsync(entities?.Cast<RecipeModel>() ?? []);
