@@ -74,6 +74,18 @@ public class RecipeRepository
 
     public async Task<MethodResult> AddAsync(IRecipeModel? entity)
     {
+        var recipeModel = entity as RecipeModel;
+
+        foreach (var ingredient in recipeModel.Ingredients)
+        {
+            _dbContext.Attach(ingredient.Ingredient);
+        }
+
+        foreach (var tag in recipeModel.Tags ?? [])
+        {
+            _dbContext.Attach(tag.Tag);
+        }
+
         return await base.AddAsync(entity as RecipeModel);
     }
 

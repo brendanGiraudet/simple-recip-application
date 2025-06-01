@@ -69,6 +69,9 @@ public class UserPantryItemRepository
 
     public async Task<MethodResult> AddAsync(IUserPantryItemModel pantryItem)
     {
+        if (pantryItem.ProductModel is not null)
+            _dbContext.Attach(pantryItem.ProductModel);
+
         return await base.AddAsync(pantryItem as UserPantryItemModel);
     }
 
