@@ -39,9 +39,9 @@
     --button-box-shadow-background-color: var(var(--secondary-color));
     --button-box-shadow-border-color: var(var(--primary-color));
     /* Card */
-    --card-width: 100%;
-    --card-img-container-width: 10rem;
-    --card-img-container-height: 10rem;
+    --card-width: calc(var(--card-img-container-width) + 8rem);
+    --card-img-container-width: 12rem;
+    --card-img-container-height: 12rem;
     --card-img-border-radius: 50%;
     --card-title-font-size: 1.2rem;
     --card-title-margin: .5rem 0;
@@ -80,7 +80,6 @@
 @media (min-width: 481px) {
     :root {
         /* Card */
-        --card-width: 80%;
         --card-title-font-size: 1.1rem;
         /* Modal */
         --modal-body-width: 80vw;
@@ -96,10 +95,8 @@
         /* Modal */
         --modal-body-max-height: 80vh;
         --modal-content-height: 90%;
-
         /* Menu*/
         --menu-height: 10%;
-
         /* Mainlayout */
         --main-height: 90%;
     }
@@ -109,7 +106,8 @@
 @media (min-width: 769px) {
     :root {
         /* Card */
-        --card-width: 40vw;
+        --card-img-container-width: 10rem;
+        --card-img-container-height: 10rem;
         --card-title-font-size: 1.1rem;
         /* Input */
         --input-width: 30vw;
@@ -122,10 +120,8 @@
     :root {
         /* Menu */
         --menu-height: 7%;
-
         /* MainLayout */
         --main-height: 93%;
-
         /* Grid */
         --grid-height: 53vh;
     }
@@ -134,28 +130,26 @@
 /* Desktops, large screens */
 @media (min-width: 1024px) {
     :root {
-        /* Card */
-        --card-width: 25vw;
         /* Modal */
         --modal-content-max-width: 60%;
     }
 }
 
 @media (min-height: 1199px) {
-    :root {}
+    :root {
+    }
 }
 
 
 /* Extra large screens, TV */
 @media (min-width: 1201px) {
     :root {
-        /* Card */
-        --card-width: 20vw;
         /* Modal */
         --modal-content-max-width: 55%;
     }
 }
 
 @media (min-height: 1201px) {
-    :root {}
+    :root {
+    }
 }

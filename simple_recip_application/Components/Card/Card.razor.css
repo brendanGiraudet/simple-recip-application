@@ -4,6 +4,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    width: var(--card-width);
 }
 
 .card-img-container {

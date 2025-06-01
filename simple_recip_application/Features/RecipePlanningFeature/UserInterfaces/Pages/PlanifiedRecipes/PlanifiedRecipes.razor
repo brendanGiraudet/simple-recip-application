@@ -23,7 +23,7 @@
                             OnClick="@(() => OpenRecipeDetails(planifiedRecipe.RecipeModel.Id.Value))">
 
                             <BodyContent>
-                                <h5>@planifiedRecipe.RecipeModel.Name</h5>
+                                <h3>@planifiedRecipe.RecipeModel.Name</h3>
 
                                 <button class="btn btn-secondary" @onclick="@(() => OpenChangeRecipeModal(planifiedRecipe))"
                                     @onclick:stopPropagation="true">
