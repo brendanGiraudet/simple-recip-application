@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using simple_recip_application.Data;
+using simple_recip_application.Data.Persistence.Repositories;
 using simple_recip_application.Dtos;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Repositories;
@@ -15,7 +16,7 @@ public class UserPantryItemRepository
     IIngredientRepository _ingredientRepository,
     IHouseholdProductRepository _householdProductRepository
 )
-    : IUserPantryItemRepository
+    : Repository<UserPantryItemModel>(_dbContext), IUserPantryItemRepository
 {
     public async Task<MethodResult<IEnumerable<IUserPantryItemModel>>> GetUserPantryItemsAsync(string userId)
     {
@@ -68,48 +69,17 @@ public class UserPantryItemRepository
 
     public async Task<MethodResult> AddAsync(IUserPantryItemModel pantryItem)
     {
-        try
-        {
-            await _dbContext.Set<UserPantryItemModel>().AddAsync((UserPantryItemModel)pantryItem);
-
-            await _dbContext.SaveChangesAsync();
-
-            return new MethodResult(true);
-        }
-        catch (Exception ex)
-        {
-            return new MethodResult(false);
-        }
+        return await base.AddAsync(pantryItem as UserPantryItemModel);
     }
 
     public async Task<MethodResult> UpdateAsync(IUserPantryItemModel pantryItem)
     {
-        try
-        {
-            _dbContext.Set<UserPantryItemModel>().Update((UserPantryItemModel)pantryItem);
-            await _dbContext.SaveChangesAsync();
-
-            return new MethodResult(true);
-        }
-        catch (Exception ex)
-        {
-            return new MethodResult(false);
-        }
+        return await base.UpdateAsync(pantryItem as UserPantryItemModel);
     }
 
     public async Task<MethodResult> DeleteAsync(IUserPantryItemModel pantryItem)
     {
-        try
-        {
-            _dbContext.Set<UserPantryItemModel>().Remove((UserPantryItemModel)pantryItem);
-            await _dbContext.SaveChangesAsync();
-
-            return new MethodResult(true);
-        }
-        catch (Exception ex)
-        {
-            return new MethodResult(false);
-        }
+        return await base.DeleteAsync(pantryItem as UserPantryItemModel);
     }
 }
 
