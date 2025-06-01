@@ -164,6 +164,8 @@ public class ApplicationDbContext : DbContext
             entity.Property(r => r.UserId).IsRequired();
 
             entity.Property(r => r.MomentOftheDay);
+
+
         });
     }
 }

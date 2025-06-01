@@ -56,6 +56,9 @@ public class PlanifiedRecipeRepository
 
     public async Task<MethodResult> AddAsync(IPlanifiedRecipeModel? entity)
     {
+        if (entity.RecipeModel is not null)
+            _dbContext.Attach(entity.RecipeModel);
+
         return await base.AddAsync(entity as PlanifiedRecipeModel);
     }
 
