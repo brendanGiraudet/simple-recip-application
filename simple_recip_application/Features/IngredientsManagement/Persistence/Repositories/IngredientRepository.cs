@@ -4,6 +4,8 @@ using simple_recip_application.Data;
 using simple_recip_application.Data.Persistence.Repositories;
 using simple_recip_application.Dtos;
 using simple_recip_application.Extensions;
+using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.HouseholdProductsManagement.Persistence.Entities;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
@@ -70,5 +72,12 @@ public class IngredientRepository
     public async Task<MethodResult> DeleteAsync(IIngredientModel? entity)
     {
         return await base.DeleteAsync(entity as IngredientModel);
+    }
+
+    public async Task<MethodResult<int>> CountAsync(Expression<Func<IIngredientModel, bool>>? predicate = null)
+    {
+        var convertedPredicate = predicate?.Convert<IIngredientModel, IngredientModel, bool>();
+
+        return await base.CountAsync(convertedPredicate);
     }
 }

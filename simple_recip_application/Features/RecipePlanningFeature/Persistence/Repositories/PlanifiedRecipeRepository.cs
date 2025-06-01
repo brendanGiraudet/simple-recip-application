@@ -7,6 +7,8 @@ using System.Linq.Expressions;
 using simple_recip_application.Extensions;
 using Microsoft.EntityFrameworkCore;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Repositories;
+using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.HouseholdProductsManagement.Persistence.Entities;
 
 namespace simple_recip_application.Features.RecipePlanningFeature.Persistence.Repositories;
 
@@ -75,5 +77,12 @@ public class PlanifiedRecipeRepository
     public async Task<MethodResult> DeleteAsync(IPlanifiedRecipeModel? entity)
     {
         return await base.DeleteAsync(entity as PlanifiedRecipeModel);
+    }
+
+    public async Task<MethodResult<int>> CountAsync(Expression<Func<IPlanifiedRecipeModel, bool>>? predicate = null)
+    {
+        var convertedPredicate = predicate?.Convert<IPlanifiedRecipeModel, PlanifiedRecipeModel, bool>();
+
+        return await base.CountAsync(convertedPredicate);
     }
 }

@@ -4,6 +4,8 @@ using simple_recip_application.Data;
 using simple_recip_application.Data.Persistence.Repositories;
 using simple_recip_application.Dtos;
 using simple_recip_application.Extensions;
+using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.HouseholdProductsManagement.Persistence.Entities;
 using simple_recip_application.Features.TagsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.TagsManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.TagsManagement.Persistence.Entities;
@@ -70,5 +72,12 @@ public class TagRepository
     public async Task<MethodResult> DeleteAsync(ITagModel? entity)
     {
         return await base.DeleteAsync(entity as TagModel);
+    }
+
+    public async Task<MethodResult<int>> CountAsync(Expression<Func<ITagModel, bool>>? predicate = null)
+    {
+        var convertedPredicate = predicate?.Convert<ITagModel, TagModel, bool>();
+
+        return await base.CountAsync(convertedPredicate);
     }
 }

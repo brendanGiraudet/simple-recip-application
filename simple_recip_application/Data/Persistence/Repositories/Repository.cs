@@ -86,7 +86,7 @@ public class Repository<T>
             return new MethodResult(false);
         }
     }
-    
+
     public virtual async Task<MethodResult> AddRangeAsync(IEnumerable<T>? entities)
     {
         if (entities is null) return new MethodResult(false);
@@ -138,6 +138,22 @@ public class Repository<T>
         catch (System.Exception ex)
         {
             return new MethodResult(false);
+        }
+    }
+
+    public async Task<MethodResult<int>> CountAsync(Expression<Func<T, bool>>? predicate = null)
+    {
+        try
+        {
+            int count = predicate is null
+                ? await _dbContext.Set<T>().CountAsync()
+                : await _dbContext.Set<T>().CountAsync(predicate);
+
+            return new MethodResult<int>(true, count);
+        }
+        catch (Exception ex)
+        {
+            return new MethodResult<int>(false, 0);
         }
     }
 }

@@ -58,14 +58,27 @@ public class RecipePlanifierService
             return new MethodResult<Dictionary<DayOfWeek, List<IPlanifiedRecipeModel>>>(false, []);
         }
     }
-    
+
     public async Task<MethodResult<IPlanifiedRecipeModel>> GetPlanifiedRecipeAutomaticalyAsync(IPlanifiedRecipeModel currentPlanifiedRecipe)
     {
         try
         {
-            var recipesResult = await _recipeRepository.GetAsync(1, 0);
+            // Obtenir le nombre total de recettes disponibles
+            var totalRecipesResult = await _recipeRepository.CountAsync(c => c.RemoveDate == null);
 
-            if (!recipesResult.Success || recipesResult.Item.Count() < 1)
+            if (!totalRecipesResult.Success || totalRecipesResult.Item <= 0)
+                return new MethodResult<IPlanifiedRecipeModel>(false, null);
+
+            int totalRecipes = totalRecipesResult.Item;
+
+            // Générer un index aléatoire valide
+            var random = new Random();
+            int randomIndex = random.Next(0, totalRecipes);
+
+            // Récupérer exactement UNE recette avec pagination
+            var recipesResult = await _recipeRepository.GetAsync(take: 1, skip: randomIndex, predicate: c => c.RemoveDate == null);
+
+            if (!recipesResult.Success || !recipesResult.Item.Any())
                 return new MethodResult<IPlanifiedRecipeModel>(false, null);
 
             var recipe = recipesResult.Item.First();
@@ -87,4 +100,5 @@ public class RecipePlanifierService
             return new MethodResult<IPlanifiedRecipeModel>(false, null);
         }
     }
+
 }

@@ -7,6 +7,8 @@ using simple_recip_application.Extensions;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.HouseholdProductsManagement.Persistence.Entities;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
+using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 
 namespace simple_recip_application.Features.HouseholdProductsManagement.Persistence.Repositories;
 
@@ -70,5 +72,12 @@ public class HouseholdProductRepository
     public async Task<MethodResult> DeleteAsync(IHouseholdProductModel? entity)
     {
         return await base.DeleteAsync(entity as HouseholdProductModel);
+    }
+    
+    public async Task<MethodResult<int>> CountAsync(Expression<Func<IHouseholdProductModel, bool>>? predicate = null)
+    {
+        var convertedPredicate = predicate?.Convert<IHouseholdProductModel, HouseholdProductModel, bool>();
+
+        return await base.CountAsync(convertedPredicate);
     }
 }

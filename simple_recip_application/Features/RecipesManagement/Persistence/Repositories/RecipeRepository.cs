@@ -91,4 +91,12 @@ public class RecipeRepository
     {
         return await base.DeleteAsync(entity as RecipeModel);
     }
+
+    public async Task<MethodResult<int>> CountAsync(Expression<Func<IRecipeModel, bool>>? predicate = null)
+    {
+        var convertedPredicate = predicate?.Convert<IRecipeModel, RecipeModel, bool>();
+        
+        return await base.CountAsync(convertedPredicate);
+    }
+
 }
