@@ -21,11 +21,13 @@ public class RecipeRepository
         try
         {
             var recipe = await _dbContext.Set<RecipeModel>()
+                                         .Where(c => c.Id == id)
                                          .Include(c => c.Ingredients)
-                                         .ThenInclude(c => c.Ingredient)
+                                            .ThenInclude(c => c.Ingredient)
                                          .Include(c => c.Tags)
-                                         .ThenInclude(c => c.Tag)
-                                         .FirstOrDefaultAsync(c => c.Id == id);
+                                            .ThenInclude(c => c.Tag)
+                                         .AsSplitQuery()
+                                         .FirstOrDefaultAsync();
 
             return new MethodResult<IRecipeModel?>(true, recipe);
         }

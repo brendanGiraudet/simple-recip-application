@@ -77,7 +77,8 @@ public partial class RecipesPage
     {
         base.OnInitialized();
 
-        LoadFilteredRecipes();
+        if(RecipeState.Value.Items.Count() == 0)
+            LoadFilteredRecipes();
     }
 
     private string GetRecipesVisibilityCssClass() => !RecipeState.Value.IsLoading ? "" : "hidden";

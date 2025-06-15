@@ -9,8 +9,14 @@ public static class DbContextExtensions
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-        services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlite(connectionString));
+        services.AddDbContext<ApplicationDbContext>(options => 
+        {
+            options.UseSqlite(connectionString);
+
+            if (configuration.GetValue<bool>("EnableDatabaseLogs"))
+                options.EnableDetailedErrors().LogTo(Console.WriteLine, LogLevel.Information);
+        });
+
 
         return services;
     }
