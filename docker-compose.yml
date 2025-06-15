@@ -21,6 +21,8 @@ services:
       ASPNETCORE_HTTP_PORTS: 4242
       
       ConnectionStrings__DefaultConnection: "Data Source=/app/Data/recipes.db"
+
+      EnableDatabaseLogs: false
       
       ApplicationVersion : "1.12.47"
       
