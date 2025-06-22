@@ -54,7 +54,8 @@ public partial class Ingredients
     {
         base.OnInitialized();
 
-        LoadFilteredIngredients();
+        if (IngredientState.Value.Items.Count() == 0)
+            LoadFilteredIngredients();
 
         _selectedIngredient = IngredientFactory.CreateIngredient();
     }

@@ -25,7 +25,7 @@ public class RecipeEffects
                 using var scope = ScopeFactory.CreateScope();
                 var repository = scope.ServiceProvider.GetRequiredService<IRecipeRepository>();
 
-                var recipesResult = await repository.GetAsync(action.Take, action.Skip, action.Predicate);
+                var recipesResult = await repository.GetAsync(action.Take, action.Skip, action.Predicate, action.Sort);
 
                 if (!recipesResult.Success)
                     dispatcher.Dispatch(new LoadItemsFailureAction<IRecipeModel>());
@@ -36,7 +36,7 @@ public class RecipeEffects
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Erreur lors du chargement des ingrédients");
+            _logger.LogError(ex, $"Erreur lors du chargement des recettes");
 
             dispatcher.Dispatch(new LoadItemsFailureAction<IRecipeModel>());
         }

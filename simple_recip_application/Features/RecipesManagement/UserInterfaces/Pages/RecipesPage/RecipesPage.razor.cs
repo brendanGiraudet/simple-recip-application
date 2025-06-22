@@ -51,7 +51,7 @@ public partial class RecipesPage
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (firstRender)
+        if (firstRender || _module is null)
             _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import",
             "./js/download.js");
     }

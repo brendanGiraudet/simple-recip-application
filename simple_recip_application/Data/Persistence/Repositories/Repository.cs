@@ -64,7 +64,7 @@ public class Repository<T>
             query = query.Where(predicate);
 
         if (sort is not null)
-            query.OrderBy(sort);
+            query = query.OrderBy(sort);
 
         return query.Skip(skip).Take(take);
     }
