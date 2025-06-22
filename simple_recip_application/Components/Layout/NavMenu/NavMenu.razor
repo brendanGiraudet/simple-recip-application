@@ -3,8 +3,10 @@
 <nav class="nav-menu">
     @foreach (var item in _navMenuItems)
     {
-        <div class="nav-item">
-            <NavLink class="nav-link" href="@item.Url" Match="NavLinkMatch.Prefix">
+        <div class="nav-item" @onclick="@(()=>OnMenuItemClicked.InvokeAsync())" @onclick:stopPropagation="true">
+            <NavLink class="nav-link" 
+                     href="@item.Url" 
+                     Match="NavLinkMatch.Prefix">
                 <Icon IconName="@item.Icon"/>
                 <span class="nav-item-text">@item.Text</span>
             </NavLink>

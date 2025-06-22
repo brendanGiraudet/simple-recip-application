@@ -9,6 +9,8 @@ public partial class NavMenu
 {
     [Inject] public required IFeatureManager FeatureManager { get; set; }
 
+    [Parameter] public EventCallback OnMenuItemClicked { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();

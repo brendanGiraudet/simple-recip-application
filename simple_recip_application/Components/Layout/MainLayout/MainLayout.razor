@@ -6,6 +6,10 @@
     <CultureSelector />
 
     <div class="application-version">@Configuration["ApplicationVersion"]</div>
+
+    <button class="btn btn-third btn-rounded" @onclick="ToggleMenu">
+        <Icon IconName="@MaterialIconsConstants.Menu" />
+    </button>
 </header>
 <div class="page">
     <main>
@@ -16,7 +20,13 @@
         </article>
     </main>
 
-    <NavMenu />
+    <!-- Overlay Menu -->
+    <div class="nav-menu-overlay @(_isMenuOpen ? "" : "nav-menu-overlay-hidden")" @onclick="@ToggleMenu">
+        <button class="btn btn-third btn-rounded" @onclick="ToggleMenu" @onclick:stopPropagation="true">
+            <Icon IconName="@MaterialIconsConstants.Close" />
+        </button>
+        <NavMenu OnMenuItemClicked="ToggleMenu" />
+    </div>
 
 </div>
 

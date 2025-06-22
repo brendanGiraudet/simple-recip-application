@@ -66,7 +66,7 @@ h1:focus {
 .btn {
     background-color: var(--button-bg-color);
     color: var(--button-text-color);
-    border: var(--border-size) solid var(--button-bg-color);
+    border: var(--border-size) solid var(--button-text-color);
     padding: 10px 15px;
     border-radius: var(--border-radius);
     cursor: pointer;
@@ -93,6 +93,13 @@ h1:focus {
     --button-bg-color: var(--accent-color-2);
     --button-text-color: var(--accent-color-1);
     --button-box-shadow-background-color: var(--accent-color-1);
+    --button-box-shadow-border-color: var(--accent-color-2);
+}
+
+.btn-third {
+    --button-bg-color: var(--primary-color);
+    --button-text-color: var(--accent-color-1);
+    --button-box-shadow-background-color: var(--primary-color);
     --button-box-shadow-border-color: var(--accent-color-2);
 }
 

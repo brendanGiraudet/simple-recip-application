@@ -3,6 +3,8 @@ namespace simple_recip_application.Constants;
 public static class MaterialIconsConstants
 {
     public const string List = "list";
+    public const string Menu = "list";
+    public const string Close = "close";
     public const string LeftArrow = "chevron_left";
     public const string RightArrow = "chevron_right";
     public const string Generate = "autorenew";

@@ -20,7 +20,7 @@ article {
 header {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: space-between;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
@@ -30,4 +30,23 @@ header {
 
 .application-version {
     font-style: italic;
+}
+
+.nav-menu-overlay {
+    width: 100%;
+    height: 100%;
+    left:0;
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    transition: left 1s ease-in-out;
+}
+
+.nav-menu-overlay-hidden {
+    left: -110%;
+}
+
+.nav-menu-overlay button{
+    z-index:101;
+    position:fixed;
 }

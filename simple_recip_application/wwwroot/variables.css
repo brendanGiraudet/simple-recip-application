@@ -13,7 +13,7 @@
     --font-primary: 'Arial', sans-serif;
     /* Mainlayout */
     --page-height: 93vh;
-    --main-height: 85%;
+    --main-height: 100%;
     --header-height: 7vh;
     --header-padding: .5rem;
     /* Menu */
@@ -24,7 +24,7 @@
     --menu-active-text: var(--secondary-color);
     --menu-font-size: 1rem;
     --menu-width: 100%;
-    --menu-height: 15%;
+    --menu-height: 0%;
     --menu-item-height: 5rem;
     --menu-item-width: -webkit-fill-available;
     /* Tailles */
@@ -53,7 +53,7 @@
     --border-radius: 5px;
     --border-size: 2px;
     /* Grid */
-    --grid-height: 60vh;
+    --grid-height: 70vh;
     /* Modal */
     --modal-content-max-width: 100%;
     --modal-content-max-height: 100%;
@@ -86,7 +86,7 @@
         /* Pagination buttons*/
         --pagination-buttons-container-gap: 10rem;
         /* Menu */
-        --menu-item-width: 8rem;
+        --menu-width: 75%;
     }
 }
 
@@ -95,10 +95,6 @@
         /* Modal */
         --modal-body-max-height: 80vh;
         --modal-content-height: 90%;
-        /* Menu*/
-        --menu-height: 10%;
-        /* Mainlayout */
-        --main-height: 90%;
     }
 }
 
@@ -113,15 +109,13 @@
         --input-width: 30vw;
         /* Modal */
         --modal-content-max-width: 70%;
+        /* Menu */
+        --menu-width: 25%;
     }
 }
 
 @media (min-height: 1023px) {
     :root {
-        /* Menu */
-        --menu-height: 7%;
-        /* MainLayout */
-        --main-height: 93%;
         /* Grid */
         --grid-height: 53vh;
     }
@@ -132,6 +126,8 @@
     :root {
         /* Modal */
         --modal-content-max-width: 60%;
+        /* Menu */
+        --menu-width: 15%;
     }
 }
 
