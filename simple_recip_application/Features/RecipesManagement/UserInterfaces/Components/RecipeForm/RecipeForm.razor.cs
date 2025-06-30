@@ -65,11 +65,14 @@ public partial class RecipeForm
 
         try
         {
+            Dispatcher.Dispatch(new SetLoadingAction<IRecipeModel>(true));
             using var memoryStream = new MemoryStream();
 
             await file.OpenReadStream(_fileSettings.MaxAllowedSize).CopyToAsync(memoryStream);
 
             Recipe.Image = memoryStream.ToArray();
+
+            Dispatcher.Dispatch(new SetLoadingAction<IRecipeModel>(false));
         }
         catch (Exception ex)
         {

@@ -111,4 +111,9 @@ public static class RecipeReducer
     [ReducerMethod]
     public static RecipeState ReduceDeleteItemsSuccessAction(RecipeState state, DeleteItemsSuccessAction<IRecipeModel> action) => state with { Items = state.Items.Where(c => !action.Items.Contains(c)) };
     #endregion
+
+    #region SetLoadingAction
+    [ReducerMethod]
+    public static RecipeState ReduceSetLoadingAction(RecipeState state, SetLoadingAction<IRecipeModel> action) => state with { IsLoading = action.IsLoading };
+    #endregion SetLoadingAction
 }
