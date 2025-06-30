@@ -32,17 +32,18 @@
     </div>
 
     <div class="form-buttons">
-        <button type="submit" class="btn btn-primary">
-            @LabelsTranslator.SubmitButton
+        <button type="button" @onclick="@(() => DeleteProduct(Product))"
+                class="btn btn-danger @GetDeleleButtonCssClass()">
+            @LabelsTranslator.Delete
         </button>
 
         <button type="button" @onclick="@(() => OnCancelAsync())" class="btn btn-secondary">
             @LabelsTranslator.Cancel
         </button>
 
-        <button type="button" @onclick="@(() => DeleteProduct(Product))"
-            class="btn btn-danger @GetDeleleButtonCssClass()">
-            @LabelsTranslator.Delete
+        <button type="submit" class="btn btn-primary">
+            @LabelsTranslator.SubmitButton
         </button>
+        
     </div>
 </EditForm>

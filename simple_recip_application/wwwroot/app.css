@@ -80,6 +80,7 @@ h1:focus {
     .btn:hover:not(:disabled) {
         background-color: var(--button-text-color);
         color: var(--button-bg-color);
+        border-color: var(--button-bg-color);
     }
 
 .btn-primary {
