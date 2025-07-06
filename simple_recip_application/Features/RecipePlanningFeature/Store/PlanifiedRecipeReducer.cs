@@ -2,6 +2,7 @@ using Fluxor;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.EqualityComparers;
 using simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
+using simple_recip_application.Features.ShoppingListManagement.Store.Actions;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.RecipePlanningFeature.Store;
@@ -90,6 +91,20 @@ public static class PlanifiedRecipeReducer
 
     [ReducerMethod]
     public static PlanifiedRecipeState ReducePlanifiedRecipeAutomaticalyFailureAction(PlanifiedRecipeState state, PlanifiedRecipeAutomaticalyFailureAction action)
+        => state with { IsLoading = false };
+    #endregion
+
+    #region GenerateShoppingList
+    [ReducerMethod]
+    public static PlanifiedRecipeState ReduceGenerateShoppingListAction(PlanifiedRecipeState state, GenerateShoppingListAction action)
+        => state with { IsLoading = false };
+    
+    [ReducerMethod]
+    public static PlanifiedRecipeState ReduceGenerateShoppingListFailureAction(PlanifiedRecipeState state, GenerateShoppingListFailureAction action)
+        => state with { IsLoading = false };
+    
+    [ReducerMethod]
+    public static PlanifiedRecipeState ReduceGenerateShoppingListSuccessAction(PlanifiedRecipeState state, GenerateShoppingListSuccessAction action)
         => state with { IsLoading = false };
     #endregion
 }

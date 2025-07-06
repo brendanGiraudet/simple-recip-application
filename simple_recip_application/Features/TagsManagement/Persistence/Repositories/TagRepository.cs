@@ -6,6 +6,8 @@ using simple_recip_application.Dtos;
 using simple_recip_application.Extensions;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.HouseholdProductsManagement.Persistence.Entities;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
 using simple_recip_application.Features.TagsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.TagsManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.TagsManagement.Persistence.Entities;
@@ -69,9 +71,19 @@ public class TagRepository
         return await base.UpdateAsync(entity as TagModel);
     }
 
+    public async Task<MethodResult> UpdateRangeAsync(IEnumerable<ITagModel>? entities)
+    {
+        return await base.UpdateRangeAsync(entities as IEnumerable<TagModel>);
+    }
+
     public async Task<MethodResult> DeleteAsync(ITagModel? entity)
     {
         return await base.DeleteAsync(entity as TagModel);
+    }
+
+    public async Task<MethodResult> DeleteRangeAsync(IEnumerable<ITagModel>? entities)
+    {
+        return await base.DeleteRangeAsync(entities as IEnumerable<TagModel>);
     }
 
     public async Task<MethodResult<int>> CountAsync(Expression<Func<ITagModel, bool>>? predicate = null)

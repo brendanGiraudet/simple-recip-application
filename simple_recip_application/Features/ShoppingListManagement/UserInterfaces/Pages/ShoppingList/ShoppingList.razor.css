@@ -21,6 +21,10 @@
     padding: 0.5rem;
 }
 
+.tags ::deep .tag-content {
+    gap: 0.15rem;
+}
+
 .tags ::deep .tag-content [type=checkbox] {
     height: 1.25rem;
 }

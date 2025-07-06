@@ -60,4 +60,18 @@ public static class ShoppingListReducer
                                                      .OrderBy(c => c.Name)
         };
     #endregion
+
+    #region GenerateShoppingList
+    [ReducerMethod]
+    public static ShoppingListState OnGenerateShoppingList(ShoppingListState state, GenerateShoppingListAction action)
+        => state with { IsLoading = true };
+    
+    [ReducerMethod]
+    public static ShoppingListState OnGenerateShoppingListFailure(ShoppingListState state, GenerateShoppingListFailureAction action)
+        => state with { IsLoading = false };
+    
+    [ReducerMethod]
+    public static ShoppingListState OnGenerateShoppingListSuccess(ShoppingListState state, GenerateShoppingListSuccessAction action)
+        => state with { IsLoading = false, Items = action.Items };
+    #endregion
 }

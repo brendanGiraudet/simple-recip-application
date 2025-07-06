@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Repositories;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.HouseholdProductsManagement.Persistence.Entities;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
 
 namespace simple_recip_application.Features.RecipePlanningFeature.Persistence.Repositories;
 
@@ -74,9 +76,19 @@ public class PlanifiedRecipeRepository
         return await base.UpdateAsync(entity as PlanifiedRecipeModel);
     }
 
+    public async Task<MethodResult> UpdateRangeAsync(IEnumerable<IPlanifiedRecipeModel>? entities)
+    {
+        return await base.UpdateRangeAsync(entities as IEnumerable<PlanifiedRecipeModel>);
+    }
+
     public async Task<MethodResult> DeleteAsync(IPlanifiedRecipeModel? entity)
     {
         return await base.DeleteAsync(entity as PlanifiedRecipeModel);
+    }
+
+    public async Task<MethodResult> DeleteRangeAsync(IEnumerable<IPlanifiedRecipeModel>? entities)
+    {
+        return await base.DeleteRangeAsync(entities as IEnumerable<PlanifiedRecipeModel>);
     }
 
     public async Task<MethodResult<int>> CountAsync(Expression<Func<IPlanifiedRecipeModel, bool>>? predicate = null)

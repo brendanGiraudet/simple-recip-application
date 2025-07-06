@@ -4,6 +4,8 @@ using simple_recip_application.Data;
 using simple_recip_application.Data.Persistence.Repositories;
 using simple_recip_application.Dtos;
 using simple_recip_application.Extensions;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
@@ -127,6 +129,11 @@ public class RecipeRepository
         return new MethodResult(true);
     }
 
+    public async Task<MethodResult> UpdateRangeAsync(IEnumerable<IRecipeModel>? entities)
+    {
+        return await base.UpdateRangeAsync(entities as IEnumerable<RecipeModel>);
+    }
+
     private void UpdateIngredients(IRecipeModel entity, IRecipeModel existingRecipe)
     {
         // Simplification des accès en dictionnaires pour performance (O(1))
@@ -217,6 +224,11 @@ public class RecipeRepository
     public async Task<MethodResult> DeleteAsync(IRecipeModel? entity)
     {
         return await base.DeleteAsync(entity as RecipeModel);
+    }
+
+    public async Task<MethodResult> DeleteRangeAsync(IEnumerable<IRecipeModel>? entities)
+    {
+        return await base.DeleteRangeAsync(entities as IEnumerable<RecipeModel>);
     }
 
     public async Task<MethodResult<int>> CountAsync(Expression<Func<IRecipeModel, bool>>? predicate = null)

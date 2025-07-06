@@ -67,22 +67,38 @@ public class ShoppingListRepository
         }
     }
 
-    public async Task<MethodResult> AddAsync(IShoppingListItemModel pantryItem)
+    public async Task<MethodResult> AddAsync(IShoppingListItemModel shoppingListItem)
     {
-        if (pantryItem.ProductModel is not null)
-            _dbContext.Attach(pantryItem.ProductModel);
+        if (shoppingListItem.ProductModel is not null)
+            _dbContext.Attach(shoppingListItem.ProductModel);
 
-        return await base.AddAsync(pantryItem as ShoppingListItemModel);
+        return await base.AddAsync(shoppingListItem as ShoppingListItemModel);
+    }
+    
+    public async Task<MethodResult> AddRangeAsync(IEnumerable<IShoppingListItemModel> shoppingListItems)
+    {
+        foreach (var shoppingListItem in shoppingListItems)
+        {
+            if (shoppingListItem.ProductModel is not null)
+                _dbContext.Attach(shoppingListItem.ProductModel);
+        }
+
+        return await base.AddRangeAsync(shoppingListItems.Select(c => c as ShoppingListItemModel));
     }
 
-    public async Task<MethodResult> UpdateAsync(IShoppingListItemModel pantryItem)
+    public async Task<MethodResult> UpdateAsync(IShoppingListItemModel shoppingListItem)
     {
-        return await base.UpdateAsync(pantryItem as ShoppingListItemModel);
+        return await base.UpdateAsync(shoppingListItem as ShoppingListItemModel);
     }
 
-    public async Task<MethodResult> DeleteAsync(IShoppingListItemModel pantryItem)
+    public async Task<MethodResult> DeleteAsync(IShoppingListItemModel shoppingListItem)
     {
-        return await base.DeleteAsync(pantryItem as ShoppingListItemModel);
+        return await base.DeleteAsync(shoppingListItem as ShoppingListItemModel);
+    }
+    
+    public async Task<MethodResult> DeleteRangeAsync(IEnumerable<IShoppingListItemModel> shoppingListItems)
+    {
+        return await base.DeleteRangeAsync(shoppingListItems.Select(c => c as ShoppingListItemModel));
     }
 }
 

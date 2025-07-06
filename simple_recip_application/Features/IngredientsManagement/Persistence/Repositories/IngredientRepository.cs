@@ -68,10 +68,20 @@ public class IngredientRepository
     {
         return await base.UpdateAsync(entity as IngredientModel);
     }
+    
+    public async Task<MethodResult> UpdateRangeAsync(IEnumerable<IIngredientModel>? entities)
+    {
+        return await base.UpdateRangeAsync(entities as IEnumerable<IngredientModel>);
+    }
 
     public async Task<MethodResult> DeleteAsync(IIngredientModel? entity)
     {
         return await base.DeleteAsync(entity as IngredientModel);
+    }
+    
+    public async Task<MethodResult> DeleteRangeAsync(IEnumerable<IIngredientModel>? entities)
+    {
+        return await base.DeleteRangeAsync(entities as IEnumerable<IngredientModel>);
     }
 
     public async Task<MethodResult<int>> CountAsync(Expression<Func<IIngredientModel, bool>>? predicate = null)

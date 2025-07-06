@@ -6,6 +6,7 @@ using simple_recip_application.Features.IngredientsManagement.ApplicationCore.En
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.ShoppingList.Store.Actions;
 using simple_recip_application.Features.ShoppingListManagement.ApplicationCore.Repositories;
+using simple_recip_application.Features.ShoppingListManagement.ApplicationCore.Services;
 using simple_recip_application.Features.ShoppingListManagement.Store.Actions;
 
 namespace simple_recip_application.Features.ShoppingListManagement.Store;
@@ -13,7 +14,8 @@ namespace simple_recip_application.Features.ShoppingListManagement.Store;
 public class ShoppingListEffects
 (
     IServiceScopeFactory _scopeFactory,
-    IState<ShoppingListState> _userPantryState
+    IState<ShoppingListState> _shoppingListState,
+    IShoppingListGeneratorService _shoppingListGeneratorService
 )
 {
     [EffectMethod]
@@ -80,10 +82,10 @@ public class ShoppingListEffects
             var ingredientRepository = scope.ServiceProvider.GetRequiredService<IIngredientRepository>();
             var productRepository = scope.ServiceProvider.GetRequiredService<IHouseholdProductRepository>();
 
-            var take = _userPantryState.Value.Take;
-            var skip = _userPantryState.Value.Skip;
+            var take = _shoppingListState.Value.Take;
+            var skip = _shoppingListState.Value.Skip;
 
-            IEnumerable<Guid?> alreadyExistedProductIds = _userPantryState.Value.Items.Select(c => (Guid?)c.ProductId);
+            IEnumerable<Guid?> alreadyExistedProductIds = _shoppingListState.Value.Items.Select(c => (Guid?)c.ProductId);
 
             Expression<Func<IIngredientModel, bool>>? ingredientPredicate = c => !alreadyExistedProductIds.Contains(c.Id);
 
@@ -120,6 +122,50 @@ public class ShoppingListEffects
                 .ToList();
 
             dispatcher.Dispatch(new SearchShoppingListProductsSuccessAction(products));
+        });
+    }
+
+    [EffectMethod]
+    public async Task HandleGenerateShoppingListAction(GenerateShoppingListAction action, IDispatcher dispatcher)
+    {
+        await Task.Run(async () =>
+        {
+            var generateShoppingListItemsResult = await _shoppingListGeneratorService.GenerateShoppingListItemsAsync(action.Recipes, action.UserId);
+
+            if (!generateShoppingListItemsResult.Success)
+            {
+                dispatcher.Dispatch(new GenerateShoppingListFailureAction());
+
+                return;
+            }
+
+            using var scope = _scopeFactory.CreateScope();
+            var repository = scope.ServiceProvider.GetRequiredService<IShoppingListRepository>();
+
+            var currentShoppingListItems = await repository.GetShoppingListItemsAsync(action.UserId);
+
+            if (!currentShoppingListItems.Success)
+            {
+                dispatcher.Dispatch(new GenerateShoppingListFailureAction());
+                return;
+            }
+
+            // Supprime les éléments existants de la liste de courses
+            var deleteRangeResult = await repository.DeleteRangeAsync(currentShoppingListItems.Item);
+            if (!deleteRangeResult.Success)
+            {
+                dispatcher.Dispatch(new GenerateShoppingListFailureAction());
+                return;
+            }
+
+            // Ajoute les nouveaux éléments générés à la liste de courses
+            var addRangeResult = await repository.AddRangeAsync(generateShoppingListItemsResult.Item);
+
+            if (addRangeResult.Success)
+                dispatcher.Dispatch(new GenerateShoppingListSuccessAction(generateShoppingListItemsResult.Item));
+            
+            else
+                dispatcher.Dispatch(new GenerateShoppingListFailureAction());
         });
     }
 }

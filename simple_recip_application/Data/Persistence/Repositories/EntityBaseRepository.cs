@@ -69,4 +69,18 @@ public class EntityBaseRepository<T>
 
         return await UpdateAsync(entity);
     }
+    
+    public override async Task<MethodResult> DeleteRangeAsync(IEnumerable<T>? entities)
+    {
+        if (entities is null) return new MethodResult(false);
+
+        foreach (var entity in entities)
+        {
+            entity.ModificationDate = DateTime.UtcNow;
+
+            entity.RemoveDate = DateTime.UtcNow;
+        }
+
+        return await UpdateRangeAsync(entities);
+    }
 }

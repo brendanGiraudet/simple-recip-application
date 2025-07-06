@@ -14,7 +14,6 @@ using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Fa
 using simple_recip_application.Features.RecipePlanningFeature.Store;
 using simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore.Services;
 using simple_recip_application.Features.RecipePlanningFeature.Enums;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
@@ -22,6 +21,8 @@ using simple_recip_application.Enums;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.EqualityComparers;
 using Microsoft.FeatureManagement;
 using simple_recip_application.Features.UserInfos.Store;
+using simple_recip_application.Features.ShoppingListManagement.ApplicationCore.Services;
+using simple_recip_application.Features.ShoppingListManagement.Store.Actions;
 
 namespace simple_recip_application.Features.RecipePlanningFeature.UserInterfaces.Pages.PlanifiedRecipes;
 
@@ -29,14 +30,10 @@ namespace simple_recip_application.Features.RecipePlanningFeature.UserInterfaces
 public partial class PlanifiedRecipes
 {
     [Inject] public required IFeatureManager FeatureManager { get; set; }
-    [Inject] public required ILogger<PlanifiedRecipes> Logger { get; set; }
     [Inject] public required IState<PlanifiedRecipeState> PlanifiedRecipeState { get; set; }
     [Inject] public required IDispatcher Dispatcher { get; set; }
     [Inject] public required IPlanifiedRecipeModelFactory PlanifiedRecipeFactory { get; set; }
     [Inject] public required NavigationManager NavigationManager { get; set; }
-    [Inject] public required IShoppingListGeneratorService ShoppingListGenerator { get; set; }
-    [Inject] public required INotificationMessageFactory NotificationMessageFactory { get; set; }
-    [Inject] public required IJSRuntime JSRuntime { get; set; }
     [Inject] public required IState<UserInfosState> UserInfosState { get; set; }
 
     private bool _isRecipeModalVisible = false;
@@ -46,22 +43,11 @@ public partial class PlanifiedRecipes
     private IPlanifiedRecipeModel? _selectedPlanifiedRecipe;
     private MomentOfTheDayEnum _selectedMomentOfTheDay = MomentOfTheDayEnum.Evening;
 
-    private IJSObjectReference? _module;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-            _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./js/download.js");
-    }
-
     protected override void OnInitialized()
     {
         base.OnInitialized();
         LoadRecipesForCurrentWeek();
     }
-
     private void LoadRecipesForCurrentWeek()
     {
         var startOfWeek = PlanifiedRecipeState.Value.CurrentWeekStart.Date.StartOfDay();
@@ -171,7 +157,7 @@ public partial class PlanifiedRecipes
     private List<OptionMenuItem> GetOptions()
     {
         List<OptionMenuItem> options = [
-            new(MaterialIconsConstants.ShoppingCard, string.Empty, () => GenerateCsvAsync(), LabelsTranslator.GenerateShoppingList)
+            new(MaterialIconsConstants.ShoppingCard, string.Empty, () => GenerateShoppingListAsync(), LabelsTranslator.GenerateShoppingList)
         ];
 
         if (!PlanifiedRecipeState.Value.RecipesGroupedByDay.Any(c => c.Value.Count() > 0) && FeatureManager.IsEnabledAsync(FeatureFlagsConstants.PlanifiedRecipesAutomaticaly).Result)
@@ -180,34 +166,11 @@ public partial class PlanifiedRecipes
         return options;
     }
 
-    private async Task GenerateCsvAsync()
+    private async Task GenerateShoppingListAsync()
     {
-        try
-        {
-            var result = await ShoppingListGenerator.GenerateShoppingListCsvContentAsync(PlanifiedRecipeState.Value.Items.Select(c => c.RecipeModel));
+        Dispatcher.Dispatch(new GenerateShoppingListAction(PlanifiedRecipeState.Value.Items.Select(c => c.RecipeModel), UserInfosState.Value.UserInfo.Id));
 
-            if (result.Success && string.IsNullOrEmpty(result.Item))
-            {
-                var notification = NotificationMessageFactory.CreateNotificationMessage(MessagesTranslator.GenerateShoppingListCsvContentErrorMessage, NotificationsManagement.ApplicationCore.Enums.NotificationType.Error);
-
-                Dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
-
-                return;
-            }
-
-            var csvBytes = Encoding.UTF8.GetBytes(result.Item);
-
-            var csvDataUrl = $"data:text/csv;base64,{Convert.ToBase64String(csvBytes)}";
-
-            var filename = "ingredients.csv";
-
-            if (_module is not null)
-                await _module.InvokeVoidAsync("triggerFileDownload", filename, csvDataUrl);
-        }
-        catch (Exception ex)
-        {
-            Logger.LogError(ex, $"Error during GenerateCsvAsync: {ex.Message}");
-        }
+        await Task.CompletedTask;
     }
 
     private async Task PlanifiedRecipesForTheWeek()

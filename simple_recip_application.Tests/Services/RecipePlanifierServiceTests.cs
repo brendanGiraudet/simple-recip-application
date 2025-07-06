@@ -18,13 +18,24 @@ public class RecipePlanifierServiceTests
     private readonly Mock<ILogger<RecipePlanifierService>> _loggerMock = new();
     private readonly Mock<IRecipeRepository> _recipeRepositoryMock = new();
     private readonly Mock<IPlanifiedRecipeModelFactory> _planifiedRecipeModelFactoryMock = new();
-    private readonly Mock<IState<UserInfosState>> _userInfosStateMock = new();
+    private IState<UserInfosState> CreateUserInfosState()
+    {
+        var mock = new Mock<IState<UserInfosState>>();
+
+        mock.Setup(s => s.Value)
+            .Returns(new UserInfosState
+            {
+                UserInfo = new UserInfosModelFaker().Generate()
+            });
+
+        return mock.Object;
+    }
 
     private IRecipePlanifierService GetRecipePlanifierService() => new RecipePlanifierService(
         _loggerMock.Object,
         _recipeRepositoryMock.Object,
         _planifiedRecipeModelFactoryMock.Object,
-        _userInfosStateMock.Object);
+        CreateUserInfosState());
 
     [Fact]
     public async Task ShouldMethodResultSuccessAndNotEmptyDictionary_WhenGetPlanifiedRecipesForTheWeek()

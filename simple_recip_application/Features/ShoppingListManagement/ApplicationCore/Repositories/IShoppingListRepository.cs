@@ -10,4 +10,6 @@ public interface IShoppingListRepository
     Task<MethodResult> AddAsync(IShoppingListItemModel pantryItem);
     Task<MethodResult> UpdateAsync(IShoppingListItemModel pantryItem);
     Task<MethodResult> DeleteAsync(IShoppingListItemModel pantryItem);
+    Task<MethodResult> AddRangeAsync(IEnumerable<IShoppingListItemModel> shoppingListItems);
+    Task<MethodResult> DeleteRangeAsync(IEnumerable<IShoppingListItemModel> shoppingListItems);
 }

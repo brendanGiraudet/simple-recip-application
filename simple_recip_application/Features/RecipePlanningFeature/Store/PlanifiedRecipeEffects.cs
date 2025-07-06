@@ -1,9 +1,12 @@
 using Fluxor;
+using Microsoft.AspNetCore.Components;
+using simple_recip_application.Constants;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.EqualityComparers;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Repositories;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Services;
 using simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
+using simple_recip_application.Features.ShoppingListManagement.Store.Actions;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.RecipesManagement.Store;
@@ -11,7 +14,8 @@ namespace simple_recip_application.Features.RecipesManagement.Store;
 public class PlanifiedRecipeEffects
 (
     IServiceScopeFactory _scopeFactory,
-    IRecipePlanifierService _recipePlanifierService
+    IRecipePlanifierService _recipePlanifierService,
+    NavigationManager _navigationManager
 )
 {
     [EffectMethod]
@@ -122,6 +126,14 @@ public class PlanifiedRecipeEffects
             dispatcher.Dispatch(new DeleteItemAction<IPlanifiedRecipeModel>(action.OldPlanifiedRecipe));
 
         dispatcher.Dispatch(new AddItemAction<IPlanifiedRecipeModel>(action.NewPlanifiedRecipe));
+
+        await Task.CompletedTask;
+    }
+    
+    [EffectMethod]
+    public async Task HandleGenerateShoppingListSuccessAction(GenerateShoppingListSuccessAction action, IDispatcher dispatcher)
+    {
+        _navigationManager.NavigateTo(PageUrlsConstants.ShoppingList);
 
         await Task.CompletedTask;
     }

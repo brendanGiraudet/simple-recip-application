@@ -7,6 +7,8 @@ using simple_recip_application.Extensions;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.HouseholdProductsManagement.Persistence.Entities;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 
@@ -69,11 +71,20 @@ public class HouseholdProductRepository
         return await base.UpdateAsync(entity as HouseholdProductModel);
     }
 
+    public async Task<MethodResult> UpdateRangeAsync(IEnumerable<IHouseholdProductModel>? entities)
+    {
+        return await base.UpdateRangeAsync(entities as IEnumerable<HouseholdProductModel>);
+    }
     public async Task<MethodResult> DeleteAsync(IHouseholdProductModel? entity)
     {
         return await base.DeleteAsync(entity as HouseholdProductModel);
     }
-    
+
+    public async Task<MethodResult> DeleteRangeAsync(IEnumerable<IHouseholdProductModel>? entities)
+    {
+        return await base.DeleteRangeAsync(entities as IEnumerable<HouseholdProductModel>);
+    }
+
     public async Task<MethodResult<int>> CountAsync(Expression<Func<IHouseholdProductModel, bool>>? predicate = null)
     {
         var convertedPredicate = predicate?.Convert<IHouseholdProductModel, HouseholdProductModel, bool>();
