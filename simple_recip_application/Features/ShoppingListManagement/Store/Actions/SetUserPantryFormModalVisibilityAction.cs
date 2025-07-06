@@ -1,0 +1,3 @@
+﻿namespace simple_recip_application.Features.ShoppingListManagement.Store.Actions;
+
+public record SetShoppingListFormModalVisibilityAction(bool IsVisible);

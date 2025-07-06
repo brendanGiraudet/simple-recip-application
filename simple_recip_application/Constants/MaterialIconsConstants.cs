@@ -21,4 +21,5 @@ public static class MaterialIconsConstants
     public const string ShoppingCard = "shopping_cart_checkout";
     public const string Update = "update";
     public const string TagManagement = "sell";
+    public const string ShoppingList = "shopping_cart_checkout";
 }

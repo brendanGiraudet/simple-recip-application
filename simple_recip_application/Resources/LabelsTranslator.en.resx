@@ -288,4 +288,7 @@
   <data name="NoTagsFound" xml:space="preserve">
     <value>No tags found</value>
   </data>
+  <data name="ShoppingList" xml:space="preserve">
+    <value>Shopping list</value>
+  </data>
 </root>

@@ -5,6 +5,7 @@ using simple_recip_application.Features.RecipePlanningFeature.Persistence.Entiti
 using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 using simple_recip_application.Features.UserPantryManagement.Persistence.Entities;
 using simple_recip_application.Features.TagsManagement.Persistence.Entities;
+using simple_recip_application.Features.ShoppingListManagement.Persistence.Entities;
 
 namespace simple_recip_application.Data;
 
@@ -23,6 +24,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<HouseholdProductModel> HouseholdProducts => Set<HouseholdProductModel>();
     public DbSet<UserPantryItemModel> UserPantryItems => Set<UserPantryItemModel>();
     public DbSet<TagModel> Tags => Set<TagModel>();
+    public DbSet<ShoppingListItemModel> ShoppingListItems => Set<ShoppingListItemModel>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -33,6 +35,13 @@ public class ApplicationDbContext : DbContext
             entity.HasKey(ri => new { ri.UserId, ri.ProductId });
 
             entity.Property(i => i.Quantity).IsRequired();
+            
+            entity.Ignore(i => i.ProductModel);
+        });
+        
+        modelBuilder.Entity<ShoppingListItemModel>(entity =>
+        {
+            entity.HasKey(ri => new { ri.UserId, ri.ProductId });
             
             entity.Ignore(i => i.ProductModel);
         });
@@ -164,8 +173,6 @@ public class ApplicationDbContext : DbContext
             entity.Property(r => r.UserId).IsRequired();
 
             entity.Property(r => r.MomentOftheDay);
-
-
         });
     }
 }

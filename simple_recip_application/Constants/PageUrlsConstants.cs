@@ -27,4 +27,7 @@ public static class PageUrlsConstants
     
     // Tags
     public const string TagManagement = "/tags";
+
+    // Shopping List
+    public const string ShoppingList = "/shopping-list";
 }

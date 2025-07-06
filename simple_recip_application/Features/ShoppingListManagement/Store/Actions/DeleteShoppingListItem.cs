@@ -1,0 +1,7 @@
+﻿using simple_recip_application.Features.ShoppingListManagement.ApplicationCore.Entities;
+
+namespace simple_recip_application.Features.ShoppingListManagement.Store.Actions;
+
+public record DeleteShoppingListItemAction(IShoppingListItemModel Item);
+public record DeleteShoppingListItemSuccessAction(IShoppingListItemModel Item);
+public record DeleteShoppingListItemFailureAction();

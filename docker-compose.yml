@@ -8,7 +8,7 @@ services:
       args:
         - configuration=release
 
-    image: simple_recip_application:1.12.50
+    image: simple_recip_application:1.13.0
 
     container_name: simple_recip_application
 
@@ -24,19 +24,20 @@ services:
 
       EnableDatabaseLogs: false
       
-      ApplicationVersion : "1.12.50"
+      ApplicationVersion : "1.13.0"
       
       FeatureManagement__RecipeFeature: true
       FeatureManagement__IngredientFeature: true
       FeatureManagement__ImportationFeature: false
-      FeatureManagement__RecipeImportationFeature: false
-      FeatureManagement__RecipeManagementFeature: false
-      FeatureManagement__IngredientManagementFeature: false
-      FeatureManagement__RecipePlanningFeature: false
-      FeatureManagement__PlanifiedRecipesAutomaticaly: false
-      FeatureManagement__ProductManagementFeature: false
-      FeatureManagement__UserPantryManagement: false
-      FeatureManagement__TagManagement: false
+      FeatureManagement__RecipeImportationFeature: true
+      FeatureManagement__RecipeManagementFeature: true
+      FeatureManagement__IngredientManagementFeature: true
+      FeatureManagement__RecipePlanningFeature: true
+      FeatureManagement__PlanifiedRecipesAutomaticaly: true
+      FeatureManagement__ProductManagementFeature: true
+      FeatureManagement__UserPantryManagement: true
+      FeatureManagement__TagManagement: true
+      FeatureManagement__ShoppingListManagement: true
       
       FileSettings__MaxAllowedSize: 1012000000
       FileSettings__MaxFileCount: 10

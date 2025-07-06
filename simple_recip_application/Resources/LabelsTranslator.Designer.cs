@@ -69,4 +69,5 @@ public class LabelsTranslator
     public static string AddTag => resourceManager.GetString("AddTag", CultureInfo.CurrentCulture) ?? "AddTag";
     public static string Tags => resourceManager.GetString("Tags", CultureInfo.CurrentCulture) ?? "Tags";
     public static string NoTagsFound => resourceManager.GetString("NoTagsFound", CultureInfo.CurrentCulture) ?? "NoTagsFound";
+    public static string ShoppingList => resourceManager.GetString("ShoppingList", CultureInfo.CurrentCulture) ?? "ShoppingList";
 }

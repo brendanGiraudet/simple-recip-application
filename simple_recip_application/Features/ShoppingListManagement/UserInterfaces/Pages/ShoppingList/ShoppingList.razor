@@ -1,0 +1,61 @@
+﻿@page "/shopping-list"
+@using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities
+@using simple_recip_application.Resources
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+@attribute [Authorize]
+@attribute [Authorize(FeatureFlagsConstants.ShoppingListManagement)]
+
+<div class="shoppingList-selector-container">
+	<div class="shoppingList-selector">
+
+		<div class="shoppingList-selector-search-bar">
+			<DropdownList OnSearch="@SearchProducts"
+						  Items="@ShoppingListState.Value.FilteredProducts"
+						  TItem="@(IProductModel)"
+						  OnClick="@((product) => AddShoppingListItemModel(product))"
+						  PropertyNameToDisplay="@(nameof(IHouseholdProductModel.Name))"
+						  IsLoading="@ShoppingListState.Value.IsLoadingFilteredProducts" />
+		</div>
+	</div>
+	<!-- Tags (Selected Products with Quantity) -->
+	<EditForm Model="new()">
+		<div class="tags">
+			@if (ShoppingListState.Value.Items.Count() == 0)
+			{
+				<span>@LabelsTranslator.NoProductsFound</span>
+			}
+
+			@foreach (var shoppingListItem in ShoppingListState.Value.Items)
+			{
+				<Tag OnRemoveClick="@(() => RemoveShoppingListItemModel(shoppingListItem))">
+					@* Name *@
+					<span>@shoppingListItem.ProductModel?.Name</span>
+
+					@* Quantity *@
+					<div>
+						<InputNumber Value="shoppingListItem.Quantity"
+									 ValueChanged="@((quantity) => UpdateShoppingListItem(shoppingListItem, quantity))"
+									 ValueExpression="@(() => shoppingListItem.Quantity)"
+									 TValue="decimal"
+									 placeholder="@LabelsTranslator.Quantity"
+									 min="0"
+									 step="0.5" />
+						<ValidationMessage For="@(() => shoppingListItem.Quantity)" />
+					</div>
+
+					@* MeasureUnit *@
+					<span>@shoppingListItem.ProductModel?.MeasureUnit</span>
+
+					@* IsDone *@
+					<div>
+						<InputCheckbox Value="shoppingListItem.IsDone"
+									 ValueChanged="@((isDone) => UpdateShoppingListItem(shoppingListItem, isDone))"
+									 ValueExpression="@(() => shoppingListItem.IsDone)" />
+						<ValidationMessage For="@(() => shoppingListItem.IsDone)" />
+					</div>
+				</Tag>
+			}
+		</div>
+	</EditForm>
+</div>

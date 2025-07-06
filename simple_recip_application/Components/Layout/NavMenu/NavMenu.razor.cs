@@ -34,6 +34,9 @@ public partial class NavMenu
         if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.RecipePlanningFeature))
             _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.RecipePlannigPage, MaterialIconsConstants.RecipePlannigPage, LabelsTranslator.Planning));
         
+        if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.ShoppingListManagement))
+            _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.ShoppingList, MaterialIconsConstants.ShoppingList, LabelsTranslator.ShoppingList));
+        
         if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.ProductManagementFeature))
             _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.HouseholdProducts, MaterialIconsConstants.Products, LabelsTranslator.Products));
         
