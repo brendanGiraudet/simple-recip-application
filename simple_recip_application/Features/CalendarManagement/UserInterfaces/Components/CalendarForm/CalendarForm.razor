@@ -1,0 +1,36 @@
+@inherits CustomComponentBase
+
+<h3>@(Calendar.Id.HasValue? LabelsTranslator.EditCalendar: LabelsTranslator.AddCalendar)</h3>
+
+<Loader IsVisible="@ImportState.Value.IsLoading" />
+
+<EditForm Model="Calendar" OnValidSubmit="Submit">
+    <DataAnnotationsValidator />
+
+    <div class="form-body">
+
+        <!-- Calendar Name -->
+        <div class="form-field">
+            <label for="@(nameof(ICalendarModel.Name))">@LabelsTranslator.CalendarName</label>
+            <InputText id="@(nameof(ICalendarModel.Name))" @bind-Value="Calendar.Name" class="form-control" />
+            <ValidationMessage For="@(() => Calendar.Name)" />
+        </div>
+
+    </div>
+
+    <!-- Submit and Cancel Buttons -->
+    <div class="form-buttons">
+        <button type="button" @onclick="@(() => DeleteCalendar(Calendar))"
+                class="btn btn-danger @GetDeleteButtonCssClass()">
+            @LabelsTranslator.Delete
+        </button>
+
+        <button type="button" @onclick="@(() => OnCancelAsync())" class="btn btn-secondary">
+            @LabelsTranslator.Cancel
+        </button>
+
+        <button type="submit" class="btn btn-primary">
+            @LabelsTranslator.SubmitButton
+        </button>
+    </div>
+</EditForm>

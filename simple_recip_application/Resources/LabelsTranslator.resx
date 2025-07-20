@@ -291,4 +291,19 @@
   <data name="ShoppingList" xml:space="preserve">
     <value>Liste des courses</value>
   </data>
+  <data name="AddCalendar" xml:space="preserve">
+    <value>Ajouter un calendrier</value>
+  </data>
+  <data name="NoCalendarsFound" xml:space="preserve">
+    <value>Aucun calendriers trouvés</value>
+  </data>
+  <data name="Calendars" xml:space="preserve">
+    <value>Calendriers</value>
+  </data>
+  <data name="CalendarName" xml:space="preserve">
+    <value>Nom du calendrier</value>
+  </data>
+  <data name="EditCalendar" xml:space="preserve">
+    <value>Mise à jour du calendrier</value>
+  </data>
 </root>

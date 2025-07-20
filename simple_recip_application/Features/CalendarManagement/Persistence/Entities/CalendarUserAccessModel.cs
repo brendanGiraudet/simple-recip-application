@@ -1,7 +1,6 @@
-﻿using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entites;
-using simple_recip_application.Features.RecipePlanningFeature.Persistence.Entities;
+﻿using simple_recip_application.Features.CalendarManagement.ApplicationCore.Entities;
 
-namespace simple_recip_application.Features.RecipePlanningFeature.Persistence.Entites;
+namespace simple_recip_application.Features.CalendarManagement.Persistence.Entities;
 
 public class CalendarUserAccessModel : ICalendarUserAccessModel
 {

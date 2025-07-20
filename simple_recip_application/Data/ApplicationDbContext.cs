@@ -6,7 +6,7 @@ using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 using simple_recip_application.Features.UserPantryManagement.Persistence.Entities;
 using simple_recip_application.Features.TagsManagement.Persistence.Entities;
 using simple_recip_application.Features.ShoppingListManagement.Persistence.Entities;
-using simple_recip_application.Features.RecipePlanningFeature.Persistence.Entites;
+using simple_recip_application.Features.CalendarManagement.Persistence.Entities;
 
 namespace simple_recip_application.Data;
 

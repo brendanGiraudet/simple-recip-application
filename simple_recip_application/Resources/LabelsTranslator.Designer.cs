@@ -70,4 +70,10 @@ public class LabelsTranslator
     public static string Tags => resourceManager.GetString("Tags", CultureInfo.CurrentCulture) ?? "Tags";
     public static string NoTagsFound => resourceManager.GetString("NoTagsFound", CultureInfo.CurrentCulture) ?? "NoTagsFound";
     public static string ShoppingList => resourceManager.GetString("ShoppingList", CultureInfo.CurrentCulture) ?? "ShoppingList";
+
+    public static string AddCalendar => resourceManager.GetString("AddCalendar", CultureInfo.CurrentCulture) ?? "Add calendar";
+    public static string NoCalendarsFound => resourceManager.GetString("NoCalendarsFound", CultureInfo.CurrentCulture) ?? "No calendars found";
+    public static string Calendars => resourceManager.GetString("Calendars", CultureInfo.CurrentCulture) ?? "Calendars";
+    public static string CalendarName => resourceManager.GetString("CalendarName", CultureInfo.CurrentCulture) ?? "Calendar name";
+    public static string EditCalendar => resourceManager.GetString("EditCalendar", CultureInfo.CurrentCulture) ?? "Edit calendar";
 }

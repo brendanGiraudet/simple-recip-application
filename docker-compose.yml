@@ -38,6 +38,7 @@ services:
       FeatureManagement__UserPantryManagement: true
       FeatureManagement__TagManagement: true
       FeatureManagement__ShoppingListManagement: true
+      FeatureManagement__CalendarManagementFeature: true
       
       FileSettings__MaxAllowedSize: 1012000000
       FileSettings__MaxFileCount: 10

@@ -4,11 +4,11 @@ using simple_recip_application.Data;
 using simple_recip_application.Data.Persistence.Repositories;
 using simple_recip_application.Dtos;
 using simple_recip_application.Extensions;
-using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entites;
-using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Repositories;
-using simple_recip_application.Features.RecipePlanningFeature.Persistence.Entities;
+using simple_recip_application.Features.CalendarManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.CalendarManagement.ApplicationCore.Repositories;
+using simple_recip_application.Features.CalendarManagement.Persistence.Entities;
 
-namespace simple_recip_application.Features.RecipesManagement.Persistence.Repositories;
+namespace simple_recip_application.Features.CalendarManagement.Persistence.Repositories;
 
 public class CalendarRepository
 (
@@ -29,7 +29,7 @@ public class CalendarRepository
 
             return new MethodResult<ICalendarModel?>(true, calendar);
         }
-        catch (System.Exception ex)
+        catch (Exception ex)
         {
             return new MethodResult<ICalendarModel?>(false, null);
         }
@@ -63,7 +63,7 @@ public class CalendarRepository
 
             return new MethodResult<IEnumerable<ICalendarModel>>(true, calendars);
         }
-        catch (System.Exception ex)
+        catch (Exception ex)
         {
             return new MethodResult<IEnumerable<ICalendarModel>>(false, []);
         }
@@ -84,7 +84,7 @@ public class CalendarRepository
         if (entity?.Id is null)
             return new MethodResult(false);
 
-        // Récupération complète de la recette actuelle (avec ingrédients associés)
+        // Récupération complète du calendrier
         var actualCalendarResult = await GetByIdAsync(entity.Id);
         if (!actualCalendarResult.Success || actualCalendarResult.Item is null)
             return new MethodResult(false);
@@ -118,6 +118,6 @@ public class CalendarRepository
     {
         var convertedPredicate = predicate?.Convert<ICalendarModel, CalendarModel, bool>();
 
-        return await base.CountAsync(convertedPredicate);
+        return await CountAsync(convertedPredicate);
     }
 }

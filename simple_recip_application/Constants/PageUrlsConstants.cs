@@ -30,4 +30,7 @@ public static class PageUrlsConstants
 
     // Shopping List
     public const string ShoppingList = "/shopping-list";
+
+    // Calendar
+    public const string CalendarsPage = "/calendars";
 }

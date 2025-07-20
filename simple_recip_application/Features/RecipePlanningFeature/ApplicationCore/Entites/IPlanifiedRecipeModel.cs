@@ -1,4 +1,4 @@
-using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entites;
+using simple_recip_application.Features.CalendarManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
 
 namespace simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;

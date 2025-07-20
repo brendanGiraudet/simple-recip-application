@@ -1,7 +1,7 @@
 ﻿using simple_recip_application.Data.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
 
-namespace simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entites;
+namespace simple_recip_application.Features.CalendarManagement.ApplicationCore.Entities;
 
 public interface ICalendarModel : IEntityBase
 {

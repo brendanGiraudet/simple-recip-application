@@ -28,11 +28,11 @@ public partial class NavMenu
         if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.IngredientFeature))
             _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.IngredientsPage, MaterialIconsConstants.IngredientsPage, LabelsTranslator.Ingredients));
         
+        if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.CalendarManagementFeature))
+            _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.CalendarsPage, MaterialIconsConstants.RecipePlannigPage, LabelsTranslator.Calendars));
+        
         if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.ImportationFeature))
             _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.ImportationPage, MaterialIconsConstants.ImportationPage, LabelsTranslator.Importation));
-        
-        if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.RecipePlanningFeature))
-            _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.RecipePlannigPage, MaterialIconsConstants.RecipePlannigPage, LabelsTranslator.Planning));
         
         if(await FeatureManager.IsEnabledAsync(FeatureFlagsConstants.ShoppingListManagement))
             _navMenuItems = _navMenuItems.Append(new NavMenuItem(PageUrlsConstants.ShoppingList, MaterialIconsConstants.ShoppingList, LabelsTranslator.ShoppingList));

@@ -1,9 +1,9 @@
 using simple_recip_application.Data.Persistence.Entities;
-using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entites;
+using simple_recip_application.Features.CalendarManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
-using simple_recip_application.Features.RecipePlanningFeature.Persistence.Entites;
+using simple_recip_application.Features.RecipePlanningFeature.Persistence.Entities;
 
-namespace simple_recip_application.Features.RecipePlanningFeature.Persistence.Entities;
+namespace simple_recip_application.Features.CalendarManagement.Persistence.Entities;
 
 public class CalendarModel : EntityBase, ICalendarModel
 {

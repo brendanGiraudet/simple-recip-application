@@ -1,0 +1,31 @@
+@page "/calendars"
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@rendermode InteractiveServer
+
+<SearchBar OnSearch="@OnSearchTermChanged" />
+
+<div class="grid page-grid @GetCalendarsVisibilityCssClass()">
+
+    @if (CalendarState.Value.Items.Count() == 0)
+    {
+        <p class="no-ingredients-message">@LabelsTranslator.NoCalendarsFound</p>
+    }
+
+    @foreach (var calendar in CalendarState.Value.Items)
+    {
+        <Tag >
+			@calendar.Name
+        </Tag>
+    }
+</div>
+
+<PaginationButtons CanPreviousClick="@CanPreviousClick()" OnPrevious="@OnPreviousAsync" OnNext="@OnNextAsync" />
+
+<Loader IsVisible="@CalendarState.Value.IsLoading" />
+
+<Modal OnClose="CloseCalendarFormModal" IsVisible="@CalendarState.Value.FormModalVisibility">
+
+    <CalendarForm OnCancel="CloseCalendarFormModal" />
+</Modal>
+
+<OptionsMenu Options="GetOptions()" />

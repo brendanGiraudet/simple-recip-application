@@ -14,4 +14,5 @@ public static class FeatureFlagsConstants
     public const string UserPantryManagement = "UserPantryManagement";
     public const string TagManagement = "TagManagement";
     public const string ShoppingListManagement = "ShoppingListManagement";
+    public const string CalendarManagementFeature = "CalendarManagementFeature";
 }

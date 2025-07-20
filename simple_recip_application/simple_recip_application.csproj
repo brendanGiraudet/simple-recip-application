@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\CalendarManagement\Store\Actions\" />
     <Folder Include="Features\HouseholdProductsManagement\Store\Actions\" />
     <Folder Include="Features\IngredientsManagement\Store\Actions\" />
     <Folder Include="Features\RecipesManagement\Store\Actions\" />

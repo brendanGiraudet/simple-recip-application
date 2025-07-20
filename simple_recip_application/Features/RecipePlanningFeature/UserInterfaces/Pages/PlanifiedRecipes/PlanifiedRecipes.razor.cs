@@ -1,28 +1,26 @@
 using System.Globalization;
 using System.Linq.Expressions;
-using System.Text;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
+using Microsoft.FeatureManagement;
 using simple_recip_application.Components.OptionsMenu;
 using simple_recip_application.Constants;
+using simple_recip_application.Enums;
 using simple_recip_application.Extensions;
-using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Entities;
-using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
+using simple_recip_application.Features.CalendarManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.CalendarManagement.ApplicationCore.Factories;
+using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
+using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.EqualityComparers;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Factories;
+using simple_recip_application.Features.RecipePlanningFeature.Enums;
 using simple_recip_application.Features.RecipePlanningFeature.Store;
 using simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
-using simple_recip_application.Features.RecipePlanningFeature.Enums;
+using simple_recip_application.Features.ShoppingListManagement.Store.Actions;
+using simple_recip_application.Features.UserInfos.Store;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
-using simple_recip_application.Enums;
-using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.EqualityComparers;
-using Microsoft.FeatureManagement;
-using simple_recip_application.Features.UserInfos.Store;
-using simple_recip_application.Features.ShoppingListManagement.ApplicationCore.Services;
-using simple_recip_application.Features.ShoppingListManagement.Store.Actions;
 
 namespace simple_recip_application.Features.RecipePlanningFeature.UserInterfaces.Pages.PlanifiedRecipes;
 
@@ -35,6 +33,7 @@ public partial class PlanifiedRecipes
     [Inject] public required IPlanifiedRecipeModelFactory PlanifiedRecipeFactory { get; set; }
     [Inject] public required NavigationManager NavigationManager { get; set; }
     [Inject] public required IState<UserInfosState> UserInfosState { get; set; }
+    [Inject] public required ICalendarModelFactory CalendarFactory { get; set; }
 
     private bool _isRecipeModalVisible = false;
     private ModalModeEnum _recipeModalMode;
@@ -42,6 +41,7 @@ public partial class PlanifiedRecipes
     private DayOfWeek _selectedDayForPlanning;
     private IPlanifiedRecipeModel? _selectedPlanifiedRecipe;
     private MomentOfTheDayEnum _selectedMomentOfTheDay = MomentOfTheDayEnum.Evening;
+    private ICalendarModel? _selectedCalendar { get; set; }
 
     protected override void OnInitialized()
     {
@@ -50,6 +50,8 @@ public partial class PlanifiedRecipes
     }
     private void LoadRecipesForCurrentWeek()
     {
+        if (!PlanifiedRecipeState.Value.CurrentCalendar?.Id.HasValue ?? false) return;
+
         var startOfWeek = PlanifiedRecipeState.Value.CurrentWeekStart.Date.StartOfDay();
         var endOfWeek = PlanifiedRecipeState.Value.CurrentWeekStart.EndOfWeek().EndOfDay();
         var calendarId = PlanifiedRecipeState.Value.CurrentCalendar.Id;
@@ -158,13 +160,23 @@ public partial class PlanifiedRecipes
     private List<OptionMenuItem> GetOptions()
     {
         List<OptionMenuItem> options = [
-            new(MaterialIconsConstants.ShoppingCard, string.Empty, () => GenerateShoppingListAsync(), LabelsTranslator.GenerateShoppingList)
+            new(MaterialIconsConstants.ShoppingCard, string.Empty, () => GenerateShoppingListAsync(), LabelsTranslator.GenerateShoppingList),
+            new(MaterialIconsConstants.Add, string.Empty, () => OpenCalendarFormModalAsync(), LabelsTranslator.AddIngredient),
         ];
 
         if (!PlanifiedRecipeState.Value.RecipesGroupedByDay.Any(c => c.Value.Count() > 0) && FeatureManager.IsEnabledAsync(FeatureFlagsConstants.PlanifiedRecipesAutomaticaly).Result)
             options.Add(new(MaterialIconsConstants.Generate, string.Empty, () => PlanifiedRecipesForTheWeek(), LabelsTranslator.PlanifiedRecipesAutomaticaly));
 
         return options;
+    }
+
+    private async Task OpenCalendarFormModalAsync(ICalendarModel? model = null)
+    {
+        _selectedCalendar = model ?? CalendarFactory.CreateCalendarModel();
+
+        Dispatcher.Dispatch(new SetFormModalVisibilityAction<ICalendarModel>(true));
+
+        await Task.CompletedTask;
     }
 
     private async Task GenerateShoppingListAsync()
