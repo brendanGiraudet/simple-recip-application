@@ -1,16 +1,12 @@
-using simple_recip_application.Data;
-using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
-using simple_recip_application.Data.Persistence.Repositories;
-using simple_recip_application.Features.RecipePlanningFeature.Persistence.Entities;
-using simple_recip_application.Dtos;
 using System.Linq.Expressions;
-using simple_recip_application.Extensions;
 using Microsoft.EntityFrameworkCore;
+using simple_recip_application.Data;
+using simple_recip_application.Data.Persistence.Repositories;
+using simple_recip_application.Dtos;
+using simple_recip_application.Extensions;
+using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Repositories;
-using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
-using simple_recip_application.Features.HouseholdProductsManagement.Persistence.Entities;
-using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
-using simple_recip_application.Features.IngredientsManagement.Persistence.Entities;
+using simple_recip_application.Features.RecipePlanningFeature.Persistence.Entities;
 
 namespace simple_recip_application.Features.RecipePlanningFeature.Persistence.Repositories;
 

@@ -12,7 +12,7 @@ public class PlanifiedRecipeEqualityComparer : IEqualityComparer<IPlanifiedRecip
         return string.Equals(x.MomentOftheDay, y.MomentOftheDay) &&
                Guid.Equals(x.RecipeId, y.RecipeId) &&
                DateTime.Equals(x.PlanifiedDateTime, y.PlanifiedDateTime) &&
-               string.Equals(x.UserId, y.UserId);
+               Guid.Equals(x.CalendarId, y.CalendarId);
     }
 
     public int GetHashCode([DisallowNull] IPlanifiedRecipeModel obj)

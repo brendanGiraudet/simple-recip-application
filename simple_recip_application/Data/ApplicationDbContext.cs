@@ -6,6 +6,7 @@ using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 using simple_recip_application.Features.UserPantryManagement.Persistence.Entities;
 using simple_recip_application.Features.TagsManagement.Persistence.Entities;
 using simple_recip_application.Features.ShoppingListManagement.Persistence.Entities;
+using simple_recip_application.Features.RecipePlanningFeature.Persistence.Entites;
 
 namespace simple_recip_application.Data;
 
@@ -25,6 +26,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<UserPantryItemModel> UserPantryItems => Set<UserPantryItemModel>();
     public DbSet<TagModel> Tags => Set<TagModel>();
     public DbSet<ShoppingListItemModel> ShoppingListItems => Set<ShoppingListItemModel>();
+    public DbSet<CalendarModel> CalendarModels => Set<CalendarModel>();
+    public DbSet<CalendarUserAccessModel> CalendarUserAccessModels => Set<CalendarUserAccessModel>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -160,7 +163,7 @@ public class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<PlanifiedRecipeModel>(entity =>
         {
-            entity.HasKey(r => new { r.RecipeId, r.PlanifiedDateTime, r.UserId });
+            entity.HasKey(r => new { r.RecipeId, r.PlanifiedDateTime, r.CalendarId });
 
             entity.HasOne(r => r.Recipe)
                   .WithMany()
@@ -170,9 +173,49 @@ public class ApplicationDbContext : DbContext
 
             entity.Property(r => r.PlanifiedDateTime).IsRequired();
 
-            entity.Property(r => r.UserId).IsRequired();
+            entity.HasOne(r => r.Calendar)
+                  .WithMany()
+                  .HasForeignKey(r => r.CalendarId);
+
+            entity.Ignore(r => r.CalendarModel);
 
             entity.Property(r => r.MomentOftheDay);
+        });
+
+        modelBuilder.Entity<CalendarModel>(entity =>
+        {
+            entity.HasKey(c => c.Id);
+            
+            entity.Property(c => c.Name).IsRequired().HasMaxLength(255);
+            
+            entity.Property(c => c.CreationDate).IsRequired();
+            
+            entity.Property(c => c.ModificationDate);
+            
+            entity.Property(c => c.RemoveDate);
+
+            entity.HasMany(c => c.PlanifiedRecipes)
+                  .WithOne(r => r.Calendar)
+                  .HasForeignKey(r => r.CalendarId);
+
+            entity.Ignore(c => c.PlanifiedRecipeModels);
+
+            entity.HasMany(c => c.CalendarUsersAccess)
+                    .WithOne(cua => cua.Calendar)
+                    .HasForeignKey(cua => cua.CalendarId);
+
+            entity.Ignore(c => c.CalendarUserAccessModels);
+        });
+
+        modelBuilder.Entity<CalendarUserAccessModel>(entity =>
+        {
+            entity.HasKey(cua => new { cua.CalendarId, cua.UserId });
+            
+            entity.HasOne(cua => cua.Calendar)
+                  .WithMany(c => c.CalendarUsersAccess)
+                  .HasForeignKey(cua => cua.CalendarId);
+
+            entity.Ignore(entity => entity.CalendarModel);
         });
     }
 }

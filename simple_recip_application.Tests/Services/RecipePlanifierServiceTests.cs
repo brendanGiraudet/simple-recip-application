@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using simple_recip_application.Dtos;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Factories;
+using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Repositories;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Services;
 using simple_recip_application.Features.RecipePlanningFeature.Persistence.Services;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
@@ -18,6 +19,7 @@ public class RecipePlanifierServiceTests
     private readonly Mock<ILogger<RecipePlanifierService>> _loggerMock = new();
     private readonly Mock<IRecipeRepository> _recipeRepositoryMock = new();
     private readonly Mock<IPlanifiedRecipeModelFactory> _planifiedRecipeModelFactoryMock = new();
+    private readonly Mock<ICalendarRepository> _calendarRepositoryMock = new();
     private IState<UserInfosState> CreateUserInfosState()
     {
         var mock = new Mock<IState<UserInfosState>>();
@@ -35,7 +37,8 @@ public class RecipePlanifierServiceTests
         _loggerMock.Object,
         _recipeRepositoryMock.Object,
         _planifiedRecipeModelFactoryMock.Object,
-        CreateUserInfosState());
+        CreateUserInfosState(),
+        _calendarRepositoryMock.Object);
 
     [Fact]
     public async Task ShouldMethodResultSuccessAndNotEmptyDictionary_WhenGetPlanifiedRecipesForTheWeek()
@@ -50,7 +53,7 @@ public class RecipePlanifierServiceTests
             .ReturnsAsync(new MethodResult<IEnumerable<IRecipeModel>>(true, recipes));
 
         _planifiedRecipeModelFactoryMock
-            .Setup(factory => factory.CreatePlanifiedRecipeModel(It.IsAny<IRecipeModel>(), It.IsAny<DateTime>(), It.IsAny<string>(), It.IsAny<string>(), null))
+            .Setup(factory => factory.CreatePlanifiedRecipeModel(It.IsAny<IRecipeModel>(), It.IsAny<DateTime>(), It.IsAny<Guid>(), It.IsAny<string>(), null))
             .Returns(new PlanifiedRecipeModelFaker().Generate());
 
         var service = GetRecipePlanifierService();

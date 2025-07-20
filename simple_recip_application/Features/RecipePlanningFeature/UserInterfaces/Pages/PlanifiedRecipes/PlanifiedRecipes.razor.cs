@@ -52,9 +52,10 @@ public partial class PlanifiedRecipes
     {
         var startOfWeek = PlanifiedRecipeState.Value.CurrentWeekStart.Date.StartOfDay();
         var endOfWeek = PlanifiedRecipeState.Value.CurrentWeekStart.EndOfWeek().EndOfDay();
+        var calendarId = PlanifiedRecipeState.Value.CurrentCalendar.Id;
 
         Expression<Func<IPlanifiedRecipeModel, bool>> predicate =
-            c => c.PlanifiedDateTime >= startOfWeek && c.PlanifiedDateTime <= endOfWeek && c.UserId == UserInfosState.Value.UserInfo.Id;
+            c => c.PlanifiedDateTime >= startOfWeek && c.PlanifiedDateTime <= endOfWeek && c.CalendarId == calendarId;
 
         Dispatcher.Dispatch(new LoadItemsAction<IPlanifiedRecipeModel>(Predicate: predicate));
     }
@@ -118,7 +119,7 @@ public partial class PlanifiedRecipes
             recipe: selectedRecipe,
             planifiedDatetime: planifiedDateTime,
             momentOftheDay: _selectedMomentOfTheDay.ToString(),
-            userId: UserInfosState.Value.UserInfo.Id
+            calendarId: PlanifiedRecipeState.Value.CurrentCalendar.Id
         );
 
         Dispatcher.Dispatch(new AddItemAction<IPlanifiedRecipeModel>(planifiedRecipe));
@@ -131,7 +132,7 @@ public partial class PlanifiedRecipes
         var newPlanifiedRecipe = PlanifiedRecipeFactory.CreatePlanifiedRecipeModel(
             recipe: newRecipe,
             planifiedDatetime: _selectedPlanifiedRecipe.PlanifiedDateTime,
-            userId: _selectedPlanifiedRecipe.UserId,
+            calendarId: PlanifiedRecipeState.Value.CurrentCalendar.Id,
             momentOftheDay: _selectedMomentOfTheDay.ToString(),
             recipeId: newRecipe.Id
         );
@@ -184,7 +185,7 @@ public partial class PlanifiedRecipes
     {
         planifiedRecipeModel = planifiedRecipeModel ?? PlanifiedRecipeFactory.CreatePlanifiedRecipeModel(
             planifiedDatetime: day,
-            userId: UserInfosState.Value.UserInfo.Id,
+            calendarId: PlanifiedRecipeState.Value.CurrentCalendar.Id,
             momentOftheDay: momentOftheDay
         );
 

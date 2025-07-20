@@ -3,6 +3,7 @@ using simple_recip_application.Dtos;
 using simple_recip_application.Extensions;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Factories;
+using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Repositories;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Services;
 using simple_recip_application.Features.RecipePlanningFeature.Enums;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Repositories;
@@ -15,7 +16,8 @@ public class RecipePlanifierService
     ILogger<RecipePlanifierService> _logger,
     IRecipeRepository _recipeRepository,
     IPlanifiedRecipeModelFactory _planifiedRecipeFactory,
-    IState<UserInfosState> _userInfosState
+    IState<UserInfosState> _userInfosState,
+    ICalendarRepository _calendarRepository
 )
  : IRecipePlanifierService
 {
@@ -34,6 +36,13 @@ public class RecipePlanifierService
 
             var recipesList = recipesResult.Item.ToList();
 
+            var calendarResult = await _calendarRepository.GetAsync(1, 0, predicate: c => c.CalendarUserAccessModels.Any(a => a.UserId == _userInfosState.Value.UserInfo.Id), sort: c => c.Name);
+
+            if(!calendarResult.Success)
+                return new MethodResult<Dictionary<DayOfWeek, List<IPlanifiedRecipeModel>>>(false, []);
+
+            var calendar = calendarResult.Item.FirstOrDefault();
+
             for (int i = 0; i < 7; i++)
             {
                 var dayDate = startOfWeek.AddDays(i);
@@ -42,7 +51,7 @@ public class RecipePlanifierService
                 var planifiedRecipe = _planifiedRecipeFactory.CreatePlanifiedRecipeModel(
                     recipe: recipesList[i],
                     planifiedDatetime: dayDate.Date,
-                    userId: _userInfosState.Value.UserInfo.Id,
+                    calendarId: calendar.Id,
                     momentOftheDay: MomentOfTheDayEnum.Evening.ToString()
                 );
 
@@ -86,7 +95,7 @@ public class RecipePlanifierService
             var newPlanifiedRecipe = _planifiedRecipeFactory.CreatePlanifiedRecipeModel(
                 recipe,
                 currentPlanifiedRecipe.PlanifiedDateTime,
-                currentPlanifiedRecipe.UserId,
+                currentPlanifiedRecipe.CalendarId,
                 currentPlanifiedRecipe.MomentOftheDay,
                 recipe.Id
             );
