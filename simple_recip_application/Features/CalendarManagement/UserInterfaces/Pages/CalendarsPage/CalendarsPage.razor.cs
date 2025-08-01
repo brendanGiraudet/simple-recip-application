@@ -62,15 +62,6 @@ public partial class CalendarsPage
 
     private string GetCalendarsVisibilityCssClass() => !CalendarState.Value.IsLoading ? "" : "hidden";
 
-    private void HandleSelection(ICalendarModel Calendar)
-    {
-        if (CalendarState.Value.SelectedItems.Contains(Calendar))
-            CalendarState.Value.SelectedItems = CalendarState.Value.SelectedItems.Except([Calendar]);
-
-        else
-            CalendarState.Value.SelectedItems = CalendarState.Value.SelectedItems.Append(Calendar);
-    }
-
     private List<OptionMenuItem> GetOptions()
     {
         List<OptionMenuItem> options = [];
@@ -78,18 +69,12 @@ public partial class CalendarsPage
         if (_canManageCalendar)
             options.Add(new(MaterialIconsConstants.Add, string.Empty, () => OpenCalendarFormModalAsync(), LabelsTranslator.AddCalendar));
 
-        if (_canManageCalendar && CalendarState.Value.SelectedItems.Count() > 0)
-            options.Add(new(MaterialIconsConstants.Delete, string.Empty, () => DeleteSelectedCalendarsAsync(), LabelsTranslator.Delete));
-
         return options;
     }
 
-    private async Task DeleteSelectedCalendarsAsync()
+    private async Task DeleteCalendarAsync(ICalendarModel calendarModel)
     {
-        if (CalendarState.Value.SelectedItems.Count() > 0)
-        {
-            Dispatcher.Dispatch(new DeleteItemsAction<ICalendarModel>(CalendarState.Value.SelectedItems));
-        }
+        Dispatcher.Dispatch(new DeleteItemAction<ICalendarModel>(calendarModel));
 
         await Task.CompletedTask;
     }

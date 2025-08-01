@@ -13,7 +13,8 @@
 
     @foreach (var calendar in CalendarState.Value.Items)
     {
-        <Tag >
+        <Tag OnRemoveClick="@(async () => await DeleteCalendarAsync(calendar))"
+             OnClick="@(async () => await OpenCalendarFormModalAsync(calendar))">
 			@calendar.Name
         </Tag>
     }

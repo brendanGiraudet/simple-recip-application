@@ -1,10 +1,10 @@
-﻿<div class="tag-container">
+﻿<div class="tag-container" @onclick="@(async () => await HandleOnClickAsync())">
 
     <div class="tag-content">
         @ChildContent
     </div>
 
     @* Remove *@
-    <span class="remove-tag" @onclick="(async () => await HandleRemoveClickAsync())">x</span>
+    <span class="remove-tag" @onclick="(async () => await HandleRemoveClickAsync())" @onclick:stopPropagation=true>x</span>
 
 </div>

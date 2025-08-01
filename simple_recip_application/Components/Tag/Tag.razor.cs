@@ -6,6 +6,7 @@ public partial class Tag
 {
     [Parameter] public required RenderFragment ChildContent { get; set; }
     [Parameter] public EventCallback OnRemoveClick { get; set; }
+    [Parameter] public EventCallback OnClick { get; set; }
 
     private async Task HandleRemoveClickAsync()
     {
@@ -15,4 +16,11 @@ public partial class Tag
         }
     }
 
+    private async Task HandleOnClickAsync()
+    {
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
+        }
+    }
 }
