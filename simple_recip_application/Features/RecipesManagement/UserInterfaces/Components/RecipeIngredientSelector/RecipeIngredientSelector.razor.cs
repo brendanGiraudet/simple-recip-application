@@ -7,7 +7,7 @@ using simple_recip_application.Constants;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.IngredientsManagement.Store;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipesManagement.Store;
 using simple_recip_application.Store.Actions;

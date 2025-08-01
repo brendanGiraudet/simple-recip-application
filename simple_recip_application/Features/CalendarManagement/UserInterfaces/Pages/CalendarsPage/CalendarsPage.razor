@@ -2,6 +2,9 @@
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 @rendermode InteractiveServer
 
+@attribute [Authorize]
+@attribute [Authorize(Policy = FeatureFlagsConstants.CalendarManagementFeature)]
+
 <SearchBar OnSearch="@OnSearchTermChanged" />
 
 <div class="grid page-grid @GetCalendarsVisibilityCssClass()">

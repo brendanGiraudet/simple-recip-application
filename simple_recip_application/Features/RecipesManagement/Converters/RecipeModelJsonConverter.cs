@@ -1,6 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipesManagement.Persistence.Entites;
 
 namespace simple_recip_application.Features.RecipesManagement.Converters;

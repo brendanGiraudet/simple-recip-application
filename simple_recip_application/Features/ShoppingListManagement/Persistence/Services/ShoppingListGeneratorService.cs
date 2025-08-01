@@ -1,6 +1,6 @@
 using System.Text;
 using simple_recip_application.Dtos;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.ShoppingListManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.ShoppingListManagement.ApplicationCore.Factories;

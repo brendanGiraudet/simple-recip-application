@@ -1,4 +1,4 @@
-﻿using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
+﻿using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.ShoppingListManagement.ApplicationCore.Entities;
 
 namespace simple_recip_application.Features.ShoppingListManagement.Store.Actions;

@@ -1,0 +1,5 @@
+using simple_recip_application.Features.CalendarManagement.ApplicationCore.Entities;
+
+namespace simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
+
+public record SetCurrentCalendarAction(ICalendarModel CurrentCalendarModel);

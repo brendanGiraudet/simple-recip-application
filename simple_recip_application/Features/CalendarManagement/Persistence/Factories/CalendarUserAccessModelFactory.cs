@@ -9,6 +9,7 @@ public class CalendarUserAccessModelFactory : ICalendarUserAccessModelFactory
     public ICalendarUserAccessModel CreateCalendarUserAccessModel(string userId, ICalendarModel calendarModel) => new CalendarUserAccessModel
     {
         UserId = userId,
-        CalendarModel = (CalendarModel)calendarModel
+        CalendarModel = (CalendarModel)calendarModel,
+        CalendarId = calendarModel?.Id ?? Guid.Empty,
     };
 }

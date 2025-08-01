@@ -107,4 +107,10 @@ public static class PlanifiedRecipeReducer
     public static PlanifiedRecipeState ReduceGenerateShoppingListSuccessAction(PlanifiedRecipeState state, GenerateShoppingListSuccessAction action)
         => state with { IsLoading = false };
     #endregion
+
+    #region SetCurrentCalendarAction
+    [ReducerMethod]
+    public static PlanifiedRecipeState ReduceSetCurrentCalendarAction(PlanifiedRecipeState state, SetCurrentCalendarAction action)
+        => state with { CurrentCalendar = action.CurrentCalendarModel };
+    #endregion
 }

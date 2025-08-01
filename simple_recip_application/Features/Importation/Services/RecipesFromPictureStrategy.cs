@@ -1,7 +1,7 @@
 using Fluxor;
 using simple_recip_application.Dtos;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Repositories;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entities;
 using simple_recip_application.Resources;
 using simple_recip_application.Services;
 using simple_recip_application.Store.Actions;

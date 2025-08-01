@@ -12,7 +12,7 @@ public class CalendarEffects
 (
     ILogger<CalendarEffects> _logger,
     NavigationManager _navigationManager,
-    IServiceScopeFactory ScopeFactory
+    IServiceScopeFactory _scopeFactory
 )
 {
     [EffectMethod]
@@ -22,7 +22,7 @@ public class CalendarEffects
         {
             await Task.Run(async () =>
             {
-                using var scope = ScopeFactory.CreateScope();
+                using var scope = _scopeFactory.CreateScope();
                 var repository = scope.ServiceProvider.GetRequiredService<ICalendarRepository>();
 
                 var recipesResult = await repository.GetAsync(action.Take, action.Skip, action.Predicate, action.Sort);
@@ -49,7 +49,7 @@ public class CalendarEffects
         {
             await Task.Run(async () =>
             {
-                using var scope = ScopeFactory.CreateScope();
+                using var scope = _scopeFactory.CreateScope();
                 var repository = scope.ServiceProvider.GetRequiredService<ICalendarRepository>();
 
                 var recipeResult = await repository.GetByIdAsync(action.Id);
@@ -76,7 +76,8 @@ public class CalendarEffects
         {
             await Task.Run(async () =>
             {
-                using var scope = ScopeFactory.CreateScope();
+                using var scope = _scopeFactory.CreateScope();
+
                 var repository = scope.ServiceProvider.GetRequiredService<ICalendarRepository>();
 
                 var addResult = await repository.AddAsync(action.Item);
@@ -126,7 +127,7 @@ public class CalendarEffects
         {
             return await Task.Run(async () =>
             {
-                using var scope = ScopeFactory.CreateScope();
+                using var scope = _scopeFactory.CreateScope();
                 var repository = scope.ServiceProvider.GetRequiredService<ICalendarRepository>();
 
                 if (!recipe.Id.HasValue)
@@ -175,7 +176,7 @@ public class CalendarEffects
         {
             await Task.Run(async () =>
             {
-                using var scope = ScopeFactory.CreateScope();
+                using var scope = _scopeFactory.CreateScope();
                 var repository = scope.ServiceProvider.GetRequiredService<ICalendarRepository>();
 
                 var updateResult = await repository.UpdateAsync(action.Item);

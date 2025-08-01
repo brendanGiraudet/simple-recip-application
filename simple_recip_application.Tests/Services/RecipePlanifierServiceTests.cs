@@ -7,7 +7,7 @@ using simple_recip_application.Features.CalendarManagement.ApplicationCore.Repos
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Services;
 using simple_recip_application.Features.RecipePlanningFeature.Persistence.Services;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipesManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.UserInfos.Store;
 using simple_recip_application.Tests.Fakers;

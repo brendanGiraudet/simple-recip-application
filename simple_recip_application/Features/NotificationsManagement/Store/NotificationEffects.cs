@@ -7,7 +7,7 @@ using simple_recip_application.Features.NotificationsManagement.ApplicationCore.
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.TagsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.UserPantryManagement.Store.Actions;
 using simple_recip_application.Resources;

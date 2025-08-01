@@ -4,6 +4,12 @@
 @attribute [Authorize]
 @attribute [Authorize(Policy = FeatureFlagsConstants.RecipePlanningFeature)]
 
+<div>
+    <DropdownList Items="@CalendarState.Value.Items" 
+                  OnClick="@((calendar) => OnCurrentCalendarChanged(calendar))" 
+                  TItem="ICalendarModel" />
+</div>
+
 <div class="weekly-recipes-container">
     @foreach (var day in GetOrderedDaysOfWeek())
     {

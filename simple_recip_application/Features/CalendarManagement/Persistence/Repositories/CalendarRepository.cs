@@ -53,11 +53,12 @@ public class CalendarRepository
             var convertedSort = sort?.Convert<ICalendarModel, CalendarModel, object>();
 
             var calendarsRequest = base.Get(take, skip, convertedPredicate, convertedSort)
-                                     .Select(c => new CalendarModel
-                                     {
-                                         Id = c.Id,
-                                         Name = c.Name
-                                     });
+                                       .Include(c => c.CalendarUsersAccess)
+                                       .Select(c => new CalendarModel
+                                       {
+                                           Id = c.Id,
+                                           Name = c.Name,
+                                       });
 
             var calendars = await calendarsRequest.Cast<ICalendarModel>().ToListAsync();
 

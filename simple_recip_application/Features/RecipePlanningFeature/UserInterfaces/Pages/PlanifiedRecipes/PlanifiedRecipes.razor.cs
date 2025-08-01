@@ -1,5 +1,3 @@
-using System.Globalization;
-using System.Linq.Expressions;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FeatureManagement;
@@ -8,19 +6,20 @@ using simple_recip_application.Constants;
 using simple_recip_application.Enums;
 using simple_recip_application.Extensions;
 using simple_recip_application.Features.CalendarManagement.ApplicationCore.Entities;
-using simple_recip_application.Features.CalendarManagement.ApplicationCore.Factories;
-using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.CalendarManagement.Store;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.EqualityComparers;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Factories;
 using simple_recip_application.Features.RecipePlanningFeature.Enums;
 using simple_recip_application.Features.RecipePlanningFeature.Store;
 using simple_recip_application.Features.RecipePlanningFeature.Store.Actions;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.ShoppingListManagement.Store.Actions;
 using simple_recip_application.Features.UserInfos.Store;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
+using System.Globalization;
+using System.Linq.Expressions;
 
 namespace simple_recip_application.Features.RecipePlanningFeature.UserInterfaces.Pages.PlanifiedRecipes;
 
@@ -33,7 +32,7 @@ public partial class PlanifiedRecipes
     [Inject] public required IPlanifiedRecipeModelFactory PlanifiedRecipeFactory { get; set; }
     [Inject] public required NavigationManager NavigationManager { get; set; }
     [Inject] public required IState<UserInfosState> UserInfosState { get; set; }
-    [Inject] public required ICalendarModelFactory CalendarFactory { get; set; }
+    [Inject] public required IState<CalendarState> CalendarState { get; set; }
 
     private bool _isRecipeModalVisible = false;
     private ModalModeEnum _recipeModalMode;
@@ -46,6 +45,16 @@ public partial class PlanifiedRecipes
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
+        if (CalendarState.Value.Items.Count() == 0)
+        {
+            Expression<Func<ICalendarModel, bool>>? filter = r => r.RemoveDate == null && r.CalendarUserAccessModels.Any(a => a.UserId == UserInfosState.Value.UserInfo.Id);
+
+            Dispatcher.Dispatch(new LoadItemsAction<ICalendarModel>(Take: CalendarState.Value.Take, Skip: 0, filter));
+        }
+
+        Dispatcher.Dispatch(new SetCurrentCalendarAction(CalendarState.Value.Items.FirstOrDefault()));
+
         LoadRecipesForCurrentWeek();
     }
     private void LoadRecipesForCurrentWeek()
@@ -65,12 +74,14 @@ public partial class PlanifiedRecipes
     private void LoadPreviousWeek()
     {
         Dispatcher.Dispatch(new SetCurrentWeekStartAction(PlanifiedRecipeState.Value.CurrentWeekStart.AddDays(-7)));
+
         LoadRecipesForCurrentWeek();
     }
 
     private void LoadNextWeek()
     {
         Dispatcher.Dispatch(new SetCurrentWeekStartAction(PlanifiedRecipeState.Value.CurrentWeekStart.AddDays(7)));
+
         LoadRecipesForCurrentWeek();
     }
 
@@ -160,23 +171,13 @@ public partial class PlanifiedRecipes
     private List<OptionMenuItem> GetOptions()
     {
         List<OptionMenuItem> options = [
-            new(MaterialIconsConstants.ShoppingCard, string.Empty, () => GenerateShoppingListAsync(), LabelsTranslator.GenerateShoppingList),
-            new(MaterialIconsConstants.Add, string.Empty, () => OpenCalendarFormModalAsync(), LabelsTranslator.AddIngredient),
+            new(MaterialIconsConstants.ShoppingCard, string.Empty, () => GenerateShoppingListAsync(), LabelsTranslator.GenerateShoppingList)
         ];
 
         if (!PlanifiedRecipeState.Value.RecipesGroupedByDay.Any(c => c.Value.Count() > 0) && FeatureManager.IsEnabledAsync(FeatureFlagsConstants.PlanifiedRecipesAutomaticaly).Result)
             options.Add(new(MaterialIconsConstants.Generate, string.Empty, () => PlanifiedRecipesForTheWeek(), LabelsTranslator.PlanifiedRecipesAutomaticaly));
 
         return options;
-    }
-
-    private async Task OpenCalendarFormModalAsync(ICalendarModel? model = null)
-    {
-        _selectedCalendar = model ?? CalendarFactory.CreateCalendarModel();
-
-        Dispatcher.Dispatch(new SetFormModalVisibilityAction<ICalendarModel>(true));
-
-        await Task.CompletedTask;
     }
 
     private async Task GenerateShoppingListAsync()
@@ -204,5 +205,12 @@ public partial class PlanifiedRecipes
         Dispatcher.Dispatch(new PlanifiedRecipeAutomaticalyAction(planifiedRecipeModel));
 
         await Task.CompletedTask;
+    }
+
+    private void OnCurrentCalendarChanged(ICalendarModel calendarModel)
+    {
+        Dispatcher.Dispatch(new SetCurrentCalendarAction(calendarModel));
+
+        LoadRecipesForCurrentWeek();
     }
 }

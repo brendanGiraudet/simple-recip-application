@@ -5,7 +5,7 @@ using Polly;
 using Polly.Retry;
 using simple_recip_application.Constants;
 using simple_recip_application.Dtos;
-using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entites;
+using simple_recip_application.Features.RecipesManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipesManagement.Converters;
 using simple_recip_application.Settings;
 

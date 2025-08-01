@@ -1,4 +1,3 @@
-using System.Linq.Expressions;
 using Fluxor;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
@@ -8,13 +7,16 @@ using simple_recip_application.Constants;
 using simple_recip_application.Features.CalendarManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.CalendarManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.CalendarManagement.Store;
+using simple_recip_application.Features.UserInfos.Store;
 using simple_recip_application.Resources;
 using simple_recip_application.Store.Actions;
+using System.Linq.Expressions;
 
 namespace simple_recip_application.Features.CalendarManagement.UserInterfaces.Pages.CalendarsPage;
 
 public partial class CalendarsPage
 {
+    [Inject] public required IState<UserInfosState> UserInfosState { get; set; }
     [Inject] public required IState<CalendarState> CalendarState { get; set; }
     [Inject] public required IDispatcher Dispatcher { get; set; }
     [Inject] public required ICalendarModelFactory CalendarFactory { get; set; }
@@ -89,7 +91,7 @@ public partial class CalendarsPage
 
     private void LoadFilteredCalendars(int? skip = null)
     {
-        Expression<Func<ICalendarModel, bool>>? filter = r => r.RemoveDate == null;
+        Expression<Func<ICalendarModel, bool>>? filter = r => r.RemoveDate == null && r.CalendarUserAccessModels.Any(a => a.UserId == UserInfosState.Value.UserInfo.Id);
 
         if (!string.IsNullOrEmpty(_searchTerm))
             filter = i => i.Name.ToLower().Contains(_searchTerm.ToLower()) && i.RemoveDate == null;
