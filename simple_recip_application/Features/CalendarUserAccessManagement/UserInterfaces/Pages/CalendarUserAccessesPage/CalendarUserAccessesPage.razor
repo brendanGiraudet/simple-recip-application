@@ -1,0 +1,28 @@
+﻿@page "/calendar/{CalendarId:Guid}/user-access"
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+<h3>CalendarUserAccessesPage</h3>
+
+
+<SearchBar OnSearch="@OnSearchTermChanged" />
+
+<div class="grid page-grid @GetCalendarUserAccessesVisibilityCssClass()">
+
+    @if (CalendarUserAccessState.Value.Items.Count() == 0)
+    {
+        <p class="no-ingredients-message">@LabelsTranslator.NoCalendarsFound</p>
+    }
+
+    @foreach (var calendarUserAccess in CalendarUserAccessState.Value.Items)
+    {
+        <Tag OnRemoveClick="@(async () => await DeleteCalendarUserAccessAsync(calendarUserAccess))">
+            @calendarUserAccess.UserEmail
+        </Tag>
+    }
+</div>
+
+<PaginationButtons CanPreviousClick="@CanPreviousClick()" OnPrevious="@OnPreviousAsync" OnNext="@OnNextAsync" />
+
+<Loader IsVisible="@CalendarUserAccessState.Value.IsLoading" />
+
+<OptionsMenu Options="GetOptions()" />

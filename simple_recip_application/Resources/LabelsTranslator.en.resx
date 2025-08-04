@@ -306,4 +306,7 @@
   <data name="EditCalendar" xml:space="preserve">
     <value>Edit calendar</value>
   </data>
+  <data name="CalendarUserAccess" xml:space="preserve">
+    <value>Calendar user access</value>
+  </data>
 </root>

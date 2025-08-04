@@ -1,19 +1,15 @@
-using simple_recip_application.Features.CalendarManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.CalendarManagement.ApplicationCore.Repositories;
-using simple_recip_application.Features.CalendarManagement.Persistence.Factories;
 using simple_recip_application.Features.CalendarManagement.Persistence.Repositories;
 using simple_recip_application.Features.CalendarUserAccessManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.CalendarUserAccessManagement.Persistence.Factories;
 
 namespace simple_recip_application.Extensions;
 
-public static class CalendarServiceContextExtensions
+public static class CalendarUserAccessServiceContextExtensions
 {
-    public static IServiceCollection AddCalendarManagementDependencies(this IServiceCollection services)
+    public static IServiceCollection AddCalendarUserAccessManagementDependencies(this IServiceCollection services)
     {
-        services.AddTransient<ICalendarModelFactory, CalendarModelFactory>();
-        services.AddScoped<ICalendarRepository, CalendarRepository>();
-
+        services.AddTransient<ICalendarUserAccessRepository, CalendarUserAccessRepository>();
         services.AddTransient<ICalendarUserAccessModelFactory, CalendarUserAccessModelFactory>();
 
         return services;

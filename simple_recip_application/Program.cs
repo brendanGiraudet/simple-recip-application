@@ -36,6 +36,7 @@ builder.Services.AddUserPantryFeatureDependencies();
 builder.Services.AddTagFeatureDependencies();
 builder.Services.AddShoppingListManagementDependencies();
 builder.Services.AddCalendarManagementDependencies();
+builder.Services.AddCalendarUserAccessManagementDependencies();
 
 // Ajout des httclient
 builder.Services.AddHttpClients(builder.Configuration);

@@ -7,6 +7,7 @@ using simple_recip_application.Features.UserPantryManagement.Persistence.Entitie
 using simple_recip_application.Features.TagsManagement.Persistence.Entities;
 using simple_recip_application.Features.ShoppingListManagement.Persistence.Entities;
 using simple_recip_application.Features.CalendarManagement.Persistence.Entities;
+using simple_recip_application.Features.CalendarUserAccessManagement.Persistence.Entities;
 
 namespace simple_recip_application.Data;
 
@@ -210,6 +211,9 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<CalendarUserAccessModel>(entity =>
         {
             entity.HasKey(cua => new { cua.CalendarId, cua.UserId });
+            
+            entity.Property(c => c.UserId).IsRequired();
+            entity.Property(c => c.UserEmail).IsRequired();
             
             entity.HasOne(cua => cua.Calendar)
                   .WithMany(c => c.CalendarUsersAccess)

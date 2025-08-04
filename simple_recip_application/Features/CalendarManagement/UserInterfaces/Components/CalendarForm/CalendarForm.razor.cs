@@ -2,9 +2,10 @@ using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
+using simple_recip_application.Constants;
 using simple_recip_application.Features.CalendarManagement.ApplicationCore.Entities;
-using simple_recip_application.Features.CalendarManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.CalendarManagement.Store;
+using simple_recip_application.Features.CalendarUserAccessManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.Importation.Store;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
@@ -25,7 +26,10 @@ public partial class CalendarForm
     [Inject] public required ILogger<CalendarForm> Logger { get; set; }
     [Inject] public required IImportModelFactory ImportModelFactory { get; set; }
     [Inject] public required IOptions<FileSettings> FileSettingsOptions { get; set; }
-    [Inject] public required ICalendarUserAccessModelFactory CalendarUserAccessModelFactory { get; set; }
+    [Inject] public required NavigationManager NavigationManager { get; set; }
+
+    //TODO ajout la gestion des access user pour les calendriers
+    // comme ca je l'utilise lors de la creation d'un calendrier
 
     private FileSettings _fileSettings => FileSettingsOptions.Value;
 
@@ -64,4 +68,6 @@ public partial class CalendarForm
     }
 
     private string GetDeleteButtonCssClass() => Calendar.Id.HasValue ? "" : "hidden";
+
+    private void ManageAccess() => NavigationManager.NavigateTo(PageUrlsConstants.GetCalendarUserAccessesPage(Calendar.Id.Value));
 }

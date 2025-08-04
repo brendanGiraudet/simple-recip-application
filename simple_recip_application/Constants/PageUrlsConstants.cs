@@ -33,4 +33,7 @@ public static class PageUrlsConstants
 
     // Calendar
     public const string CalendarsPage = "/calendars";
+    
+    // Calendar user access
+    public static string GetCalendarUserAccessesPage(Guid calendarId) => $"/calendar/{calendarId}/user-access";
 }

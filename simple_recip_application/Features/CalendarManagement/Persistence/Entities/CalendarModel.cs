@@ -1,5 +1,7 @@
 using simple_recip_application.Data.Persistence.Entities;
 using simple_recip_application.Features.CalendarManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.CalendarUserAccessManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.CalendarUserAccessManagement.Persistence.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.ApplicationCore.Entities;
 using simple_recip_application.Features.RecipePlanningFeature.Persistence.Entities;
 

@@ -4,6 +4,11 @@
 
 <Loader IsVisible="@ImportState.Value.IsLoading" />
 
+<button type="button" @onclick="@(() => ManageAccess())"
+        class="btn">
+    @LabelsTranslator.CalendarUserAccess
+</button>
+
 <EditForm Model="Calendar" OnValidSubmit="Submit">
     <DataAnnotationsValidator />
 

@@ -91,7 +91,7 @@ public partial class CalendarsPage
 
     private void LoadFilteredCalendars(int? skip = null)
     {
-        Expression<Func<ICalendarModel, bool>>? filter = r => r.RemoveDate == null && r.CalendarUserAccessModels.Any(a => a.UserId == UserInfosState.Value.UserInfo.Id);
+        Expression<Func<ICalendarModel, bool>>? filter = r => r.RemoveDate == null;
 
         if (!string.IsNullOrEmpty(_searchTerm))
             filter = i => i.Name.ToLower().Contains(_searchTerm.ToLower()) && i.RemoveDate == null;
