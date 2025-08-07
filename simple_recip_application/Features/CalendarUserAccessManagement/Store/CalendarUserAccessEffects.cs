@@ -1,4 +1,7 @@
 ﻿using Fluxor;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using simple_recip_application.Emails.Templates.AddCalendarUserAccessTemplate;
 using simple_recip_application.Features.CalendarManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.CalendarManagement.Store;
 using simple_recip_application.Features.CalendarUserAccessManagement.ApplicationCore.Entities;
@@ -12,7 +15,8 @@ public class CalendarUserAccessEffects
 (
     ILogger<CalendarEffects> _logger,
     IServiceScopeFactory _scopeFactory,
-    IEmailService _emailService
+    IEmailService _emailService,
+    IServiceProvider provider
 )
 {
     [EffectMethod]
@@ -70,29 +74,36 @@ public class CalendarUserAccessEffects
             dispatcher.Dispatch(new AddItemFailureAction<ICalendarUserAccessModel>(action.Item));
         }
     }
-    
-    
+
+
     [EffectMethod]
     public async Task HandleShareCalendarAction(ShareCalendarAction action, IDispatcher dispatcher)
     {
         try
         {
-            await Task.Run(async () =>
+            var renderer = provider.GetRequiredService<HtmlRenderer>();
+            var parameters = ParameterView.FromDictionary(new Dictionary<string, object> { 
+                { nameof(AddCalendarUserAccessTemplate.AcceptanceUrl), action.AcceptanceUrl },
+                { nameof(AddCalendarUserAccessTemplate.CalendarName), action.CalendarName },
+                { nameof(AddCalendarUserAccessTemplate.EmailSender), action.UserEmail } 
+            });
+
+            await renderer.Dispatcher.InvokeAsync(async () =>
             {
-                // TODO faire le message 
-                var result = await _emailService.SendEmailAsync(action.CalendarUserAccessModel.UserEmail, "test");
+                var output = await renderer.RenderComponentAsync<AddCalendarUserAccessTemplate>(parameters);
+                var html = output.ToHtmlString();
 
-                if (!result.Success)
-                    dispatcher.Dispatch(new ShareCalendarFailureAction());
+                var result = await _emailService.SendEmailAsync(action.UserEmail, html);
 
-                else
-                    dispatcher.Dispatch(new ShareCalendarSuccessAction());
+                dispatcher.Dispatch(result.Success
+                                    ? new ShareCalendarSuccessAction()
+                                    : new ShareCalendarFailureAction());
+            });
 
-            }).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Erreur lors de l'envoie par mail l'ajout d'un access utilisateur {action.CalendarUserAccessModel.UserEmail} au calendrier {action.CalendarUserAccessModel.CalendarModel?.Name}");
+            _logger.LogError(ex, $"Erreur lors de l'envoie par mail l'ajout d'un access utilisateur {action.UserEmail} au calendrier {action.CalendarName}");
 
             dispatcher.Dispatch(new ShareCalendarFailureAction());
         }

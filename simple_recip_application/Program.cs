@@ -22,7 +22,7 @@ builder.Services.AddApplicationDbContext(builder.Configuration);
 builder.Services.AddSettings(builder.Configuration);
 
 // Ajout des services
-builder.Services.AddSharedServices();
+builder.Services.AddSharedServices(builder.Configuration);
 
 // Ajout des DI des features
 builder.Services.AddImportationFeatureDependencies();

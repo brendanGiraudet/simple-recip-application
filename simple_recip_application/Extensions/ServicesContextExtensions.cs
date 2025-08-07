@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Web;
 using simple_recip_application.AuthorizationHandlers.FeatureFlagsAuthorizationHandler;
 using simple_recip_application.Constants;
 using simple_recip_application.Features.UserInfos.ApplicationCore.AuthenticationStateProvider;
@@ -20,6 +21,7 @@ public static class ServicesContextExtensions
         services.Configure<FileSettings>(configuration.GetSection(nameof(FileSettings)));
         services.Configure<OpenApisettings>(configuration.GetSection(nameof(OpenApisettings)));
         services.Configure<OAuthGoogleSettings>(configuration.GetSection(nameof(OAuthGoogleSettings)));
+        services.Configure<EmailsSettings>(configuration.GetSection(nameof(EmailsSettings)));
 
         return services;
     }
@@ -37,11 +39,20 @@ public static class ServicesContextExtensions
         return services;
     }
 
-    public static IServiceCollection AddSharedServices(this IServiceCollection services)
+    public static IServiceCollection AddSharedServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddTransient<IOpenAiDataAnalysisService, OpenAiDataAnalysisService>();
         services.AddTransient<IEmailService, EmailService>();
         services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+
+        MailtrapSettings mailtrapSettings = new MailtrapSettings();
+        configuration.GetSection(nameof(MailtrapSettings)).Bind(mailtrapSettings);
+
+        services.AddFluentEmail(mailtrapSettings.Email)
+                .AddRazorRenderer()
+                .AddMailtrapSender(mailtrapSettings.Username, mailtrapSettings.Password, mailtrapSettings.Host, mailtrapSettings.Port);
+
+        services.AddTransient<HtmlRenderer>();
 
         return services;
     }

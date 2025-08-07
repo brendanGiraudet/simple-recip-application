@@ -4,6 +4,7 @@ using simple_recip_application.Constants;
 using simple_recip_application.Dtos;
 using simple_recip_application.Features.CalendarManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.CalendarManagement.ApplicationCore.Repositories;
+using simple_recip_application.Features.CalendarUserAccessManagement.ApplicationCore.Entities;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.CalendarManagement.Store;
@@ -12,7 +13,8 @@ public class CalendarEffects
 (
     ILogger<CalendarEffects> _logger,
     NavigationManager _navigationManager,
-    IServiceScopeFactory _scopeFactory
+    IServiceScopeFactory _scopeFactory,
+    IState<CalendarState> _calendarState
 )
 {
     [EffectMethod]
@@ -197,5 +199,13 @@ public class CalendarEffects
 
             dispatcher.Dispatch(new UpdateItemFailureAction<ICalendarModel>(action.Item));
         }
+    }
+
+    [EffectMethod]
+    public async Task HandleLoadItemsAction(LoadItemsSuccessAction<ICalendarUserAccessModel> action, IDispatcher dispatcher)
+    {
+        var userAccess = action.Items.FirstOrDefault();
+        if (_calendarState.Value.Item is null && userAccess is not null)
+            dispatcher.Dispatch(new LoadItemAction<ICalendarModel>(userAccess.CalendarId));
     }
 }

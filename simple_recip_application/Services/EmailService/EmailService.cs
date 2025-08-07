@@ -1,12 +1,30 @@
-﻿using simple_recip_application.Dtos;
+﻿using FluentEmail.Core;
+using simple_recip_application.Dtos;
 
 namespace simple_recip_application.Services.EmailService;
 
-public class EmailService : IEmailService
+public class EmailService
+    (
+        IFluentEmail _fluentEmail,
+        ILogger<EmailService> _logger
+    )
+    : IEmailService
 {
     public async Task<MethodResult> SendEmailAsync(string email, string message)
     {
-        //TODO finir l'implementation
-        return new MethodResult(true);
+        try
+        {
+            await _fluentEmail.To(email)
+                              .Body(message)
+                              .SendAsync();
+
+            return new MethodResult(true);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Erreur lors de l'envoie de l'email à {email} avec les messages {message}");
+
+            return new MethodResult(false);
+        }
     }
 }

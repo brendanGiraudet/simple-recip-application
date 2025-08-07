@@ -52,5 +52,14 @@ services:
       OAuthGoogleSettings__ClientId: "CLIENTID"
       OAuthGoogleSettings__ClientSecret: "CLIENTSECRET"
 
+      MailtrapSettings__Email: "EMAIL"
+      MailtrapSettings__Username: "USERNAME"
+      MailtrapSettings__Password: "PASSWORD"
+      MailtrapSettings__Host: "HOST"
+      MailtrapSettings__Port: 2525
+
+      EmailsSettings__AddCalendarUserAccessTemplateAcceptanceUrl: ""
+  
+
     volumes:
       - /home/ubuntu/data/simple_recip_application:/app/Data
