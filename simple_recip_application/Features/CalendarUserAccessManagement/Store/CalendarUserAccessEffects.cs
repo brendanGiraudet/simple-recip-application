@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using simple_recip_application.Constants;
 using simple_recip_application.Emails.Templates.AddCalendarUserAccessTemplate;
+using simple_recip_application.Features.CalendarManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.CalendarManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.CalendarManagement.Store;
 using simple_recip_application.Features.CalendarUserAccessManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.CalendarUserAccessManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.CalendarUserAccessManagement.Store.Actions;
+using simple_recip_application.Features.UserInfos.Store;
 using simple_recip_application.Services.EmailService;
 using simple_recip_application.Store.Actions;
 
@@ -18,7 +21,10 @@ public class CalendarUserAccessEffects
     IServiceScopeFactory _scopeFactory,
     IEmailService _emailService,
     IServiceProvider provider,
-    NavigationManager _navigationManager
+    NavigationManager _navigationManager,
+    ICalendarUserAccessModelFactory _calendarUserAccessModelFactory,
+    IState<UserInfosState> _userInfosState
+
 )
 {
     [EffectMethod]
@@ -150,5 +156,13 @@ public class CalendarUserAccessEffects
 
             dispatcher.Dispatch(new ShareCalendarFailureAction());
         }
+    }
+
+    [EffectMethod]
+    public async Task HandleAddItemSuccessAction(AddItemSuccessAction<ICalendarModel> action, IDispatcher dispatcher)
+    {
+        var userAccess = _calendarUserAccessModelFactory.CreateCalendarUserAccessModel(_userInfosState.Value.UserInfo.Id, _userInfosState.Value.UserInfo.Email, action.Item.Id.Value);
+
+        dispatcher.Dispatch(new AddItemAction<ICalendarUserAccessModel>(userAccess));
     }
 }
