@@ -10,12 +10,13 @@ public class EmailService
     )
     : IEmailService
 {
-    public async Task<MethodResult> SendEmailAsync(string email, string message)
+    public async Task<MethodResult> SendEmailAsync(string email, string subject, string message)
     {
         try
         {
             await _fluentEmail.To(email)
-                              .Body(message)
+                              .Body(message, true)
+                              .Subject(subject)
                               .SendAsync();
 
             return new MethodResult(true);

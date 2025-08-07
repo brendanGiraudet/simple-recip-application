@@ -137,7 +137,7 @@ public class CalendarUserAccessEffects
                 var output = await renderer.RenderComponentAsync<AddCalendarUserAccessTemplate>(parameters);
                 var html = output.ToHtmlString();
 
-                var result = await _emailService.SendEmailAsync(action.UserEmail, html);
+                var result = await _emailService.SendEmailAsync(action.UserEmail, "test", html);
 
                 dispatcher.Dispatch(result.Success
                                     ? new ShareCalendarSuccessAction()
