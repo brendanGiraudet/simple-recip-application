@@ -5,14 +5,12 @@ using Microsoft.FeatureManagement;
 using simple_recip_application.Constants;
 using simple_recip_application.Features.CalendarManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.CalendarManagement.Store;
-using simple_recip_application.Features.CalendarUserAccessManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.Importation.Store;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.NotificationsManagement.ApplicationCore.Factories;
 using simple_recip_application.Features.UserInfos.Store;
 using simple_recip_application.Settings;
 using simple_recip_application.Store.Actions;
-using System.Globalization;
 
 namespace simple_recip_application.Features.CalendarManagement.UserInterfaces.Components.CalendarForm;
 
@@ -27,9 +25,6 @@ public partial class CalendarForm
     [Inject] public required IImportModelFactory ImportModelFactory { get; set; }
     [Inject] public required IOptions<FileSettings> FileSettingsOptions { get; set; }
     [Inject] public required NavigationManager NavigationManager { get; set; }
-
-    //TODO ajout la gestion des access user pour les calendriers
-    // comme ca je l'utilise lors de la creation d'un calendrier
 
     private FileSettings _fileSettings => FileSettingsOptions.Value;
 

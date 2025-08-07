@@ -77,4 +77,5 @@ public class LabelsTranslator
     public static string CalendarName => resourceManager.GetString("CalendarName", CultureInfo.CurrentCulture) ?? "Calendar name";
     public static string EditCalendar => resourceManager.GetString("EditCalendar", CultureInfo.CurrentCulture) ?? "Edit calendar";
     public static string CalendarUserAccess => resourceManager.GetString("CalendarUserAccess", CultureInfo.CurrentCulture) ?? "Calendar user access";
+    public static string UserEmail => resourceManager.GetString("UserEmail", CultureInfo.CurrentCulture) ?? "User email";
 }

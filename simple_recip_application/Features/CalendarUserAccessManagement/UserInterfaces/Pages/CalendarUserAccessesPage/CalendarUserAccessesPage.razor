@@ -25,4 +25,9 @@
 
 <Loader IsVisible="@CalendarUserAccessState.Value.IsLoading" />
 
+<Modal OnClose="CloseCalendarUserAccessFormModal" IsVisible="@CalendarUserAccessState.Value.FormModalVisibility">
+
+    <CalendarUserAccessForm OnCancel="CloseCalendarUserAccessFormModal" />
+</Modal>
+
 <OptionsMenu Options="GetOptions()" />

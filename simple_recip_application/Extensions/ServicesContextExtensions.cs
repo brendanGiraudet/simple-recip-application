@@ -1,5 +1,3 @@
-using System.Net.Http.Headers;
-using System.Reflection;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +6,10 @@ using simple_recip_application.AuthorizationHandlers.FeatureFlagsAuthorizationHa
 using simple_recip_application.Constants;
 using simple_recip_application.Features.UserInfos.ApplicationCore.AuthenticationStateProvider;
 using simple_recip_application.Services;
+using simple_recip_application.Services.EmailService;
 using simple_recip_application.Settings;
+using System.Net.Http.Headers;
+using System.Reflection;
 
 namespace simple_recip_application.Extensions;
 
@@ -39,6 +40,7 @@ public static class ServicesContextExtensions
     public static IServiceCollection AddSharedServices(this IServiceCollection services)
     {
         services.AddTransient<IOpenAiDataAnalysisService, OpenAiDataAnalysisService>();
+        services.AddTransient<IEmailService, EmailService>();
         services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
         return services;

@@ -1,5 +1,6 @@
 ﻿using Fluxor;
 using simple_recip_application.Features.CalendarUserAccessManagement.ApplicationCore.Entities;
+using simple_recip_application.Features.CalendarUserAccessManagement.Store.Actions;
 using simple_recip_application.Store.Actions;
 
 namespace simple_recip_application.Features.CalendarUserAccessManagement.Store;
@@ -17,5 +18,25 @@ public class CalendarUserAccessReducer
     [ReducerMethod]
     public static CalendarUserAccessState ReduceLoadItemsFailureAction(CalendarUserAccessState state, LoadItemsFailureAction<ICalendarUserAccessModel> action)
         => state with { IsLoading = false };
-    #endregion
+    #endregion LoadItems
+
+    #region ShareCalendarAction
+    [ReducerMethod]
+    public static CalendarUserAccessState ReduceShareCalendarAction(CalendarUserAccessState state, ShareCalendarAction action)
+        => state with { IsLoading = true };
+    
+    [ReducerMethod]
+    public static CalendarUserAccessState ReduceShareCalendarSuccessAction(CalendarUserAccessState state, ShareCalendarSuccessAction action)
+        => state with { IsLoading = false, FormModalVisibility = false };
+    
+    [ReducerMethod]
+    public static CalendarUserAccessState ReduceShareCalendarFailureAction(CalendarUserAccessState state, ShareCalendarFailureAction action)
+        => state with { IsLoading = false };
+    #endregion ShareCalendarAction
+
+    #region SetFormModalVisibilityAction
+    [ReducerMethod]
+    public static CalendarUserAccessState ReduceSetFormModalVisibilityAction(CalendarUserAccessState state, SetFormModalVisibilityAction<ICalendarUserAccessModel> action)
+        => state with { FormModalVisibility = action.IsVisible };
+    #endregion SetFormModalVisibilityAction
 }

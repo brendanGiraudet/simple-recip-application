@@ -1,4 +1,5 @@
 using Fluxor;
+using simple_recip_application.Features.CalendarUserAccessManagement.Store.Actions;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.Importation.Store.Actions;
 using simple_recip_application.Features.IngredientsManagement.ApplicationCore.Entities;
@@ -464,4 +465,26 @@ public class NotificationEffects
         await Task.CompletedTask;
     }
     #endregion
+
+    #region CalendarUserAccess
+    [EffectMethod]
+    public async Task HandleShareCalendarFailureAction(ShareCalendarFailureAction action, IDispatcher dispatcher)
+    {
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.ShareCalendarFailure, NotificationType.Error);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
+    
+    [EffectMethod]
+    public async Task HandleShareCalendarSuccessAction(ShareCalendarSuccessAction action, IDispatcher dispatcher)
+    {
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.ShareCalendarSuccess, NotificationType.Success);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
+    #endregion CalendarUserAccess
 }

@@ -1,0 +1,28 @@
+﻿@inherits CustomComponentBase
+
+<EditForm Model="CalendarUserAccessState.Value.Item" OnValidSubmit="Submit">
+    <DataAnnotationsValidator />
+
+    <div class="form-body">
+
+        <!-- User email -->
+        <div class="form-field">
+            <label for="@(nameof(ICalendarUserAccessModel.UserEmail))">@LabelsTranslator.UserEmail</label>
+            <InputText id="@(nameof(ICalendarUserAccessModel.UserEmail))" @bind-Value="CalendarUserAccessState.Value.Item.UserEmail" class="form-control" />
+            <ValidationMessage For="@(() => CalendarUserAccessState.Value.Item.UserEmail)" />
+        </div>
+
+    </div>
+
+    <!-- Submit and Cancel Buttons -->
+    <div class="form-buttons">
+        <button type="button" @onclick="@(() => OnCancelAsync())" class="btn btn-secondary">
+            @LabelsTranslator.Cancel
+        </button>
+
+        <button type="submit" class="btn btn-primary">
+            @LabelsTranslator.SubmitButton
+        </button>
+    </div>
+</EditForm>
+

@@ -93,4 +93,6 @@ public partial class CalendarUserAccessesPage
 
         await Task.CompletedTask;
     }
+
+    private void CloseCalendarUserAccessFormModal(bool isUpdated) => Dispatcher.Dispatch(new SetFormModalVisibilityAction<ICalendarUserAccessModel>(false));
 }

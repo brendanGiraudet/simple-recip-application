@@ -63,4 +63,6 @@ public class MessagesTranslator
     public static string AddTagSuccessMessage => resourceManager.GetString("AddTagSuccessMessage", CultureInfo.CurrentCulture) ?? "AddTagSuccessMessage";
     public static string DeleteTagErrorMessage => resourceManager.GetString("DeleteTagErrorMessage", CultureInfo.CurrentCulture) ?? "DeleteTagErrorMessage";
     public static string DeleteTagSuccessMessage => resourceManager.GetString("DeleteTagSuccessMessage", CultureInfo.CurrentCulture) ?? "DeleteTagSuccessMessage";
+    public static string ShareCalendarFailure => resourceManager.GetString("ShareCalendarFailure", CultureInfo.CurrentCulture) ?? "ShareCalendarFailure";
+    public static string ShareCalendarSuccess => resourceManager.GetString("ShareCalendarSuccess", CultureInfo.CurrentCulture) ?? "ShareCalendarSuccess";
 }
