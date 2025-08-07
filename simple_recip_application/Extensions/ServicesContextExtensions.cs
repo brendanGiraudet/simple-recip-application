@@ -21,7 +21,7 @@ public static class ServicesContextExtensions
         services.Configure<FileSettings>(configuration.GetSection(nameof(FileSettings)));
         services.Configure<OpenApisettings>(configuration.GetSection(nameof(OpenApisettings)));
         services.Configure<OAuthGoogleSettings>(configuration.GetSection(nameof(OAuthGoogleSettings)));
-        services.Configure<EmailsSettings>(configuration.GetSection(nameof(EmailsSettings)));
+        services.Configure<SimpleRecipeApplicationSettings>(configuration.GetSection(nameof(SimpleRecipeApplicationSettings)));
 
         return services;
     }

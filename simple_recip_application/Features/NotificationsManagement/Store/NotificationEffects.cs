@@ -1,4 +1,5 @@
 using Fluxor;
+using simple_recip_application.Features.CalendarUserAccessManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.CalendarUserAccessManagement.Store.Actions;
 using simple_recip_application.Features.HouseholdProductsManagement.ApplicationCore.Entities;
 using simple_recip_application.Features.Importation.Store.Actions;
@@ -481,6 +482,28 @@ public class NotificationEffects
     public async Task HandleShareCalendarSuccessAction(ShareCalendarSuccessAction action, IDispatcher dispatcher)
     {
         var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.ShareCalendarSuccess, NotificationType.Success);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
+    
+    
+    [EffectMethod]
+    public async Task HandleAddItemFailureAction(AddItemFailureAction<ICalendarUserAccessModel> action, IDispatcher dispatcher)
+    {
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddCalendarUserAccessError, NotificationType.Error);
+
+        dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
+
+        await Task.CompletedTask;
+    }
+    
+    
+    [EffectMethod]
+    public async Task HandleAddItemSuccessAction(AddItemSuccessAction<ICalendarUserAccessModel> action, IDispatcher dispatcher)
+    {
+        var notification = _notificationMessageFactory.CreateNotificationMessage(MessagesTranslator.AddCalendarUserAccessSuccess, NotificationType.Success);
 
         dispatcher.Dispatch(new AddItemAction<INotificationMessage>(notification));
 

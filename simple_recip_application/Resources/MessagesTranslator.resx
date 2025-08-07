@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddCalendarUserAccessError" xml:space="preserve">
+    <value>Erreur lors de l'ajout de l'access au calendrier</value>
+  </data>
+  <data name="AddCalendarUserAccessSuccess" xml:space="preserve">
+    <value>Ajout access au calendrier reussi</value>
+  </data>
   <data name="AddProductErrorMessage" xml:space="preserve">
     <value>Erreur lors de l'ajout du produit</value>
   </data>

@@ -1,6 +1,7 @@
 ﻿using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using simple_recip_application.Constants;
 using simple_recip_application.Emails.Templates.AddCalendarUserAccessTemplate;
 using simple_recip_application.Features.CalendarManagement.ApplicationCore.Repositories;
 using simple_recip_application.Features.CalendarManagement.Store;
@@ -16,7 +17,8 @@ public class CalendarUserAccessEffects
     ILogger<CalendarEffects> _logger,
     IServiceScopeFactory _scopeFactory,
     IEmailService _emailService,
-    IServiceProvider provider
+    IServiceProvider provider,
+    NavigationManager _navigationManager
 )
 {
     [EffectMethod]
@@ -77,15 +79,29 @@ public class CalendarUserAccessEffects
 
 
     [EffectMethod]
+    public async Task HandleAddItemFailureAction(AddItemFailureAction<ICalendarUserAccessModel> action, IDispatcher dispatcher)
+    {
+        _navigationManager.NavigateTo(PageUrlsConstants.GetCalendarUserAccessesPage(action.Item.CalendarId));
+    }
+    
+    
+    [EffectMethod]
+    public async Task HandleAddItemSuccessAction(AddItemSuccessAction<ICalendarUserAccessModel> action, IDispatcher dispatcher)
+    {
+        _navigationManager.NavigateTo(PageUrlsConstants.GetCalendarUserAccessesPage(action.Item.CalendarId));
+    }
+
+
+    [EffectMethod]
     public async Task HandleShareCalendarAction(ShareCalendarAction action, IDispatcher dispatcher)
     {
         try
         {
             var renderer = provider.GetRequiredService<HtmlRenderer>();
-            var parameters = ParameterView.FromDictionary(new Dictionary<string, object> { 
+            var parameters = ParameterView.FromDictionary(new Dictionary<string, object> {
                 { nameof(AddCalendarUserAccessTemplate.AcceptanceUrl), action.AcceptanceUrl },
                 { nameof(AddCalendarUserAccessTemplate.CalendarName), action.CalendarName },
-                { nameof(AddCalendarUserAccessTemplate.EmailSender), action.UserEmail } 
+                { nameof(AddCalendarUserAccessTemplate.EmailSender), action.UserEmail }
             });
 
             await renderer.Dispatcher.InvokeAsync(async () =>
@@ -99,7 +115,6 @@ public class CalendarUserAccessEffects
                                     ? new ShareCalendarSuccessAction()
                                     : new ShareCalendarFailureAction());
             });
-
         }
         catch (Exception ex)
         {

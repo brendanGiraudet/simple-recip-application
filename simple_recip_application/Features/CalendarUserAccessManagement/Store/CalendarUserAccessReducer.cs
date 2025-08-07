@@ -39,4 +39,18 @@ public class CalendarUserAccessReducer
     public static CalendarUserAccessState ReduceSetFormModalVisibilityAction(CalendarUserAccessState state, SetFormModalVisibilityAction<ICalendarUserAccessModel> action)
         => state with { FormModalVisibility = action.IsVisible };
     #endregion SetFormModalVisibilityAction
+
+    #region AddCalendarUserAccess
+    [ReducerMethod]
+    public static CalendarUserAccessState ReduceAddItemAction(CalendarUserAccessState state, AddItemAction<ICalendarUserAccessModel> action)
+        => state with { IsLoading = true };
+    
+    [ReducerMethod]
+    public static CalendarUserAccessState ReduceAddItemFailureAction(CalendarUserAccessState state, AddItemFailureAction<ICalendarUserAccessModel> action)
+        => state with { IsLoading = false };
+    
+    [ReducerMethod]
+    public static CalendarUserAccessState ReduceAddItemSuccessAction(CalendarUserAccessState state, AddItemSuccessAction<ICalendarUserAccessModel> action)
+        => state with { IsLoading = false };
+    #endregion AddCalendarUserAccess
 }

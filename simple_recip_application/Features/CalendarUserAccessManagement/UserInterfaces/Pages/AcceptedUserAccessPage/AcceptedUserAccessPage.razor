@@ -1,0 +1,5 @@
+﻿@page "/email/accepted-calendar-user-access/{CalendarId}"
+
+@attribute [Authorize]
+
+<Loader IsVisible="@CalendarUserAccessState.Value.IsLoading" />

@@ -9,22 +9,22 @@ public static class PageUrlsConstants
 
     // Ingredients
     public const string IngredientsPage = "/ingredients";
-    
+
     // Importation
     public const string ImportationPage = "/importation";
-    
+
     // Recipes planning
     public const string RecipePlannigPage = "/recipe-planning";
-    
+
     // Authentication
     public const string Authentication = "/authentication/login";
 
     // HouseholdProducts
     public const string HouseholdProducts = "/household-products";
-    
+
     // User Pantry
     public const string UserPantry = "/user-pantry";
-    
+
     // Tags
     public const string TagManagement = "/tags";
 
@@ -33,7 +33,8 @@ public static class PageUrlsConstants
 
     // Calendar
     public const string CalendarsPage = "/calendars";
-    
+
     // Calendar user access
     public static string GetCalendarUserAccessesPage(Guid calendarId) => $"/calendar/{calendarId}/user-access";
+    public static string GetAcceptedCalendarUserAccessesPage(Guid calendarId) => $"/email/accepted-calendar-user-access/{calendarId}";
 }

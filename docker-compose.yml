@@ -58,7 +58,7 @@ services:
       MailtrapSettings__Host: "HOST"
       MailtrapSettings__Port: 2525
 
-      EmailsSettings__AddCalendarUserAccessTemplateAcceptanceUrl: ""
+      SimpleRecipeApplicationSettings__BaseUrl: ""
   
 
     volumes:
