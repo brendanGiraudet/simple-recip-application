@@ -90,6 +90,34 @@ public class CalendarUserAccessEffects
     {
         _navigationManager.NavigateTo(PageUrlsConstants.GetCalendarUserAccessesPage(action.Item.CalendarId));
     }
+    
+    [EffectMethod]
+    public async Task HandleDeleteItemAction(DeleteItemAction<ICalendarUserAccessModel> action, IDispatcher dispatcher)
+    {
+        try
+        {
+            await Task.Run(async () =>
+            {
+                using var scope = _scopeFactory.CreateScope();
+                var repository = scope.ServiceProvider.GetRequiredService<ICalendarUserAccessRepository>();
+
+                var result = await repository.DeleteAsync(action.Item);
+
+                if (!result.Success)
+                    dispatcher.Dispatch(new DeleteItemFailureAction<ICalendarUserAccessModel>(action.Item));
+
+                else
+                    dispatcher.Dispatch(new DeleteItemSuccessAction<ICalendarUserAccessModel>(action.Item));
+
+            }).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Erreur lors de la suppression d'un access utilisateur {action.Item.UserEmail} au calendrier {action.Item.CalendarModel?.Name}");
+
+            dispatcher.Dispatch(new DeleteItemFailureAction<ICalendarUserAccessModel>(action.Item));
+        }
+    }
 
 
     [EffectMethod]
